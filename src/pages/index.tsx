@@ -8,6 +8,13 @@ import Section from "../components/section"
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <main>
+{/* 
+<a href="#about" className="text-lightGray mx-4 hover:bg-teal no-underline">About</a>
+            <a href="#research" className="text-lightGray mx-4 hover:bg-teal no-underline">Research</a>
+            <a href="#publications" className="text-lightGray mx-4 hover:bg-teal no-underline">Publications</a>
+            <a href="#people" className="text-lightGray mx-4 hover:bg-teal no-underline">People</a>
+            <a href="#courses" className="text-lightGray mx-4 hover:bg-teal no-underline">Courses</a>
+            <a href="#contact" className="text-lightGray mx-4 hover:bg-teal no-underline">Contact</a> */}
       <Header
         title="Ali Neshati"
         subtitle="Assistant Professor at Ontario Tech University"
@@ -15,12 +22,12 @@ const IndexPage: React.FC<PageProps> = () => {
         logoUrl={uxid}
       />
       <Navigation />
-      <Section id="research" title="Research">
+      <Section id="about" title="About">
         <p>
           Lorem Ipsum
         </p>
       </Section>
-      <Section id="courses" title="Courses">
+      <Section id="research" title="Research">
         <p>
           Lorem Ipsum
         </p>
@@ -30,7 +37,12 @@ const IndexPage: React.FC<PageProps> = () => {
           Lorem Ipsum
         </p>
       </Section>
-      <Section id="projects" title="Projects">
+      <Section id="people" title="People">
+        <p>
+          Lorem Ipsum
+        </p>
+      </Section>
+      <Section id="courses" title="Courses">
         <p>
           Lorem Ipsum
         </p>
@@ -39,16 +51,6 @@ const IndexPage: React.FC<PageProps> = () => {
         <p>
           Lorem Ipsum
         </p>
-      </Section>
-      <Section id="students" title="Students">
-        <p>
-          Lorem Ipsum
-        </p>
-      </Section>
-      <Section id="cv" title="CV">
-        <p>
-          Lorem Ipsum
-        </p> 
       </Section>
     </main>
   )
