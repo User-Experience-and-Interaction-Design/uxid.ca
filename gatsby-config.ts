@@ -1,6 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
+  pathPrefix: "/uxid.ca",
   siteMetadata: {
     title: `UXID`,
     siteUrl: `https://www.yourdomain.tld`
