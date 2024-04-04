@@ -8,8 +8,14 @@ const research = [
   // { title: 'Project 2', description: 'Description 2' },
 ];
 
+const announcements = [
+  // { title: 'Project 1', description: 'Description 1' },
+  // { title: 'Project 2', description: 'Description 2' },
+];
+
 const publications = [
-  { thumbnailUrl: 'https://placehold.co/128x128/png', title: 'Publication 1', description: 'Description 1' },
+  { thumbnailUrl: 'https://www.jeffjianzhao.com/paper-imgs/earablegesture.png', title: 'Exploring Uni-manual Around Ear Off-Device Gestures for Earables', description: 'Shaikh Shawon Arefin Shimon, Ali Neshati, Junwei Sun, Qiang Xu, Jian Zhao. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 8(1), pp. 3:1-3:29, 2024.' },
+  { thumbnailUrl: 'https://www.jeffjianzhao.com/paper-imgs/earablegesture.png', title: 'Exploring Uni-manual Around Ear Off-Device Gestures for Earables', description: 'Shaikh Shawon Arefin Shimon, Ali Neshati, Junwei Sun, Qiang Xu, Jian Zhao. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 8(1), pp. 3:1-3:29, 2024.' },
   // { thumbnailUrl: 'https://placehold.co/128x128/png', title: 'Publication 2', description: 'Description 2' },
 ];
 
@@ -19,8 +25,8 @@ const people = [
 ];
 
 const courses = [
-  // { title: 'Course 1', description: 'Description 1' },
-  // { title: 'Course 2', description: 'Description 2' },
+  { title: 'CSCI 4620U Human-Computer Interaction', description: 'Fall 2023' },
+  { title: 'CSCI 2040U Software Design & Analysis', description: 'Winter 2024' },
 ];
 
 const IndexPage: React.FC<PageProps> = () => {
@@ -34,7 +40,17 @@ const IndexPage: React.FC<PageProps> = () => {
           Data Visualization, Wearable Technologies, Interaction Design, and Input Modalities.
         </p>
       </Section>
-      <Section id="research" title="Research">
+      <Section id='announcements' title='Announcements'>
+            <div className="flex flex-col gap-4">
+          {announcements.map((announcementItems) => (
+            <div key={announcementItems.title}>
+              <p className="font-bold">{announcementItems.title}</p>
+              <p>{announcementItems.description}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+      {/* <Section id="research" title="Research">
       <div className="flex flex-col gap-4">
           {research.map((researchItems) => (
             <div key={researchItems.title}>
@@ -43,7 +59,7 @@ const IndexPage: React.FC<PageProps> = () => {
             </div>
           ))}
         </div>
-      </Section>
+      </Section> */}
       <Section id="publications" title="Publications">
         <div className="flex flex-col gap-4">
           {publications.map((publication) => (
