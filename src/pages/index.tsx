@@ -4,25 +4,23 @@ import Navigation from "../components/navigation"
 import Section from "../components/section"
 
 const research = [
-  { title: 'Project 1', description: 'Description 1' },
-  { title: 'Project 2', description: 'Description 2' },
+  // { title: 'Project 1', description: 'Description 1' },
+  // { title: 'Project 2', description: 'Description 2' },
 ];
 
 const publications = [
-  { title: 'Publication 1', description: 'Description 1' },
-  { title: 'Publication 2', description: 'Description 2' },
+  { thumbnailUrl: 'https://placehold.co/128x128/png', title: 'Publication 1', description: 'Description 1' },
+  // { thumbnailUrl: 'https://placehold.co/128x128/png', title: 'Publication 2', description: 'Description 2' },
 ];
 
 const people = [
-  { name: 'Dr. Ali Neshati', imageUrl: 'https://i.imgur.com/yD8XzT6.png' },
-  { name: 'Aron-Seth Cohen', imageUrl: 'https://i.imgur.com/5XCOPLK.png' },
-  { name: 'Lorem Ipsum', imageUrl: 'https://i.imgur.com/5XCOPLK.png' },
-  { name: 'Lorem Ipsum', imageUrl: 'https://i.imgur.com/5XCOPLK.png' },
+  { name: 'Dr. Ali Neshati', imageUrl: 'https://i.imgur.com/YWVkjlC.png', status: 'Lab Director, PhD'},
+  { name: 'Aron-Seth Cohen', imageUrl: 'https://i.imgur.com/9dCnQoF.png', status: 'MSc Student (2024-Present)'},
 ];
 
 const courses = [
-  { title: 'Course 1', description: 'Description 1' },
-  { title: 'Course 2', description: 'Description 2' },
+  // { title: 'Course 1', description: 'Description 1' },
+  // { title: 'Course 2', description: 'Description 2' },
 ];
 
 const IndexPage: React.FC<PageProps> = () => {
@@ -47,11 +45,14 @@ const IndexPage: React.FC<PageProps> = () => {
         </div>
       </Section>
       <Section id="publications" title="Publications">
-      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           {publications.map((publication) => (
-            <div key={publication.title}>
-              <p className="font-bold">{publication.title}</p>
-              <p>{publication.description}</p>
+            <div key={publication.title} className="flex gap-4">
+              <img className="w-24 h-24 rounded" src={publication.thumbnailUrl} alt={publication.title} />
+              <div>
+                <p className="font-bold">{publication.title}</p>
+                <p>{publication.description}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -60,8 +61,9 @@ const IndexPage: React.FC<PageProps> = () => {
         <div className="grid grid-cols-4 gap-2">
           {people.map((person) => (
             <div key={person.name} className="flex flex-col items-center">
-              <img className="w-24 h-24 rounded-full" src={person.imageUrl} alt={person.name} />
+              <img className="w-48 h-48 rounded" src={person.imageUrl} alt={person.name} />
               <p className="mt-2 font-bold">{person.name}</p>
+              <p className="mt-1 text-sm text-gray-500">{person.status}</p>
             </div>
           ))}
         </div>
