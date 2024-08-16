@@ -8,8 +8,8 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({ id, title, children }) => {
     return (
-        <section id={id} className="p-8 bg-darkGray m-5 rounded-lg shadow-custom text-lightGray">
-            <h2 className="text-2xl font-bold mb-5">{title}</h2>
+        <section id={id} className="p-8 bg-white m-5 rounded-lg shadow-custom">
+            <h2 className="text-2xl font-bold mb-5 text-red-500">{title}</h2>
             {children}
         </section>
     );

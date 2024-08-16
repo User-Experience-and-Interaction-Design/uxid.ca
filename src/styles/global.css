@@ -3,5 +3,10 @@
 @tailwind utilities;
 
 body {
-  background-color: #222222;
+  background-color: #f9f9f9;
+}
+
+.section-background {
+  background-color: #f0f0f0; /* Replace with your desired color */
+  padding: 20px; /* Optional: Add some padding */
 }
