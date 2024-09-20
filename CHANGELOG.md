@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/User-Experience-and-Interaction-Design/uxid.ca/compare/v1.0.2...v1.0.3) (2024-09-20)
+
+
+### Bug Fixes
+
+* fixed deploy workflow ([0a96db1](https://github.com/User-Experience-and-Interaction-Design/uxid.ca/commit/0a96db15d87fc61918a45b8811b54bf3ce382894))
+
 ## [1.0.2](https://github.com/User-Experience-and-Interaction-Design/uxid.ca/compare/v1.0.1...v1.0.2) (2024-09-20)
 
 
