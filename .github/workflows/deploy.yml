@@ -1,6 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy Gatsby Site to GitHub Pages
 
 on:
+  push:
+    branches:
+      - main
   release:
     types: [published]
 
@@ -9,8 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout source code
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -20,15 +25,10 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Build project with prefix paths
-      run: npm run build --prefix-paths
-
-    - name: Configure Git for deploy (local)
-      run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
+    - name: Build Gatsby site with prefix paths
+      run: npm run build -- --prefix-paths
 
     - name: Deploy to GitHub Pages
-      run: npx gh-pages -d public -t "${{ secrets.GITHUB_TOKEN }}"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: actions/deploy-pages@v2
+      with:
+        publish_dir: ./public
