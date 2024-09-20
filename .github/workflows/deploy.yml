@@ -20,17 +20,10 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Build project
-      run: npm run build
-
-    - name: Configure Git for deploy
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
+    - name: Build project with prefix paths
+      run: npm run build --prefix-paths
 
     - name: Deploy to GitHub Pages
-      run: |
-        npm run build --prefix-paths
-        npx gh-pages -d public -t "${{ secrets.WORKFLOW_TOKEN }}"
+      run: npx gh-pages -d public -t "${{ secrets.GITHUB_TOKEN }}"
       env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
