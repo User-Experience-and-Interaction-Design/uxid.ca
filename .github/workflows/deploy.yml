@@ -1,36 +1,16 @@
-name: Deploy Gatsby Site to GitHub Pages
+name: Gatsby Publish
 
 on:
   release:
     types: [published]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build Gatsby site with prefix paths
-      run: npm run build -- --prefix-paths
-
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v2
-      with:
-        publish_dir: ./public
+      - uses: actions/checkout@v3
+      - uses: enriikke/gatsby-gh-pages-action@v2.2.1
+        with:
+          access-token: ${{ secrets.WORKFLOW_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: --prefix-paths
