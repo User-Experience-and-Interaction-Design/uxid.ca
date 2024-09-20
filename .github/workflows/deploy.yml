@@ -29,6 +29,8 @@ jobs:
         git config --global user.email "actions@github.com"
 
     - name: Deploy to GitHub Pages
-      run: npm run deploy
+      run: |
+        npm run build --prefix-paths
+        npx gh-pages -d public -t "${{ secrets.WORKFLOW_TOKEN }}"
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
