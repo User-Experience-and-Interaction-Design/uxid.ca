@@ -23,6 +23,11 @@ jobs:
     - name: Build project with prefix paths
       run: npm run build --prefix-paths
 
+    - name: Configure Git for deploy (local)
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+
     - name: Deploy to GitHub Pages
       run: npx gh-pages -d public -t "${{ secrets.GITHUB_TOKEN }}"
       env:
