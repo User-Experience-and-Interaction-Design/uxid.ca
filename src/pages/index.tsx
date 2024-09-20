@@ -3,13 +3,6 @@ import type { HeadFC, PageProps } from "gatsby"
 import Navigation from "../components/navigation"
 import Section from "../components/section"
 
-const background = [
-{ title: 'Postdoctoral Fellow', description: 'Cheriton School of Computer Science, Human-Computer Interaction Lab, University of Waterloo, Canada, Jan 2022 – Present, Supervisors: Dr. Daniel Vogel and Dr. Jian Zhao' },
-{ title: 'Ph.D. in Computer Science', description: 'University of Manitoba, Jan 2017 – Dec 2021, Thesis: Data Visualization and Interaction on Smartwatch Small Screens, Advisor: Dr. Pourang Irani' },
-{ title: 'M.Sc. in Computer Science', description: 'Sharif University of Technology, Sep 2012 – Sep 2014, Thesis: Defining and Critical Sets in Graphs and Latin Squares, Advisor: Dr. Ebadollah Mahmoodian' },
-{ title: 'B.Sc. in Computer Science', description: 'Yazd University, Sep 2007 – Sep 2011' },
-];
-
 const news = [
 { title: '2024-08-16', description: "I am currently seeking Master's and Ph.D. students. If you are interested, please send your CV and transcript to my email: ali.neshati@ontariotechu.ca." }
 ]
@@ -112,12 +105,9 @@ const IndexPage: React.FC<PageProps> = () => {
       <Navigation />
       <Section id="background" title="Background">
         <div className="flex flex-col gap-4">
-          {background.map((backgroundItem) => (
-            <div key={backgroundItem.title}>
-              <p className="font-bold">{backgroundItem.title}</p>
-              <p>{backgroundItem.description}</p>
-            </div>
-          ))}
+          <p>
+          Dr. Ali Neshati is an Assistant Professor at Ontario Tech University, specializing in Human-Computer Interaction. His research focuses on user interaction and information visualization techniques, wearable technologies, and ubiquitous computing. Previously, Dr. Neshati completed a Postdoctoral Fellowship at the Cheriton School of Computer Science, University of Waterloo, where he worked on cutting-edge HCI projects under the supervision of Dr. Daniel Vogel and Dr. Jian Zhao. He holds a Ph.D. in Computer Science from the University of Manitoba, where his research centered on data visualization and interaction on smartwatch small screens, and an M.Sc. from Sharif University of Technology, where he investigated defining and critical sets in graphs and Latin squares.
+          </p>
         </div>
       </Section>
       <Section id='research_interests' title='Research Interests'>
