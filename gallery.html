@@ -51,7 +51,7 @@
          </header>
          <div class="masthead">
             <div class="navbar">
-               <div class="navbar-inner">
+               <!-- <div class="navbar-inner">
                   <div class="container">
                      <ul class="nav">
                         <li><a href="index.html">Home</a></li>
@@ -65,7 +65,33 @@
                         <li><a href="contact.html">Contact</a></li>
                      </ul>
                   </div>
-               </div>
+               </div> -->
+
+               <div class="navbar-inner">
+                  <div class="container">
+                      <!-- Button for smaller screens -->
+                      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </a>
+                      <!-- Ensuring that the branding and collapse menu are within the responsive context -->
+                      <a class="brand" href="index.html"></a>
+                      <div class="nav-collapse collapse">
+                          <ul class="nav">
+                              <li><a href="index.html">Home</a></li>
+                              <li <a href="people.html">People</a></li>
+                              <li><a href="research.html">Research</a></li>
+                              <li><a href="publications.html">Publications</a></li>
+                              <li><a href="award.html">Awards</a></li>
+                              <li><a href="ServiceAndtalk.html">Service/Talks</a></li>
+                              <li><a href="news.html">News</a></li>
+                              <li><a href="teaching.html">Teaching</a></li>
+                              <li><a href="contact.html">Contact</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
             </div>
          </div>
          <hr>
@@ -215,22 +241,22 @@
                <div class="span5">
                   <h3>Contact Information</h3>
                   <p><b>Office Hours: </b>Monday-Friday (8.00am - 5.00pm)</p>
-                  <p><b>Phone: </b>999-999-9999</p>
-                  <p><b>Cell: </b>999-999-9999</p>
-                  <a href="mailto:your.email@uni.edu">Email</a>
+                  <p><b>ext.: </b>5305</p>
+                  <a href="mailto:ali.neshati@ontariotechu.ca">Email</a>
                </div>
                <div class="span2">
-                  <a href="https://mybrandnewlogo.com/"><img src = "images/logo.png" alt="research-lab-logo"/></a>
+                  <a href="https://mybrandnewlogo.com/"><img src="images/logo.png" alt="research-lab-logo"/></a>
                </div>
                <div class="span5">
                   <h3>Address</h3>
-                  <p>9999 Generic Research Laboratory<br>
-                     999 Fake Street Avenue<br>
-                     City, State<br>
-                     Country ZIP
+                  <p>UXID Lab<br>
+                     Oshawa, Ontario, Canda<br>
+                    
                   </p>
-                  <a href="http://maps.google.com/">Show Map</a>
+                  <a href="https://maps.app.goo.gl/BbkBNisWc82sD63B8/" target="_blank">Show Map</a>
                </div>
+            </div>
+         </div>
             </div>
          </div>
       </footer>
@@ -267,5 +293,15 @@
           blueimp.Gallery(links, options);
          };        
       </script>  
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script>
+          $(document).ready(function() {
+              $('.btn-navbar').click(function() {
+                  $('.nav-collapse').collapse('toggle');
+              });
+          });
+      </script>
+      
    </body>
 </html>
