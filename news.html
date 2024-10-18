@@ -15,6 +15,73 @@
             <link href="css/theme.css" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
+            <style>
+               /* Compact footer layout */
+               #footer {
+                  background: #1E3C72; /* Solid blue from the site theme */
+                  color: white;
+                  padding: 20px 0; /* Reduced padding to make the footer more compact */
+                  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Thin top border for separation */
+               }
+               #footer .container-fluid {
+                  display: flex;
+                  justify-content: space-between;
+                  flex-wrap: wrap; /* Allow wrapping of items to prevent large spaces */
+               }
+               #footer .span5, #footer .span2 {
+                  flex: 1;
+                  margin-bottom: 10px; /* Minimized space between sections */
+                  text-align: left;
+               }
+               #footer h3 {
+                  font-size: 1.3rem;
+                  margin-bottom: 10px; /* Reduced spacing below headings */
+                  border-bottom: none; /* Removed border for a cleaner look */
+               }
+               #footer p, #footer a {
+                  color: #ddd;
+                  font-size: 0.9rem; /* Reduced text size */
+                  line-height: 1.4;
+                  margin-bottom: 5px; /* Reduced space between lines */
+               }
+               #footer a:hover {
+                  text-decoration: underline;
+               }
+               #footer img {
+                  max-width: 120px; /* Reduced logo size */
+                  height: auto;
+                  margin-bottom: 10px; /* Less space below the logo */
+               }
+               /* Responsive adjustments for smaller screens */
+               @media (max-width: 767px) {
+                  #footer .container-fluid {
+                     flex-direction: column;
+                     align-items: center;
+                     text-align: center;
+                  }
+                  #footer .span5, #footer .span2 {
+                     width: 100%;
+                     margin-bottom: 10px;
+                  }
+                  #footer h3 {
+                     font-size: 1.2rem;
+                  }
+                  #footer p, #footer a {
+                     font-size: 0.85rem; /* Slightly smaller text for mobile */
+                  }
+                  #footer img {
+                     max-width: 100px; /* Smaller logo for mobile */
+                  }
+               }
+               .muted.credit {
+                  text-align: center;
+                  font-size: 0.85rem; /* Smaller credit text */
+                  color: #aaa;
+                  margin-top: 10px; /* Reduced margin for less space */
+                  border-top: 1px solid rgba(255, 255, 255, 0.1);
+                  padding-top: 10px; /* Less padding for compactness */
+               }
+            </style>
 
             <style>
                /* .hot-news {

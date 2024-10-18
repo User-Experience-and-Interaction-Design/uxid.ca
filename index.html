@@ -19,18 +19,31 @@
 
 
       <style>
-         .carousel-inner {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.carousel-image {
-    width: 100%;
-    height: 500px; /* Adjust the height as necessary */
-    object-fit: cover; /* This ensures the images cover the space without stretching */
-}
-
+         .carousel-image {
+            width: 100%;
+            height: 500px; /* Default height for larger screens */
+            object-fit: cover; /* Ensure the image covers the space without distortion */
+         }
+         @media (max-width: 767px) {
+            .carousel-image {
+               height: auto; /* Auto height for smaller screens */
+               object-fit: contain; /* Maintain the aspect ratio without cutting off parts of the image */
+            }
+         }
+         /* Additional styling for mobile view */
+         header.jumbotron h1 {
+            font-size: 2.5rem; /* Reduce title size for mobile */
+         }
+         header.jumbotron p.lead {
+            font-size: 1.2rem; /* Adjust subtitle size for mobile */
+         }
+         /* Adjust carousel caption size on smaller screens */
+         .carousel-caption h4 {
+            font-size: 1.5rem; /* Adjust caption heading size */
+         }
+         .carousel-caption p {
+            font-size: 1rem; /* Adjust caption paragraph size */
+         }
       </style>
 
 <style>
@@ -106,7 +119,73 @@
 }
 </style>
 
-
+<style>
+   /* Compact footer layout */
+   #footer {
+      background: #1E3C72; /* Solid blue from the site theme */
+      color: white;
+      padding: 20px 0; /* Reduced padding to make the footer more compact */
+      border-top: 1px solid rgba(255, 255, 255, 0.1); /* Thin top border for separation */
+   }
+   #footer .container-fluid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap; /* Allow wrapping of items to prevent large spaces */
+   }
+   #footer .span5, #footer .span2 {
+      flex: 1;
+      margin-bottom: 10px; /* Minimized space between sections */
+      text-align: left;
+   }
+   #footer h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px; /* Reduced spacing below headings */
+      border-bottom: none; /* Removed border for a cleaner look */
+   }
+   #footer p, #footer a {
+      color: #ddd;
+      font-size: 0.9rem; /* Reduced text size */
+      line-height: 1.4;
+      margin-bottom: 5px; /* Reduced space between lines */
+   }
+   #footer a:hover {
+      text-decoration: underline;
+   }
+   #footer img {
+      max-width: 120px; /* Reduced logo size */
+      height: auto;
+      margin-bottom: 10px; /* Less space below the logo */
+   }
+   /* Responsive adjustments for smaller screens */
+   @media (max-width: 767px) {
+      #footer .container-fluid {
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+      }
+      #footer .span5, #footer .span2 {
+         width: 100%;
+         margin-bottom: 10px;
+      }
+      #footer h3 {
+         font-size: 1.2rem;
+      }
+      #footer p, #footer a {
+         font-size: 0.85rem; /* Slightly smaller text for mobile */
+      }
+      #footer img {
+         max-width: 100px; /* Smaller logo for mobile */
+      }
+   }
+   .muted.credit {
+      text-align: center;
+      font-size: 0.85rem; /* Smaller credit text */
+      color: #aaa;
+      margin-top: 10px; /* Reduced margin for less space */
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 10px; /* Less padding for compactness */
+   }
+</style>
 
 
 
