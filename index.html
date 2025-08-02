@@ -1791,42 +1791,53 @@ Article No.: 10, Pages 1 - 9</a>
 
 
 <!-- Contact Section -->
-<section id="contact" style="background: linear-gradient(135deg, #1F2937, #2C3E50); padding: 80px 0; color: #ECECEC;">
-    <div class="container" style="max-width: 700px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 2.8rem; color: #F39C12; margin-bottom: 40px;">Contact Us</h2>
+<!-- Enhanced Contact Section -->
+<section id="contact" style="background: linear-gradient(135deg, #1F2937, #2C3E50); padding: 100px 0; color: #ECECEC;">
+  <div class="container" style="max-width: 750px; margin: auto; text-align: center;">
+    <h2 class="section-title" style="font-size: 2.8rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Get in Touch</h2>
+
+    <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 40px;">
+      Have a question, collaboration idea, or want to join the lab? Drop us a message and we’ll get back to you!
+    </p>
+
+    <form style="background: #2C3E50; padding: 40px; border-radius: 16px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
+      <div style="display: flex; flex-direction: column; gap: 25px;">
         
-        <form style="background: #2C3E50; padding: 40px; border-radius: 12px; box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);">
-            <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Name -->
+        <div style="position: relative;">
+          <input type="text" id="name" placeholder="Your Name" required
+            style="width: 100%; padding: 15px 15px 15px 45px; font-size: 1rem; color: #333; border-radius: 8px; border: none;
+                   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;">
+          <i class="fas fa-user" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #F4D03F;"></i>
+        </div>
 
-                <!-- Name Field -->
-                <div style="position: relative;">
-                    <label for="name" style="display: block; font-size: 1.1rem; color: #ECECEC; margin-bottom: 5px;">Name</label>
-                    <input type="text" id="name" required style="width: 100%; padding: 15px; padding-left: 45px; font-size: 1rem; color: #333; border-radius: 6px; border: none; box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;">
-                    <i class="fas fa-user" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #F39C12; font-size: 1.2rem;"></i>
-                </div>
+        <!-- Email -->
+        <div style="position: relative;">
+          <input type="email" id="email" placeholder="Your Email" required
+            style="width: 100%; padding: 15px 15px 15px 45px; font-size: 1rem; color: #333; border-radius: 8px; border: none;
+                   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;">
+          <i class="fas fa-envelope" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #F4D03F;"></i>
+        </div>
 
-                <!-- Email Field -->
-                <div style="position: relative;">
-                    <label for="email" style="display: block; font-size: 1.1rem; color: #ECECEC; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" required style="width: 100%; padding: 15px; padding-left: 45px; font-size: 1rem; color: #333; border-radius: 6px; border: none; box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;">
-                    <i class="fas fa-envelope" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #F39C12; font-size: 1.2rem;"></i>
-                </div>
+        <!-- Message -->
+        <div style="position: relative;">
+          <textarea id="message" rows="5" placeholder="Your Message..." required
+            style="width: 100%; padding: 15px 15px 15px 45px; font-size: 1rem; color: #333; border-radius: 8px; border: none;
+                   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;"></textarea>
+          <i class="fas fa-comment-dots" style="position: absolute; left: 15px; top: 15px; color: #F4D03F;"></i>
+        </div>
 
-                <!-- Message Field -->
-                <div style="position: relative;">
-                    <label for="message" style="display: block; font-size: 1.1rem; color: #ECECEC; margin-bottom: 5px;">Message</label>
-                    <textarea id="message" rows="5" required style="width: 100%; padding: 15px; padding-left: 45px; font-size: 1rem; color: #333; border-radius: 6px; border: none; box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;"></textarea>
-                    <i class="fas fa-comment-dots" style="position: absolute; left: 15px; top: 10px; color: #F39C12; font-size: 1.2rem;"></i>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" style="background-color: #F39C12; color: #1F2937; font-weight: bold; border: none; padding: 15px; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: background-color 0.3s, transform 0.3s;">
-                    Send Message
-                </button>
-            </div>
-        </form>
-    </div>
+        <!-- Button -->
+        <button type="submit"
+          style="background-color: #F4D03F; color: #1F2937; font-weight: 600; font-size: 1.1rem; border: none;
+                 padding: 15px 30px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease;">
+          Send Message
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
+
 
 
 
@@ -1879,6 +1890,7 @@ Article No.: 10, Pages 1 - 9</a>
 
 </body>
 </html>
+
 
 
 
