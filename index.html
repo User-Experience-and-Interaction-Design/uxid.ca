@@ -28,7 +28,7 @@
 }
 
 .co-supervisor a:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
         /* Reset and Global Styles */
@@ -45,12 +45,15 @@
 
 
         /* Section Titles */
+        /* Section Titles */
         h2.section-title {
-            font-size: 2.5rem;
-            color: #d62828;
+            font-size: 3rem;
+            color: #F4D03F;
             font-family: 'Playfair Display', serif;
             text-align: center;
             margin-bottom: 50px;
+            text-transform: uppercase !important;
+            font-weight: 700;
         }
 
         /* Generic Section Styling */
@@ -257,7 +260,7 @@
 
 #contact .section-title {
     font-size: 2.8rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-bottom: 40px;
     font-family: 'Playfair Display', serif;
 }
@@ -307,12 +310,12 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #F39C12;
+    color: #F4D03F;
     font-size: 1.2rem;
 }
 
 #contact form button {
-    background-color: #F39C12;
+    background-color: #F4D03F;
     color: #1F2937;
     font-weight: bold;
     padding: 15px;
@@ -444,22 +447,7 @@
 }
 
 /* List Styles */
-.details-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-}
 
-.details-list li {
-    font-size: 1.1rem;
-    color: #ECECEC;
-    padding: 8px 0;
-    border-bottom: 1px solid #2C3E50;
-}
-
-.details-list li:last-child {
-    border-bottom: none;
-}
 
     </style>
 
@@ -494,7 +482,7 @@
 }
 
 #publications .publication-thumbnail {
-    border: 3px solid #F39C12;
+    border: 3px solid #F4D03F;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -507,16 +495,18 @@
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #F4D03F;
     font-family: 'Playfair Display', serif;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
+    font-weight: 700;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .team-category h3 {
     font-size: 1.8rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-top: 40px;
     margin-bottom: 20px;
     font-family: 'Merriweather', serif;
@@ -547,13 +537,13 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 3px solid #F39C12;
+    border: 3px solid #F4D03F;
     margin-bottom: 15px;
 }
 
 .team-card h4 {
     font-size: 1.3rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-bottom: 10px;
 }
 
@@ -577,7 +567,7 @@
 }
 
 .contact-info a:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
 @media (max-width: 768px) {
@@ -615,7 +605,7 @@
 
 .opportunity-box h3 {
     font-size: 1.7rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-bottom: 15px;
 }
 
@@ -634,7 +624,7 @@
 }
 
 .apply-link:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
 /* Responsive Design for Smaller Screens */
@@ -659,7 +649,7 @@
 
 .team-category h3 {
     font-size: 1.8rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-top: 40px;
     margin-bottom: 20px;
     font-family: 'Merriweather', serif;
@@ -694,7 +684,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 3px solid #F39C12;
+    border: 3px solid #F4D03F;
     transition: transform 0.3s;
 }
 .image-container:hover img {
@@ -703,7 +693,7 @@
 
 .team-card h4 {
     font-size: 1.3rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin: 15px 0 10px;
 }
 
@@ -727,7 +717,7 @@
 }
 
 .contact-info a:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
 /* Description Section (Hidden by Default) */
@@ -743,7 +733,7 @@
 }
 
 .more-info-btn {
-    background-color: #F39C12;
+    background-color: #F4D03F;
     color: #1F2937;
     border: none;
     padding: 8px 15px;
@@ -827,13 +817,26 @@
 .details-list {
     list-style: none;
     padding: 0;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .details-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid #3c4858;
+    padding: 10px 0 10px 30px;
+    border-bottom: 1px solid rgba(244, 208, 63, 0.2);
     color: #e1e1e1;
+    position: relative;
+    text-align: left;
+}
+
+.details-list li::before {
+    content: '\f19d'; /* Graduation Cap Icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 13px;
+    color: #F4D03F;
+    font-size: 1rem;
 }
 
 .details-list li:last-child {
@@ -1033,94 +1036,76 @@
 
 
 <!-- Hero Section -->
-<section id="hero" style="padding: 100px 0; background: linear-gradient(135deg, #1D3557, #457B9D); color: #F1FAEE;">
-    <div class="container" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; flex-direction: column-reverse; max-width: 1000px; margin: auto;">
-        
-<!-- Text Section -->
-<div class="hero-text" style="text-align: center; flex: 1;">
-    <h2 style="font-size: 2.5rem; color: #F1FAEE; font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to the UXID Lab</h2>
-    <p id="description" style="font-size: 1.1rem; line-height: 1.8; color: rgba(241, 250, 238, 0.9);">
-        I am an Assistant Professor in Computer Science at Ontario Tech University, where I lead the UXID Lab (User Experience and Interaction Design). I received my PhD in Computer Science from the University of Manitoba and later completed a postdoctoral fellowship at the Cheriton School of Computer Science, University of Waterloo. I also hold a Master's degree in Computer Science from Sharif University of Technology.
-        <br><br>
-        My research explores how people interact with digital technologies and intelligent systems. I am interested in understanding human needs, capabilities, and limitations, and in designing interactive systems that better support learning, productivity, decision-making, and everyday life. My work spans user experience design, interactive system development, and the integration of AI into human-centered applications.
-        <br><br>
-        At UXID Lab, we build and evaluate interactive systems that aim to improve usability, accessibility, and overall experience across diverse technologies and contexts. Our approach combines system building with empirical studies to ensure that new technologies are both technically sound and meaningfully aligned with human needs.
-    </p>
-</div>
+<!-- Hero Carousel Section (Teaser) -->
+<section id="hero-carousel-section" style="width: 100%; height: 100vh; min-height: 750px; overflow: hidden; background: #000;">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" style="height: 100%; width: 100%;">
+        <div class="carousel-inner" style="height: 100%;">
+            <div class="carousel-item active" style="height: 100%;">
+                <img src="images/Profile.jpg" class="d-block w-100" alt="Lab Member 1" style="height: 100%; object-fit: cover; object-position: center;">
+            </div>
 
-        <!-- Carousel Section -->
-        <div class="hero-carousel" style="flex: 1; max-width: 650px;">
-            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-                <div class="carousel-inner" style="border-radius: 15px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);">
-                    <div class="carousel-item active">
-                        <img src="images/Profile.jpg" class="d-block w-100 responsive-img" alt="Lab Member 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/mainfrontpageimg.JPG" class="d-block w-100 responsive-img" alt="Lab Member 2">
-                    </div>
-                   
-                    <div class="carousel-item" data-interval="5000">
-                        <video class="d-block w-100" autoplay muted loop playsinline>
-                            <source src="images/main.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-
-
-                    
-                    <!-- Add more carousel items if needed -->
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
+            <div class="carousel-item" style="height: 100%;">
+                <video class="d-block w-100" autoplay muted loop playsinline style="height: 100%; object-fit: cover; object-position: center;">
+                    <source src="images/main.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</section>
+
+<!-- Hero Text Section -->
+<section id="hero-text-section" style="padding: 30px 20px; background: linear-gradient(135deg, #1D3557, #2C3E50); color: #F1FAEE; text-align: center;">
+    <div class="container" style="max-width: 1000px; margin: auto;">
+        <h2 style="font-size: 3rem; color: #F4D03F; font-family: 'Playfair Display', serif; margin-bottom: 25px; font-weight: 700; text-transform: uppercase !important;">Welcome to the UXID Lab</h2>
+        <p id="description" style="font-size: 1.25rem; line-height: 1.8; color: #ECECEC; margin-bottom: 20px;">
+            I am an <strong></strong>Assistant Professor in Computer Science</strong> at Ontario Tech University, where I lead the <strong>UXID Lab (User Experience and Interaction Design)</strong>. I earned my PhD from the University of Manitoba under the supervision of Dr. Pourang Irani and completed a postdoctoral fellowship at the University of Waterloo with Dr. Daniel Vogel and Dr. Jian Zhao. My research focuses on designing and evaluating digital and intelligent systems that better support human capabilities, decision-making, usability, and accessibility across diverse technological contexts.
+            <br><br>
+            My research spans <strong>Human-Computer Interaction (HCI)</strong> and <strong>Human-AI Interaction</strong>, with an emphasis on <strong>mobile, wearable, and emerging technologies</strong>. I study user needs and interaction constraints, and design novel <strong>interaction techniques</strong> and <strong>AI-assisted systems</strong> that enhance human performance and support effective, trustworthy integration of AI into everyday computing.
+        </p>
     </div>
 </section>
 
 <!-- Responsive Styles -->
 <style>
-    /* Responsive Styles */
-    #hero h2 {
-        font-size: 2rem;
+    /* Responsive Styles for Full Width Hero */
+    @media (max-width: 992px) {
+        #hero h2 {
+            font-size: 2.8rem !important;
+        }
+        #hero p {
+            font-size: 1.1rem !important;
+        }
     }
-    /* Ensures the carousel images are fully responsive */
-    .responsive-img {
-        width: 100%;
-        height: auto;
-        max-height: 450px;
-        border-radius: 15px;
-        object-fit: cover;
-    }
+
     @media (max-width: 768px) {
-        #hero .container {
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
+        #hero {
+            height: auto !important;
+            min-height: 100vh;
+            padding-top: 100px; /* Space for fixed header */
         }
         #hero h2 {
-            font-size: 1.8rem;
+            font-size: 2.2rem !important;
         }
-        .hero-text p {
-            font-size: 1rem;
+        #hero p {
+            font-size: 1rem !important;
         }
-        .responsive-img {
-            max-height: 300px;
+        /* Ensure carousel covers the taller content on mobile */
+        .hero-carousel, #heroCarousel, .carousel-inner, .carousel-item, .carousel-item img, .carousel-item video {
+            height: 100% !important;
+            min-height: 100vh;
         }
     }
+    
     @media (max-width: 480px) {
         #hero h2 {
-            font-size: 1.6rem;
-        }
-        .hero-text p {
-            font-size: 0.9rem;
-        }
-        .responsive-img {
-            max-height: 250px;
+            font-size: 1.8rem !important;
         }
     }
 </style>
@@ -1149,38 +1134,41 @@ function toggleDescription2() {
 
 
 
-<section id="research" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
-    <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Research</h2>
-        <p class="section-intro" style="font-size: 1.2rem; color: #ECECEC; max-width: 700px; margin: auto; line-height: 1.8;">
-            Focused on impactful advancements across a range of areas, from Human-Computer Interaction to AI in User Experience.
-        </p>
+<section id="research" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 20px 0; color: #ECECEC;">
+    <div class="container" style="max-width: 1200px; margin: auto;">
+        <h2 class="section-title" style="margin-bottom: 40px;">Research Posting</h2>
         
-        <div class="research-areas" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 50px;">
+        <ul style="list-style: none; padding: 0; margin-bottom: 0;">
+            <li style="margin-bottom: 15px; background: rgba(31, 41, 55, 0.5); padding: 15px; border-radius: 12px; border-left: 5px solid #F4D03F; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <h3 style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 8px; font-weight: 700; font-family: 'Playfair Display', serif; text-transform: uppercase;">Admission Requirements</h3>
+                <p style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC; margin-bottom: 0;">
+                    For detailed admission requirements, please refer to the university's official page. Prospective students who have reviewed these requirements are invited to express their interest by emailing me at <strong>ali dot neshati at ontariotechu dot ca</strong>. Please ensure your email includes both your <strong>(i) CV</strong> and <strong>(ii) academic transcript(s)</strong>.
+                </p>
+            </li>
             
-            <!-- Human-AI Interaction Area -->
-            <div class="research-area" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 300px; text-align: center; transition: transform 0.3s ease;">
-                <i class="fas fa-robot" style="font-size: 2.5rem; color: #F39C12; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #F4D03F; margin-bottom: 10px;">Human-AI Interaction</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Exploring how AI systems can interact with users seamlessly, enhancing human-AI collaboration across diverse applications.</p>
-            </div>
-            
+            <li style="margin-bottom: 15px; background: rgba(31, 41, 55, 0.5); padding: 15px; border-radius: 12px; border-left: 5px solid #F4D03F; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <h3 style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 8px; font-weight: 700; font-family: 'Playfair Display', serif; text-transform: uppercase;">Current Openings</h3>
+                <p style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC; margin-bottom: 0;">
+                    I am currently accepting applications for graduate positions starting in <strong>Fall 2026</strong>. I strongly encourage applicants to familiarize themselves with my research areas prior to contacting me. Please note that generic inquiries or those unrelated to my specific research interests may not receive a response. I value well-informed applications that demonstrate a clear alignment with my work.
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
 
-            
-            <!-- AI in User Experience Area -->
-            <div class="research-area" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 300px; text-align: center; transition: transform 0.3s ease;">
-                <i class="fas fa-brain" style="font-size: 2.5rem; color: #F39C12; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #F4D03F; margin-bottom: 10px;">AI in User Experience</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Exploring AI's potential in creating adaptive and personalized interfaces to enhance user engagement and accessibility.</p>
-            </div>
-            
-            <!-- Wearable Technology Area -->
-            <div class="research-area" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 300px; text-align: center; transition: transform 0.3s ease;">
-                <i class="fas fa-watch" style="font-size: 2.5rem; color: #F39C12; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #F4D03F; margin-bottom: 10px;">Wearable Technology</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Focusing on designing interaction techniques for wearable devices, aimed at accessibility and user-friendly interaction.</p>
-            </div>
-        </div>
+<!-- Recent News Section -->
+<section id="recent-news" class="section-container" style="background: linear-gradient(135deg, #34495E, #2C3E50); padding: 40px 0; color: #ECECEC;">
+    <div class="container" style="max-width: 1000px; margin: auto;">
+        <h2 class="section-title" style="margin-bottom: 30px;">Recent News</h2>
+        
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
+                <i class="fas fa-bullhorn" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
+                <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    We submitted 4 papers to DIS conference - three of which was undergrad research and one Master's work.
+                </span>
+            </li>
+        </ul>
     </div>
 </section>
 
@@ -1189,12 +1177,12 @@ function toggleDescription2() {
 
 <!-- <section id="publications" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2> -->
+        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2> -->
 
 <!-- Publications Section -->
 <section id="publications">
     <div class="container">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
+        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
 <!-- 2025 Papers -->
 
 
@@ -1438,7 +1426,7 @@ Article No.: 5, Pages 1 - 13
 </a>
                 </p>
                 <a href="https://drive.google.com/file/d/1y_aMi8Tid_SBBSeDqDNK3o33NBMWLCig/view">Read Full Paper</a>
-                <div class="honorable-mention" style="color: #F39C12;">🏅 Honorable Mention Award</div>
+                <div class="honorable-mention" style="color: #F4D03F;">🏅 Honorable Mention Award</div>
             </div>
         </div>
         <!-- 2020 Papers -->
@@ -1493,7 +1481,7 @@ Paper No.: 368, Pages 1 - 11
 </a>
                 </p>
         <a href="https://hal.science/hal-03030544/file/MODEL-CHI19.pdf">Read Full Paper</a>
-        <div class="honorable-mention" style="color: #F39C12;">🏅 Honorable Mention Award</div>
+        <div class="honorable-mention" style="color: #F4D03F;">🏅 Honorable Mention Award</div>
     </div>
 </div>
 
@@ -1553,11 +1541,11 @@ Article No.: 10, Pages 1 - 9</a>
 
 <section id="people" style="padding: 80px 0; background: linear-gradient(135deg, #1B2631, #34495E); color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Our Team</h2>
+        <h2 class="section-title" style="margin-bottom: 40px;">Our Team</h2>
         
         <!-- Supervisor -->
         <div class="team-category">
-            <h3 style="font-size: 2.2rem; color: #F39C12; margin-bottom: 30px;">Supervisor</h3>
+            <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Supervisor</h3>
             <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
                 <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
                     <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
@@ -1566,7 +1554,7 @@ Article No.: 10, Pages 1 - 9</a>
                     <h4 style="font-size: 1.5rem; color: #F4D03F;">Ali Neshati</h4>
                     <p>Assistant Professor, Faculty of Science</p>
                     <p>Ph.D. in Computer Science, University of Manitoba</p>
-                    <button onclick="toggleDescription('ali-desc')" class="more-info-btn" style="background-color: #F39C12; color: #1F2937; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+                    <button onclick="toggleDescription('ali-desc')" class="more-info-btn" style="background-color: #F4D03F; color: #1F2937; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
                         More Info
                     </button>
                     
@@ -1588,7 +1576,7 @@ Article No.: 10, Pages 1 - 9</a>
 
         <!-- Graduate Students -->
         <div class="team-category">
-            <h3 style="font-size: 2.2rem; color: #F39C12; margin-bottom: 30px;">Graduate Students</h3>
+            <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Graduate Students</h3>
             <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
 
         <!-- Card for Sakil Sarker -->
@@ -1670,7 +1658,7 @@ Article No.: 10, Pages 1 - 9</a>
 
                 <!-- Undergraduate Students -->
 <div class="team-category">
-    <h3 style="font-size: 2.2rem; color: #F39C12; margin-bottom: 30px;">Undergraduate Students</h3>
+    <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Undergraduate Students</h3>
     <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
         <!-- Card for Farees Siddiqui -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
@@ -1741,14 +1729,14 @@ Article No.: 10, Pages 1 - 9</a>
 
 <section id="opportunities" style="padding: 80px 0; background: linear-gradient(135deg, #1B2631, #34495E); color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Opportunities</h2>
+        <h2 class="section-title" style="margin-bottom: 40px;">Opportunities</h2>
         
         <div class="opportunity-grid" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 50px;">
             
             <!-- PhD Position in Human-Computer Interaction -->
             <div class="opportunity-box" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 350px; transition: transform 0.3s ease;">
                 <i class="fas fa-user-graduate" style="font-size: 2.5rem; color: #F4D03F; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.7rem; color: #F39C12; margin-bottom: 10px;">PhD Position in HCI</h3>
+                <h3 style="font-size: 1.7rem; color: #F4D03F; margin-bottom: 10px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">PhD Position in HCI</h3>
                 <p style="font-size: 1rem; color: #ECECEC;">Engage in cutting-edge research in HCI, focusing on adaptive interfaces, wearables, and the ethical design of interactive systems to improve user experiences.</p>
                 <a href="phd-hci-opportunity.html" class="apply-link" style="display: inline-block; margin-top: 15px; font-weight: bold; color: #F4D03F; text-decoration: none;">Learn More & Apply</a>
             </div>
@@ -1756,7 +1744,7 @@ Article No.: 10, Pages 1 - 9</a>
             <!-- Master's Position in Human-AI Interaction -->
             <div class="opportunity-box" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 350px; transition: transform 0.3s ease;">
                 <i class="fas fa-brain" style="font-size: 2.5rem; color: #F4D03F; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.7rem; color: #F39C12; margin-bottom: 10px;">Master's Position in Human-AI Interaction</h3>
+                <h3 style="font-size: 1.7rem; color: #F4D03F; margin-bottom: 10px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Master's Position in Human-AI Interaction</h3>
                 <p style="font-size: 1rem; color: #ECECEC;">Explore advanced topics in Human-AI Interaction, including emotional AI, real-time feedback, and adaptive, AI-driven interfaces for enhanced user engagement.</p>
                 <a href="masters-human-ai-interaction.html" class="apply-link" style="display: inline-block; margin-top: 15px; font-weight: bold; color: #F4D03F; text-decoration: none;">Learn More & Apply</a>
             </div>
@@ -1764,7 +1752,7 @@ Article No.: 10, Pages 1 - 9</a>
             <!-- Research Collaboration in Interactive Techniques -->
             <div class="opportunity-box" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 350px; transition: transform 0.3s ease;">
                 <i class="fas fa-handshake" style="font-size: 2.5rem; color: #F4D03F; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.7rem; color: #F39C12; margin-bottom: 10px;">Research Collaboration</h3>
+                <h3 style="font-size: 1.7rem; color: #F4D03F; margin-bottom: 10px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Research Collaboration</h3>
                 <p style="font-size: 1rem; color: #ECECEC;">Collaborate with us on projects in input devices, ubiquitous analytics, and mobile interfaces, advancing Information Visualization and wearable UX.</p>
                 <a href="research-collaboration.html" class="apply-link" style="display: inline-block; margin-top: 15px; font-weight: bold; color: #F4D03F; text-decoration: none;">Learn More & Apply</a>
             </div>
@@ -1776,7 +1764,7 @@ Article No.: 10, Pages 1 - 9</a>
 
 <section id="teaching" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Teaching</h2>
+        <h2 class="section-title" style="margin-bottom: 30px;">Teaching</h2>
 
 <!-- <section id="teaching" class="section-container">
     <div class="container">
@@ -1818,9 +1806,9 @@ Article No.: 10, Pages 1 - 9</a>
                 </div>
                 <p>Programming fundamentals and object-oriented principles.</p>
                 <ul class="details-list">
-                    <li>Comp 2150 - Object Orientation</li>
-                    <li>Comp 1020 - Introductory Computer Science II</li>
-                    <li>Comp 1010 - Introductory Computer Science I</li>
+                    <li><strong>Comp 2150:</strong> Object Orientation</li>
+                    <li><strong>Comp 1020:</strong> Introductory Computer Science II</li>
+                    <li><strong>Comp 1010:</strong> Introductory Computer Science I</li>
                 </ul>
             </div>
 
@@ -1833,7 +1821,7 @@ Article No.: 10, Pages 1 - 9</a>
 <!-- Enhanced Contact Section -->
 <section id="contact" style="background: linear-gradient(135deg, #1F2937, #2C3E50); padding: 100px 0; color: #ECECEC;">
   <div class="container" style="max-width: 750px; margin: auto; text-align: center;">
-    <h2 class="section-title" style="font-size: 2.8rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Get in Touch</h2>
+    <h2 class="section-title" style="margin-bottom: 40px;">Get in Touch</h2>
 
     <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 40px;">
       Have a question, collaboration idea, or want to join the lab? Drop us a message and we’ll get back to you!
@@ -1891,7 +1879,7 @@ Article No.: 10, Pages 1 - 9</a>
                 <p style="margin-bottom: 8px;"><b>Office Hours:</b> Monday - Friday (8:00am - 5:00pm)</p>
                 <p style="margin-bottom: 8px;"><b>Phone:</b> ext. 5305</p>
                 <p style="margin-bottom: 8px;">
-                    <a href="mailto:ali.neshati@ontariotechu.ca" style="color: #F39C12; text-decoration: none; font-weight: 500;">Email Us</a>
+                    <a href="mailto:ali.neshati@ontariotechu.ca" style="color: #F4D03F; text-decoration: none; font-weight: 500;">Email Us</a>
                 </p>
             </div>
 
@@ -1909,7 +1897,7 @@ Article No.: 10, Pages 1 - 9</a>
                 <p style="margin-bottom: 8px;">Ontario Tech University</p>
                 <p style="margin-bottom: 8px;">Oshawa, Ontario, Canada</p>
                 <p>
-                    <a href="https://maps.app.goo.gl/BbkBNisWc82sD63B8/" target="_blank" style="color: #F39C12; text-decoration: none; font-weight: 500;">View on Map</a>
+                    <a href="https://maps.app.goo.gl/BbkBNisWc82sD63B8/" target="_blank" style="color: #F4D03F; text-decoration: none; font-weight: 500;">View on Map</a>
                 </p>
             </div>
         </div>
@@ -1918,8 +1906,8 @@ Article No.: 10, Pages 1 - 9</a>
         <div class="footer-bottom" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(243, 156, 18, 0.5);">
             <p style="margin-bottom: 10px;">&copy; 2025 UXID Lab, Ontario Tech University. All rights reserved.</p>
             <p>
-                <a href="#" style="color: #F39C12; text-decoration: none; margin: 0 10px; font-weight: 500;">Privacy Policy</a> | 
-                <a href="#" style="color: #F39C12; text-decoration: none; margin: 0 10px; font-weight: 500;">Terms of Use</a>
+                <a href="#" style="color: #F4D03F; text-decoration: none; margin: 0 10px; font-weight: 500;">Privacy Policy</a> | 
+                <a href="#" style="color: #F4D03F; text-decoration: none; margin: 0 10px; font-weight: 500;">Terms of Use</a>
             </p>
         </div>
     </div>
