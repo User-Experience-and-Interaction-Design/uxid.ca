@@ -28,7 +28,7 @@
 }
 
 .co-supervisor a:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
         /* Reset and Global Styles */
@@ -45,12 +45,15 @@
 
 
         /* Section Titles */
+        /* Section Titles */
         h2.section-title {
-            font-size: 2.5rem;
-            color: #d62828;
+            font-size: 3rem;
+            color: #F4D03F;
             font-family: 'Playfair Display', serif;
             text-align: center;
             margin-bottom: 50px;
+            text-transform: uppercase !important;
+            font-weight: 700;
         }
 
         /* Generic Section Styling */
@@ -104,35 +107,7 @@
 
         /* Publications Section */
         #publications { padding: 60px 0; background-color: #ffffff; color: #333333; }
-        .publication-item {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: #fefefe;
-            border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .publication-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-        }
-        .publication-thumbnail {
-            width: 120px;
-            height: auto;
-            border-radius: 5px;
-            flex-shrink: 0;
-        }
-        .publication-details h4 {
-            color: #003049;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-        .publication-details p { font-size: 0.9rem; color: #333333; }
-        .publication-details a { color: #d62828; font-weight: 500; text-decoration: none; transition: color 0.3s; }
-        .publication-details a:hover { color: #fcbf49; }
+
 
         /* Contact Section */
         #contact form {
@@ -257,7 +232,7 @@
 
 #contact .section-title {
     font-size: 2.8rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-bottom: 40px;
     font-family: 'Playfair Display', serif;
 }
@@ -307,12 +282,12 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #F39C12;
+    color: #F4D03F;
     font-size: 1.2rem;
 }
 
 #contact form button {
-    background-color: #F39C12;
+    background-color: #F4D03F;
     color: #1F2937;
     font-weight: bold;
     padding: 15px;
@@ -361,29 +336,175 @@
         }
 
         /* Publications Section */
+        #publications { padding: 80px 0; background: linear-gradient(135deg, #1F2937, #2C3E50); color: #ECECEC; }
+
         .publication-item {
             display: flex;
             align-items: flex-start;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            margin: 10px 0;
-            transition: box-shadow 0.3s, transform 0.3s;
+            background-color: rgba(31, 41, 55, 0.6); /* Semi-transparent dark bg */
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For absolute positioning of venue */
         }
+
         .publication-item:hover {
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(244, 208, 63, 0.3);
         }
+
         .publication-thumbnail {
-            width: 120px;
-            margin-right: 20px;
+            width: 250px;
+            height: 160px;
             border-radius: 8px;
+            margin-right: 25px;
+            border: 2px solid #F4D03F;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+
+        .publication-details {
+            flex: 1;
+        }
+
         .publication-details h4 {
-            font-size: 1.2rem;
-            color: #264653;
+            font-size: 1.4rem;
+            color: #F4D03F;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+            padding-right: 180px; /* Increased padding to prevent overlap */
+        }
+
+        .publication-authors {
+            font-size: 1rem;
+            color: #ECECEC;
+            font-style: italic;
             margin-bottom: 8px;
+        }
+
+        /* Full Venue Detail Style (Normal Text) */
+        .publication-venue {
+            display: block;
+            font-size: 0.95rem;
+            color: #AAB7B8;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        /* Restored Button and Link Styles */
+        .publication-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-pub {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-pdf {
+            background: rgba(231, 76, 60, 0.1);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
+        .btn-pdf:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-video {
+            background: rgba(52, 152, 219, 0.1);
+            color: #5dade2;
+            border: 1px solid #5dade2;
+        }
+
+        .btn-video:hover {
+            background: #5dade2;
+            color: white;
+        }
+
+        .btn-disabled {
+            background: rgba(255, 255, 255, 0.05);
+            color: #7f8c8d;
+            border: 1px solid #7f8c8d;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .honorable-mention {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #F4D03F;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Badge Style (Short Acronym) */
+        .publication-badge {
+            display: inline-block;
+            background-color: rgba(244, 208, 63, 0.1);
+            color: #F4D03F;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            border: 1px solid rgba(244, 208, 63, 0.3);
+        }
+
+        /* Desktop Positioning for Badge */
+        @media (min-width: 769px) {
+            .publication-badge {
+                position: absolute;
+                top: 25px;
+                right: 25px;
+                background-color: #F4D03F;
+                color: #1F2937;
+                padding: 4px 12px;
+                border-radius: 15px;
+                font-weight: 700;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                border: none;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Mobile Style */
+        @media (max-width: 768px) {
+            .publication-item {
+                flex-direction: column;
+                text-align: left;
+            }
+            .publication-thumbnail {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 15px;
+                max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            }
+            .publication-details h4 {
+                padding-right: 0;
+            }
         }
 
 
@@ -444,22 +565,7 @@
 }
 
 /* List Styles */
-.details-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-}
 
-.details-list li {
-    font-size: 1.1rem;
-    color: #ECECEC;
-    padding: 8px 0;
-    border-bottom: 1px solid #2C3E50;
-}
-
-.details-list li:last-child {
-    border-bottom: none;
-}
 
     </style>
 
@@ -494,7 +600,7 @@
 }
 
 #publications .publication-thumbnail {
-    border: 3px solid #F39C12;
+    border: 3px solid #F4D03F;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -507,16 +613,18 @@
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #F4D03F;
     font-family: 'Playfair Display', serif;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
+    font-weight: 700;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .team-category h3 {
     font-size: 1.8rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-top: 40px;
     margin-bottom: 20px;
     font-family: 'Merriweather', serif;
@@ -547,13 +655,13 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 3px solid #F39C12;
+    border: 3px solid #F4D03F;
     margin-bottom: 15px;
 }
 
 .team-card h4 {
     font-size: 1.3rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-bottom: 10px;
 }
 
@@ -577,7 +685,7 @@
 }
 
 .contact-info a:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
 @media (max-width: 768px) {
@@ -615,7 +723,7 @@
 
 .opportunity-box h3 {
     font-size: 1.7rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-bottom: 15px;
 }
 
@@ -634,7 +742,7 @@
 }
 
 .apply-link:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
 /* Responsive Design for Smaller Screens */
@@ -659,7 +767,7 @@
 
 .team-category h3 {
     font-size: 1.8rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin-top: 40px;
     margin-bottom: 20px;
     font-family: 'Merriweather', serif;
@@ -694,7 +802,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 3px solid #F39C12;
+    border: 3px solid #F4D03F;
     transition: transform 0.3s;
 }
 .image-container:hover img {
@@ -703,7 +811,7 @@
 
 .team-card h4 {
     font-size: 1.3rem;
-    color: #F39C12;
+    color: #F4D03F;
     margin: 15px 0 10px;
 }
 
@@ -727,7 +835,7 @@
 }
 
 .contact-info a:hover {
-    color: #F39C12;
+    color: #F4D03F;
 }
 
 /* Description Section (Hidden by Default) */
@@ -743,7 +851,7 @@
 }
 
 .more-info-btn {
-    background-color: #F39C12;
+    background-color: #F4D03F;
     color: #1F2937;
     border: none;
     padding: 8px 15px;
@@ -827,13 +935,26 @@
 .details-list {
     list-style: none;
     padding: 0;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .details-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid #3c4858;
+    padding: 10px 0 10px 30px;
+    border-bottom: 1px solid rgba(244, 208, 63, 0.2);
     color: #e1e1e1;
+    position: relative;
+    text-align: left;
+}
+
+.details-list li::before {
+    content: '\f19d'; /* Graduation Cap Icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 13px;
+    color: #F4D03F;
+    font-size: 1rem;
 }
 
 .details-list li:last-child {
@@ -867,12 +988,13 @@
             <nav class="desktop-nav">
                 <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
                     <li><a href="#" class="nav-link">Home</a></li>
-                    <li><a href="#teaching" class="nav-link">Teaching</a></li>
-                    <li><a href="#research" class="nav-link">Research</a></li>
+                    <li><a href="#hero-text-section" class="nav-link">Research</a></li>
+                    <li><a href="#research" class="nav-link">Open Posting</a></li>
+                    <li><a href="#recent-news" class="nav-link">News</a></li>
                     <li><a href="#publications" class="nav-link">Publications</a></li>
-                    <li><a href="#opportunities" class="nav-link">Opportunities</a></li>
                     <li><a href="#people" class="nav-link">People</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#teaching" class="nav-link">Teaching</a></li>
+                    <li><a href="#footer" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
     
@@ -885,12 +1007,13 @@
         <div id="mobileMenu" class="mobile-nav">
             <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
                 <li><a href="#" class="nav-link">Home</a></li>
-                <li><a href="#teaching" class="nav-link">Teaching</a></li>
-                <li><a href="#research" class="nav-link">Research</a></li>
+                <li><a href="#hero-text-section" class="nav-link">Research</a></li>
+                <li><a href="#research" class="nav-link">Open Posting</a></li>
+                <li><a href="#recent-news" class="nav-link">News</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#opportunities" class="nav-link">Opportunities</a></li>
                 <li><a href="#people" class="nav-link">People</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#teaching" class="nav-link">Teaching</a></li>
+                <li><a href="#footer" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -1033,90 +1156,76 @@
 
 
 <!-- Hero Section -->
-<section id="hero" style="padding: 100px 0; background: linear-gradient(135deg, #1D3557, #457B9D); color: #F1FAEE;">
-    <div class="container" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; flex-direction: column-reverse; max-width: 1000px; margin: auto;">
-        
-<!-- Text Section -->
-<div class="hero-text" style="text-align: center; flex: 1;">
-    <h2 style="font-size: 2.5rem; color: #F1FAEE; font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to the UXID Lab</h2>
-    <p id="description" style="font-size: 1.1rem; line-height: 1.8; color: rgba(241, 250, 238, 0.9);">
-        The UXID Lab (User Experience and Interaction Design Lab) at Ontario Tech University conducts cutting-edge research in Human-Computer Interaction (HCI), with a strong emphasis on human-AI interaction, information visualization, and wearable technologies. We design intuitive, data-driven interfaces that enhance user experience and accessibility across digital platforms. Our interdisciplinary team explores how AI can better understand and support user needs, particularly through adaptive and responsive design. With a diverse group of students, researchers, and collaborators, the UXID Lab is committed to shaping the future of interaction design through innovation and inclusivity.
-    </p>
-</div>
+<!-- Hero Carousel Section (Teaser) -->
+<section id="hero-carousel-section" style="width: 100%; height: 100vh; min-height: 750px; overflow: hidden; background: #000;">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" style="height: 100%; width: 100%;">
+        <div class="carousel-inner" style="height: 100%;">
+            <div class="carousel-item active" style="height: 100%;">
+                <img src="images/Profile.jpg" class="d-block w-100" alt="Lab Member 1" style="height: 100%; object-fit: cover; object-position: center;">
+            </div>
 
-        <!-- Carousel Section -->
-        <div class="hero-carousel" style="flex: 1; max-width: 650px;">
-            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-                <div class="carousel-inner" style="border-radius: 15px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);">
-                    <div class="carousel-item active">
-                        <img src="images/Profile.jpg" class="d-block w-100 responsive-img" alt="Lab Member 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/mainfrontpageimg.JPG" class="d-block w-100 responsive-img" alt="Lab Member 2">
-                    </div>
-                   
-                    <div class="carousel-item" data-interval="5000">
-                        <video class="d-block w-100" autoplay muted loop playsinline>
-                            <source src="images/main.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-
-
-                    
-                    <!-- Add more carousel items if needed -->
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
+            <div class="carousel-item" style="height: 100%;">
+                <video class="d-block w-100" autoplay muted loop playsinline style="height: 100%; object-fit: cover; object-position: center;">
+                    <source src="images/main.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</section>
+
+<!-- Hero Text Section -->
+<section id="hero-text-section" style="padding: 30px 20px; background: linear-gradient(135deg, #1D3557, #2C3E50); color: #F1FAEE; text-align: center;">
+    <div class="container" style="max-width: 1000px; margin: auto;">
+        <h2 style="font-size: 3rem; color: #F4D03F; font-family: 'Playfair Display', serif; margin-bottom: 25px; font-weight: 700; text-transform: uppercase !important;">Welcome to the UXID Lab</h2>
+        <p id="description" style="font-size: 1.25rem; line-height: 1.8; color: #ECECEC; margin-bottom: 20px;">
+            I am an <strong></strong>Assistant Professor in Computer Science</strong> at Ontario Tech University, where I lead the <strong>UXID Lab (User Experience and Interaction Design)</strong>. I earned my PhD from the University of Manitoba under the supervision of Dr. Pourang Irani and completed a postdoctoral fellowship at the University of Waterloo with Dr. Daniel Vogel and Dr. Jian Zhao. My research focuses on designing and evaluating digital and intelligent systems that better support human capabilities, decision-making, usability, and accessibility across diverse technological contexts.
+            <br><br>
+            My research spans <strong>Human-Computer Interaction (HCI)</strong> and <strong>Human-AI Interaction</strong>, with an emphasis on <strong>mobile, wearable, and emerging technologies</strong>. I study user needs and interaction constraints, and design novel <strong>interaction techniques</strong> and <strong>AI-assisted systems</strong> that enhance human performance and support effective, trustworthy integration of AI into everyday computing.
+        </p>
     </div>
 </section>
 
 <!-- Responsive Styles -->
 <style>
-    /* Responsive Styles */
-    #hero h2 {
-        font-size: 2rem;
+    /* Responsive Styles for Full Width Hero */
+    @media (max-width: 992px) {
+        #hero h2 {
+            font-size: 2.8rem !important;
+        }
+        #hero p {
+            font-size: 1.1rem !important;
+        }
     }
-    /* Ensures the carousel images are fully responsive */
-    .responsive-img {
-        width: 100%;
-        height: auto;
-        max-height: 450px;
-        border-radius: 15px;
-        object-fit: cover;
-    }
+
     @media (max-width: 768px) {
-        #hero .container {
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
+        #hero {
+            height: auto !important;
+            min-height: 100vh;
+            padding-top: 100px; /* Space for fixed header */
         }
         #hero h2 {
-            font-size: 1.8rem;
+            font-size: 2.2rem !important;
         }
-        .hero-text p {
-            font-size: 1rem;
+        #hero p {
+            font-size: 1rem !important;
         }
-        .responsive-img {
-            max-height: 300px;
+        /* Ensure carousel covers the taller content on mobile */
+        .hero-carousel, #heroCarousel, .carousel-inner, .carousel-item, .carousel-item img, .carousel-item video {
+            height: 100% !important;
+            min-height: 100vh;
         }
     }
+    
     @media (max-width: 480px) {
         #hero h2 {
-            font-size: 1.6rem;
-        }
-        .hero-text p {
-            font-size: 0.9rem;
-        }
-        .responsive-img {
-            max-height: 250px;
+            font-size: 1.8rem !important;
         }
     }
 </style>
@@ -1145,38 +1254,41 @@ function toggleDescription2() {
 
 
 
-<section id="research" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
-    <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Research</h2>
-        <p class="section-intro" style="font-size: 1.2rem; color: #ECECEC; max-width: 700px; margin: auto; line-height: 1.8;">
-            Focused on impactful advancements across a range of areas, from Human-Computer Interaction to AI in User Experience.
-        </p>
+<section id="research" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 20px 0; color: #ECECEC;">
+    <div class="container" style="max-width: 1200px; margin: auto;">
+        <h2 class="section-title" style="margin-bottom: 40px;">Research Posting</h2>
         
-        <div class="research-areas" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 50px;">
+        <ul style="list-style: none; padding: 0; margin-bottom: 0;">
+            <li style="margin-bottom: 15px; background: rgba(31, 41, 55, 0.5); padding: 15px; border-radius: 12px; border-left: 5px solid #F4D03F; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <h3 style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 8px; font-weight: 700; font-family: 'Playfair Display', serif; text-transform: uppercase;">Admission Requirements</h3>
+                <p style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC; margin-bottom: 0;">
+                    For detailed admission requirements, please refer to the university's official page. Prospective students who have reviewed these requirements are invited to express their interest by emailing me at <strong>ali dot neshati at ontariotechu dot ca</strong>. Please ensure your email includes both your <strong>(i) CV</strong> and <strong>(ii) academic transcript(s)</strong>.
+                </p>
+            </li>
             
-            <!-- Human-AI Interaction Area -->
-            <div class="research-area" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 300px; text-align: center; transition: transform 0.3s ease;">
-                <i class="fas fa-robot" style="font-size: 2.5rem; color: #F39C12; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #F4D03F; margin-bottom: 10px;">Human-AI Interaction</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Exploring how AI systems can interact with users seamlessly, enhancing human-AI collaboration across diverse applications.</p>
-            </div>
-            
+            <li style="margin-bottom: 15px; background: rgba(31, 41, 55, 0.5); padding: 15px; border-radius: 12px; border-left: 5px solid #F4D03F; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <h3 style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 8px; font-weight: 700; font-family: 'Playfair Display', serif; text-transform: uppercase;">Current Openings</h3>
+                <p style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC; margin-bottom: 0;">
+                    I am currently accepting applications for graduate positions starting in <strong>Fall 2026</strong>. I strongly encourage applicants to familiarize themselves with my research areas prior to contacting me. Please note that generic inquiries or those unrelated to my specific research interests may not receive a response. I value well-informed applications that demonstrate a clear alignment with my work.
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
 
-            
-            <!-- AI in User Experience Area -->
-            <div class="research-area" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 300px; text-align: center; transition: transform 0.3s ease;">
-                <i class="fas fa-brain" style="font-size: 2.5rem; color: #F39C12; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #F4D03F; margin-bottom: 10px;">AI in User Experience</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Exploring AI's potential in creating adaptive and personalized interfaces to enhance user engagement and accessibility.</p>
-            </div>
-            
-            <!-- Wearable Technology Area -->
-            <div class="research-area" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 300px; text-align: center; transition: transform 0.3s ease;">
-                <i class="fas fa-watch" style="font-size: 2.5rem; color: #F39C12; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #F4D03F; margin-bottom: 10px;">Wearable Technology</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Focusing on designing interaction techniques for wearable devices, aimed at accessibility and user-friendly interaction.</p>
-            </div>
-        </div>
+<!-- Recent News Section -->
+<section id="recent-news" class="section-container" style="background: linear-gradient(135deg, #34495E, #2C3E50); padding: 40px 0; color: #ECECEC;">
+    <div class="container" style="max-width: 1000px; margin: auto;">
+        <h2 class="section-title" style="margin-bottom: 30px;">Recent News</h2>
+        
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
+                <i class="fas fa-bullhorn" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
+                <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    We submitted 4 papers to DIS conference - three of which was undergrad research and one Master's work.
+                </span>
+            </li>
+        </ul>
     </div>
 </section>
 
@@ -1185,106 +1297,165 @@ function toggleDescription2() {
 
 <!-- <section id="publications" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2> -->
+        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2> -->
 
 <!-- Publications Section -->
 <section id="publications">
     <div class="container">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
+        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
 <!-- 2025 Papers -->
 
 
 
 
                 <div class="publication-item">
+            <img src="images/hamraz.png" alt="HamRaz: A Culture-Based Persian Conversation Dataset for Person-Centered Therapy using LLM Agents" class="publication-thumbnail">
+            <div class="publication-details">
+                <span class="publication-badge">NLP4DH '25</span>
+                <h4>HamRaz: A Culture-Based Persian Conversation Dataset for Person-Centered Therapy using LLM Agents</h4>
+                <div class="publication-authors">Mohammad Amin Abbasi, Farnaz Sadat Mirnezami, <strong>Ali Neshati</strong>, Hassan Naderi</div>
+                <span class="publication-venue">Proceedings of the First on Natural Language Processing and Language Models for Digital Humanities<br>Pages 101 - 108</span>
+                
+                <div class="publication-links">
+                    <a href="https://aclanthology.org/2025.nlp4dh-1.12/" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item">
             <img src="images/swipe.jpg" alt="SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">MobileHCI '25</span>
                 <h4>SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors</h4>
-                <p>Authors: Neel Shah, Benedict Leung, Mariana Shimabukuro, Ali Neshati</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://doi.org/10.1145/3743734" target="_blank" style="color: #d62828; text-decoration: none;">Proceedings of the ACM on Human-Computer Interaction, Volume 9, Issue 5
-Article No.: MHCI030, Pages 1 - 24</a>
-                </p>
-                <a href="https://doi.org/10.1145/3743734">Read Full Paper</a> <!-- Replace with actual DOI or link -->
+                <div class="publication-authors">Neel Shah, Benedict Leung, Mariana Shimabukuro, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">Proceedings of the ACM on Human-Computer Interaction, Volume 9, Issue 5<br>Article No.: MHCI030, Pages 1 - 24</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3743734" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         <div class="publication-item">
             <img src="images/paperpal.png" alt="PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CUI '25</span>
                 <h4>PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion</h4>
-                <p>Authors: Sakil Sarker, Carlos Carrasco Garcia, Patrick Hung, Heidar Davoudi, Ali Neshati</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3719160" target="_blank" style="color: #d62828; text-decoration: none;">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces
-Article No.: 19, Pages 1 - 6</a>
-                </p>
-                <a href="https://doi.org/10.1145/3719160.3737637">Read Full Paper</a> <!-- Replace with actual DOI or link -->
+                <div class="publication-authors">Sakil Sarker, Carlos Carrasco Garcia, Patrick Hung, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 19, Pages 1 - 6</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3719160.3737637" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="publication-item">
             <img src="images/citepeak.png" alt="CitePeek: Contextual Citation Exploration Within Research Papers" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CUI '25</span>
                 <h4>CitePeek: Contextual Citation Exploration Within Research Papers</h4>
-                <p>Authors: Yasaman AkhoundzadehBasti, Heidar Davoudi, Ali Neshati</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3719160" target="_blank" style="color: #d62828; text-decoration: none;">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces
-Article No.: 20, Pages 1 - 7</a>
-                </p>
-                <a href="https://doi.org/10.1145/3719160.3737639">Read Full Paper</a> <!-- Replace with actual DOI or link -->
+                <div class="publication-authors">Yasaman AkhoundzadehBasti, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 20, Pages 1 - 7</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3719160.3737639" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         <!-- 2024 Papers -->
         <div class="publication-item">
             <img src="images/2024_1.png" alt="Large Language User Interfaces: Voice Interactive UIs" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">IntelliSys '24</span>
                 <h4>Large Language User Interfaces: Voice Interactive User Interfaces powered by LLMs</h4>
-                <p>Authors: Syed Mekael Wasti, Ken Q Pu, Ali Neshati</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://link.springer.com/book/10.1007/978-3-031-66329-1" target="_blank" style="color: #d62828; text-decoration: none;">Intelligent Systems Conference, 2024 - Springer, pp 639–655
-</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:kNdYIx-mwKoC">Read Full Paper</a>
+                <div class="publication-authors">Syed Mekael Wasti, Ken Q Pu, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">Intelligent Systems Conference, 2024 - Springer, pp 639–655</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:kNdYIx-mwKoC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         
         <div class="publication-item">
             <img src="images/2024_2.png" alt="Exploring Uni-manual Around Ear Off-Device Gestures for Earables" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">IMWUT '24</span>
                 <h4>Exploring Uni-manual Around Ear Off-Device Gestures for Earables</h4>
-                <p>Authors: Shaikh Shawon Arefin Shimon, Ali Neshati, Junwei Sun, Qiang Xu, Jian Zhao</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/toc/imwut/2024/8/1" target="_blank" style="color: #d62828; text-decoration: none;">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1
-Article No.: 3, Pages 1 - 29</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:MXK_kJrjxJIC">Read Full Paper</a>
+                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
+                <span class="publication-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1<br>Article No.: 3, Pages 1 - 29</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:MXK_kJrjxJIC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="publication-item">
             <img src="images/MISSINGONE.png" alt="Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">IMWUT '24</span>
                 <h4>Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction</h4>
-                <p>Authors: Shimon Shaikh Shawon, Ali Neshati, Qiang Sun, Junwei, Xu, Jian Zhao</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/toc/imwut/2024/8/1" target="_blank" style="color: #d62828; text-decoration: none;">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1
-Article No.: 3, Pages 1 - 29
-</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:KlAtU1dfN6UC">Read Full Paper</a>
+                <div class="publication-authors">Shimon Shaikh Shawon, <strong>Ali Neshati</strong>, Qiang Sun, Junwei, Xu, Jian Zhao</div>
+                <span class="publication-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1<br>Article No.: 3, Pages 1 - 29</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:KlAtU1dfN6UC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="publication-item">
             <img src="images/2024_4.png" alt="Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI '24</span>
                 <h4>Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization</h4>
-                <p>Authors: Xinyu Shi, Mingyu Liu, Ziqi Zhou, Ali Neshati, Ryan Rossi, Jian Zhao</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3613904" target="_blank" style="color: #d62828; text-decoration: none;">CHI '24: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems
-Article No.: 146, Pages 1 - 16
-</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:Zph67rFs4hoC">Read Full Paper</a>
+                <div class="publication-authors">Xinyu Shi, Mingyu Liu, Ziqi Zhou, <strong>Ali Neshati</strong>, Ryan Rossi, Jian Zhao</div>
+                <span class="publication-venue">CHI '24: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems<br>Article No.: 146, Pages 1 - 16</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:Zph67rFs4hoC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -1292,106 +1463,136 @@ Article No.: 146, Pages 1 - 16
         <div class="publication-item">
             <img src="images/2023_1.png" alt="In-vehicle Performance and Distraction for Midair and Touch Directional Gestures" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI '23</span>
                 <h4>In-vehicle Performance and Distraction for Midair and Touch Directional Gestures</h4>
-                <p>Authors: Arman Hafizi, Jay Henderson, Ali Neshati, Wei Zhou, Edward Lank, Daniel Vogel</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3544548" target="_blank" style="color: #d62828; text-decoration: none;">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems
-Article No.: 316, Pages 1 - 13</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:5nxA0vEk-isC">Read Full Paper</a>
+                <div class="publication-authors">Arman Hafizi, Jay Henderson, <strong>Ali Neshati</strong>, Wei Zhou, Edward Lank, Daniel Vogel</div>
+                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 316, Pages 1 - 13</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:5nxA0vEk-isC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="publication-item">
             <img src="images/2023_2.png" alt="De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI '23</span>
                 <h4>De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation</h4>
-                <p>Authors: Xinyu Shi, Ziqi Zhou, Jing Wen Zhang, Ali Neshati, Anjul Kumar Tyagi, Ryan Rossi, Shunan Guo, Fan Du, Jian Zhao</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3544548" target="_blank" style="color: #d62828; text-decoration: none;">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems
-Article No.: 122, Pages 1 - 19
-</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:0EnyYjriUFMC">Read Full Paper</a>
+                <div class="publication-authors">Xinyu Shi, Ziqi Zhou, Jing Wen Zhang, <strong>Ali Neshati</strong>, Anjul Kumar Tyagi, Ryan Rossi, Shunan Guo, Fan Du, Jian Zhao</div>
+                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 122, Pages 1 - 19</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:0EnyYjriUFMC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="publication-item">
             <img src="images/2023_3.png" alt="Interaction Region Characteristics for Midair Barehand Targeting on a Television" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI EA '23</span>
                 <h4>Interaction Region Characteristics for Midair Barehand Targeting on a Television</h4>
-                <p>Authors: Jay Henderson, Ali Neshati, Sachi Mizobuchi, Wei Zhou, Daniel Vogel, Edward Lank</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3544549" target="_blank" style="color: #d62828; text-decoration: none;">CHI EA '23: Extended Abstracts of the 2023 CHI Conference on Human Factors in Computing Systems
-Article No.: 180, Pages 1 - 7
-</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:hqOjcs7Dif8C">Read Full Paper</a>
+                <div class="publication-authors">Jay Henderson, <strong>Ali Neshati</strong>, Sachi Mizobuchi, Wei Zhou, Daniel Vogel, Edward Lank</div>
+                <span class="publication-venue">CHI EA '23: Extended Abstracts of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 180, Pages 1 - 7</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:hqOjcs7Dif8C" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
         <div class="publication-item">
             <img src="images/2023_4.png" alt="Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI '23</span>
                 <h4>Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration</h4>
-                <p>Authors: Fengjie Wang, Xuye Liu, Oujing Liu, Ali Neshati, Tengfei Ma, Min Zhu, Jian Zhao</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3544548" target="_blank" style="color: #d62828; text-decoration: none;">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems
-Article No.: 364, Pages 1 - 18</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:UebtZRa9Y70C">Read Full Paper</a>
+                <div class="publication-authors">Fengjie Wang, Xuye Liu, Oujing Liu, <strong>Ali Neshati</strong>, Tengfei Ma, Min Zhu, Jian Zhao</div>
+                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 364, Pages 1 - 18</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:UebtZRa9Y70C" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div class="publication-item">
-            <img src="images/2023_3.png" alt="Interaction Region Characteristics for Midair Barehand Targeting on a Television" class="publication-thumbnail">
-            <div class="publication-details">
-                <h4>Interaction Region Characteristics for Midair Barehand Targeting on a Television</h4>
-                <p>Authors: Jay Henderson, Ali Neshati, Sachi Mizobuchi, Wei Zhou, Daniel Vogel, Edward Lank</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3544549" target="_blank" style="color: #d62828; text-decoration: none;">CHI EA '23: Extended Abstracts of the 2023 CHI Conference on Human Factors in Computing Systems
-Article No.: 180, Pages 1 - 7</a>
-                </p>
-                <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:hqOjcs7Dif8C">Read Full Paper</a>
-            </div>
-        </div>
+
         
         <!-- 2022 Papers -->
         <div class="publication-item">
             <img src="images/1stPaper.jpg" alt="EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">ICMI '22</span>
                 <h4>EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion</h4>
-                <p>Authors: A Neshati, A Salo, SA Faleel, Z Li, HN Liang, C Latulipe, P Irani</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3536221" target="_blank" style="color: #d62828; text-decoration: none;">ICMI '22: Proceedings of the 2022 International Conference on Multimodal Interaction
-Pages 288 - 29</a>
-                </p>
-                <a href="https://d1wqtxts1xzle7.cloudfront.net/111184221/3536221-libre.pdf?1707145400=&response-content-disposition=inline%3B+filename%3DEdgeSelect_Smartwatch_Data_Interaction_w.pdf&Expires=1728329702&Signature=H-KsKfY02VIiAZYIpz-ztm8h0v8W1mnLoIDdmULvKosB~QRl1svS0CdjBH4mbS688oLslcaU4gxE-KsvUhNy9dkSoFnpdPc130Q1fKaekxbE8ZCjrlh8IqhPquoU0RGaUmdRO17waSIHLi4UVvDQ7ercx3aBu7ligQzIQn5-2KxwCFyjYSMVDzbxXk6Z-bhWD92UNAsnyq5kbc~GZes0CMmaWQKej3z0dLGtSUeSt8CROpqBQbbW1rAFDyu4wArQG17Tcz1XcdJhcHRH4leMsbpe9Gtj4pF2rm6Hye4Ho6YHUaWqETedxerddlh0YgfthPnTHZdQp2UR3rDgMzKdvQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA">Read Full Paper</a>
+                <div class="publication-authors"><strong>A Neshati</strong>, A Salo, SA Faleel, Z Li, HN Liang, C Latulipe, P Irani</div>
+                <span class="publication-venue">ICMI '22: Proceedings of the 2022 International Conference on Multimodal Interaction<br>Pages 288 - 29</span>
+                
+                <div class="publication-links">
+                    <a href="https://d1wqtxts1xzle7.cloudfront.net/111184221/3536221-libre.pdf?1707145400=&response-content-disposition=inline%3B+filename%3DEdgeSelect_Smartwatch_Data_Interaction_w.pdf&Expires=1728329702&Signature=H-KsKfY02VIiAZYIpz-ztm8h0v8W1mnLoIDdmULvKosB~QRl1svS0CdjBH4mbS688oLslcaU4gxE-KsvUhNy9dkSoFnpdPc130Q1fKaekxbE8ZCjrlh8IqhPquoU0RGaUmdRO17waSIHLi4UVvDQ7ercx3aBu7ligQzIQn5-2KxwCFyjYSMVDzbxXk6Z-bhWD92UNAsnyq5kbc~GZes0CMmaWQKej3z0dLGtSUeSt8CROpqBQbbW1rAFDyu4wArQG17Tcz1XcdJhcHRH4leMsbpe9Gtj4pF2rm6Hye4Ho6YHUaWqETedxerddlh0YgfthPnTHZdQp2UR3rDgMzKdvQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         
         <div class="publication-item">
             <img src="images/dataviz.png" alt="Data visualization and interaction on smartwatch small screens" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">Thesis</span>
                 <h4>Data visualization and interaction on smartwatch small screens</h4>
-                <p>Author: Ali Neshati</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="##" target="_blank" style="color: #d62828; text-decoration: none;">University of Manitoba, 2022</a>
-                </p>
-                <a href="https://mspace.lib.umanitoba.ca/bitstream/handle/1993/36218/neshati_ali.pdf?sequence=1">Read Full Paper</a>
+                <div class="publication-authors"><strong>Ali Neshati</strong></div>
+                <span class="publication-venue">University of Manitoba, 2022</span>
+                
+                <div class="publication-links">
+                    <a href="https://mspace.lib.umanitoba.ca/bitstream/handle/1993/36218/neshati_ali.pdf?sequence=1" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         
         <div class="publication-item">
             <img src="images/2ndPaper.png" alt="Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">MobileHCI '22</span>
                 <h4>Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios</h4>
-                <p>Authors: B Rey, K Zhu, ST Perrault, S Bardot, A Neshati, P Irani</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/toc/pacmhci/2022/6/MHCI" target="_blank" style="color: #d62828; text-decoration: none;">Proceedings of the ACM on Human-Computer Interaction, Volume 6, Issue MHCI
-Article No.: 201, Pages 1 - 28</a>
-                </p>
-                <a href="https://drive.google.com/file/d/1g7LLrJ5alvZimMf4ZXkGyDM2eMQbKIm-/view">Read Full Paper</a>
+                <div class="publication-authors">B Rey, K Zhu, ST Perrault, S Bardot, <strong>A Neshati</strong>, P Irani</div>
+                <span class="publication-venue">Proceedings of the ACM on Human-Computer Interaction, Volume 6, Issue MHCI<br>Article No.: 201, Pages 1 - 28</span>
+                
+                <div class="publication-links">
+                    <a href="https://drive.google.com/file/d/1g7LLrJ5alvZimMf4ZXkGyDM2eMQbKIm-/view" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         
@@ -1399,68 +1600,96 @@ Article No.: 201, Pages 1 - 28</a>
         <div class="publication-item">
             <img src="images/21.png" alt="Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI '18</span>
                 <h4>Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays</h4>
-                <p>Authors: Fouad Alallah, Ali Neshati, Nima Sheibani, Yumiko Sakamoto, Andrea Bunt, Pourang Irani, Khalad Hasan</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3173574" target="_blank" style="color: #d62828; text-decoration: none;">CHI '18: Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems
-Paper No.: 310, Pages 1 - 7</a>
-                </p>
-                <a href="http://hci.cs.umanitoba.ca/assets/publication_files/Crowdsourcing_vs_Laboratory-Style_Social_Acceptability_Studies.pdf">Read Full Paper</a>
+                <div class="publication-authors">Fouad Alallah, <strong>Ali Neshati</strong>, Nima Sheibani, Yumiko Sakamoto, Andrea Bunt, Pourang Irani, Khalad Hasan</div>
+                <span class="publication-venue">CHI '18: Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 310, Pages 1 - 7</span>
+                
+                <div class="publication-links">
+                    <a href="http://hci.cs.umanitoba.ca/assets/publication_files/Crowdsourcing_vs_Laboratory-Style_Social_Acceptability_Studies.pdf" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         
         <div class="publication-item">
             <img src="images/3rdPaper.png" alt="BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">CHI '21</span>
                 <h4>BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion</h4>
-                <p>Authors: A Neshati, B Rey, AS Mohommed Faleel, S Bardot, C Latulipe, P Irani</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3411764" target="_blank" style="color: #d62828; text-decoration: none;">CHI '21: Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems
-Article No.: 501, Pages 1 - 13
-</a>
-                </p>
-                <a href="https://drive.google.com/file/d/117OI1AtFsyI3jGRwpejPFFL8udHoZAqi/view">Read Full Paper</a>
+                <div class="publication-authors"><strong>A Neshati</strong>, B Rey, AS Mohommed Faleel, S Bardot, C Latulipe, P Irani</div>
+                <span class="publication-venue">CHI '21: Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems<br>Article No.: 501, Pages 1 - 13</span>
+                
+                <div class="publication-links">
+                    <a href="https://drive.google.com/file/d/117OI1AtFsyI3jGRwpejPFFL8udHoZAqi/view" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         
         <div class="publication-item">
             <img src="images/4thpaper.png" alt="SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches" class="publication-thumbnail">
             <div class="publication-details">
+                <span class="publication-badge">MobileHCI '21</span>
                 <h4>SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches</h4>
-                <p>Authors: A Neshati, F Alallah, B Rey, Y Sakamoto, M Serrano, P Irani</p>
-                <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3447526" target="_blank" style="color: #d62828; text-decoration: none;">MobileHCI '21: Proceedings of the 23rd International Conference on Mobile Human-Computer Interaction
-Article No.: 5, Pages 1 - 13
-</a>
-                </p>
-                <a href="https://drive.google.com/file/d/1y_aMi8Tid_SBBSeDqDNK3o33NBMWLCig/view">Read Full Paper</a>
-                <div class="honorable-mention" style="color: #F39C12;">🏅 Honorable Mention Award</div>
+                <div class="publication-authors"><strong>A Neshati</strong>, F Alallah, B Rey, Y Sakamoto, M Serrano, P Irani</div>
+                <span class="publication-venue">MobileHCI '21: Proceedings of the 23rd International Conference on Mobile Human-Computer Interaction<br>Article No.: 5, Pages 1 - 13</span>
+                <div class="honorable-mention">🏅 Honorable Mention Award</div>
+                
+                <div class="publication-links">
+                    <a href="https://drive.google.com/file/d/1y_aMi8Tid_SBBSeDqDNK3o33NBMWLCig/view" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
             </div>
         </div>
         <!-- 2020 Papers -->
 <div class="publication-item">
     <img src="images/5thPpaer.png" alt="Using Guessability Framework: Age-related Differences in Hand Gesture Interaction" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">AH '20</span>
         <h4>Using Guessability Framework: Age-related Differences in Hand Gesture Interaction</h4>
-        <p>Authors: Y Vasylkiv, A Neshati, SAM Faleel, Y Sakamoto, P Irani</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3396339" target="_blank" style="color: #d62828; text-decoration: none;">AH '20: Proceedings of the 11th Augmented Human International Conference
-Article No.: 24, Pages 1 - 2</a>
-                </p>
-        <a href="https://d1wqtxts1xzle7.cloudfront.net/76907309/paper_40_yurii-libre.pdf?1640025520=&response-content-disposition=inline%3B+filename%3DUsing_guessability_framework_age_related.pdf&Expires=1728331234&Signature=P4CErQomn1aktYO2C48XBsR5CKWwVuqHmz1EKE6JdPWFCBMSOgtS4o5-wSuUNqs0zHMoaVKsb1s2tyKl598I~xzFrR7W4eY2J7BXu6Sg16rzzkxsbqJRgFhnE1Xks86u-Xfpl7uVy4A4SnqDUioNI-5sFYzJOfBSXq4iDfqWEephq0L3ktvsB24HpuMwyQyvVghXDAabpuPJ56s7DjJO~UHU6G9xwc~msUoLzGeJTwkvWNrFX2YML91VpKIhdiPI7AlPBNyGNz4R6771NLBERp6My0FN7e1wJ74h-iCiz16ILvocISqh15kZPVbaDGU45y~6PQEw31tTxlwvGnrp0Q__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA">Read Full Paper</a>
+        <div class="publication-authors">Y Vasylkiv, <strong>A Neshati</strong>, SAM Faleel, Y Sakamoto, P Irani</div>
+        <span class="publication-venue">AH '20: Proceedings of the 11th Augmented Human International Conference<br>Article No.: 24, Pages 1 - 2</span>
+        
+        <div class="publication-links">
+            <a href="https://d1wqtxts1xzle7.cloudfront.net/76907309/paper_40_yurii-libre.pdf?1640025520=&response-content-disposition=inline%3B+filename%3DUsing_guessability_framework_age_related.pdf&Expires=1728331234&Signature=P4CErQomn1aktYO2C48XBsR5CKWwVuqHmz1EKE6JdPWFCBMSOgtS4o5-wSuUNqs0zHMoaVKsb1s2tyKl598I~xzFrR7W4eY2J7BXu6Sg16rzzkxsbqJRgFhnE1Xks86u-Xfpl7uVy4A4SnqDUioNI-5sFYzJOfBSXq4iDfqWEephq0L3ktvsB24HpuMwyQyvVghXDAabpuPJ56s7DjJO~UHU6G9xwc~msUoLzGeJTwkvWNrFX2YML91VpKIhdiPI7AlPBNyGNz4R6771NLBERp6My0FN7e1wJ74h-iCiz16ILvocISqh15kZPVbaDGU45y~6PQEw31tTxlwvGnrp0Q__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
 <div class="publication-item">
     <img src="images/6thPaper.png" alt="Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">AH '20</span>
         <h4>Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm</h4>
-        <p>Authors: S Bardot, S Rempel, B Rey, A Neshati, Y Sakamoto, C Menon, P Irani</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3396339" target="_blank" style="color: #d62828; text-decoration: none;">AH '20: Proceedings of the 11th Augmented Human International Conference
-Article No.: 1, Pages 1 - 8</a>
-                </p>
-        <a href="https://hci.cs.umanitoba.ca/assets/publication_files/Sandra_paper.pdf">Read Full Paper</a>
+        <div class="publication-authors">S Bardot, S Rempel, B Rey, <strong>A Neshati</strong>, Y Sakamoto, C Menon, P Irani</div>
+        <span class="publication-venue">AH '20: Proceedings of the 11th Augmented Human International Conference<br>Article No.: 1, Pages 1 - 8</span>
+        
+        <div class="publication-links">
+            <a href="https://hci.cs.umanitoba.ca/assets/publication_files/Sandra_paper.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
@@ -1468,65 +1697,96 @@ Article No.: 1, Pages 1 - 8</a>
 <div class="publication-item">
     <img src="images/7thPaper.png" alt="G-Sparks: Glanceable Sparklines on Smartwatches" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">GI '19</span>
         <h4>G-Sparks: Glanceable Sparklines on Smartwatches</h4>
-        <p>Authors: A Neshati, Y Sakamoto, L Leboe-Mcgowan, J Leboe-McGowan, M Serrano, P Irani</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.5555/3371599" target="_blank" style="color: #d62828; text-decoration: none;">GI '19: Proceedings of the 45th Graphics Interface Conference
-Article No.: 23, Pages 1 - 9</a>
-                </p>
-        <a href="https://hal.science/hal-02891743/file/neshati_26190.pdf">Read Full Paper</a>
+        <div class="publication-authors"><strong>A Neshati</strong>, Y Sakamoto, L Leboe-Mcgowan, J Leboe-McGowan, M Serrano, P Irani</div>
+        <span class="publication-venue">GI '19: Proceedings of the 45th Graphics Interface Conference<br>Article No.: 23, Pages 1 - 9</span>
+        
+        <div class="publication-links">
+            <a href="https://hal.science/hal-02891743/file/neshati_26190.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
 <div class="publication-item">
     <img src="images/8thPaper.png" alt="An Analytic Model for Time-Efficient Personal Hierarchies" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">CHI '19</span>
         <h4>An Analytic Model for Time-Efficient Personal Hierarchies</h4>
-        <p>Authors: W Delamare, A Neshati, P Irani, X Ren</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3290605" target="_blank" style="color: #d62828; text-decoration: none;">CHI '19: Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems
-Paper No.: 368, Pages 1 - 11
-</a>
-                </p>
-        <a href="https://hal.science/hal-03030544/file/MODEL-CHI19.pdf">Read Full Paper</a>
-        <div class="honorable-mention" style="color: #F39C12;">🏅 Honorable Mention Award</div>
+        <div class="publication-authors">W Delamare, <strong>A Neshati</strong>, P Irani, X Ren</div>
+        <span class="publication-venue">CHI '19: Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 368, Pages 1 - 11</span>
+        <div class="honorable-mention">🏅 Honorable Mention Award</div>
+        
+        <div class="publication-links">
+            <a href="https://hal.science/hal-03030544/file/MODEL-CHI19.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
 <div class="publication-item">
     <img src="images/9thpaper.png" alt="Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">SHTI '18</span>
         <h4>Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures</h4>
-        <p>Authors: Y Vasylkiv, A Neshati, Y Sakamoto, R Gomez, K Nakamura, P Irani</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://ebooks.iospress.nl/volumearticle/51200" target="_blank" style="color: #d62828; text-decoration: none;">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 436 - 443</a>
-                </p>
-        <a href="https://ebooks.iospress.nl/volumearticle/51200">Read Full Paper</a>
+        <div class="publication-authors">Y Vasylkiv, <strong>A Neshati</strong>, Y Sakamoto, R Gomez, K Nakamura, P Irani</div>
+        <span class="publication-venue">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 436 - 443</span>
+        
+        <div class="publication-links">
+            <a href="https://ebooks.iospress.nl/volumearticle/51200" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
 <div class="publication-item">
     <img src="images/10thPaper.png" alt="Challenges in Displaying Health Data on Small Smartwatch Screens" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">SHTI '18</span>
         <h4>Challenges in Displaying Health Data on Small Smartwatch Screens</h4>
-        <p>Authors: A Neshati, Y Sakamoto, P Irani</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://ebooks.iospress.nl/volumearticle/51200" target="_blank" style="color: #d62828; text-decoration: none;">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 325 - 332</a>
-                </p>
-        <a href="https://ebooks.iospress.nl/doi/10.3233/978-1-61499-951-5-325">Read Full Paper</a>
+        <div class="publication-authors"><strong>A Neshati</strong>, Y Sakamoto, P Irani</div>
+        <span class="publication-venue">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 325 - 332</span>
+        
+        <div class="publication-links">
+            <a href="https://ebooks.iospress.nl/doi/10.3233/978-1-61499-951-5-325" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 <!-- 2018 Papers -->
 <div class="publication-item">
     <img src="images/11thpaper.png" alt="Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">VRST '18</span>
         <h4>Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?</h4>
-        <p>Authors: F Alallah, A Neshati, Y Sakamoto, K Hasan, E Lank, A Bunt, P Irani</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://dl.acm.org/doi/proceedings/10.1145/3281505" target="_blank" style="color: #d62828; text-decoration: none;">VRST '18: Proceedings of the 24th ACM Symposium on Virtual Reality Software and Technology
-Article No.: 10, Pages 1 - 9</a>
-                </p>
-        <a href="https://hci.cs.umanitoba.ca/assets/publication_files/PerformVSObserve.pdf">Read Full Paper</a>
+        <div class="publication-authors">F Alallah, <strong>A Neshati</strong>, Y Sakamoto, K Hasan, E Lank, A Bunt, P Irani</div>
+        <span class="publication-venue">VRST '18: Proceedings of the 24th ACM Symposium on Virtual Reality Software and Technology<br>Article No.: 10, Pages 1 - 9</span>
+        
+        <div class="publication-links">
+            <a href="https://hci.cs.umanitoba.ca/assets/publication_files/PerformVSObserve.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
@@ -1534,12 +1794,19 @@ Article No.: 10, Pages 1 - 9</a>
 <div class="publication-item">
     <img src="images/13thPaper.png" alt="Is Really NACK Protocol Secure to Be Employed in MANETs?" class="publication-thumbnail">
     <div class="publication-details">
+        <span class="publication-badge">CSE '14</span>
         <h4>Is Really NACK Protocol Secure to Be Employed in MANETs?</h4>
-        <p>Authors: M Saeed, A Mackvandi, M Taghavi, MZ Bidoki, M Ghasemi, A Neshati</p>
-        <p style="color: #d62828; font-weight: 500; margin: 5px 0;">
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/7023220/proceeding" target="_blank" style="color: #d62828; text-decoration: none;">2014 IEEE 17th International Conference on Computational Science and Engineering</a>
-                </p>
-        <a href="https://www.researchgate.net/profile/Mehdi-Ghasemi-18/publication/295504931_Is_Really_NACK_Protocol_Secure_to_Be_Employed_in_MANETs/links/619e18e44fe4ea1cea97e7cd/Is-Really-NACK-Protocol-Secure-to-Be-Employed-in-MANETs.pdf">Read Full Paper</a>
+        <div class="publication-authors">M Saeed, A Mackvandi, M Taghavi, MZ Bidoki, M Ghasemi, A Neshati</div>
+        <span class="publication-venue">2014 IEEE 17th International Conference on Computational Science and Engineering</span>
+        
+        <div class="publication-links">
+            <a href="https://www.researchgate.net/profile/Mehdi-Ghasemi-18/publication/295504931_Is_Really_NACK_Protocol_Secure_to_Be_Employed_in_MANETs/links/619e18e44fe4ea1cea97e7cd/Is-Really-NACK-Protocol-Secure-to-Be-Employed-in-MANETs.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+            <a href="#" class="btn-pub btn-video btn-disabled">
+                <i class="fas fa-video"></i> Watch Video
+            </a>
+        </div>
     </div>
 </div>
 
@@ -1549,20 +1816,20 @@ Article No.: 10, Pages 1 - 9</a>
 
 <section id="people" style="padding: 80px 0; background: linear-gradient(135deg, #1B2631, #34495E); color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Our Team</h2>
+        <h2 class="section-title" style="margin-bottom: 40px;">Our Team</h2>
         
         <!-- Supervisor -->
         <div class="team-category">
-            <h3 style="font-size: 2.2rem; color: #F39C12; margin-bottom: 30px;">Supervisor</h3>
+            <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Supervisor</h3>
             <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
-                <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+                <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
                     <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                         <img src="images/ALI.jpg" alt="Ali Neshati" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <h4 style="font-size: 1.5rem; color: #F4D03F;">Ali Neshati</h4>
                     <p>Assistant Professor, Faculty of Science</p>
                     <p>Ph.D. in Computer Science, University of Manitoba</p>
-                    <button onclick="toggleDescription('ali-desc')" class="more-info-btn" style="background-color: #F39C12; color: #1F2937; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+                    <button onclick="toggleDescription('ali-desc')" class="more-info-btn" style="background-color: #F4D03F; color: #1F2937; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
                         More Info
                     </button>
                     
@@ -1584,7 +1851,7 @@ Article No.: 10, Pages 1 - 9</a>
 
         <!-- Graduate Students -->
         <div class="team-category">
-            <h3 style="font-size: 2.2rem; color: #F39C12; margin-bottom: 30px;">Graduate Students</h3>
+            <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Graduate Students</h3>
             <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
 
          <!-- Card for Mohammed Nasif Zawad -->
@@ -1609,11 +1876,7 @@ Article No.: 10, Pages 1 - 9</a>
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Sakil Sarker</h4>
             <p>Master's student specializing in AI, focusing on Human-AI Interaction and LLMs.</p>
-            <p class="co-supervisor">
-            <strong>Co-supervisor:</strong>
-            <a href="https://dmalab.science.uoit.ca/hdavoudi/?__hstc=132141777.b534929fd9adcac0c277456fbd31ebab.1735245633844.1754013480320.1754094463935.143&__hssc=132141777.1.1754094463935&__hsfp=3923671493" target="_blank" style="color: #F4D03F; text-decoration: none;">
-        Dr. Kourosh Davoudi
-    </a> </p>
+
             <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
                 <a href="https://sadbinshakil.github.io/sakilsarker/" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-globe"></i></a>
                 <a href="https://scholar.google.com/citations?user=GhqHvx8AAAAJ&hl=en" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-graduation-cap"></i></a>
@@ -1622,17 +1885,13 @@ Article No.: 10, Pages 1 - 9</a>
         </div>
 
         <!-- Card for Aron-Seth Cohen -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/aron.png" alt="Aron-Seth Cohen" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Aron-Seth Cohen</h4>
             <p>Researching HCI with a focus on interaction design and usability in complex systems.</p>
-            <p class="co-supervisor">
-            <strong>Co-supervisor:</strong>
-            <a href="https://ontariotechu.ca/experts/fsci/christopher-collins.php" target="_blank" style="color: #F4D03F; text-decoration: none;">
-        Dr. Christopher Collins
-    </a> </p>
+
             <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
                 <a href="https://unsplash.com/photos/LUdelQ2EO2g" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-globe"></i></a>
                 <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-graduation-cap"></i></a>
@@ -1641,20 +1900,28 @@ Article No.: 10, Pages 1 - 9</a>
         </div>
 
         <!-- Card for Yasaman Ghasemi -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/yasaman.png" alt="Yasaman Ghasemi" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Yasaman Ghasemi</h4>
             <p>Exploring data-driven UX improvements and interactive system development.</p>
-            <p class="co-supervisor">
-            <strong>Co-supervisor:</strong>
-    <a href="https://dmalab.science.uoit.ca/hdavoudi/?__hstc=132141777.b534929fd9adcac0c277456fbd31ebab.1735245633844.1754013480320.1754094463935.143&__hssc=132141777.1.1754094463935&__hsfp=3923671493" target="_blank" style="color: #F4D03F; text-decoration: none;">
-        Dr. Kourosh Davoudi
-    </a>
-            </p>
+
             <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
                 <a href="https://unsplash.com/photos/nomivMNW07o" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-globe"></i></a>
+                <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-graduation-cap"></i></a>
+                <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Card for Mohammad Zawad -->
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
+                <div style="width: 100%; height: 100%; background-color: #374151; display: flex; align-items: center; justify-content: center; color: #F4D03F; font-size: 2.5rem; font-weight: bold;">MZ</div>
+            </div>
+            <h4 style="font-size: 1.5rem; color: #F4D03F;">Mohammad Zawad</h4>
+            <p>Researching data visualization and interaction on smartwatches.</p>
+            <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
                 <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fas fa-graduation-cap"></i></a>
                 <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fab fa-linkedin"></i></a>
             </div>
@@ -1668,10 +1935,62 @@ Article No.: 10, Pages 1 - 9</a>
 
                 <!-- Undergraduate Students -->
 <div class="team-category">
-    <h3 style="font-size: 2.2rem; color: #F39C12; margin-bottom: 30px;">Undergraduate Students</h3>
+    <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Undergraduate Students</h3>
     <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
+        <!-- Placeholder S1 -->
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
+                <img src="images/Rania.jpg" alt="Rania Rejdal" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.5rem; color: #F4D03F;">Rania Rejdal</h4>
+            <p style="font-size: 0.9rem; color: #BBB; margin-bottom: 5px;">(2025 - 2026)</p>
+            <p>Undergraduate student participating in research projects.</p>
+            <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Placeholder S2 -->
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
+                <img src="images/Alyesha.jpg" alt="Alyesha Singh" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.5rem; color: #F4D03F;">Alyesha Singh</h4>
+            <p style="font-size: 0.9rem; color: #BBB; margin-bottom: 5px;">(2025 - 2026)</p>
+            <p>Undergraduate student participating in research projects.</p>
+            <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Placeholder S3 -->
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
+                <div style="width: 100%; height: 100%; background-color: #374151; display: flex; align-items: center; justify-content: center; color: #F4D03F; font-size: 2.5rem; font-weight: bold;">AL</div>
+            </div>
+            <h4 style="font-size: 1.5rem; color: #F4D03F;">Alex Lowe</h4>
+            <p style="font-size: 0.9rem; color: #BBB; margin-bottom: 5px;">(2025 - 2026)</p>
+            <p>Undergraduate student participating in research projects.</p>
+            <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Placeholder S4 -->
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
+                <img src="images/Kershan.jpg" alt="Kershan Arulneswaran" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1.5rem; color: #F4D03F;">Kershan Arulneswaran</h4>
+            <p style="font-size: 0.9rem; color: #BBB; margin-bottom: 5px;">(2025 - 2026)</p>
+            <p>Undergraduate student participating in research projects.</p>
+            <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                <a href="#" target="_blank" style="font-size: 1.4rem; color: #F4D03F;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
         <!-- Card for Farees Siddiqui -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Farees Siddiqui_Undergrad.jpg" alt="Farees Siddiqui" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -1683,7 +2002,7 @@ Article No.: 10, Pages 1 - 9</a>
         </div>
 
         <!-- Card for Neel Shah -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Headshot-NeelShah.jpg" alt="Neel Shah" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -1694,8 +2013,8 @@ Article No.: 10, Pages 1 - 9</a>
             </div>
         </div>
 
-                <!-- Card for Nic -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+        <!-- Card for Nic -->
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/nicholas.jpg" alt="Neel Shah" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -1708,7 +2027,7 @@ Article No.: 10, Pages 1 - 9</a>
         </div>
 
         <!-- Card for David Long -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 300px;">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/David.jpg" alt="David Long" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -1737,44 +2056,12 @@ Article No.: 10, Pages 1 - 9</a>
 
 
 
-<section id="opportunities" style="padding: 80px 0; background: linear-gradient(135deg, #1B2631, #34495E); color: #ECECEC;">
-    <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Opportunities</h2>
-        
-        <div class="opportunity-grid" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 50px;">
-            
-            <!-- PhD Position in Human-Computer Interaction -->
-            <div class="opportunity-box" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 350px; transition: transform 0.3s ease;">
-                <i class="fas fa-user-graduate" style="font-size: 2.5rem; color: #F4D03F; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.7rem; color: #F39C12; margin-bottom: 10px;">PhD Position in HCI</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Engage in cutting-edge research in HCI, focusing on adaptive interfaces, wearables, and the ethical design of interactive systems to improve user experiences.</p>
-                <a href="phd-hci-opportunity.html" class="apply-link" style="display: inline-block; margin-top: 15px; font-weight: bold; color: #F4D03F; text-decoration: none;">Learn More & Apply</a>
-            </div>
-            
-            <!-- Master's Position in Human-AI Interaction -->
-            <div class="opportunity-box" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 350px; transition: transform 0.3s ease;">
-                <i class="fas fa-brain" style="font-size: 2.5rem; color: #F4D03F; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.7rem; color: #F39C12; margin-bottom: 10px;">Master's Position in Human-AI Interaction</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Explore advanced topics in Human-AI Interaction, including emotional AI, real-time feedback, and adaptive, AI-driven interfaces for enhanced user engagement.</p>
-                <a href="masters-human-ai-interaction.html" class="apply-link" style="display: inline-block; margin-top: 15px; font-weight: bold; color: #F4D03F; text-decoration: none;">Learn More & Apply</a>
-            </div>
-            
-            <!-- Research Collaboration in Interactive Techniques -->
-            <div class="opportunity-box" style="background: #1F2937; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); max-width: 350px; transition: transform 0.3s ease;">
-                <i class="fas fa-handshake" style="font-size: 2.5rem; color: #F4D03F; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.7rem; color: #F39C12; margin-bottom: 10px;">Research Collaboration</h3>
-                <p style="font-size: 1rem; color: #ECECEC;">Collaborate with us on projects in input devices, ubiquitous analytics, and mobile interfaces, advancing Information Visualization and wearable UX.</p>
-                <a href="research-collaboration.html" class="apply-link" style="display: inline-block; margin-top: 15px; font-weight: bold; color: #F4D03F; text-decoration: none;">Learn More & Apply</a>
-            </div>
-            
-        </div>
-    </div>
-</section>
+
 
 
 <section id="teaching" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F39C12; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Teaching</h2>
+        <h2 class="section-title" style="margin-bottom: 30px;">Teaching</h2>
 
 <!-- <section id="teaching" class="section-container">
     <div class="container">
@@ -1787,11 +2074,14 @@ Article No.: 10, Pages 1 - 9</a>
                     <h3>Ontario Tech University</h3>
                     <img src="images/ouit.png" alt="Ontario Tech University Logo">
                 </div>
-                <p>Specializing in Human-Computer Interaction, software design, and mobile development.</p>
+
                 <ul class="details-list">
-                    <li><strong>Fall 2023:</strong> Human-Computer Interaction</li>
-                    <li><strong>Winter 2024:</strong> Software Design</li>
-                    <li><strong>Fall 2024:</strong> Mobile Development, Human-Computer Interaction</li>
+                    <li><strong>CSCI 5750G:</strong> Information Visualization (graduate course) (W2026)</li>
+                    <li><strong>CSCI 4200:</strong> Advanced Mobile Development (W2026)</li>
+                    <li><strong>CSCI 7589G:</strong> User Interface Technologies (graduate course) (W2025)</li>
+                    <li><strong>CSCI 4100:</strong> Mobile Development (F2024, F2025)</li>
+                    <li><strong>CSCI 4620:</strong> Human-Computer Interaction (F2023, F2024, F2025)</li>
+                    <li><strong>CSCI 2040:</strong> Software Systems Design (W2024)</li>
                 </ul>
             </div>
 
@@ -1801,10 +2091,10 @@ Article No.: 10, Pages 1 - 9</a>
                     <h3>University of Waterloo</h3>
                     <img src="images/waterloo.jpg" alt="University of Waterloo Logo">
                 </div>
-                <p>Practical courses in HCI and foundational computer science.</p>
+
                 <ul class="details-list">
-                    <li><strong>Summer 2022, Winter 2023:</strong> CS 449 - Human-Computer Interaction</li>
-                    <li>CS 105 - Introductory Computer Science</li>
+                    <li><strong>Winter 2023:</strong> CS 449 - Human-Computer Interaction</li>
+
                 </ul>
             </div>
 
@@ -1814,11 +2104,11 @@ Article No.: 10, Pages 1 - 9</a>
                     <h3>University of Manitoba</h3>
                     <img src="images/manitoba.png" alt="University of Manitoba Logo">
                 </div>
-                <p>Programming fundamentals and object-oriented principles.</p>
+
                 <ul class="details-list">
-                    <li>Comp 2150 - Object Orientation</li>
-                    <li>Comp 1020 - Introductory Computer Science II</li>
-                    <li>Comp 1010 - Introductory Computer Science I</li>
+                    <li><strong>Comp 1020:</strong> Introductory Computer Science II (W2022, F2020)</li>
+                    <li><strong>Comp 2150:</strong> Object Orientation (W2022, S2021, W2021, S2020)</li>
+                    <li><strong>Comp 1010:</strong> Introductory Computer Science I (F2021)</li>
                 </ul>
             </div>
 
@@ -1827,98 +2117,31 @@ Article No.: 10, Pages 1 - 9</a>
 </section>
 
 
-<!-- Contact Section -->
-<!-- Enhanced Contact Section -->
-<section id="contact" style="background: linear-gradient(135deg, #1F2937, #2C3E50); padding: 100px 0; color: #ECECEC;">
-  <div class="container" style="max-width: 750px; margin: auto; text-align: center;">
-    <h2 class="section-title" style="font-size: 2.8rem; color: #F4D03F; margin-bottom: 40px; font-family: 'Playfair Display', serif;">Get in Touch</h2>
 
-    <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 40px;">
-      Have a question, collaboration idea, or want to join the lab? Drop us a message and we’ll get back to you!
-    </p>
-
-    <form style="background: #2C3E50; padding: 40px; border-radius: 16px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
-      <div style="display: flex; flex-direction: column; gap: 25px;">
-        
-        <!-- Name -->
-        <div style="position: relative;">
-          <input type="text" id="name" placeholder="Your Name" required
-            style="width: 100%; padding: 15px 15px 15px 45px; font-size: 1rem; color: #333; border-radius: 8px; border: none;
-                   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;">
-          <i class="fas fa-user" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #F4D03F;"></i>
-        </div>
-
-        <!-- Email -->
-        <div style="position: relative;">
-          <input type="email" id="email" placeholder="Your Email" required
-            style="width: 100%; padding: 15px 15px 15px 45px; font-size: 1rem; color: #333; border-radius: 8px; border: none;
-                   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;">
-          <i class="fas fa-envelope" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #F4D03F;"></i>
-        </div>
-
-        <!-- Message -->
-        <div style="position: relative;">
-          <textarea id="message" rows="5" placeholder="Your Message..." required
-            style="width: 100%; padding: 15px 15px 15px 45px; font-size: 1rem; color: #333; border-radius: 8px; border: none;
-                   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s;"></textarea>
-          <i class="fas fa-comment-dots" style="position: absolute; left: 15px; top: 15px; color: #F4D03F;"></i>
-        </div>
-
-        <!-- Button -->
-        <button type="submit"
-          style="background-color: #F4D03F; color: #1F2937; font-weight: 600; font-size: 1.1rem; border: none;
-                 padding: 15px 30px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease;">
-          Send Message
-        </button>
-      </div>
-    </form>
-  </div>
-</section>
 
 
 
 
 <!-- Footer -->
-<footer id="footer" style="background-color: #2C3E50; color: #ECECEC; padding: 60px 0;">
-    <div class="container" style="max-width: 1200px; margin: auto;">
-        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 30px;">
+<!-- Contact/Footer Section -->
+<footer id="footer" style="background-color: #2C3E50; color: #ECECEC; padding: 60px 0; text-align: center;">
+    <div class="container" style="max-width: 800px; margin: auto;">
+        <div style="font-size: 1.1rem; line-height: 1.8;">
+            <p style="margin-bottom: 5px; font-weight: bold; font-size: 1.3rem; color: #F4D03F;">Ali Neshati</p>
+            <p style="margin-bottom: 5px;">Room No: UA 4041</p>
+            <p style="margin-bottom: 5px;">Faculty of Science</p>
+            <p style="margin-bottom: 5px;">Ontario Tech University</p>
+            <p style="margin-bottom: 5px;">Oshawa, ON L1G 0C5</p>
+            <p style="margin-top: 15px;">Email: ali dot neshati at ontariotechu dot ca</p>
             
-            <!-- Contact Information -->
-            <div class="footer-section" style="flex: 1; min-width: 250px; margin: 15px;">
-                <h3 style="color: #F4D03F; font-size: 1.6rem; margin-bottom: 15px; font-weight: 600;">Contact Information</h3>
-                <p style="margin-bottom: 8px;"><b>Office Hours:</b> Monday - Friday (8:00am - 5:00pm)</p>
-                <p style="margin-bottom: 8px;"><b>Phone:</b> ext. 5305</p>
-                <p style="margin-bottom: 8px;">
-                    <a href="mailto:ali.neshati@ontariotechu.ca" style="color: #F39C12; text-decoration: none; font-weight: 500;">Email Us</a>
-                </p>
-            </div>
-
-            <!-- Logo Section -->
-            <div class="footer-logo" style="flex: 1; text-align: center; margin: 15px;">
-                <a href="https://mybrandnewlogo.com/" style="display: inline-block; transition: transform 0.3s;">
-                    <img src="images/logo.png" alt="UXID Lab Logo" style="width: 160px; height: auto;">
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 25px;">
+                <a href="https://ca.linkedin.com/in/ali-neshati-64877a47" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background-color: #F4D03F; color: #1F2937; border-radius: 50%; text-decoration: none; font-size: 1.3rem; transition: transform 0.3s;">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://scholar.google.ca/citations?user=XxA76vEAAAAJ&hl=en" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background-color: #F4D03F; color: #1F2937; border-radius: 50%; text-decoration: none; font-size: 1.3rem; transition: transform 0.3s;">
+                    <i class="fas fa-graduation-cap"></i>
                 </a>
             </div>
-
-            <!-- Address Information -->
-            <div class="footer-section" style="flex: 1; min-width: 250px; margin: 15px;">
-                <h3 style="color: #F4D03F; font-size: 1.6rem; margin-bottom: 15px; font-weight: 600;">Address</h3>
-                <p style="margin-bottom: 8px;">UXID Lab</p>
-                <p style="margin-bottom: 8px;">Ontario Tech University</p>
-                <p style="margin-bottom: 8px;">Oshawa, Ontario, Canada</p>
-                <p>
-                    <a href="https://maps.app.goo.gl/BbkBNisWc82sD63B8/" target="_blank" style="color: #F39C12; text-decoration: none; font-weight: 500;">View on Map</a>
-                </p>
-            </div>
-        </div>
-        
-        <!-- Bottom Links -->
-        <div class="footer-bottom" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(243, 156, 18, 0.5);">
-            <p style="margin-bottom: 10px;">&copy; 2025 UXID Lab, Ontario Tech University. All rights reserved.</p>
-            <p>
-                <a href="#" style="color: #F39C12; text-decoration: none; margin: 0 10px; font-weight: 500;">Privacy Policy</a> | 
-                <a href="#" style="color: #F39C12; text-decoration: none; margin: 0 10px; font-weight: 500;">Terms of Use</a>
-            </p>
         </div>
     </div>
 </footer>
