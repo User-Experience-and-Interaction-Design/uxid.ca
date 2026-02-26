@@ -1232,10 +1232,16 @@
         #hero-text-section p, #hero p {
             font-size: 1.05rem !important;
         }
-        /* Ensure carousel covers the taller content on mobile */
+        /* Allow the carousel to take natural height to avoid cropping */
+        #hero-carousel-section {
+            height: auto !important;
+            min-height: unset !important;
+            margin-top: 65px; /* Push down to avoid overlap with fixed header */
+        }
         .hero-carousel, #heroCarousel, .carousel-inner, .carousel-item, .carousel-item img, .carousel-item video {
-            height: 100% !important;
-            min-height: 100vh;
+            height: auto !important;
+            min-height: unset !important;
+            width: 100% !important;
         }
     }
     
