@@ -1342,27 +1342,6 @@ function toggleDescription2() {
 }
 </script>
 
-<!-- Animated Stats Section -->
-<section id="stats-section" style="padding: 40px 0; background: #1D3557; text-align: center;">
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; max-width: 900px; margin: auto; padding: 0 20px;">
-        <div style="min-width: 120px;">
-            <span class="stat-counter" data-target="27" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
-            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Publications</p>
-        </div>
-        <div style="min-width: 120px;">
-            <span class="stat-counter" data-target="10" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
-            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Team Members</p>
-        </div>
-        <div style="min-width: 120px;">
-            <span class="stat-counter" data-target="5" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
-            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Research Areas</p>
-        </div>
-        <div style="min-width: 120px;">
-            <span class="stat-counter" data-target="8" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
-            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Top Venues</p>
-        </div>
-    </div>
-</section>
 
 
 
@@ -2693,13 +2672,6 @@ document.addEventListener("DOMContentLoaded", function() {
     /* Header padding - less on mobile */
     header > div { padding: 0 15px !important; }
 
-    /* Stats section */
-    #stats-section { padding: 25px 0 !important; }
-    #stats-section > div { gap: 20px !important; }
-    #stats-section .stat-counter { font-size: 2rem !important; }
-    #stats-section > div > div { min-width: 80px !important; }
-    #stats-section > div > div p { font-size: 0.85rem !important; }
-
     /* Team cards */
     .team-card { width: 100% !important; max-width: 300px !important; }
     .team-category h3 { font-size: 1.5rem !important; margin-bottom: 15px !important; margin-top: 25px !important; }
@@ -2728,8 +2700,6 @@ document.addEventListener("DOMContentLoaded", function() {
 /* Small phones */
 @media (max-width: 400px) {
     header > div { padding: 0 10px !important; }
-    #stats-section > div { gap: 15px !important; }
-    #stats-section .stat-counter { font-size: 1.6rem !important; }
     .section-title { font-size: 1.7rem !important; }
     .pub-filter-btn { padding: 5px 10px; font-size: 0.75rem; }
     .publication-item { padding: 10px !important; }
@@ -2750,41 +2720,6 @@ document.addEventListener("DOMContentLoaded", function() {
     btn.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-})();
-
-// Animated Stat Counters
-(function() {
-    var counters = document.querySelectorAll('.stat-counter');
-    var animated = false;
-    function animateCounters() {
-        counters.forEach(function(counter) {
-            var target = parseInt(counter.getAttribute('data-target'));
-            var duration = 1500;
-            var start = 0;
-            var startTime = null;
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                var progress = Math.min((timestamp - startTime) / duration, 1);
-                counter.textContent = Math.floor(progress * target);
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    counter.textContent = target + '+';
-                }
-            }
-            requestAnimationFrame(step);
-        });
-    }
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting && !animated) {
-                animated = true;
-                animateCounters();
-            }
-        });
-    }, { threshold: 0.5 });
-    var statsSection = document.getElementById('stats-section');
-    if (statsSection) observer.observe(statsSection);
 })();
 
 // Publication Filter by Year
@@ -2868,7 +2803,6 @@ window.toggleMobileMenu = function() {
     var sectionNames = {
         'hero-carousel-section': 'Home',
         'hero-text-section': 'About',
-        'stats-section': 'Stats',
         'research': 'Open Posting',
         'recent-news': 'News',
         'important-dates': 'Events',
