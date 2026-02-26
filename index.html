@@ -6,6 +6,48 @@
     <meta name="description" content="UXID Lab at Ontario Tech University - Advancing Human-Computer Interaction and Design Innovation">
     <title>UXID Lab</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/uxid.png">
+    <link rel="apple-touch-icon" href="images/uxid.png">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="UXID Lab - User Experience and Interaction Design">
+    <meta property="og:description" content="UXID Lab at Ontario Tech University - Advancing Human-Computer Interaction and Design Innovation">
+    <meta property="og:image" content="https://uxid.ca/images/uxid.png">
+    <meta property="og:url" content="https://uxid.ca">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UXID Lab - User Experience and Interaction Design">
+    <meta name="twitter:description" content="Advancing Human-Computer Interaction and Design Innovation at Ontario Tech University">
+    <meta name="twitter:image" content="https://uxid.ca/images/uxid.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ali Neshati",
+        "jobTitle": "Assistant Professor",
+        "affiliation": {
+            "@type": "Organization",
+            "name": "Ontario Tech University",
+            "department": "Faculty of Science"
+        },
+        "url": "https://uxid.ca",
+        "image": "https://uxid.ca/images/ALI.jpg",
+        "sameAs": [
+            "https://ca.linkedin.com/in/ali-neshati-64877a47",
+            "https://scholar.google.ca/citations?user=XxA76vEAAAAJ&hl=en"
+        ],
+        "knowsAbout": ["Human-Computer Interaction", "Human-AI Interaction", "Mobile Interaction", "Wearable Computing", "User Experience Design"],
+        "worksFor": {
+            "@type": "ResearchOrganization",
+            "name": "UXID Lab - User Experience and Interaction Design",
+            "url": "https://uxid.ca"
+        }
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -32,6 +74,7 @@
 }
 
         /* Reset and Global Styles */
+        html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Roboto', sans-serif;
@@ -51,14 +94,14 @@
             color: #F4D03F;
             font-family: 'Playfair Display', serif;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             text-transform: uppercase !important;
             font-weight: 700;
         }
 
         /* Generic Section Styling */
         section {
-            padding: 60px 0;
+            padding: 30px 0;
             background-color: #fefefe;
         }
 
@@ -165,7 +208,7 @@
 
         /* Team Section */
         #people {
-            padding: 80px 0;
+            padding: 40px 0;
             background-color: #fefae0;
         }
         .section-title {
@@ -224,7 +267,7 @@
 
 /* Contact Section */
 #contact {
-    padding: 80px 0;
+    padding: 40px 0;
     background: linear-gradient(135deg, #1F2937, #2C3E50);
     color: #ECECEC;
     text-align: center;
@@ -336,32 +379,32 @@
         }
 
         /* Publications Section */
-        #publications { padding: 80px 0; background: linear-gradient(135deg, #1F2937, #2C3E50); color: #ECECEC; }
+        #publications { padding: 40px 0; background: linear-gradient(135deg, #1F2937, #2C3E50); color: #ECECEC; }
 
         .publication-item {
             display: flex;
             align-items: flex-start;
-            background-color: rgba(31, 41, 55, 0.6); /* Semi-transparent dark bg */
-            padding: 25px;
-            border-radius: 12px;
+            background-color: rgba(31, 41, 55, 0.6);
+            padding: 15px;
+            border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative; /* For absolute positioning of venue */
+            position: relative;
         }
 
         .publication-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(244, 208, 63, 0.3);
         }
 
         .publication-thumbnail {
-            width: 250px;
-            height: 160px;
-            border-radius: 8px;
-            margin-right: 25px;
+            width: 180px;
+            height: 115px;
+            border-radius: 6px;
+            margin-right: 18px;
             border: 2px solid #F4D03F;
             object-fit: cover;
             flex-shrink: 0;
@@ -373,46 +416,46 @@
         }
 
         .publication-details h4 {
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             color: #F4D03F;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            line-height: 1.3;
-            padding-right: 180px; /* Increased padding to prevent overlap */
+            line-height: 1.25;
+            padding-right: 120px;
         }
 
         .publication-authors {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #ECECEC;
             font-style: italic;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         /* Full Venue Detail Style (Normal Text) */
         .publication-venue {
             display: block;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #AAB7B8;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             font-weight: 500;
         }
-        
+
         /* Restored Button and Link Styles */
         .publication-links {
             display: flex;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 10px;
+            margin-top: 8px;
             flex-wrap: wrap;
         }
 
         .btn-pub {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -474,14 +517,14 @@
         @media (min-width: 769px) {
             .publication-badge {
                 position: absolute;
-                top: 25px;
-                right: 25px;
+                top: 15px;
+                right: 15px;
                 background-color: #F4D03F;
                 color: #1F2937;
-                padding: 4px 12px;
+                padding: 3px 10px;
                 border-radius: 15px;
                 font-weight: 700;
-                font-size: 0.85rem;
+                font-size: 0.75rem;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -496,17 +539,17 @@
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                padding: 20px;
+                padding: 15px;
             }
             .publication-thumbnail {
                 width: 100%;
                 margin-right: 0;
-                margin-bottom: 20px;
-                max-width: 300px; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                margin-bottom: 12px;
+                max-width: 250px; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             }
             .publication-details h4 {
                 padding-right: 0;
-                font-size: 1.2rem;
+                font-size: 1.05rem;
             }
             .publication-links {
                 justify-content: center;
@@ -515,7 +558,7 @@
                 position: relative;
                 top: 0;
                 right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
         }
 
@@ -526,7 +569,7 @@
     <style>
         /* Teaching and Research Sections */
 .section-container {
-    padding: 60px 0;
+    padding: 30px 0;
     background-color: #2C3E50;
     color: #ECECEC;
 }
@@ -589,7 +632,7 @@
 <style>
     /* General Section Styling */
 .section-container, #publications, #people, #opportunities {
-    padding: 60px 0;
+    padding: 30px 0;
     background: linear-gradient(135deg, #2C3E50, #34495E) !important; /* Strong gradient background */
     color: #ECECEC;
     border-radius: 10px;
@@ -618,7 +661,7 @@
 
 /* People Section Styling */
 #people {
-    padding: 60px 0;
+    padding: 30px 0;
     background-color: #34495E;
     color: #ECECEC;
     text-align: center;
@@ -771,7 +814,7 @@
 
 /* People Section Styling */
 #people {
-    padding: 60px 0;
+    padding: 30px 0;
     background-color: #34495E;
     color: #ECECEC;
     text-align: center;
@@ -881,7 +924,7 @@
 
 /* Teaching Section */
 #teaching {
-    padding: 60px 0;
+    padding: 30px 0;
     background: linear-gradient(135deg, #34495e, #2c3e50);
     color: #ececec;
 }
@@ -996,9 +1039,10 @@
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px;">
             
             <!-- Logo -->
-            <h1 class="logo" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #A8DADC; margin: 0;">
-                <a href="#home" style="color: #A8DADC; text-decoration: none; transition: color 0.3s;">UXID Lab</a>
-            </h1>
+            <a href="#home" class="logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0;">
+                <img src="images/uxid.png" alt="UXID Lab" style="height: 55px; width: auto;">
+                <span class="logo-text" style="font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #A8DADC; line-height: 1.3; white-space: nowrap; font-weight: 600;">User Experience &<br>Interaction Design</span>
+            </a>
             
             <!-- Desktop Navigation (Visible on Large Screens) -->
             <nav class="desktop-nav">
@@ -1037,8 +1081,20 @@
             </ul>
         </div>
     </header>
-    
 
+    <!-- Sticky Section Indicator -->
+    <div id="section-indicator" style="
+        position: fixed; top: 65px; left: 0; width: 100%; z-index: 999;
+        background: rgba(29, 53, 87, 0.95); backdrop-filter: blur(5px);
+        padding: 6px 20px; display: none; border-bottom: 2px solid #F4D03F;
+        transition: opacity 0.3s ease;
+    ">
+        <span id="section-indicator-text" style="
+            color: #F4D03F; font-size: 0.85rem; font-weight: 600;
+            font-family: 'Playfair Display', serif; text-transform: uppercase;
+            letter-spacing: 1px;
+        "></span>
+    </div>
 
 <style>
 /* General Styles */
@@ -1064,6 +1120,13 @@
 /* Hide Mobile Menu and Button on Larger Screens */
 .menu-btn, .mobile-nav {
     display: none;
+}
+
+/* Hide logo full text on medium screens to save navbar space */
+@media (max-width: 1100px) {
+    .logo-text {
+        display: none;
+    }
 }
 
 /* Show Mobile Button and Hide Desktop Navigation on Smaller Screens */
@@ -1279,8 +1342,27 @@ function toggleDescription2() {
 }
 </script>
 
-
-
+<!-- Animated Stats Section -->
+<section id="stats-section" style="padding: 40px 0; background: #1D3557; text-align: center;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; max-width: 900px; margin: auto; padding: 0 20px;">
+        <div style="min-width: 120px;">
+            <span class="stat-counter" data-target="27" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
+            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Publications</p>
+        </div>
+        <div style="min-width: 120px;">
+            <span class="stat-counter" data-target="10" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
+            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Team Members</p>
+        </div>
+        <div style="min-width: 120px;">
+            <span class="stat-counter" data-target="5" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
+            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Research Areas</p>
+        </div>
+        <div style="min-width: 120px;">
+            <span class="stat-counter" data-target="8" style="font-size: 3rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif;">0</span>
+            <p style="color: #A8DADC; font-size: 1rem; margin-top: 5px;">Top Venues</p>
+        </div>
+    </div>
+</section>
 
 
 
@@ -1658,6 +1740,21 @@ document.addEventListener("DOMContentLoaded", function() {
 <section id="publications">
     <div class="container">
         <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
+
+        <!-- Publication Filter Buttons -->
+        <div id="pub-filters" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px;">
+            <button class="pub-filter-btn active" data-year="all">All</button>
+            <button class="pub-filter-btn" data-year="2025">2025</button>
+            <button class="pub-filter-btn" data-year="2024">2024</button>
+            <button class="pub-filter-btn" data-year="2023">2023</button>
+            <button class="pub-filter-btn" data-year="2022">2022</button>
+            <button class="pub-filter-btn" data-year="2021">2021</button>
+            <button class="pub-filter-btn" data-year="2020">2020</button>
+            <button class="pub-filter-btn" data-year="2019">2019</button>
+            <button class="pub-filter-btn" data-year="2018">2018</button>
+            <button class="pub-filter-btn" data-year="older">Older</button>
+        </div>
+
 <!-- 2025 Papers -->
 
 
@@ -2181,15 +2278,15 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </section>
 
-<section id="people" style="padding: 80px 0; background: linear-gradient(135deg, #1B2631, #34495E); color: #ECECEC;">
+<section id="people" style="padding: 30px 0; background: linear-gradient(135deg, #1B2631, #34495E); color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
         <h2 class="section-title" style="margin-bottom: 40px;">Our Team</h2>
         
         <!-- Supervisor -->
         <div class="team-category">
             <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Supervisor</h3>
-            <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
-                <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <div class="team-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
                     <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                         <img src="images/ALI.jpg" alt="Ali Neshati" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
@@ -2211,10 +2308,10 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Graduate Students -->
         <div class="team-category">
             <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Graduate Students</h3>
-            <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
+            <div class="team-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
 
         <!-- Card for Mohammad Zawad -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/zawad1.jpeg" alt="Mohammad Zawad" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2228,7 +2325,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Card for Farnaz Mirnezami -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Farnaz.jpg" alt="Farnaz Mirnezami" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2242,7 +2339,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Card for Sakil Sarker -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Sadbin.jpg" alt="Sakil Sarker" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2257,7 +2354,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Card for Aron-Seth Cohen -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/aron.png" alt="Aron-Seth Cohen" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2272,7 +2369,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Card for Yasaman Akhoondzadeh -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/yasaman.png" alt="Yasaman Akhoondzadeh" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2287,7 +2384,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Card for Kevin -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <div style="width: 100%; height: 100%; background-color: #374151; display: flex; align-items: center; justify-content: center; color: #F4D03F; font-size: 2.5rem; font-weight: bold;">K</div>
             </div>
@@ -2309,9 +2406,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 <!-- Undergraduate Students -->
 <div class="team-category">
     <h3 style="font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700;">Undergraduate Students</h3>
-    <div class="team-grid" style="display: flex; justify-content: center; gap: 30px;">
+    <div class="team-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
         <!-- Rania Rejdal -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Rania.jpg" alt="Rania Rejdal" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2324,7 +2421,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Alyesha Singh -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Alyesha.jpg" alt="Alyesha Singh" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2337,7 +2434,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Alex Lowe -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <div style="width: 100%; height: 100%; background-color: #374151; display: flex; align-items: center; justify-content: center; color: #F4D03F; font-size: 2.5rem; font-weight: bold;">AL</div>
             </div>
@@ -2350,7 +2447,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Kershan Arulneswaran -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Kershan.jpg" alt="Kershan Arulneswaran" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2363,7 +2460,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Farees Siddiqui -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Farees Siddiqui_Undergrad.jpg" alt="Farees Siddiqui" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2376,7 +2473,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Neel Shah -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Headshot-NeelShah.jpg" alt="Neel Shah" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2388,7 +2485,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Nicholas Kissoon -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/nicholas.jpg" alt="Nicholas Kissoon" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2402,7 +2499,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- David Long -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/David.jpg" alt="David Long" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2416,7 +2513,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Aiju -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px; background-color: #374151; display: flex; align-items: center; justify-content: center; color: #F4D03F; font-size: 2rem;">
                 AK
             </div>
@@ -2429,7 +2526,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <!-- Reese -->
-        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
                 <img src="images/Reese.jpg" alt="Reese Dominguez" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -2463,7 +2560,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<section id="teaching" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
+<section id="teaching" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 30px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
         <h2 class="section-title" style="margin-bottom: 30px;">Teaching</h2>
 
@@ -2528,7 +2625,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- Footer -->
 <!-- Contact/Footer Section -->
-<footer id="footer" style="background-color: #2C3E50; color: #ECECEC; padding: 60px 0; text-align: center;">
+<footer id="footer" style="background-color: #2C3E50; color: #ECECEC; padding: 30px 0; text-align: center;">
     <div class="container" style="max-width: 800px; margin: auto;">
         <div style="font-size: 1.1rem; line-height: 1.8;">
             <p style="margin-bottom: 5px; font-weight: bold; font-size: 1.3rem; color: #F4D03F;">Ali Neshati</p>
@@ -2550,7 +2647,288 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </footer>
 
+<!-- Back to Top Button -->
+<button id="backToTop" aria-label="Back to top" style="
+    display: none; position: fixed; bottom: 30px; right: 30px; z-index: 999;
+    width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer;
+    background: #F4D03F; color: #1D3557; font-size: 1.4rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease;
+"><i class="fas fa-arrow-up"></i></button>
 
+<!-- Publication Filter Styles -->
+<style>
+.pub-filter-btn {
+    padding: 8px 18px; border: 2px solid #F4D03F; border-radius: 25px;
+    background: transparent; color: #F4D03F; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease;
+}
+.pub-filter-btn:hover, .pub-filter-btn.active {
+    background: #F4D03F; color: #1F2937;
+}
+.publication-item { transition: opacity 0.3s ease, transform 0.3s ease; }
+.publication-item.hidden { display: none; }
+#backToTop:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+
+/* Collapsible Abstract Styles */
+.btn-abstract {
+    background: rgba(168, 218, 220, 0.1); color: #A8DADC; border: 1px solid #A8DADC;
+}
+.btn-abstract:hover { background: #A8DADC; color: #1F2937; }
+.pub-abstract {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;
+    background: rgba(29, 53, 87, 0.5); border-radius: 6px; margin-top: 8px;
+    font-size: 0.85rem; line-height: 1.5; color: #ccc; padding: 0 12px;
+}
+.pub-abstract.expanded {
+    max-height: 300px; padding: 10px 12px; overflow-y: auto;
+}
+
+/* Section Indicator responsive */
+@media (max-width: 768px) {
+    #section-indicator { top: 65px; }
+}
+
+/* Comprehensive Mobile Fixes */
+@media (max-width: 768px) {
+    /* Header padding - less on mobile */
+    header > div { padding: 0 15px !important; }
+
+    /* Stats section */
+    #stats-section { padding: 25px 0 !important; }
+    #stats-section > div { gap: 20px !important; }
+    #stats-section .stat-counter { font-size: 2rem !important; }
+    #stats-section > div > div { min-width: 80px !important; }
+    #stats-section > div > div p { font-size: 0.85rem !important; }
+
+    /* Team cards */
+    .team-card { width: 100% !important; max-width: 300px !important; }
+    .team-category h3 { font-size: 1.5rem !important; margin-bottom: 15px !important; margin-top: 25px !important; }
+
+    /* Section titles smaller on mobile */
+    .section-title { font-size: 2rem !important; margin-bottom: 20px !important; }
+
+    /* Teaching grid tighter */
+    .teaching-grid { gap: 15px !important; }
+    .course-block { max-width: 100% !important; width: 100% !important; }
+
+    /* Opportunity grid tighter */
+    .opportunity-grid { gap: 15px !important; }
+
+    /* Publication filter buttons tighter */
+    .pub-filter-btn { padding: 6px 12px; font-size: 0.8rem; }
+
+    /* Back to top button smaller */
+    #backToTop { width: 42px !important; height: 42px !important; bottom: 20px !important; right: 20px !important; font-size: 1.1rem !important; }
+
+    /* Footer tighter */
+    footer .container { padding: 0 15px !important; }
+    footer div[style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+    header > div { padding: 0 10px !important; }
+    #stats-section > div { gap: 15px !important; }
+    #stats-section .stat-counter { font-size: 1.6rem !important; }
+    .section-title { font-size: 1.7rem !important; }
+    .pub-filter-btn { padding: 5px 10px; font-size: 0.75rem; }
+    .publication-item { padding: 10px !important; }
+    .publication-details h4 { font-size: 0.95rem !important; }
+    .publication-authors { font-size: 0.8rem !important; }
+    .publication-venue { font-size: 0.75rem !important; }
+}
+</style>
+
+<!-- All Feature Scripts -->
+<script>
+// Back to Top Button
+(function() {
+    var btn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+        btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+    });
+    btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();
+
+// Animated Stat Counters
+(function() {
+    var counters = document.querySelectorAll('.stat-counter');
+    var animated = false;
+    function animateCounters() {
+        counters.forEach(function(counter) {
+            var target = parseInt(counter.getAttribute('data-target'));
+            var duration = 1500;
+            var start = 0;
+            var startTime = null;
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var progress = Math.min((timestamp - startTime) / duration, 1);
+                counter.textContent = Math.floor(progress * target);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    counter.textContent = target + '+';
+                }
+            }
+            requestAnimationFrame(step);
+        });
+    }
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting && !animated) {
+                animated = true;
+                animateCounters();
+            }
+        });
+    }, { threshold: 0.5 });
+    var statsSection = document.getElementById('stats-section');
+    if (statsSection) observer.observe(statsSection);
+})();
+
+// Publication Filter by Year
+(function() {
+    var items = document.querySelectorAll('.publication-item');
+    // Tag each item with a data-year based on badge text
+    items.forEach(function(item) {
+        var badge = item.querySelector('.publication-badge');
+        if (badge) {
+            var text = badge.textContent.trim();
+            var match = text.match(/'(\d{2})/);
+            if (match) {
+                var yr = parseInt(match[1]);
+                item.setAttribute('data-year', yr >= 50 ? '19' + yr : '20' + yr);
+            } else {
+                item.setAttribute('data-year', 'other');
+            }
+        }
+    });
+
+    document.querySelectorAll('.pub-filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.pub-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var year = btn.getAttribute('data-year');
+            items.forEach(function(item) {
+                var itemYear = item.getAttribute('data-year');
+                if (year === 'all') {
+                    item.classList.remove('hidden');
+                } else if (year === 'older') {
+                    item.classList.toggle('hidden', parseInt(itemYear) >= 2018);
+                } else {
+                    item.classList.toggle('hidden', itemYear !== year);
+                }
+            });
+        });
+    });
+})();
+
+// Lazy Loading for images below the fold
+document.addEventListener('DOMContentLoaded', function() {
+    var imgs = document.querySelectorAll('img');
+    imgs.forEach(function(img, i) {
+        // Skip hero carousel images (first section)
+        if (!img.closest('#hero-carousel-section')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+});
+
+// Accessibility: Add ARIA labels
+document.addEventListener('DOMContentLoaded', function() {
+    var nav = document.querySelector('.desktop-nav');
+    if (nav) nav.setAttribute('aria-label', 'Main navigation');
+    var mobileNav = document.querySelector('.mobile-nav');
+    if (mobileNav) mobileNav.setAttribute('aria-label', 'Mobile navigation');
+    var sections = document.querySelectorAll('section[id]');
+    sections.forEach(function(s) { s.setAttribute('role', 'region'); });
+    var menuBtn = document.querySelector('.menu-btn');
+    if (menuBtn) {
+        menuBtn.setAttribute('aria-label', 'Toggle mobile menu');
+        menuBtn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+// Update aria-expanded on mobile menu toggle
+var origToggle = window.toggleMobileMenu;
+window.toggleMobileMenu = function() {
+    origToggle();
+    var menuBtn = document.querySelector('.menu-btn');
+    var mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+        menuBtn.setAttribute('aria-expanded', mobileMenu.classList.contains('active'));
+    }
+};
+
+// Sticky Section Indicator
+(function() {
+    var indicator = document.getElementById('section-indicator');
+    var indicatorText = document.getElementById('section-indicator-text');
+    var sectionNames = {
+        'hero-carousel-section': 'Home',
+        'hero-text-section': 'About',
+        'stats-section': 'Stats',
+        'research': 'Open Posting',
+        'recent-news': 'News',
+        'important-dates': 'Events',
+        'publications': 'Publications',
+        'people': 'People',
+        'teaching': 'Teaching',
+        'footer': 'Contact'
+    };
+    var sections = [];
+    Object.keys(sectionNames).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) sections.push({ el: el, name: sectionNames[id] });
+    });
+    var currentSection = '';
+    window.addEventListener('scroll', function() {
+        if (window.scrollY < 200) {
+            indicator.style.display = 'none';
+            return;
+        }
+        indicator.style.display = 'block';
+        var scrollPos = window.scrollY + 120;
+        for (var i = sections.length - 1; i >= 0; i--) {
+            if (sections[i].el.offsetTop <= scrollPos) {
+                if (currentSection !== sections[i].name) {
+                    currentSection = sections[i].name;
+                    indicatorText.textContent = currentSection;
+                }
+                break;
+            }
+        }
+    });
+})();
+
+// Collapsible Publication Abstracts
+(function() {
+    document.querySelectorAll('.publication-links').forEach(function(links) {
+        // Add abstract toggle button to each publication
+        var abstractBtn = document.createElement('a');
+        abstractBtn.href = '#';
+        abstractBtn.className = 'btn-pub btn-abstract';
+        abstractBtn.innerHTML = '<i class="fas fa-align-left"></i> Abstract';
+        links.appendChild(abstractBtn);
+
+        // Create the abstract container
+        var pubDetails = links.closest('.publication-details');
+        var abstract = document.createElement('div');
+        abstract.className = 'pub-abstract';
+        abstract.textContent = 'Abstract not yet available.';
+        pubDetails.appendChild(abstract);
+
+        abstractBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            abstract.classList.toggle('expanded');
+            abstractBtn.innerHTML = abstract.classList.contains('expanded')
+                ? '<i class="fas fa-align-left"></i> Hide Abstract'
+                : '<i class="fas fa-align-left"></i> Abstract';
+        });
+    });
+})();
+</script>
 
 </body>
 </html>
