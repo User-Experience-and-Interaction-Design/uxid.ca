@@ -992,7 +992,7 @@
 </head>
 <body>
 
-    <header style="background-color: #1D3557; color: #F1FAEE; padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);">
+    <header style="background-color: #1D3557; color: #F1FAEE; padding: 0; height: 65px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px;">
             
             <!-- Logo -->
@@ -1011,7 +1011,7 @@
                     <li><a href="#publications" class="nav-link">Publications</a></li>
                     <li><a href="#people" class="nav-link">People</a></li>
                     <li><a href="#teaching" class="nav-link">Teaching</a></li>
-                    <li><a href="#tools" class="nav-link">Tools</a></li>
+                    <li><a href="tools.html" class="nav-link">Tools</a></li>
                     <li><a href="#footer" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
@@ -1032,7 +1032,7 @@
                 <li><a href="#publications" class="nav-link">Publications</a></li>
                 <li><a href="#people" class="nav-link">People</a></li>
                 <li><a href="#teaching" class="nav-link">Teaching</a></li>
-                <li><a href="#tools" class="nav-link">Tools</a></li>
+                <li><a href="tools.html" class="nav-link">Tools</a></li>
                 <li><a href="#footer" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -1166,26 +1166,35 @@
 
 </style>
 
+<style>
+    /* Push body content below the fixed header with no gap */
+    body { padding-top: 65px; }
+    #hero-carousel-section { height: calc(100vh - 65px) !important; margin-top: 0 !important; padding: 0 !important; }
+</style>
 <script>
     function toggleMobileMenu() {
-    const mobileMenu = document.getElementById("mobileMenu");
-    mobileMenu.classList.toggle("active");
-}
-
+        const mobileMenu = document.getElementById("mobileMenu");
+        mobileMenu.classList.toggle("active");
+    }
 </script>
 
 
 <!-- Hero Section -->
 <!-- Hero Carousel Section (Teaser) -->
-<section id="hero-carousel-section" style="width: 100%; height: 100vh; min-height: 750px; overflow: hidden; background: #000;">
-    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" style="height: 100%; width: 100%;">
-        <div class="carousel-inner" style="height: 100%;">
+<section id="hero-carousel-section" style="width: 100%; overflow: hidden; position: relative; background: #000;">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000" style="width: 100%; height: 100%;">
+        <div class="carousel-inner" style="width: 100%; height: 100%;">
+
             <div class="carousel-item active" style="height: 100%;">
-                <img src="images/Profile.jpg" class="d-block w-100" alt="Lab Member 1" style="height: 100%; object-fit: cover; object-position: center;">
+                <img src="images/swipesense_teaser_poster_final_wide.png" class="d-block w-100" alt="SwipeSense MobileHCI 2025 accepted paper" style="height: 100%; object-fit: cover; object-position: top;">
             </div>
 
             <div class="carousel-item" style="height: 100%;">
-                <video class="d-block w-100" autoplay muted loop playsinline style="height: 100%; object-fit: cover; object-position: center;">
+                <img src="images/Profile.jpg" class="d-block w-100" alt="Lab Member 1" style="height: 100%; object-fit: cover; object-position: top;">
+            </div>
+
+            <div class="carousel-item" style="height: 100%;">
+                <video class="d-block w-100" autoplay muted loop playsinline style="height: 100%; object-fit: cover; object-position: top;">
                     <source src="images/main.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -1240,7 +1249,6 @@
         #hero-carousel-section {
             height: auto !important;
             min-height: unset !important;
-            margin-top: 65px; /* Push down to avoid overlap with fixed header */
         }
         .hero-carousel, #heroCarousel, .carousel-inner, .carousel-item, .carousel-item img, .carousel-item video {
             height: auto !important;
@@ -1687,7 +1695,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/swipe.jpg" alt="SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors" class="publication-thumbnail">
+            <img src="images/swipesense_teaser_poster_v2.png" alt="SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">MobileHCI '25</span>
                 <h4>SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors</h4>
@@ -1728,7 +1736,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="publication-details">
                 <span class="publication-badge">CUI '25</span>
                 <h4>CitePeek: Contextual Citation Exploration Within Research Papers</h4>
-                <div class="publication-authors">Yasaman AkhoundzadehBasti, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <div class="publication-authors">Yasaman Akhoondzadeh, Heidar Davoudi, <strong>Ali Neshati</strong></div>
                 <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 20, Pages 1 - 7</span>
                 
                 <div class="publication-links">
@@ -2263,12 +2271,12 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
 
-        <!-- Card for Yasaman Ghasemi -->
+        <!-- Card for Yasaman Akhoondzadeh -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/yasaman.png" alt="Yasaman Ghasemi" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="images/yasaman.png" alt="Yasaman Akhoondzadeh" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <h4 style="font-size: 1.5rem; color: #F4D03F;">Yasaman Ghasemi</h4>
+            <h4 style="font-size: 1.5rem; color: #F4D03F;">Yasaman Akhoondzadeh</h4>
             <p>Exploring data-driven UX improvements and interactive system development.</p>
 
             <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
