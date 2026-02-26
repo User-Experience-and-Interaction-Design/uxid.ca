@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="UXID Lab Tools - Balanced Latin Square Generator and more"
+    />
+    <title>UXID Lab - Tools</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* General Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        color: #333333;
+        background-color: #f3f4f6;
+        line-height: 1.6;
+        padding-top: 80px; /* offset for fixed header */
+      }
+
+      h2.section-title {
+        font-size: 3rem;
+        color: #f4d03f;
+        font-family: "Playfair Display", serif;
+        text-align: center;
+        margin-bottom: 50px;
+        text-transform: uppercase !important;
+        font-weight: 700;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      /* Nav Styles */
+      .nav-link {
+        color: #f1faee;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      .nav-link:hover {
+        background-color: #a8dadc;
+        color: #1d3557;
+      }
+      .desktop-nav {
+        display: flex;
+        gap: 20px;
+      }
+      .menu-btn,
+      .mobile-nav {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-nav {
+          display: none;
+        }
+        .menu-btn {
+          display: block;
+          background: linear-gradient(135deg, #a8dadc, #457b9d);
+          color: #1d3557;
+          padding: 12px 18px;
+          border: none;
+          border-radius: 12px;
+          font-weight: 600;
+          font-size: 1.1rem;
+          cursor: pointer;
+        }
+        .mobile-nav {
+          display: none;
+          background-color: #1d3557;
+          padding: 10px;
+          position: absolute;
+          width: 100%;
+          top: 60px;
+          left: 0;
+          z-index: 999;
+        }
+        .mobile-nav ul {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+        }
+        .mobile-nav.active {
+          display: block;
+        }
+      }
+
+      .tool-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        border-top: 5px solid #1d3557;
+        margin-bottom: 30px;
+      }
+      .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      .tool-card h3 {
+        color: #1d3557;
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+      }
+      .tool-card p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 20px;
+      }
+      .tool-btn {
+        display: inline-block;
+        background: #1d3557;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.3s;
+      }
+      .tool-btn:hover {
+        background: #f4d03f;
+        color: #1d3557;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header
+      style="
+        background-color: #1d3557;
+        color: #f1faee;
+        padding: 15px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+      "
+    >
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          padding: 0 40px;
+        "
+      >
+        <h1
+          class="logo"
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 2.2rem;
+            color: #a8dadc;
+            margin: 0;
+          "
+        >
+          <a
+            href="index.html"
+            style="
+              color: #a8dadc;
+              text-decoration: none;
+              transition: color 0.3s;
+            "
+            >UXID Lab</a
+          >
+        </h1>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+          <ul
+            style="
+              list-style: none;
+              display: flex;
+              gap: 20px;
+              margin: 0;
+              padding: 0;
+            "
+          >
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li>
+              <a href="index.html#hero-text-section" class="nav-link"
+                >Research</a
+              >
+            </li>
+            <li>
+              <a href="index.html#research" class="nav-link">Open Posting</a>
+            </li>
+            <li><a href="index.html#recent-news" class="nav-link">News</a></li>
+            <li>
+              <a href="index.html#important-dates" class="nav-link">Events</a>
+            </li>
+            <li>
+              <a href="index.html#publications" class="nav-link"
+                >Publications</a
+              >
+            </li>
+            <li><a href="index.html#people" class="nav-link">People</a></li>
+            <li><a href="index.html#teaching" class="nav-link">Teaching</a></li>
+            <li>
+              <a href="tools.html" class="nav-link" style="color: #f4d03f"
+                >Tools</a
+              >
+            </li>
+            <li><a href="index.html#footer" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <button class="menu-btn" onclick="toggleMobileMenu()">Menu</button>
+      </div>
+
+      <div id="mobileMenu" class="mobile-nav">
+        <ul style="list-style: none; padding: 0; margin: 0">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li>
+            <a href="index.html#hero-text-section" class="nav-link">Research</a>
+          </li>
+          <li>
+            <a href="index.html#research" class="nav-link">Open Posting</a>
+          </li>
+          <li><a href="index.html#recent-news" class="nav-link">News</a></li>
+          <li>
+            <a href="index.html#important-dates" class="nav-link">Events</a>
+          </li>
+          <li>
+            <a href="index.html#publications" class="nav-link">Publications</a>
+          </li>
+          <li><a href="index.html#people" class="nav-link">People</a></li>
+          <li><a href="index.html#teaching" class="nav-link">Teaching</a></li>
+          <li>
+            <a href="tools.html" class="nav-link" style="color: #f4d03f"
+              >Tools</a
+            >
+          </li>
+          <li><a href="index.html#footer" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <script>
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobileMenu");
+        mobileMenu.classList.toggle("active");
+      }
+    </script>
+
+    <!-- Main Content -->
+    <main style="min-height: calc(100vh - 200px); padding: 60px 0">
+      <div class="container" style="max-width: 900px">
+        <h2
+          class="section-title"
+          style="
+            color: #1d3557;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-transform: none !important;
+          "
+        >
+          Lab Tools & Resources
+        </h2>
+        <p style="font-size: 1.15rem; color: #555; margin-bottom: 50px">
+          A collection of useful digital instruments, generators, and software
+          resources utilized in our research studies.
+        </p>
+
+        <!-- Tool 1: Latin Square -->
+        <div class="tool-card">
+          <h3>Balanced Latin Square Generator</h3>
+          <p>
+            An easy-to-use tool to automatically generate a balanced Latin
+            Square. This is highly useful for counterbalancing conditions and
+            randomizing the order of conditions within repeated measures User
+            Studies.
+          </p>
+          <a
+            href="https://damienmasson.com/tools/latin_square/"
+            target="_blank"
+            class="tool-btn"
+            >Open Latin Square Generator
+            <i
+              class="fas fa-external-link-alt"
+              style="margin-left: 5px; font-size: 0.9em"
+            ></i
+          ></a>
+        </div>
+
+        <!-- Future tools can be appended here -->
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      id="footer"
+      style="
+        background-color: #2c3e50;
+        color: #ececec;
+        padding: 60px 0;
+        text-align: center;
+      "
+    >
+      <div class="container" style="max-width: 800px; margin: auto">
+        <div style="font-size: 1.1rem; line-height: 1.8">
+          <p
+            style="
+              margin-bottom: 5px;
+              font-weight: bold;
+              font-size: 1.3rem;
+              color: #f4d03f;
+            "
+          >
+            Ali Neshati
+          </p>
+          <p style="margin-bottom: 5px">Room No: UA 4041</p>
+          <p style="margin-bottom: 5px">Faculty of Science</p>
+          <p style="margin-bottom: 5px">Ontario Tech University</p>
+          <p style="margin-bottom: 5px">Oshawa, ON L1G 0C5</p>
+          <p style="margin-top: 15px">
+            Email: ali dot neshati at ontariotechu dot ca
+          </p>
+
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              gap: 20px;
+              margin-top: 25px;
+            "
+          >
+            <a
+              href="https://ca.linkedin.com/in/ali-neshati-64877a47"
+              target="_blank"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                background-color: #f4d03f;
+                color: #1f2937;
+                border-radius: 50%;
+                text-decoration: none;
+                font-size: 1.3rem;
+                transition: transform 0.3s;
+              "
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a
+              href="https://scholar.google.ca/citations?user=XxA76vEAAAAJ&hl=en"
+              target="_blank"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                background-color: #f4d03f;
+                color: #1f2937;
+                border-radius: 50%;
+                text-decoration: none;
+                font-size: 1.3rem;
+                transition: transform 0.3s;
+              "
+            >
+              <i class="fas fa-graduation-cap"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
