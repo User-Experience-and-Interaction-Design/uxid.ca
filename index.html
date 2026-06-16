@@ -1367,6 +1367,13 @@ function toggleDescription2() {
         <ul style="list-style: none; padding: 0;">
 
             <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
+                <i class="fas fa-microphone" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
+                <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    Shimon presented our paper <strong>"Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction"</strong> at <strong>GI '26</strong> in Waterloo, Ontario.
+                </span>
+            </li>
+
+            <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
                 <i class="fas fa-trophy" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
                 <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
                     For the third year in a row, a UXID Lab student has received the <strong>Best Undergraduate Thesis Award</strong>.<br>Congratulations to Alyesha Singh, Kershan Arulneswaran, Rania Rejdal, and Alex Lowe on successfully defending their theses.
@@ -1740,6 +1747,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Publication Filter Buttons -->
         <div id="pub-filters" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px;">
             <button class="pub-filter-btn active" data-year="all">All</button>
+            <button class="pub-filter-btn" data-year="2026">2026</button>
             <button class="pub-filter-btn" data-year="2025">2025</button>
             <button class="pub-filter-btn" data-year="2024">2024</button>
             <button class="pub-filter-btn" data-year="2023">2023</button>
@@ -1749,6 +1757,26 @@ document.addEventListener("DOMContentLoaded", function() {
             <button class="pub-filter-btn" data-year="2019">2019</button>
             <button class="pub-filter-btn" data-year="2018">2018</button>
             <button class="pub-filter-btn" data-year="older">Older</button>
+        </div>
+
+<!-- 2026 Papers -->
+
+        <div class="publication-item" data-year="2026">
+            <img src="images/earable_gi26.png" alt="Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction" class="publication-thumbnail">
+            <div class="publication-details">
+                <span class="publication-badge">GI '26</span>
+                <h4>Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction</h4>
+                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
+                <span class="publication-venue">Proceedings of Graphics Interface 2026 (GI '26)<br>June 09–12, 2026, Kitchener–Waterloo, Ontario, Canada</span>
+                <div class="publication-links">
+                    <a href="https://arxiv.org/abs/2606.08198" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="#" class="btn-pub btn-video btn-disabled">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
         </div>
 
 <!-- 2025 Papers -->
