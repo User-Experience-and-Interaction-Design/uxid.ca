@@ -13,13 +13,13 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="UXID Lab - User Experience and Interaction Design">
     <meta property="og:description" content="UXID Lab at Ontario Tech University - Advancing Human-Computer Interaction and Design Innovation">
-    <meta property="og:image" content="https://uxid.ca/images/uxid.png">
+    <meta property="og:image" content="https://uxid.ca/images/og-cover.jpg">
     <meta property="og:url" content="https://uxid.ca">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="UXID Lab - User Experience and Interaction Design">
     <meta name="twitter:description" content="Advancing Human-Computer Interaction and Design Innovation at Ontario Tech University">
-    <meta name="twitter:image" content="https://uxid.ca/images/uxid.png">
+    <meta name="twitter:image" content="https://uxid.ca/images/og-cover.jpg">
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
 
@@ -1275,7 +1275,7 @@
             </div>
 
             <div class="carousel-item" style="height: 100%;">
-                <video class="d-block w-100" autoplay muted loop playsinline style="height: 100%; object-fit: cover; object-position: top;">
+                <video id="heroVideo" class="d-block w-100" muted loop playsinline preload="metadata" style="height: 100%; object-fit: cover; object-position: top;">
                     <source src="images/main.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -1490,7 +1490,7 @@ function toggleDescription2() {
 <section id="awards" class="section-container" style="background: linear-gradient(135deg, #1D3557, #2C3E50); padding: 40px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1000px; margin: auto;">
         <h2 class="section-title" style="margin-bottom: 30px;">Awards &amp; Honours</h2>
-        <div class="awards-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+        <div class="awards-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;">
 
             <div class="award-card" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 24px 20px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-align: center;">
                 <i class="fas fa-graduation-cap" style="font-size: 2rem; color: #F4D03F; margin-bottom: 12px;"></i>
@@ -1511,6 +1511,13 @@ function toggleDescription2() {
                 <div style="display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content;">2024 &ndash; 2026</div>
                 <h3 style="font-size: 1.1rem; color: #FDFDFD; font-weight: 700; margin-bottom: 8px; line-height: 1.4;">Three Years in a Row</h3>
                 <p style="font-size: 0.95rem; color: #C9D2DB; line-height: 1.55; margin: 0;">A UXID Lab student has won the <strong style="color: #F4D03F;">Best Undergraduate Thesis Award</strong> every year since 2024</p>
+            </div>
+
+            <div class="award-card" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 24px 20px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-align: center;">
+                <i class="fas fa-award" style="font-size: 2rem; color: #F4D03F; margin-bottom: 12px;"></i>
+                <div style="background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content;">CHI '19 &amp; MobileHCI '21</div>
+                <h3 style="font-size: 1.1rem; color: #FDFDFD; font-weight: 700; margin-bottom: 8px; line-height: 1.4;">Honorable Mention Awards</h3>
+                <p style="font-size: 0.95rem; color: #C9D2DB; line-height: 1.55; margin: 0;">Paper awards at <strong style="color: #F4D03F;">ACM CHI 2019</strong> and <strong style="color: #F4D03F;">MobileHCI 2021</strong></p>
             </div>
 
         </div>
@@ -1825,7 +1832,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- 2026 Papers -->
 
         <div class="publication-item" data-year="2026">
-            <img src="images/coread.png" alt="CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading" class="publication-thumbnail" style="object-fit: contain; background: #fff;">
+            <img loading="lazy" src="images/coread.png" alt="CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading" class="publication-thumbnail" style="object-fit: contain; background: #fff;">
             <div class="publication-details">
                 <span class="publication-badge">ICMI '26</span>
                 <h4>CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading</h4>
@@ -1843,7 +1850,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item" data-year="2026">
-            <img src="images/earable_gi26.png" alt="Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction" class="publication-thumbnail">
+            <img loading="lazy" src="images/earable_gi26.png" alt="Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">GI '26</span>
                 <h4>Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction</h4>
@@ -1866,7 +1873,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
                 <div class="publication-item">
-        <img src="images/hamraz.png" alt="HamRaz: A Culture-Based Persian Conversation Dataset for Person-Centered Therapy using LLM Agents" class="publication-thumbnail">
+        <img loading="lazy" src="images/hamraz.png" alt="HamRaz: A Culture-Based Persian Conversation Dataset for Person-Centered Therapy using LLM Agents" class="publication-thumbnail">
           <div class="publication-details">
             <span class="publication-badge">NLP4DH '25</span>
             <h4>
@@ -1897,7 +1904,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/swipe.jpg" alt="SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors" class="publication-thumbnail">
+            <img loading="lazy" src="images/swipe.jpg" alt="SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">MobileHCI '25</span>
                 <h4>SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors</h4>
@@ -1915,7 +1922,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
         <div class="publication-item">
-            <img src="images/paperpal.png" alt="PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion" class="publication-thumbnail">
+            <img loading="lazy" src="images/paperpal.png" alt="PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CUI '25</span>
                 <h4>PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion</h4>
@@ -1934,7 +1941,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/citepeak.png" alt="CitePeek: Contextual Citation Exploration Within Research Papers" class="publication-thumbnail">
+            <img loading="lazy" src="images/citepeak.png" alt="CitePeek: Contextual Citation Exploration Within Research Papers" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CUI '25</span>
                 <h4>CitePeek: Contextual Citation Exploration Within Research Papers</h4>
@@ -1953,7 +1960,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <!-- 2024 Papers -->
         <div class="publication-item">
-            <img src="images/2024_1.png" alt="Large Language User Interfaces: Voice Interactive UIs" class="publication-thumbnail">
+            <img loading="lazy" src="images/2024_1.png" alt="Large Language User Interfaces: Voice Interactive UIs" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">IntelliSys '24</span>
                 <h4>Large Language User Interfaces: Voice Interactive User Interfaces powered by LLMs</h4>
@@ -1972,7 +1979,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         
         <div class="publication-item">
-            <img src="images/2024_2.png" alt="Exploring Uni-manual Around Ear Off-Device Gestures for Earables" class="publication-thumbnail">
+            <img loading="lazy" src="images/2024_2.png" alt="Exploring Uni-manual Around Ear Off-Device Gestures for Earables" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">IMWUT '24</span>
                 <h4>Exploring Uni-manual Around Ear Off-Device Gestures for Earables</h4>
@@ -1991,7 +1998,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/MISSINGONE.png" alt="Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction" class="publication-thumbnail">
+            <img loading="lazy" src="images/MISSINGONE.png" alt="Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">IMWUT '24</span>
                 <h4>Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction</h4>
@@ -2010,7 +2017,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/2024_4.png" alt="Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization" class="publication-thumbnail">
+            <img loading="lazy" src="images/2024_4.png" alt="Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI '24</span>
                 <h4>Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization</h4>
@@ -2030,7 +2037,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <!-- 2023 Papers -->
         <div class="publication-item">
-            <img src="images/2023_1.png" alt="In-vehicle Performance and Distraction for Midair and Touch Directional Gestures" class="publication-thumbnail">
+            <img loading="lazy" src="images/2023_1.png" alt="In-vehicle Performance and Distraction for Midair and Touch Directional Gestures" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI '23</span>
                 <h4>In-vehicle Performance and Distraction for Midair and Touch Directional Gestures</h4>
@@ -2049,7 +2056,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/2023_2.png" alt="De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation" class="publication-thumbnail">
+            <img loading="lazy" src="images/2023_2.png" alt="De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI '23</span>
                 <h4>De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation</h4>
@@ -2068,7 +2075,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/2023_3.png" alt="Interaction Region Characteristics for Midair Barehand Targeting on a Television" class="publication-thumbnail">
+            <img loading="lazy" src="images/2023_3.png" alt="Interaction Region Characteristics for Midair Barehand Targeting on a Television" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI EA '23</span>
                 <h4>Interaction Region Characteristics for Midair Barehand Targeting on a Television</h4>
@@ -2087,7 +2094,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
         <div class="publication-item">
-            <img src="images/2023_4.png" alt="Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration" class="publication-thumbnail">
+            <img loading="lazy" src="images/2023_4.png" alt="Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI '23</span>
                 <h4>Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration</h4>
@@ -2109,7 +2116,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         <!-- 2022 Papers -->
         <div class="publication-item">
-            <img src="images/1stPaper.jpg" alt="EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion" class="publication-thumbnail">
+            <img loading="lazy" src="images/1stPaper.jpg" alt="EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">ICMI '22</span>
                 <h4>EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion</h4>
@@ -2128,7 +2135,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         
         <div class="publication-item">
-            <img src="images/dataviz.png" alt="Data visualization and interaction on smartwatch small screens" class="publication-thumbnail">
+            <img loading="lazy" src="images/dataviz.png" alt="Data visualization and interaction on smartwatch small screens" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">Thesis</span>
                 <h4>Data visualization and interaction on smartwatch small screens</h4>
@@ -2147,7 +2154,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         
         <div class="publication-item">
-            <img src="images/2ndPaper.png" alt="Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios" class="publication-thumbnail">
+            <img loading="lazy" src="images/2ndPaper.png" alt="Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">MobileHCI '22</span>
                 <h4>Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios</h4>
@@ -2167,7 +2174,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         <!-- 2021 Papers -->
         <div class="publication-item">
-            <img src="images/21.png" alt="Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays" class="publication-thumbnail">
+            <img loading="lazy" src="images/21.png" alt="Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI '18</span>
                 <h4>Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays</h4>
@@ -2186,7 +2193,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         
         <div class="publication-item">
-            <img src="images/3rdPaper.png" alt="BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion" class="publication-thumbnail">
+            <img loading="lazy" src="images/3rdPaper.png" alt="BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">CHI '21</span>
                 <h4>BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion</h4>
@@ -2205,13 +2212,13 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         
         <div class="publication-item">
-            <img src="images/4thpaper.png" alt="SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches" class="publication-thumbnail">
+            <img loading="lazy" src="images/4thpaper.png" alt="SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches" class="publication-thumbnail">
             <div class="publication-details">
                 <span class="publication-badge">MobileHCI '21</span>
                 <h4>SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches</h4>
                 <div class="publication-authors"><strong>A Neshati</strong>, F Alallah, B Rey, Y Sakamoto, M Serrano, P Irani</div>
                 <span class="publication-venue">MobileHCI '21: Proceedings of the 23rd International Conference on Mobile Human-Computer Interaction<br>Article No.: 5, Pages 1 - 13</span>
-                <div class="honorable-mention">🏅 Honorable Mention Award</div>
+                <div class="honorable-mention"><i class="fas fa-medal" style="margin-right:5px;"></i>Honorable Mention Award</div>
                 
                 <div class="publication-links">
                     <a href="https://drive.google.com/file/d/1y_aMi8Tid_SBBSeDqDNK3o33NBMWLCig/view" class="btn-pub btn-pdf" target="_blank">
@@ -2225,7 +2232,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <!-- 2020 Papers -->
 <div class="publication-item">
-    <img src="images/5thPpaer.png" alt="Using Guessability Framework: Age-related Differences in Hand Gesture Interaction" class="publication-thumbnail">
+    <img loading="lazy" src="images/5thPpaer.png" alt="Using Guessability Framework: Age-related Differences in Hand Gesture Interaction" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">AH '20</span>
         <h4>Using Guessability Framework: Age-related Differences in Hand Gesture Interaction</h4>
@@ -2244,7 +2251,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="publication-item">
-    <img src="images/6thPaper.png" alt="Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm" class="publication-thumbnail">
+    <img loading="lazy" src="images/6thPaper.png" alt="Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">AH '20</span>
         <h4>Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm</h4>
@@ -2264,7 +2271,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- 2019 Papers -->
 <div class="publication-item">
-    <img src="images/7thPaper.png" alt="G-Sparks: Glanceable Sparklines on Smartwatches" class="publication-thumbnail">
+    <img loading="lazy" src="images/7thPaper.png" alt="G-Sparks: Glanceable Sparklines on Smartwatches" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">GI '19</span>
         <h4>G-Sparks: Glanceable Sparklines on Smartwatches</h4>
@@ -2283,13 +2290,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="publication-item">
-    <img src="images/8thPaper.png" alt="An Analytic Model for Time-Efficient Personal Hierarchies" class="publication-thumbnail">
+    <img loading="lazy" src="images/8thPaper.png" alt="An Analytic Model for Time-Efficient Personal Hierarchies" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">CHI '19</span>
         <h4>An Analytic Model for Time-Efficient Personal Hierarchies</h4>
         <div class="publication-authors">W Delamare, <strong>A Neshati</strong>, P Irani, X Ren</div>
         <span class="publication-venue">CHI '19: Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 368, Pages 1 - 11</span>
-        <div class="honorable-mention">🏅 Honorable Mention Award</div>
+        <div class="honorable-mention"><i class="fas fa-medal" style="margin-right:5px;"></i>Honorable Mention Award</div>
         
         <div class="publication-links">
             <a href="https://hal.science/hal-03030544/file/MODEL-CHI19.pdf" class="btn-pub btn-pdf" target="_blank">
@@ -2303,7 +2310,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="publication-item">
-    <img src="images/9thpaper.png" alt="Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures" class="publication-thumbnail">
+    <img loading="lazy" src="images/9thpaper.png" alt="Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">SHTI '18</span>
         <h4>Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures</h4>
@@ -2322,7 +2329,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="publication-item">
-    <img src="images/10thPaper.png" alt="Challenges in Displaying Health Data on Small Smartwatch Screens" class="publication-thumbnail">
+    <img loading="lazy" src="images/10thPaper.png" alt="Challenges in Displaying Health Data on Small Smartwatch Screens" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">SHTI '18</span>
         <h4>Challenges in Displaying Health Data on Small Smartwatch Screens</h4>
@@ -2341,7 +2348,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <!-- 2018 Papers -->
 <div class="publication-item">
-    <img src="images/11thpaper.png" alt="Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?" class="publication-thumbnail">
+    <img loading="lazy" src="images/11thpaper.png" alt="Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">VRST '18</span>
         <h4>Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?</h4>
@@ -2361,7 +2368,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- 2014 Papers -->
 <div class="publication-item">
-    <img src="images/13thPaper.png" alt="Is Really NACK Protocol Secure to Be Employed in MANETs?" class="publication-thumbnail">
+    <img loading="lazy" src="images/13thPaper.png" alt="Is Really NACK Protocol Secure to Be Employed in MANETs?" class="publication-thumbnail">
     <div class="publication-details">
         <span class="publication-badge">CSE '14</span>
         <h4>Is Really NACK Protocol Secure to Be Employed in MANETs?</h4>
@@ -2393,7 +2400,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="team-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
                 <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
                     <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                        <img src="images/ALI.jpg" alt="Ali Neshati" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img loading="lazy" src="images/ALI.jpg" alt="Ali Neshati" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <h4 style="font-size: 1.5rem; color: #F4D03F;">Ali Neshati</h4>
                     <p>Assistant Professor<br>Faculty of Science<br>Ontario Tech University</p>
@@ -2418,7 +2425,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Card for Mohammad Zawad -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/zawad1.jpeg" alt="Mohammad Zawad" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/zawad1.jpeg" alt="Mohammad Zawad" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Mohammad Zawad</h4>
             <span style="display: inline-block; background: #059669; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Master's</span>
@@ -2431,7 +2438,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Card for Farnaz Mirnezami -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Farnaz.jpg" alt="Farnaz Mirnezami" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Farnaz.jpg" alt="Farnaz Mirnezami" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Farnaz Mirnezami</h4>
             <span style="display: inline-block; background: #059669; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Master's</span>
@@ -2444,7 +2451,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Card for Sakil Sarker -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Sadbin.jpg" alt="Sakil Sarker" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Sadbin.jpg" alt="Sakil Sarker" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Sakil Sarker</h4>
             <span style="display: inline-block; background: #059669; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Master's</span>
@@ -2457,7 +2464,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Card for Aron-Seth Cohen -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/aron.png" alt="Aron-Seth Cohen" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/aron.png" alt="Aron-Seth Cohen" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Aron-Seth Cohen</h4>
             <span style="display: inline-block; background: #059669; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Master's</span>
@@ -2470,7 +2477,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Card for Yasaman Akhoondzadeh -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/yasaman.png" alt="Yasaman Akhoondzadeh" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/yasaman.png" alt="Yasaman Akhoondzadeh" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Yasaman Akhoondzadeh</h4>
             <span style="display: inline-block; background: #059669; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Master's</span>
@@ -2506,7 +2513,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Sevara Omonova -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/sevara.jpg" alt="Sevara Omonova" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/sevara.jpg" alt="Sevara Omonova" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Sevara Omonova</h4>
             <p style="font-size: 0.9rem; color: #BBB; margin-bottom: 5px;">(2026 - 2027)</p>
@@ -2518,7 +2525,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Jugal Patel -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/jugal.jpg" alt="Jugal Patel" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/jugal.jpg" alt="Jugal Patel" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Jugal Patel</h4>
             <p style="font-size: 0.9rem; color: #BBB; margin-bottom: 5px;">(2026 - 2027)</p>
@@ -2557,7 +2564,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Alyesha Singh (2025 - 2026) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Alyesha.jpg" alt="Alyesha Singh" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Alyesha.jpg" alt="Alyesha Singh" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Alyesha Singh</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2570,7 +2577,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Rania Rejdal (2025 - 2026) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Rania.jpg" alt="Rania Rejdal" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Rania.jpg" alt="Rania Rejdal" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Rania Rejdal</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2594,7 +2601,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Kershan Arulneswaran (2025 - 2026) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Kershan.jpg" alt="Kershan Arulneswaran" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Kershan.jpg" alt="Kershan Arulneswaran" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Kershan Arulneswaran</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2606,7 +2613,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Neel Shah (2024 - 2025) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Headshot-NeelShah.jpg" alt="Neel Shah" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Headshot-NeelShah.jpg" alt="Neel Shah" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Neel Shah</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2618,7 +2625,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Aiju Kinoshita (2024 - 2025) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/aiju.jpg" alt="Aiju Kinoshita" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/aiju.jpg" alt="Aiju Kinoshita" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Aiju Kinoshita</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2630,7 +2637,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Farees Siddiqui (2024) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Farees Siddiqui_Undergrad.jpg" alt="Farees Siddiqui" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Farees Siddiqui_Undergrad.jpg" alt="Farees Siddiqui" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Farees Siddiqui</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2642,7 +2649,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Nicholas Kissoon (2024) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/nicholas.jpg" alt="Nicholas Kissoon" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/nicholas.jpg" alt="Nicholas Kissoon" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Nicholas Kissoon</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2654,7 +2661,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- David Long (2024) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/David.jpg" alt="David Long" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/David.jpg" alt="David Long" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">David Long</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2666,7 +2673,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Syed Mekael Wasti (2023 - 2024) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/mekael.jpg" alt="Syed Mekael Wasti" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/mekael.jpg" alt="Syed Mekael Wasti" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Syed Mekael Wasti</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2679,7 +2686,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Reese Dominguez (2023 - 2024) -->
         <div class="team-card" style="background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto;">
             <div class="image-container" style="overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px;">
-                <img src="images/Reese.jpg" alt="Reese Dominguez" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="images/Reese.jpg" alt="Reese Dominguez" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h4 style="font-size: 1.5rem; color: #F4D03F;">Reese Dominguez</h4>
             <span style="display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px;">Undergraduate</span>
@@ -2722,7 +2729,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="course-block">
                 <div class="course-header">
                     <h3>Ontario Tech University</h3>
-                    <img src="images/ouit.png" alt="Ontario Tech University Logo">
+                    <img loading="lazy" src="images/ouit.png" alt="Ontario Tech University Logo">
                 </div>
 
                 <ul class="details-list">
@@ -2741,7 +2748,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="course-block">
                 <div class="course-header">
                     <h3>University of Waterloo</h3>
-                    <img src="images/waterloo.jpg" alt="University of Waterloo Logo">
+                    <img loading="lazy" src="images/waterloo.jpg" alt="University of Waterloo Logo">
                 </div>
 
                 <ul class="details-list">
@@ -2754,7 +2761,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="course-block">
                 <div class="course-header">
                     <h3>University of Manitoba</h3>
-                    <img src="images/manitoba.png" alt="University of Manitoba Logo">
+                    <img loading="lazy" src="images/manitoba.png" alt="University of Manitoba Logo">
                 </div>
 
                 <ul class="details-list">
@@ -3075,6 +3082,23 @@ window.toggleMobileMenu = function() {
         });
     });
 })();
+</script>
+
+<script>
+    // Play the hero video only while its carousel slide is visible (saves 21MB on initial load)
+    document.addEventListener('DOMContentLoaded', function() {
+        var carousel = document.getElementById('heroCarousel');
+        var video = document.getElementById('heroVideo');
+        if (!carousel || !video) return;
+        carousel.addEventListener('slid.bs.carousel', function() {
+            var activeItem = carousel.querySelector('.carousel-item.active');
+            if (activeItem && activeItem.contains(video)) {
+                video.play().catch(function() {});
+            } else {
+                video.pause();
+            }
+        });
+    });
 </script>
 
 <!-- Subtle scroll-reveal animation (respects prefers-reduced-motion) -->
