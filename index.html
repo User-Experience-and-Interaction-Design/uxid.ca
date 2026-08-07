@@ -1305,6 +1305,68 @@
     </div>
 </section>
 
+<!-- Lab at a Glance Stats -->
+<section id="lab-stats" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 36px 0; color: #ECECEC;">
+    <div class="container" style="max-width: 1000px; margin: auto;">
+        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: center;">
+            <div class="stat-tile" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 22px 12px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <i class="fas fa-book-open" style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 10px;"></i>
+                <div class="stat-number" data-target="31" style="font-size: 2.4rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif; line-height: 1.1;">31</div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #ECECEC; margin-top: 6px;">Publications</div>
+            </div>
+            <div class="stat-tile" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 22px 12px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <i class="fas fa-star" style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 10px;"></i>
+                <div class="stat-number" data-target="8" style="font-size: 2.4rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif; line-height: 1.1;">8</div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #ECECEC; margin-top: 6px;">Papers at ACM CHI</div>
+            </div>
+            <div class="stat-tile" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 22px 12px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <i class="fas fa-trophy" style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 10px;"></i>
+                <div class="stat-number" data-target="3" style="font-size: 2.4rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif; line-height: 1.1;">3</div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #ECECEC; margin-top: 6px;">Best Thesis Awards</div>
+            </div>
+            <div class="stat-tile" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 22px 12px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <i class="fas fa-user-graduate" style="font-size: 1.4rem; color: #F4D03F; margin-bottom: 10px;"></i>
+                <div class="stat-number" data-target="20" data-suffix="+" style="font-size: 2.4rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif; line-height: 1.1;">20+</div>
+                <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #ECECEC; margin-top: 6px;">Students Mentored</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (max-width: 768px) {
+        #lab-stats .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+</style>
+
+<script>
+    // Count-up animation for lab stats (respects reduced motion)
+    document.addEventListener('DOMContentLoaded', function() {
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced || !('IntersectionObserver' in window)) return;
+        var counters = document.querySelectorAll('#lab-stats .stat-number');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                observer.unobserve(el);
+                var target = parseInt(el.getAttribute('data-target'), 10);
+                var suffix = el.getAttribute('data-suffix') || '';
+                var duration = 900;
+                var start = null;
+                function step(ts) {
+                    if (!start) start = ts;
+                    var progress = Math.min((ts - start) / duration, 1);
+                    el.textContent = Math.round(progress * target) + (progress === 1 ? suffix : '');
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            });
+        }, { threshold: 0.4 });
+        counters.forEach(function(c) { observer.observe(c); });
+    });
+</script>
+
 <!-- Responsive Styles -->
 <style>
     /* Responsive Styles for Full Width Hero */
@@ -1380,6 +1442,7 @@ function toggleDescription2() {
             <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
                 <i class="fas fa-graduation-cap" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
                 <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    <span class="news-date-chip">Aug 2026</span><span class="news-new-badge">New</span>
                     Congratulations to <strong>Sakil Sarker</strong> on successfully defending his MSc thesis &mdash; the first graduate student from the UXID Lab to complete his degree! His thesis has been nominated for the <strong>Best Thesis Award</strong>.
                 </span>
             </li>
@@ -1387,6 +1450,7 @@ function toggleDescription2() {
             <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
                 <i class="fas fa-check-circle" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
                 <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    <span class="news-date-chip">Jul 2026</span>
                     Congratulations to <strong>Sakil Sarker</strong>! Our paper <strong>"CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading"</strong> has been accepted at <strong><a href="https://icmi.acm.org/2026/" target="_blank" style="color: #F4D03F; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#F4D03F'">ICMI 2026</a></strong> in Italy.
                 </span>
             </li>
@@ -1394,6 +1458,7 @@ function toggleDescription2() {
             <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
                 <i class="fas fa-microphone" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
                 <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    <span class="news-date-chip">Jun 2026</span>
                     Shimon presented our paper <strong>"Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction"</strong> at <strong>GI '26</strong> in Waterloo, Ontario.
                 </span>
             </li>
@@ -1401,6 +1466,7 @@ function toggleDescription2() {
             <li style="margin-bottom: 15px; position: relative; padding-left: 20px;">
                 <i class="fas fa-trophy" style="position: absolute; left: 0; top: 5px; color: #F4D03F;"></i>
                 <span style="font-size: 1.15rem; line-height: 1.6; color: #ECECEC;">
+                    <span class="news-date-chip">Apr 2026</span>
                     For the third year in a row, a UXID Lab student has received the <strong>Best Undergraduate Thesis Award</strong>.<br>Congratulations to Alyesha Singh, Kershan Arulneswaran, Rania Rejdal, and Alex Lowe on successfully defending their theses.
                 </span>
             </li>
@@ -1408,6 +1474,57 @@ function toggleDescription2() {
         </ul>
     </div>
 </section>
+
+<style>
+    .news-date-chip {
+        display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F;
+        border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px;
+        font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+        padding: 2px 10px; margin-right: 8px; vertical-align: 2px; white-space: nowrap;
+    }
+    .news-new-badge {
+        display: inline-block; background: #F4D03F; color: #1F2937; border-radius: 20px;
+        font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+        padding: 2px 10px; margin-right: 8px; vertical-align: 2px;
+    }
+</style>
+
+<!-- Awards & Honours Section -->
+<section id="awards" class="section-container" style="background: linear-gradient(135deg, #1D3557, #2C3E50); padding: 40px 0; color: #ECECEC;">
+    <div class="container" style="max-width: 1000px; margin: auto;">
+        <h2 class="section-title" style="margin-bottom: 30px;">Awards &amp; Honours</h2>
+        <div class="awards-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+
+            <div class="award-card" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 24px 20px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-align: center;">
+                <i class="fas fa-graduation-cap" style="font-size: 2rem; color: #F4D03F; margin-bottom: 12px;"></i>
+                <div style="display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content;">2026</div>
+                <h3 style="font-size: 1.1rem; color: #FDFDFD; font-weight: 700; margin-bottom: 8px; line-height: 1.4;">First MSc Thesis Defended</h3>
+                <p style="font-size: 0.95rem; color: #C9D2DB; line-height: 1.55; margin: 0;"><strong style="color: #F4D03F;">Sakil Sarker</strong> &mdash; nominated for the Best Thesis Award</p>
+            </div>
+
+            <div class="award-card" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 24px 20px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-align: center;">
+                <i class="fas fa-trophy" style="font-size: 2rem; color: #F4D03F; margin-bottom: 12px;"></i>
+                <div style="display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content;">2026</div>
+                <h3 style="font-size: 1.1rem; color: #FDFDFD; font-weight: 700; margin-bottom: 8px; line-height: 1.4;">Best Undergraduate Thesis Award</h3>
+                <p style="font-size: 0.95rem; color: #C9D2DB; line-height: 1.55; margin: 0;"><strong style="color: #F4D03F;">Alyesha Singh</strong> &mdash; Ontario Tech University, Computer Science</p>
+            </div>
+
+            <div class="award-card" style="background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 24px 20px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-align: center;">
+                <i class="fas fa-medal" style="font-size: 2rem; color: #F4D03F; margin-bottom: 12px;"></i>
+                <div style="display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content;">2024 &ndash; 2026</div>
+                <h3 style="font-size: 1.1rem; color: #FDFDFD; font-weight: 700; margin-bottom: 8px; line-height: 1.4;">Three Years in a Row</h3>
+                <p style="font-size: 0.95rem; color: #C9D2DB; line-height: 1.55; margin: 0;">A UXID Lab student has won the <strong style="color: #F4D03F;">Best Undergraduate Thesis Award</strong> every year since 2024</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (max-width: 768px) {
+        #awards .awards-grid { grid-template-columns: 1fr !important; }
+    }
+</style>
 
 <section id="research" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 15px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto;">
@@ -2861,7 +2978,9 @@ window.toggleMobileMenu = function() {
     var sectionNames = {
         'hero-carousel-section': 'Home',
         'hero-text-section': 'About',
+        'lab-stats': 'At a Glance',
         'recent-news': 'News',
+        'awards': 'Awards',
         'research': 'Open Posting',
         'important-dates': 'Events',
         'publications': 'Publications',
