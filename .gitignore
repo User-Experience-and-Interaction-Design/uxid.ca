@@ -1,3 +1,14 @@
-node_modules
-.cache/
+# OS
 .DS_Store
+.cache/
+
+# Dependencies
+node_modules
+
+# Local backups / scratch (never deploy these)
+*.bak
+*.bak.html
+*.orig.*
+index_backup.html
+index.pre-*.html
+_archive/

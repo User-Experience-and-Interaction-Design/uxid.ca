@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>UXID Lab news</title>
+    <link>https://uxid.ca/</link>
+    <description>News from the UXID Lab (User Experience and Interaction Design) at Ontario Tech University.</description>
+    <language>en-ca</language>
+    <atom:link href="https://uxid.ca/feed.xml" rel="self" type="application/rss+xml" />
+
+    <!-- Add a new <item> at the top each time you add a news entry to index.html.
+         Keep <guid> identical to the news item's permalink. -->
+
+    <item>
+      <title>Two poster papers accepted at UIST 2026</title>
+      <link>https://uxid.ca/#news-uist-2026-posters</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-uist-2026-posters</guid>
+      <pubDate>Tue, 01 Sep 2026 09:00:00 -0400</pubDate>
+      <description>CiteLen: In-Situ Multi-Lens Citation Analysis for Scholarly Reading, and CTATutor: From Instructor-Guided Computational Thinking Blueprints to Adaptive Algorithm Tutoring, were accepted as posters at UIST 2026 in Detroit. Congratulations to Yasaman and Zeyuan.</description>
+    </item>
+
+    <item>
+      <title>RIDGE accepted for oral presentation at IEEE CoG 2026</title>
+      <link>https://uxid.ca/#news-cog-2026-ridge</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-cog-2026-ridge</guid>
+      <pubDate>Tue, 01 Sep 2026 09:00:00 -0400</pubDate>
+      <description>RIDGE: State-Conditioned Reward Blending for Behavioral Coverage in Deep RL Game Agents was accepted for oral presentation at the IEEE Conference on Games 2026 in Madrid, Spain. Congratulations to Al Muqshith Mohammed Shifan and Kevin Christopher Chua.</description>
+    </item>
+
+    <item>
+      <title>Yasaman Basti defends her MSc thesis</title>
+      <link>https://uxid.ca/#news-yasaman-thesis-defence</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-yasaman-thesis-defence</guid>
+      <pubDate>Sat, 01 Aug 2026 09:00:00 -0400</pubDate>
+      <description>Yasaman Basti successfully defended her MSc thesis, CiteView: In-Situ Citation Sensemaking for Scholarly Reading, becoming the second graduate student from the UXID Lab to complete her degree this summer.</description>
+    </item>
+
+    <item>
+      <title>Sakil Sarker defends his MSc thesis</title>
+      <link>https://uxid.ca/#news-sakil-thesis-defence</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-sakil-thesis-defence</guid>
+      <pubDate>Sat, 01 Aug 2026 09:00:00 -0400</pubDate>
+      <description>Sakil Sarker successfully defended his MSc thesis, the first graduate student from the UXID Lab to complete his degree. His thesis has been nominated for the Best Thesis Award.</description>
+    </item>
+
+    <item>
+      <title>CoRead accepted at ICMI 2026</title>
+      <link>https://uxid.ca/#news-coread-icmi-2026</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-coread-icmi-2026</guid>
+      <pubDate>Wed, 01 Jul 2026 09:00:00 -0400</pubDate>
+      <description>CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading was accepted at ICMI 2026 in Italy.</description>
+    </item>
+
+    <item>
+      <title>Earable swipe gestures presented at Graphics Interface 2026</title>
+      <link>https://uxid.ca/#news-gi-2026-earable</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-gi-2026-earable</guid>
+      <pubDate>Mon, 01 Jun 2026 09:00:00 -0400</pubDate>
+      <description>Shimon presented Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction at Graphics Interface 2026 in Kitchener-Waterloo, Ontario.</description>
+    </item>
+
+    <item>
+      <title>Best Undergraduate Thesis Award for the third year running</title>
+      <link>https://uxid.ca/#news-undergrad-thesis-awards-2026</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-undergrad-thesis-awards-2026</guid>
+      <pubDate>Wed, 01 Apr 2026 09:00:00 -0400</pubDate>
+      <description>For the third year in a row a UXID Lab student has received the Best Undergraduate Thesis Award. Congratulations to Alyesha Singh, Kershan Arulneswaran, Rania Rejdal and Alex Lowe on successfully defending their theses.</description>
+    </item>
+
+  </channel>
+</rss>

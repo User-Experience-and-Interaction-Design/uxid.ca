@@ -21,9 +21,28 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      # Stage only the files that belong on the public site.
+      # Anything not copied here is never published.
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp index.html tools.html _site/
+          cp CNAME sitemap.xml robots.txt _site/
+          cp 404.html _site/
+          cp feed.xml _site/ 2>/dev/null || true
+          cp styles.css _site/ 2>/dev/null || true
+          cp main.js _site/ 2>/dev/null || true
+          cp phd-hci-opportunity.html masters-human-ai-interaction.html research-collaboration.html _site/ 2>/dev/null || true
+          cp -R images _site/images
+          echo "--- published files ---"
+          find _site -type f | sort
+          echo "--- total size ---"
+          du -sh _site
+
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

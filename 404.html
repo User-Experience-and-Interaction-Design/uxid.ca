@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found | UXID Lab</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#1D3557">
+    <link rel="icon" type="image/png" href="/images/uxid.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy:#1D3557; --slate:#2C3E50; --gold:#F4D03F; --text:#ECECEC; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--navy), var(--slate));
+            color: var(--text); font-family: 'Roboto', system-ui, sans-serif;
+            text-align: center; padding: 40px 16px;
+        }
+        img { width: 96px; height: auto; margin-bottom: 28px; }
+        .code { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(3rem, 12vw, 5.5rem);
+                color: var(--gold); line-height: 1; margin: 0 0 8px; }
+        h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.4rem, 5vw, 2rem);
+             margin: 0 0 16px; font-weight: 700; }
+        p { font-size: 1.05rem; line-height: 1.7; max-width: 46ch; margin: 0 auto 28px; color: #cfd8dc; }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        a.btn {
+            display: inline-block; padding: 12px 22px; border-radius: 999px;
+            text-decoration: none; font-weight: 700; transition: transform .2s ease, background .2s ease;
+        }
+        a.primary { background: var(--gold); color: #1F2937; }
+        a.secondary { border: 2px solid var(--gold); color: var(--gold); }
+        a.btn:hover { transform: translateY(-2px); }
+        a.btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+        @media (prefers-reduced-motion: reduce) { a.btn { transition: none; } a.btn:hover { transform: none; } }
+    </style>
+</head>
+<body>
+    <img src="/images/uxid.png" alt="UXID Lab">
+    <p class="code">404</p>
+    <h1>We couldn't find that page</h1>
+    <p>The link may be out of date, or the page may have moved. Everything about the lab lives on the main page.</p>
+    <div class="actions">
+        <a class="btn primary" href="/">Go to the UXID Lab home page</a>
+        <a class="btn secondary" href="/#publications">Browse publications</a>
+    </div>
+</body>
+</html>
