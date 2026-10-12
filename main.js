@@ -198,49 +198,95 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 })();
 
-// Publication Filter by Year
+// Publication filtering: year AND theme AND free-text search compose.
+// data-year / data-theme are now hard-coded on each item in the HTML, so the
+// list is self-describing and no longer parsed out of the badge text at runtime.
 (function() {
-    var items = document.querySelectorAll('.publication-item');
-    // Tag each item with a data-year based on badge text
-    items.forEach(function(item) {
-        var badge = item.querySelector('.publication-badge');
-        if (badge) {
-            var text = badge.textContent.trim();
-            var match = text.match(/'(\d{2})/);
-            if (match) {
-                var yr = parseInt(match[1]);
-                item.setAttribute('data-year', yr >= 50 ? '19' + yr : '20' + yr);
-            } else {
-                item.setAttribute('data-year', 'other');
-            }
-        }
-    });
+    var items   = [].slice.call(document.querySelectorAll('.publication-item'));
+    var search  = document.getElementById('pub-search');
+    var countEl = document.getElementById('pub-count');
+    var emptyEl = document.getElementById('pub-empty');
+    var state   = { year: 'all', theme: 'all', q: '' };
 
-    document.querySelectorAll('.pub-filter-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.pub-filter-btn').forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            var year = btn.getAttribute('data-year');
-            items.forEach(function(item) {
-                var itemYear = item.getAttribute('data-year');
-                if (year === 'all') {
-                    item.classList.remove('hidden');
-                } else if (year === 'older') {
-                    item.classList.toggle('hidden', parseInt(itemYear) >= 2018);
-                } else {
-                    item.classList.toggle('hidden', itemYear !== year);
-                }
+    function matches(item) {
+        var y = item.getAttribute('data-year') || '';
+        if (state.year === 'older') { if (parseInt(y, 10) >= 2018) return false; }
+        else if (state.year !== 'all' && y !== state.year) { return false; }
+
+        if (state.theme !== 'all') {
+            var themes = (item.getAttribute('data-theme') || '').split(/\s+/);
+            if (themes.indexOf(state.theme) === -1) return false;
+        }
+
+        if (state.q) {
+            if (item.textContent.toLowerCase().indexOf(state.q) === -1) return false;
+        }
+        return true;
+    }
+
+    function apply() {
+        var shown = 0;
+        items.forEach(function(item) {
+            var ok = matches(item);
+            item.classList.toggle('hidden', !ok);
+            if (ok) shown++;
+        });
+        if (countEl) {
+            countEl.textContent = (shown === items.length)
+                ? shown + ' publications'
+                : shown + ' of ' + items.length + ' publications';
+        }
+        if (emptyEl) emptyEl.hidden = shown !== 0;
+    }
+
+    function wire(selector, key) {
+        var group = [].slice.call(document.querySelectorAll(selector));
+        group.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                group.forEach(function(b) {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
+                state[key] = btn.getAttribute('data-' + key);
+                apply();
             });
         });
-    });
+    }
+    wire('.pub-filter-btn', 'year');
+    wire('.pub-theme-btn', 'theme');
+
+    if (search) {
+        var t;
+        search.addEventListener('input', function() {
+            clearTimeout(t);
+            t = setTimeout(function() { state.q = search.value.trim().toLowerCase(); apply(); }, 120);
+        });
+    }
+
+    // Deep links from the Research section: #publications?theme=wearable
+    window.filterPublicationsByTheme = function(theme) {
+        state.theme = theme;
+        [].slice.call(document.querySelectorAll('.pub-theme-btn')).forEach(function(b) {
+            var on = b.getAttribute('data-theme') === theme;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        apply();
+        var target = document.getElementById('publications');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    apply();
 })();
 
 // Lazy Loading for images below the fold
 document.addEventListener('DOMContentLoaded', function() {
     var imgs = document.querySelectorAll('img');
     imgs.forEach(function(img, i) {
-        // Skip hero carousel images (first section)
-        if (!img.closest('#hero-carousel-section')) {
+        // Skip the hero image, which must load eagerly
+        if (!img.closest('#hero')) {
             img.setAttribute('loading', 'lazy');
         }
     });
@@ -256,15 +302,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var indicator = document.getElementById('section-indicator');
     var indicatorText = document.getElementById('section-indicator-text');
     var sectionNames = {
-        'home': 'Home',
-        'hero-carousel-section': 'Home',
-        'hero-text-section': 'About',
+        'hero': 'Home',
+        'about': 'About',
         'lab-stats': 'At a Glance',
+        'research': 'Research',
+        'publications': 'Publications',
         'recent-news': 'News',
         'awards': 'Awards',
         'join': 'Join Us',
-        'important-dates': 'Events',
-        'publications': 'Publications',
+        'important-dates': 'Deadlines',
         'people': 'People',
         'teaching': 'Teaching',
         'footer': 'Contact'
@@ -372,28 +418,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 })();
 
-/* ---------- block 7 of 10 ---------- */
-    // Play the hero video only while its carousel slide is visible (saves 21MB on initial load)
-    document.addEventListener('DOMContentLoaded', function() {
-        var carousel = document.getElementById('heroCarousel');
-        var video = document.getElementById('heroVideo');
-        if (!carousel || !video) return;
-        carousel.addEventListener('slid.bs.carousel', function() {
-            var activeItem = carousel.querySelector('.carousel-item.active');
-            if (activeItem && activeItem.contains(video)) {
-                video.play().catch(function() {});
-            } else {
-                video.pause();
-            }
-        });
-    });
+/* ---------- block 7 ---------- */
+    // The hero carousel (and its 21 MB background video) was removed in favour of
+    // a static hero, so the play/pause controller that gated the video is gone too.
 
-/* ---------- block 8 of 10 ---------- */
+/* ---------- block 8: scroll reveal ---------- */
     document.addEventListener('DOMContentLoaded', function() {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if (!('IntersectionObserver' in window)) return;
         var targets = document.querySelectorAll(
-            '.section-title, .stat-tile, .award-card, .event-card, .publication-item, .team-card'
+            '.section-title, .stat-tile, .award-card, .event-card, .publication-item, .team-card, .research-card, .pub-feature'
         );
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
@@ -414,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-/* ---------- block 9 of 10 ---------- */
+/* ---------- block 9: email ---------- */
 // Build the mailto: at runtime. Humans get a working link; naive address
 // harvesters scraping the HTML source do not get a plain address.
 document.addEventListener('DOMContentLoaded', function () {
@@ -425,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/* ---------- block 10 of 10 ---------- */
+/* ---------- block 10: hash target correction ---------- */
 (function () {
     function scrollToHash() {
         if (!location.hash || location.hash === '#') { return; }
@@ -442,4 +476,102 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // and after every image has reserved/settled its box
     window.addEventListener('load', function () { requestAnimationFrame(scrollToHash); });
+})();
+
+
+/* ---------- Research theme counts ----------
+   Fill the "N papers" figure on each research card from the publication list,
+   so the counts cannot drift when a paper is added or retagged. */
+(function () {
+    var items = [].slice.call(document.querySelectorAll('.publication-item'));
+    [].slice.call(document.querySelectorAll('[data-count]')).forEach(function (el) {
+        var theme = el.getAttribute('data-count');
+        el.textContent = items.filter(function (item) {
+            return (item.getAttribute('data-theme') || '').split(/\s+/).indexOf(theme) !== -1;
+        }).length;
+    });
+})();
+
+/* ---------- Selected work strip ----------
+   Clone the items marked data-featured into a card strip at the top of the
+   Publications section. Built from the list rather than duplicated in the
+   markup, so a paper's title, venue, image and links only ever exist once. */
+(function () {
+    var wrap = document.getElementById('pub-featured');
+    if (!wrap) { return; }
+
+    var featured = [].slice.call(document.querySelectorAll('.publication-item[data-featured]'));
+    if (!featured.length) {
+        var container = wrap.closest('.pub-featured-wrap');
+        if (container) { container.hidden = true; }
+        return;
+    }
+
+    featured.forEach(function (item) {
+        var img    = item.querySelector('.publication-thumbnail');
+        var badge  = item.querySelector('.publication-badge');
+        var title  = item.querySelector('h4');
+        var award  = item.querySelector('.honorable-mention');
+        var teaser = item.getAttribute('data-teaser') || '';
+
+        var card = document.createElement('article');
+        card.className = 'pub-feature';
+
+        var media = document.createElement('a');
+        media.className = 'pub-feature__media';
+        media.href = '#' + item.id;
+        if (img) {
+            var clone = img.cloneNode(true);
+            clone.removeAttribute('class');
+            clone.alt = '';
+            clone.loading = 'lazy';
+            media.appendChild(clone);
+        }
+        if (badge) {
+            var pill = document.createElement('span');
+            pill.className = 'pub-feature__pill';
+            pill.textContent = badge.textContent.trim();
+            media.appendChild(pill);
+        }
+        if (award) {
+            var ribbon = document.createElement('span');
+            ribbon.className = 'pub-feature__award';
+            ribbon.textContent = 'Award';
+            media.appendChild(ribbon);
+        }
+        card.appendChild(media);
+
+        var body = document.createElement('div');
+        body.className = 'pub-feature__body';
+
+        var h = document.createElement('h4');
+        h.className = 'pub-feature__title';
+        var a = document.createElement('a');
+        a.href = '#' + item.id;
+        a.textContent = title ? title.textContent.trim() : '';
+        h.appendChild(a);
+        body.appendChild(h);
+
+        if (teaser) {
+            var p = document.createElement('p');
+            p.className = 'pub-feature__teaser';
+            p.textContent = teaser;
+            body.appendChild(p);
+        }
+
+        // Reuse the real links so they can never drift from the list entry.
+        var links = document.createElement('p');
+        links.className = 'pub-feature__links';
+        [].slice.call(item.querySelectorAll('.publication-links a')).forEach(function (src) {
+            var l = document.createElement('a');
+            l.href = src.getAttribute('href');
+            if (src.hasAttribute('target')) { l.target = src.getAttribute('target'); l.rel = 'noopener'; }
+            l.textContent = src.textContent.trim();
+            links.appendChild(l);
+        });
+        body.appendChild(links);
+
+        card.appendChild(body);
+        wrap.appendChild(card);
+    });
 })();

@@ -168,7 +168,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <!-- Google Fonts (single request instead of two) -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -176,13 +175,11 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Bootstrap (carousel only). In <head> so it no longer blocks mid-body parsing. -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap was loaded only for the hero carousel, which the static hero
+         replaced. Dropping it removes a render-blocking stylesheet and ~80 KB of JS. -->
 
-    <!-- Site stylesheet. MUST come after Bootstrap: Bootstrap also defines
-         .nav-link and body, and whichever loads last wins. Bump ?v= to bust caches. -->
-    <link rel="stylesheet" href="styles.css?v=2026-10-12b">
+    <!-- Site stylesheet. Bump ?v= to bust caches. -->
+    <link rel="stylesheet" href="styles.css?v=2026-10-12c">
 
     <!-- Privacy-friendly analytics.
          ACTION REQUIRED: create the site at https://plausible.io (or swap in a GA4 tag),
@@ -191,23 +188,12 @@
     -->
 
 
-
-
-
-
-
-
-
-
 <!-- Bootstrap Carousel CSS and JS (for automatic sliding) -->
 <!-- Bootstrap moved to <head> and deferred; it used to block parsing here. -->
 </head>
 <body>
 
     <a class="skip-link" href="#main">Skip to main content</a>
-
-    <!-- The page's single h1. Phase 3 replaces this with the visible hero headline. -->
-    <h1 class="visually-hidden">UXID Lab &mdash; User Experience &amp; Interaction Design, Ontario Tech University</h1>
 
     <header style="background-color: #1D3557; color: #F1FAEE; padding: 0; height: 65px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px;">
@@ -221,13 +207,11 @@
             <!-- Desktop Navigation (Visible on Large Screens) -->
             <nav class="desktop-nav" aria-label="Main">
                 <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#publications" class="nav-link">Research</a></li>
-                    <li><a href="#join" class="nav-link">Join Us</a></li>
-                    <li><a href="#recent-news" class="nav-link">News</a></li>
-                    <li><a href="#important-dates" class="nav-link">Events</a></li>
+                    <li><a href="#research" class="nav-link">Research</a></li>
                     <li><a href="#publications" class="nav-link">Publications</a></li>
+                    <li><a href="#recent-news" class="nav-link">News</a></li>
                     <li><a href="#people" class="nav-link">People</a></li>
+                    <li><a href="#join" class="nav-link">Join Us</a></li>
                     <li><a href="#teaching" class="nav-link">Teaching</a></li>
                     <li><a href="tools.html" class="nav-link">Tools</a></li>
                     <li><a href="#footer" class="nav-link">Contact</a></li>
@@ -242,13 +226,11 @@
         <!-- Mobile Navigation Menu -->
         <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
             <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#publications" class="nav-link">Research</a></li>
-                <li><a href="#join" class="nav-link">Join Us</a></li>
-                <li><a href="#recent-news" class="nav-link">News</a></li>
-                <li><a href="#important-dates" class="nav-link">Events</a></li>
+                <li><a href="#research" class="nav-link">Research</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
+                <li><a href="#recent-news" class="nav-link">News</a></li>
                 <li><a href="#people" class="nav-link">People</a></li>
+                <li><a href="#join" class="nav-link">Join Us</a></li>
                 <li><a href="#teaching" class="nav-link">Teaching</a></li>
                 <li><a href="tools.html" class="nav-link">Tools</a></li>
                 <li><a href="#footer" class="nav-link">Contact</a></li>
@@ -273,90 +255,83 @@
     <main id="main">
 
 
-
-
 <!-- Hero Section -->
 <!-- Hero Carousel Section (Teaser) -->
+<!-- =====================================================================
+     Hero. Replaces the auto-advancing news carousel: a lab site's first
+     screen should say what the lab does, not cycle congratulations.
+     The four news slides that used to live here are now the Highlights row
+     in the News section, where they belong.
+     ================================================================== -->
 <span id="home" aria-hidden="true" style="display:block;height:0;overflow:hidden;"></span>
-<section id="hero-carousel-section" style="width: 100%; overflow: hidden; position: relative; background: #000;">
-    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" style="width: 100%; height: 100%;">
-        <div class="carousel-inner" style="width: 100%; height: 100%;">
+<section id="hero" class="hero">
+    <picture class="hero__bg">
+        <img src="images/Profile.webp" alt="" width="1800" height="1172" fetchpriority="high" decoding="async">
+    </picture>
 
-            <div class="carousel-item active" style="height: 100%; position: relative;">
-                <img src="images/ridge_cog_presentation.webp" class="d-block w-100" alt="RIDGE presented at IEEE CoG 2026 in Madrid, Spain" style="height: 100%; object-fit: cover; object-position: center 30%;" width="1920" height="1080" fetchpriority="high" decoding="async">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 40px 40px 28px;">
-                    <p style="color: #fff; font-size: 1.3rem; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">
-                        <i class="fas fa-gamepad" style="margin-right: 8px; color: #FFD700;"></i>RIDGE Presented at IEEE CoG 2026 &mdash; Madrid, Spain
-                    </p>
-                    <p style="color: #fff; font-size: 2rem; font-weight: 700; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">Congratulations, Al Muqshith Mohammed Shifan!</p>
-                </div>
-            </div>
+    <div class="hero__inner container">
+        <p class="hero__eyebrow">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+            Now recruiting MSc &amp; PhD students &mdash; Winter 2027 / Fall 2027
+        </p>
 
-            <div class="carousel-item" style="height: 100%; position: relative;">
-                <img src="images/yasaman_thesis_defence.webp" class="d-block w-100" alt="Yasaman Basti MSc Thesis Defence" style="height: 100%; object-fit: cover; object-position: center 40%;" width="1920" height="1043" loading="lazy" decoding="async">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 40px 40px 28px;">
-                    <p style="color: #fff; font-size: 1.3rem; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">
-                        <i class="fas fa-graduation-cap" style="margin-right: 8px; color: #FFD700;"></i>MSc Thesis Defended &mdash; Second UXID Lab Graduate
-                    </p>
-                    <p style="color: #fff; font-size: 2rem; font-weight: 700; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">Congratulations, Yasaman Basti!</p>
-                </div>
-            </div>
+        <h1 class="hero__title">Human-centred interaction for small screens, wearables and AI.</h1>
 
-            <div class="carousel-item" style="height: 100%; position: relative;">
-                <img src="images/sakil_thesis_defence.webp" class="d-block w-100" alt="Sakil Sarker MSc Thesis Defence" style="height: 100%; object-fit: cover; object-position: center 30%;" width="1920" height="1440" loading="lazy" decoding="async">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 40px 40px 28px;">
-                    <p style="color: #fff; font-size: 1.3rem; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">
-                        <i class="fas fa-graduation-cap" style="margin-right: 8px; color: #FFD700;"></i>MSc Thesis Defended &mdash; Nominated for Best Thesis Award
-                    </p>
-                    <p style="color: #fff; font-size: 2rem; font-weight: 700; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">Congratulations, Sakil Sarker!</p>
-                </div>
-            </div>
+        <p class="hero__sub">
+            The UXID Lab is a Human-Computer Interaction research group in the Faculty of
+            Science at Ontario Tech University, led by Dr.&nbsp;Ali Neshati.
+        </p>
 
-            <div class="carousel-item" style="height: 100%; position: relative;">
-                <img src="images/alyesha_award.webp" class="d-block w-100" alt="Alyesha Singh - Best Undergraduate Thesis Award" style="height: 100%; object-fit: cover; object-position: center 30%;" width="1920" height="1440" loading="lazy" decoding="async">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 40px 40px 28px;">
-                    <p style="color: #fff; font-size: 1.3rem; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">
-                        <i class="fas fa-trophy" style="margin-right: 8px; color: #FFD700;"></i>Best Undergraduate Thesis Award 2026
-                    </p>
-                    <p style="color: #fff; font-size: 2rem; font-weight: 700; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);">Congratulations, Alyesha Singh!</p>
-                </div>
-            </div>
-
-            <div class="carousel-item" style="height: 100%;">
-                <img src="images/swipesense_teaser_poster_final_wide.webp" class="d-block w-100" alt="SwipeSense MobileHCI 2025 accepted paper" style="height: 100%; object-fit: cover; object-position: top;" width="1138" height="640" loading="lazy" decoding="async">
-            </div>
-
-            <div class="carousel-item" style="height: 100%;">
-                <img src="images/Profile.webp" class="d-block w-100" alt="UXID Lab group photo" style="height: 100%; object-fit: cover; object-position: top;" width="1920" height="1251" loading="lazy" decoding="async">
-            </div>
-
-            <div class="carousel-item" style="height: 100%;">
-                <video id="heroVideo" class="d-block w-100" muted loop playsinline preload="none" poster="images/main_poster.webp" width="1600" height="900" style="height: 100%; object-fit: cover; object-position: top;">
-                    <source src="images/main.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous highlight</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next highlight</span>
-        </button>
+        <p class="hero__cta">
+            <a class="btn btn--primary" href="#research">Explore our research</a>
+            <a class="btn btn--secondary" href="#join">Join the lab</a>
+            <a class="btn btn--ghost" href="#publications">Recent publications <span aria-hidden="true">&rarr;</span></a>
+        </p>
     </div>
 </section>
 
 <!-- Hero Text Section -->
-<section id="hero-text-section" style="padding: 30px 20px; background: linear-gradient(135deg, #1D3557, #2C3E50); color: #F1FAEE; text-align: center;">
-    <div class="container" style="max-width: 1000px; margin: auto;">
-        <h2 style="font-size: 3rem; color: #F4D03F; font-family: 'Playfair Display', serif; margin-bottom: 25px; font-weight: 700; text-transform: uppercase !important;">Welcome to the UXID Lab</h2>
-        <p id="description" style="font-size: 1.25rem; line-height: 1.8; color: #ECECEC; margin-bottom: 20px;">
-            I am an <strong>Assistant Professor in Computer Science</strong> at Ontario Tech University, where I lead the <strong>UXID Lab (User Experience and Interaction Design)</strong>. I earned my PhD from the University of Manitoba under the supervision of Dr. Pourang Irani and completed a postdoctoral fellowship at the University of Waterloo with Dr. Daniel Vogel and Dr. Jian Zhao. My research focuses on designing and evaluating digital and intelligent systems that better support human capabilities, decision-making, usability, and accessibility across diverse technological contexts.
-            <br><br>
-            My research spans <strong>Human-Computer Interaction (HCI)</strong> and <strong>Human-AI Interaction</strong>, with an emphasis on <strong>mobile, wearable, and emerging technologies</strong>. I study user needs and interaction constraints, and design novel <strong>interaction techniques</strong> and <strong>AI-assisted systems</strong> that enhance human performance and support effective, trustworthy integration of AI into everyday computing.
+<!-- =====================================================================
+     About. Rewritten in the lab's voice (third person). A visitor landing
+     here is usually a prospective student, a collaborator or a journalist,
+     and they are looking for what the group does, not a CV paragraph.
+     Dr. Neshati's own background follows as a short Director note.
+     ================================================================== -->
+<section id="about" class="section-container about-section">
+    <div class="container about-container">
+        <h2 class="section-title">About the lab</h2>
+
+        <p class="about-lead">
+            The UXID Lab designs and evaluates the ways people interact with devices
+            that have very little room for interaction: smartwatches, earbuds, phones
+            used one-handed, and increasingly the AI systems layered on top of them.
         </p>
+
+        <p class="about-body">
+            We build new interaction techniques and AI-assisted tools, then test them with
+            people to find out whether they actually help. That work runs from low-level
+            input sensing &mdash; gestures around the ear, swipes on the back of a phone,
+            occlusion-free control of a watch face &mdash; up to systems that read
+            behavioural signals to decide when an AI should offer help and when it should
+            stay quiet. Accessibility runs through all of it: several projects focus on
+            older adults and people with reduced hand mobility.
+        </p>
+
+        <p class="about-body">
+            The lab publishes at ACM CHI, UIST, IMWUT, MobileHCI, ICMI and Graphics
+            Interface, and students here have taken the Best Undergraduate Thesis Award
+            three years running.
+        </p>
+
+        <div class="about-director">
+            <h3>Director</h3>
+            <p>
+                <strong>Dr. Ali Neshati</strong> is an Assistant Professor in Computer Science
+                at Ontario Tech University. He completed his PhD at the University of Manitoba
+                with Dr.&nbsp;Pourang Irani and a postdoctoral fellowship at the University of
+                Waterloo with Dr.&nbsp;Daniel Vogel and Dr.&nbsp;Jian Zhao.
+            </p>
+        </div>
     </div>
 </section>
 
@@ -391,18 +366,720 @@
 </section>
 
 
-
 <!-- Responsive Styles -->
 
 
-
-
-
-
-
-
-
 <!-- Recent News Section -->
+<!-- =====================================================================
+     Research themes. Each card deep-links into the Publications list with
+     that theme pre-selected (see filterPublicationsByTheme in main.js).
+     The "N papers" counts are filled in at runtime from data-theme, so they
+     stay correct when a paper is added.
+     ================================================================== -->
+<section id="research" class="section-container research-section">
+    <div class="container">
+        <h2 class="section-title">Research</h2>
+        <p class="section-lede">
+            We design and evaluate interaction techniques and AI-assisted systems for
+            devices where attention, screen space and input are all in short supply.
+            Our work spans five connected threads.
+        </p>
+
+        <div class="research-grid">
+            <article class="research-card" data-theme-card="smallscreen">
+                <div class="research-card__media">
+                    <img loading="lazy" src="images/3rdPaper.webp" alt="" width="760" height="217">
+                </div>
+                <div class="research-card__body">
+                    <h3>Smartwatch &amp; small-screen visualization</h3>
+                    <p>Glanceable charts and occlusion-free input for displays you read in a second, on the wrist.</p>
+                    <button type="button" class="research-card__link" onclick="window.filterPublicationsByTheme('smallscreen')">
+                        <span data-count="smallscreen"></span> papers <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="research-card" data-theme-card="wearable">
+                <div class="research-card__media">
+                    <img loading="lazy" src="images/2024_2.webp" alt="" width="760" height="360">
+                </div>
+                <div class="research-card__body">
+                    <h3>Earables, wearables &amp; mobile sensing</h3>
+                    <p>Off-device, one-handed and socially acceptable input using the sensors a device already has.</p>
+                    <button type="button" class="research-card__link" onclick="window.filterPublicationsByTheme('wearable')">
+                        <span data-count="wearable"></span> papers <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="research-card" data-theme-card="humanai">
+                <div class="research-card__media">
+                    <img loading="lazy" src="images/citelen.webp" alt="" width="760" height="391">
+                </div>
+                <div class="research-card__body">
+                    <h3>Human&ndash;AI interaction &amp; scholarly reading</h3>
+                    <p>AI that supports reading, tutoring and collaboration by responding to what people actually do.</p>
+                    <button type="button" class="research-card__link" onclick="window.filterPublicationsByTheme('humanai')">
+                        <span data-count="humanai"></span> papers <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="research-card" data-theme-card="creative">
+                <div class="research-card__media">
+                    <img loading="lazy" src="images/2023_2.webp" alt="" width="760" height="253">
+                </div>
+                <div class="research-card__body">
+                    <h3>AI-assisted creativity tools</h3>
+                    <p>Mixed-initiative tools for colour, graphic design and turning analysis into presentable work.</p>
+                    <button type="button" class="research-card__link" onclick="window.filterPublicationsByTheme('creative')">
+                        <span data-count="creative"></span> papers <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="research-card" data-theme-card="gesture">
+                <div class="research-card__media">
+                    <img loading="lazy" src="images/2023_1.webp" alt="" width="585" height="358">
+                </div>
+                <div class="research-card__body">
+                    <h3>Gesture, spatial &amp; accessible interaction</h3>
+                    <p>Midair and touch input in cars, living rooms and smart homes, including users with reduced hand mobility.</p>
+                    <button type="button" class="research-card__link" onclick="window.filterPublicationsByTheme('gesture')">
+                        <span data-count="gesture"></span> papers <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+
+<!-- Publications Section -->
+<section id="publications">
+    <div class="container">
+        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
+
+        <!-- Publication Filter Buttons -->
+        <!-- Selected work. Built at load time from the items below that carry
+             data-featured, so there is one copy of each paper's data and the
+             full list still renders if JS fails. -->
+        <div class="pub-featured-wrap">
+            <h3 class="pub-featured-heading">Selected work</h3>
+            <div id="pub-featured" class="pub-featured"></div>
+        </div>
+
+        <!-- Links out to the canonical profiles. Scholar is where most people
+             land first, so make it easy to get there. -->
+        <p class="pub-profile-links">
+            Full list and citation counts on
+            <a href="https://scholar.google.ca/citations?user=XxA76vEAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.
+        </p>
+
+        <div class="pub-controls">
+            <div class="pub-filter-row" role="group" aria-label="Filter publications by research theme">
+                <span class="pub-filter-label">Theme</span>
+                <button class="pub-theme-btn active" data-theme="all" aria-pressed="true">All</button>
+                <button class="pub-theme-btn" data-theme="smallscreen" aria-pressed="false">Small screens</button>
+                <button class="pub-theme-btn" data-theme="wearable" aria-pressed="false">Wearables &amp; earables</button>
+                <button class="pub-theme-btn" data-theme="humanai" aria-pressed="false">Human&ndash;AI</button>
+                <button class="pub-theme-btn" data-theme="creative" aria-pressed="false">Creativity tools</button>
+                <button class="pub-theme-btn" data-theme="gesture" aria-pressed="false">Gesture &amp; access</button>
+            </div>
+
+            <div class="pub-filter-row" id="pub-filters" role="group" aria-label="Filter publications by year">
+                <span class="pub-filter-label">Year</span>
+                <button class="pub-filter-btn active" data-year="all" aria-pressed="true">All</button>
+                <button class="pub-filter-btn" data-year="2026" aria-pressed="false">2026</button>
+                <button class="pub-filter-btn" data-year="2025" aria-pressed="false">2025</button>
+                <button class="pub-filter-btn" data-year="2024" aria-pressed="false">2024</button>
+                <button class="pub-filter-btn" data-year="2023" aria-pressed="false">2023</button>
+                <button class="pub-filter-btn" data-year="2022" aria-pressed="false">2022</button>
+                <button class="pub-filter-btn" data-year="2021" aria-pressed="false">2021</button>
+                <button class="pub-filter-btn" data-year="2020" aria-pressed="false">2020</button>
+                <button class="pub-filter-btn" data-year="2019" aria-pressed="false">2019</button>
+                <button class="pub-filter-btn" data-year="2018" aria-pressed="false">2018</button>
+                <button class="pub-filter-btn" data-year="older" aria-pressed="false">Older</button>
+            </div>
+
+            <div class="pub-search-row">
+                <label class="visually-hidden" for="pub-search">Search publications by title, author or venue</label>
+                <input type="search" id="pub-search" class="pub-search"
+                       placeholder="Search title, author or venue&hellip;" autocomplete="off">
+                <span id="pub-count" class="pub-count" aria-live="polite">30 publications</span>
+            </div>
+        </div>
+
+        <p id="pub-empty" class="pub-empty" hidden>No publications match these filters. <button type="button" class="pub-reset" onclick="document.getElementById('pub-search').value='';window.filterPublicationsByTheme('all');document.querySelector('.pub-filter-btn[data-year=&quot;all&quot;]').click();">Clear filters</button></p>
+
+
+<!-- 2026 Papers -->
+
+        <div class="publication-item" data-year="2026" data-theme="humanai" id="pub-citelen-in-situ-multi-lens-citation-anal">
+            <img loading="lazy" src="images/citelen.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #0d0d10;" width="760" height="391">
+            <div class="publication-details">
+                <span class="publication-badge">UIST '26</span>
+                <h4>CiteLen: In-Situ Multi-Lens Citation Analysis for Scholarly Reading</h4>
+                <div class="publication-authors">Yasaman Akhoundzadeh Basti, Zeyuan Sun, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">Adjunct Proceedings of the 39th Annual ACM Symposium on User Interface Software and Technology (UIST '26), Posters<br>Detroit, Michigan, USA</span>
+                <div class="publication-links">
+                    <a href="https://uist.acm.org/2026/" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-up-right-from-square"></i> Conference page
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2026" data-theme="humanai" id="pub-ctatutor-from-instructor-guided-computat">
+            <img loading="lazy" src="images/ctatutor.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #fff;" width="760" height="337">
+            <div class="publication-details">
+                <span class="publication-badge">UIST '26</span>
+                <h4>CTATutor: From Instructor-Guided Computational Thinking Blueprints to Adaptive Algorithm Tutoring</h4>
+                <div class="publication-authors">Zeyuan Sun, <strong>Ali Neshati</strong>, Heidar Davoudi</div>
+                <span class="publication-venue">Adjunct Proceedings of the 39th Annual ACM Symposium on User Interface Software and Technology (UIST '26), Posters<br>Detroit, Michigan, USA</span>
+                <div class="publication-links">
+                    <a href="https://uist.acm.org/2026/" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-up-right-from-square"></i> Conference page
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2026" data-theme="humanai" id="pub-ridge-state-conditioned-reward-blending">
+            <img loading="lazy" src="images/ridge.webp" alt="" class="publication-thumbnail" width="760" height="428">
+            <div class="publication-details">
+                <span class="publication-badge">CoG '26</span>
+                <h4>RIDGE: State-Conditioned Reward Blending for Behavioral Coverage in Deep RL Game Agents</h4>
+                <div class="publication-authors">Al Muqshith Mohammed Shifan, Kevin Christopher Chua, <strong>Ali Neshati</strong>, Loutfouz Zaman, Cristiano Politowski</div>
+                <span class="publication-venue">Proceedings of the IEEE Conference on Games (CoG '26), Oral Presentation<br>September 1&ndash;4, 2026, Madrid, Spain</span>
+                <div class="publication-links">
+                    <a href="https://cog2026.org/acceptedpapers" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-up-right-from-square"></i> Conference page
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2026" data-theme="humanai" id="pub-coread-using-implicit-behavioural-signal" data-featured="1" data-teaser="Implicit reading signals decide when AI should step into a group reading session.">
+            <img loading="lazy" src="images/coread.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #fff;" width="760" height="308">
+            <div class="publication-details">
+                <span class="publication-badge">ICMI '26</span>
+                <h4>CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading</h4>
+                <div class="publication-authors">Sakil Sarker, Yasaman Akhoundzadeh Basti, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">Proceedings of the 28th ACM International Conference on Multimodal Interaction (ICMI '26)<br>Naples, Italy</span>
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3776574.3831179" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2026" data-theme="wearable" id="pub-exploring-above-neck-unimanual-swipe-ges">
+            <img loading="lazy" src="images/earable_gi26.webp" alt="" class="publication-thumbnail" width="400" height="248">
+            <div class="publication-details">
+                <span class="publication-badge">GI '26</span>
+                <h4>Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction</h4>
+                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
+                <span class="publication-venue">Proceedings of Graphics Interface 2026 (GI '26)<br>Article No.: 13, 21 pages &middot; June 09&ndash;12, 2026, Kitchener&ndash;Waterloo, Ontario, Canada</span>
+                <div class="publication-links">
+                    <a href="https://arxiv.org/abs/2606.08198" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+
+<!-- 2025 Papers -->
+
+
+                <div class="publication-item" data-year="2025" data-theme="humanai" id="pub-hamraz-a-culture-based-persian-conversat">
+        <img loading="lazy" src="images/hamraz.webp" alt="" class="publication-thumbnail" width="640" height="640">
+          <div class="publication-details">
+            <span class="publication-badge">NLP4DH '25</span>
+            <h4>
+              HamRaz: A Culture-Based Persian Conversation Dataset for Person-Centered
+              Therapy using LLM Agents
+            </h4>
+            <div class="publication-authors">
+              Mohammad Amin Abbasi, Farnaz Sadat Mirnezami, Ali Neshati, Hassan Naderi
+            </div>
+            <span class="publication-venue"
+              >Proceedings of the First on Natural Language Processing and Language
+              Models for Digital Humanities<br />Pages 101 - 108</span
+            >
+        
+            <div class="publication-links">
+              <a
+                href="https://aclanthology.org/2025.nlp4dh-1.12/"
+                class="btn-pub btn-pdf"
+                target="_blank"
+              >
+                <i class="fas fa-file-pdf"></i> Read Paper
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="publication-item" data-year="2025" data-theme="wearable" id="pub-swipesense-exploring-the-feasibility-of" data-featured="1" data-teaser="Back-of-device swipes on an unmodified phone, using only its built-in IMU.">
+            <img loading="lazy" src="images/swipe.webp" alt="" class="publication-thumbnail" width="500" height="198">
+            <div class="publication-details">
+                <span class="publication-badge">MobileHCI '25</span>
+                <h4>SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors</h4>
+                <div class="publication-authors">Neel Shah, Benedict Leung, Mariana Shimabukuro, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">Proceedings of the ACM on Human-Computer Interaction, Volume 9, Issue 5<br>Article No.: MHCI030, Pages 1 - 24</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3743734" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://dl.acm.org/doi/10.1145/3743734" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="publication-item" data-year="2025" data-theme="humanai" id="pub-paperpal-an-ai-powered-platform-for-coll">
+            <img loading="lazy" src="images/paperpal.webp" alt="" class="publication-thumbnail" width="760" height="424">
+            <div class="publication-details">
+                <span class="publication-badge">CUI '25</span>
+                <h4>PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion</h4>
+                <div class="publication-authors">Sakil Sarker, Carlos Carrasco Garcia, Patrick Hung, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 19, Pages 1 - 6</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3719160.3737637" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://dl.acm.org/doi/full/10.1145/3719160.3737637" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2025" data-theme="humanai" id="pub-citepeek-contextual-citation-exploration">
+            <img loading="lazy" src="images/citepeak.webp" alt="" class="publication-thumbnail" width="760" height="432">
+            <div class="publication-details">
+                <span class="publication-badge">CUI '25</span>
+                <h4>CitePeek: Contextual Citation Exploration Within Research Papers</h4>
+                <div class="publication-authors">Yasaman Akhoondzadeh, Heidar Davoudi, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 20, Pages 1 - 7</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3719160.3737639" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://dl.acm.org/doi/full/10.1145/3719160.3737639" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 2024 Papers -->
+        <div class="publication-item" data-year="2024" data-theme="humanai" id="pub-large-language-user-interfaces-voice-int">
+            <img loading="lazy" src="images/2024_1.webp" alt="" class="publication-thumbnail" width="760" height="480">
+            <div class="publication-details">
+                <span class="publication-badge">IntelliSys '24</span>
+                <h4>Large Language User Interfaces: Voice Interactive User Interfaces powered by LLMs</h4>
+                <div class="publication-authors">Syed Mekael Wasti, Ken Q Pu, <strong>Ali Neshati</strong></div>
+                <span class="publication-venue">Intelligent Systems Conference, 2024 - Springer, pp 639–655</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1007/978-3-031-66329-1_41" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="publication-item" data-year="2024" data-theme="wearable" id="pub-exploring-uni-manual-around-ear-off-devi" data-featured="1" data-teaser="One-handed gestures in the space around the ear to control earbuds.">
+            <img loading="lazy" src="images/2024_2.webp" alt="" class="publication-thumbnail" width="760" height="360">
+            <div class="publication-details">
+                <span class="publication-badge">IMWUT '24</span>
+                <h4>Exploring Uni-manual Around Ear Off-Device Gestures for Earables</h4>
+                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
+                <span class="publication-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1<br>Article No.: 3, Pages 1 - 29</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3643513" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================================================================
+             REMOVED 2026-10-12 pending confirmation from Ali.
+
+             This entry appeared to duplicate the GI '26 paper listed above.
+             Evidence:
+               * Identical author list to the GI '26 entry.
+               * arXiv 2606.08198 (linked by the GI '26 entry) carries the
+                 journal-ref "Graphics Interface 2026, Article 13, 21 pages"
+                 and its abstract matches this R2R description (24 participants,
+                 5,568 swipes). "R2R" reads as an earlier working title.
+               * No IMWUT 2024 paper with this title exists in Crossref,
+                 OpenAlex, arXiv or Semantic Scholar.
+               * The venue line below was copied verbatim from the real IMWUT
+                 paper ("Exploring Uni-manual Around Ear Off-Device Gestures"),
+                 which genuinely is IMWUT 8(1), Article 3, pp. 1-29.
+
+             It was hidden rather than deleted because claiming an IMWUT 2024
+             publication that does not exist is worse than briefly omitting a
+             real one. If this IS a separate paper, delete these comment markers
+             and give it its correct venue; otherwise delete the whole block.
+             ==================================================================== -->
+        <!--
+        <div class="publication-item">
+            <img loading="lazy" src="images/earable_r2r.webp" alt="" class="publication-thumbnail" width="760" height="388">
+            <div class="publication-details">
+                <span class="publication-badge">IMWUT '24</span>
+                <h4>Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction</h4>
+                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
+                <span class="publication-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1<br>Article No.: 3, Pages 1 - 29</span>
+                
+                <div class="publication-links">
+                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:KlAtU1dfN6UC" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <div class="publication-item" data-year="2024" data-theme="creative" id="pub-exploring-interactive-color-palettes-for" data-featured="1" data-teaser="Interactive palettes that let designers explore colour before committing to it.">
+            <img loading="lazy" src="images/2024_4.webp" alt="" class="publication-thumbnail" width="760" height="414">
+            <div class="publication-details">
+                <span class="publication-badge">CHI '24</span>
+                <h4>Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization</h4>
+                <div class="publication-authors">Xinyu Shi, Mingyu Liu, Ziqi Zhou, <strong>Ali Neshati</strong>, Ryan Rossi, Jian Zhao</div>
+                <span class="publication-venue">CHI '24: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems<br>Article No.: 146, Pages 1 - 16</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3613904.3642223" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://youtu.be/wMQX_HB21PU" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2023 Papers -->
+        <div class="publication-item" data-year="2023" data-theme="gesture" id="pub-in-vehicle-performance-and-distraction-f">
+            <img loading="lazy" src="images/2023_1.webp" alt="" class="publication-thumbnail" width="585" height="358">
+            <div class="publication-details">
+                <span class="publication-badge">CHI '23</span>
+                <h4>In-vehicle Performance and Distraction for Midair and Touch Directional Gestures</h4>
+                <div class="publication-authors">Arman Hafizi, Jay Henderson, <strong>Ali Neshati</strong>, Wei Zhou, Edward Lank, Daniel Vogel</div>
+                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 316, Pages 1 - 13</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3544548.3581335" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=UOUjDgjA6c4" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2023" data-theme="creative" id="pub-de-stijl-facilitating-graphics-design-wi">
+            <img loading="lazy" src="images/2023_2.webp" alt="" class="publication-thumbnail" width="760" height="253">
+            <div class="publication-details">
+                <span class="publication-badge">CHI '23</span>
+                <h4>De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation</h4>
+                <div class="publication-authors">Xinyu Shi, Ziqi Zhou, Jing Wen Zhang, <strong>Ali Neshati</strong>, Anjul Kumar Tyagi, Ryan Rossi, Shunan Guo, Fan Du, Jian Zhao</div>
+                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 122, Pages 1 - 19</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3544548.3581070" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=ScBnkmo-YKs" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2023" data-theme="gesture" id="pub-interaction-region-characteristics-for-m">
+            <img loading="lazy" src="images/2023_3.webp" alt="" class="publication-thumbnail" width="591" height="435">
+            <div class="publication-details">
+                <span class="publication-badge">CHI EA '23</span>
+                <h4>Interaction Region Characteristics for Midair Barehand Targeting on a Television</h4>
+                <div class="publication-authors">Jay Henderson, <strong>Ali Neshati</strong>, Sachi Mizobuchi, Wei Zhou, Daniel Vogel, Edward Lank</div>
+                <span class="publication-venue">CHI EA '23: Extended Abstracts of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 180, Pages 1 - 7</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3544549.3585877" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2023" data-theme="creative humanai" id="pub-slide4n-creating-presentation-slides-fro">
+            <img loading="lazy" src="images/2023_4.webp" alt="" class="publication-thumbnail" width="633" height="366">
+            <div class="publication-details">
+                <span class="publication-badge">CHI '23</span>
+                <h4>Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration</h4>
+                <div class="publication-authors">Fengjie Wang, Xuye Liu, Oujing Liu, <strong>Ali Neshati</strong>, Tengfei Ma, Min Zhu, Jian Zhao</div>
+                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 364, Pages 1 - 18</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3544548.3580753" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=8srkyc7Utr8" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <!-- 2022 Papers -->
+        <div class="publication-item" data-year="2022" data-theme="smallscreen" id="pub-edgeselect-smartwatch-data-interaction-w">
+            <img loading="lazy" src="images/1stPaper.webp" alt="" class="publication-thumbnail" width="760" height="341">
+            <div class="publication-details">
+                <span class="publication-badge">ICMI '22</span>
+                <h4>EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion</h4>
+                <div class="publication-authors"><strong>A Neshati</strong>, A Salo, SA Faleel, Z Li, HN Liang, C Latulipe, P Irani</div>
+                <span class="publication-venue">ICMI '22: Proceedings of the 2022 International Conference on Multimodal Interaction<br>Pages 288 - 29</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3536221.3556586" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="publication-item" data-year="2022" data-theme="smallscreen" id="pub-data-visualization-and-interaction-on-sm">
+            <img loading="lazy" src="images/dataviz.webp" alt="" class="publication-thumbnail" width="560" height="330">
+            <div class="publication-details">
+                <span class="publication-badge">Thesis</span>
+                <h4>Data visualization and interaction on smartwatch small screens</h4>
+                <div class="publication-authors"><strong>Ali Neshati</strong></div>
+                <span class="publication-venue">University of Manitoba, 2022</span>
+                
+                <div class="publication-links">
+                    <a href="https://mspace.lib.umanitoba.ca/bitstream/handle/1993/36218/neshati_ali.pdf?sequence=1" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="publication-item" data-year="2022" data-theme="smallscreen" id="pub-understanding-and-adapting-bezel-to-beze">
+            <img loading="lazy" src="images/2ndPaper.webp" alt="" class="publication-thumbnail" width="760" height="341">
+            <div class="publication-details">
+                <span class="publication-badge">MobileHCI '22</span>
+                <h4>Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios</h4>
+                <div class="publication-authors">B Rey, K Zhu, ST Perrault, S Bardot, <strong>A Neshati</strong>, P Irani</div>
+                <span class="publication-venue">Proceedings of the ACM on Human-Computer Interaction, Volume 6, Issue MHCI<br>Article No.: 201, Pages 1 - 28</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3546736" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2021 Papers -->
+        <div class="publication-item" data-year="2018" data-theme="wearable" id="pub-crowdsourcing-vs-laboratory-style-social">
+            <img loading="lazy" src="images/21.webp" alt="" class="publication-thumbnail" width="756" height="541">
+            <div class="publication-details">
+                <span class="publication-badge">CHI '18</span>
+                <h4>Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays</h4>
+                <div class="publication-authors">Fouad Alallah, <strong>Ali Neshati</strong>, Nima Sheibani, Yumiko Sakamoto, Andrea Bunt, Pourang Irani, Khalad Hasan</div>
+                <span class="publication-venue">CHI '18: Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 310, Pages 1 - 7</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3173574.3173884" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="publication-item" data-year="2021" data-theme="smallscreen" id="pub-bezelglide-interacting-with-graphs-on-sm" data-featured="1" data-teaser="Read a graph on a smartwatch without your finger covering it.">
+            <img loading="lazy" src="images/3rdPaper.webp" alt="" class="publication-thumbnail" width="760" height="217">
+            <div class="publication-details">
+                <span class="publication-badge">CHI '21</span>
+                <h4>BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion</h4>
+                <div class="publication-authors"><strong>A Neshati</strong>, B Rey, AS Mohommed Faleel, S Bardot, C Latulipe, P Irani</div>
+                <span class="publication-venue">CHI '21: Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems<br>Article No.: 501, Pages 1 - 13</span>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3411764.3445201" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=gJ_x89-Yuj8" class="btn-pub btn-video" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="publication-item" data-year="2021" data-theme="smallscreen" id="pub-sf-lg-space-filling-line-graphs-for-visu" data-featured="1" data-teaser="Several time series on one watch face, without losing the shape of each.">
+            <img loading="lazy" src="images/4thpaper.webp" alt="" class="publication-thumbnail" width="760" height="497">
+            <div class="publication-details">
+                <span class="publication-badge">MobileHCI '21</span>
+                <h4>SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches</h4>
+                <div class="publication-authors"><strong>A Neshati</strong>, F Alallah, B Rey, Y Sakamoto, M Serrano, P Irani</div>
+                <span class="publication-venue">MobileHCI '21: Proceedings of the 23rd International Conference on Mobile Human-Computer Interaction<br>Article No.: 5, Pages 1 - 13</span>
+                <div class="honorable-mention"><i class="fas fa-medal" style="margin-right:5px;"></i>Honorable Mention Award</div>
+                
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1145/3447526.3472040" class="btn-pub btn-pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Read Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 2020 Papers -->
+<div class="publication-item" data-year="2020" data-theme="gesture" id="pub-using-guessability-framework-age-related">
+    <img loading="lazy" src="images/5thPpaer.webp" alt="" class="publication-thumbnail" width="760" height="318">
+    <div class="publication-details">
+        <span class="publication-badge">AH '20</span>
+        <h4>Using Guessability Framework: Age-related Differences in Hand Gesture Interaction</h4>
+        <div class="publication-authors">Y Vasylkiv, <strong>A Neshati</strong>, SAM Faleel, Y Sakamoto, P Irani</div>
+        <span class="publication-venue">AH '20: Proceedings of the 11th Augmented Human International Conference<br>Article No.: 24, Pages 1 - 2</span>
+        
+        <div class="publication-links">
+            <a href="https://doi.org/10.1145/3396339.3396394" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="publication-item" data-year="2020" data-theme="wearable smallscreen" id="pub-eyes-free-graph-legibility-using-skin-dr">
+    <img loading="lazy" src="images/6thPaper.webp" alt="" class="publication-thumbnail" width="677" height="302">
+    <div class="publication-details">
+        <span class="publication-badge">AH '20</span>
+        <h4>Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm</h4>
+        <div class="publication-authors">S Bardot, S Rempel, B Rey, <strong>A Neshati</strong>, Y Sakamoto, C Menon, P Irani</div>
+        <span class="publication-venue">AH '20: Proceedings of the 11th Augmented Human International Conference<br>Article No.: 1, Pages 1 - 8</span>
+        
+        <div class="publication-links">
+            <a href="https://hci.cs.umanitoba.ca/assets/publication_files/Sandra_paper.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 2019 Papers -->
+<div class="publication-item" data-year="2019" data-theme="smallscreen" id="pub-g-sparks-glanceable-sparklines-on-smartw">
+    <img loading="lazy" src="images/7thPaper.webp" alt="" class="publication-thumbnail" width="572" height="205">
+    <div class="publication-details">
+        <span class="publication-badge">GI '19</span>
+        <h4>G-Sparks: Glanceable Sparklines on Smartwatches</h4>
+        <div class="publication-authors"><strong>A Neshati</strong>, Y Sakamoto, L Leboe-Mcgowan, J Leboe-McGowan, M Serrano, P Irani</div>
+        <span class="publication-venue">GI '19: Proceedings of the 45th Graphics Interface Conference<br>Article No.: 23, Pages 1 - 9</span>
+        
+        <div class="publication-links">
+            <a href="https://doi.org/10.20380/gi2019.23" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="publication-item" data-year="2019" data-theme="gesture" id="pub-an-analytic-model-for-time-efficient-per">
+    <img loading="lazy" src="images/8thPaper.webp" alt="" class="publication-thumbnail" width="577" height="356">
+    <div class="publication-details">
+        <span class="publication-badge">CHI '19</span>
+        <h4>An Analytic Model for Time-Efficient Personal Hierarchies</h4>
+        <div class="publication-authors">W Delamare, <strong>A Neshati</strong>, P Irani, X Ren</div>
+        <span class="publication-venue">CHI '19: Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 368, Pages 1 - 11</span>
+        <div class="honorable-mention"><i class="fas fa-medal" style="margin-right:5px;"></i>Honorable Mention Award</div>
+        
+        <div class="publication-links">
+            <a href="https://doi.org/10.1145/3290605.3300598" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="publication-item" data-year="2018" data-theme="gesture" id="pub-smart-home-interactions-for-people-with">
+    <img loading="lazy" src="images/9thpaper.webp" alt="" class="publication-thumbnail" width="760" height="220">
+    <div class="publication-details">
+        <span class="publication-badge">SHTI '18</span>
+        <h4>Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures</h4>
+        <div class="publication-authors">Y Vasylkiv, <strong>A Neshati</strong>, Y Sakamoto, R Gomez, K Nakamura, P Irani</div>
+        <span class="publication-venue">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 436 - 443</span>
+        
+        <div class="publication-links">
+            <a href="https://ebooks.iospress.nl/volumearticle/51200" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="publication-item" data-year="2018" data-theme="smallscreen" id="pub-challenges-in-displaying-health-data-on">
+    <img loading="lazy" src="images/10thPaper.webp" alt="" class="publication-thumbnail" width="722" height="312">
+    <div class="publication-details">
+        <span class="publication-badge">SHTI '18</span>
+        <h4>Challenges in Displaying Health Data on Small Smartwatch Screens</h4>
+        <div class="publication-authors"><strong>A Neshati</strong>, Y Sakamoto, P Irani</div>
+        <span class="publication-venue">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 325 - 332</span>
+        
+        <div class="publication-links">
+            <a href="https://ebooks.iospress.nl/doi/10.3233/978-1-61499-951-5-325" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+<!-- 2018 Papers -->
+<div class="publication-item" data-year="2018" data-theme="wearable" id="pub-performer-vs-observer-whose-comfort-leve">
+    <img loading="lazy" src="images/11thpaper.webp" alt="" class="publication-thumbnail" width="421" height="225">
+    <div class="publication-details">
+        <span class="publication-badge">VRST '18</span>
+        <h4>Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?</h4>
+        <div class="publication-authors">F Alallah, <strong>A Neshati</strong>, Y Sakamoto, K Hasan, E Lank, A Bunt, P Irani</div>
+        <span class="publication-venue">VRST '18: Proceedings of the 24th ACM Symposium on Virtual Reality Software and Technology<br>Article No.: 10, Pages 1 - 9</span>
+        
+        <div class="publication-links">
+            <a href="https://hci.cs.umanitoba.ca/assets/publication_files/PerformVSObserve.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 2014 Papers -->
+<div class="publication-item" data-year="2014" data-theme="other" id="pub-is-really-nack-protocol-secure-to-be-emp">
+    <img loading="lazy" src="images/13thPaper.webp" alt="" class="publication-thumbnail" width="622" height="186">
+    <div class="publication-details">
+        <span class="publication-badge">CSE '14</span>
+        <h4>Is Really NACK Protocol Secure to Be Employed in MANETs?</h4>
+        <div class="publication-authors">M Saeed, A Mackvandi, M Taghavi, MZ Bidoki, M Ghasemi, A Neshati</div>
+        <span class="publication-venue">2014 IEEE 17th International Conference on Computational Science and Engineering</span>
+        
+        <div class="publication-links">
+            <a href="https://www.researchgate.net/profile/Mehdi-Ghasemi-18/publication/295504931_Is_Really_NACK_Protocol_Secure_to_Be_Employed_in_MANETs/links/619e18e44fe4ea1cea97e7cd/Is-Really-NACK-Protocol-Secure-to-Be-Employed-in-MANETs.pdf" class="btn-pub btn-pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Read Paper
+            </a>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</section>
+
 <section id="recent-news" class="section-container" style="background: linear-gradient(135deg, #34495E, #2C3E50); padding: 40px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1000px; margin: auto;">
         <h2 class="section-title" style="margin-bottom: 30px;">Recent News</h2>
@@ -509,8 +1186,6 @@
 </section>
 
 
-<!-- Legacy anchor: older links and tools.html used #research for this section -->
-<a id="research" aria-hidden="true"></a>
 <section id="join" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 15px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto;">
         <h2 class="section-title" style="margin-bottom: 20px;">Join the Lab</h2>
@@ -533,13 +1208,6 @@
         </ul>
     </div>
 </section>
-
-
-
-
-<!-- <section id="publications" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 80px 0; color: #ECECEC;">
-    <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
-        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2> -->
 
 <!-- Important Dates Section -->
 <section id="important-dates" class="section-container" style="background: linear-gradient(135deg, #1D3557, #2C3E50); padding: 40px 0; color: #ECECEC;">
@@ -602,596 +1270,7 @@
 </section>
 
 
-
-<!-- Publications Section -->
-<section id="publications">
-    <div class="container">
-        <h2 class="section-title" style="font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif;">Publications</h2>
-
-        <!-- Publication Filter Buttons -->
-        <div id="pub-filters" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px;">
-            <button class="pub-filter-btn active" data-year="all">All</button>
-            <button class="pub-filter-btn" data-year="2026">2026</button>
-            <button class="pub-filter-btn" data-year="2025">2025</button>
-            <button class="pub-filter-btn" data-year="2024">2024</button>
-            <button class="pub-filter-btn" data-year="2023">2023</button>
-            <button class="pub-filter-btn" data-year="2022">2022</button>
-            <button class="pub-filter-btn" data-year="2021">2021</button>
-            <button class="pub-filter-btn" data-year="2020">2020</button>
-            <button class="pub-filter-btn" data-year="2019">2019</button>
-            <button class="pub-filter-btn" data-year="2018">2018</button>
-            <button class="pub-filter-btn" data-year="older">Older</button>
-        </div>
-
-<!-- 2026 Papers -->
-
-        <div class="publication-item" data-year="2026">
-            <img loading="lazy" src="images/citelen.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #0d0d10;" width="760" height="391">
-            <div class="publication-details">
-                <span class="publication-badge">UIST '26</span>
-                <h4>CiteLen: In-Situ Multi-Lens Citation Analysis for Scholarly Reading</h4>
-                <div class="publication-authors">Yasaman Akhoundzadeh Basti, Zeyuan Sun, Heidar Davoudi, <strong>Ali Neshati</strong></div>
-                <span class="publication-venue">Adjunct Proceedings of the 39th Annual ACM Symposium on User Interface Software and Technology (UIST '26), Posters<br>Detroit, Michigan, USA</span>
-                <div class="publication-links">
-                    <a href="https://uist.acm.org/2026/" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-up-right-from-square"></i> Conference page
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item" data-year="2026">
-            <img loading="lazy" src="images/ctatutor.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #fff;" width="760" height="337">
-            <div class="publication-details">
-                <span class="publication-badge">UIST '26</span>
-                <h4>CTATutor: From Instructor-Guided Computational Thinking Blueprints to Adaptive Algorithm Tutoring</h4>
-                <div class="publication-authors">Zeyuan Sun, <strong>Ali Neshati</strong>, Heidar Davoudi</div>
-                <span class="publication-venue">Adjunct Proceedings of the 39th Annual ACM Symposium on User Interface Software and Technology (UIST '26), Posters<br>Detroit, Michigan, USA</span>
-                <div class="publication-links">
-                    <a href="https://uist.acm.org/2026/" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-up-right-from-square"></i> Conference page
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item" data-year="2026">
-            <img loading="lazy" src="images/ridge.webp" alt="" class="publication-thumbnail" width="760" height="428">
-            <div class="publication-details">
-                <span class="publication-badge">CoG '26</span>
-                <h4>RIDGE: State-Conditioned Reward Blending for Behavioral Coverage in Deep RL Game Agents</h4>
-                <div class="publication-authors">Al Muqshith Mohammed Shifan, Kevin Christopher Chua, <strong>Ali Neshati</strong>, Loutfouz Zaman, Cristiano Politowski</div>
-                <span class="publication-venue">Proceedings of the IEEE Conference on Games (CoG '26), Oral Presentation<br>September 1&ndash;4, 2026, Madrid, Spain</span>
-                <div class="publication-links">
-                    <a href="https://cog2026.org/acceptedpapers" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-up-right-from-square"></i> Conference page
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item" data-year="2026">
-            <img loading="lazy" src="images/coread.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #fff;" width="760" height="308">
-            <div class="publication-details">
-                <span class="publication-badge">ICMI '26</span>
-                <h4>CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading</h4>
-                <div class="publication-authors">Sakil Sarker, Yasaman Akhoundzadeh Basti, Heidar Davoudi, <strong>Ali Neshati</strong></div>
-                <span class="publication-venue">Proceedings of the 28th ACM International Conference on Multimodal Interaction (ICMI '26)<br>Naples, Italy</span>
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3776574.3831179" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item" data-year="2026">
-            <img loading="lazy" src="images/earable_gi26.webp" alt="" class="publication-thumbnail" width="400" height="248">
-            <div class="publication-details">
-                <span class="publication-badge">GI '26</span>
-                <h4>Exploring Above-Neck Unimanual Swipe Gestures for Off-Device Earable Interaction</h4>
-                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
-                <span class="publication-venue">Proceedings of Graphics Interface 2026 (GI '26)<br>Article No.: 13, 21 pages &middot; June 09&ndash;12, 2026, Kitchener&ndash;Waterloo, Ontario, Canada</span>
-                <div class="publication-links">
-                    <a href="https://arxiv.org/abs/2606.08198" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-
-<!-- 2025 Papers -->
-
-
-
-
-                <div class="publication-item">
-        <img loading="lazy" src="images/hamraz.webp" alt="" class="publication-thumbnail" width="640" height="640">
-          <div class="publication-details">
-            <span class="publication-badge">NLP4DH '25</span>
-            <h4>
-              HamRaz: A Culture-Based Persian Conversation Dataset for Person-Centered
-              Therapy using LLM Agents
-            </h4>
-            <div class="publication-authors">
-              Mohammad Amin Abbasi, Farnaz Sadat Mirnezami, Ali Neshati, Hassan Naderi
-            </div>
-            <span class="publication-venue"
-              >Proceedings of the First on Natural Language Processing and Language
-              Models for Digital Humanities<br />Pages 101 - 108</span
-            >
-        
-            <div class="publication-links">
-              <a
-                href="https://aclanthology.org/2025.nlp4dh-1.12/"
-                class="btn-pub btn-pdf"
-                target="_blank"
-              >
-                <i class="fas fa-file-pdf"></i> Read Paper
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="publication-item">
-            <img loading="lazy" src="images/swipe.webp" alt="" class="publication-thumbnail" width="500" height="198">
-            <div class="publication-details">
-                <span class="publication-badge">MobileHCI '25</span>
-                <h4>SwipeSense: Exploring the Feasibility of Back-of-Device Swipe Interaction Using Built-In IMU Sensors</h4>
-                <div class="publication-authors">Neel Shah, Benedict Leung, Mariana Shimabukuro, <strong>Ali Neshati</strong></div>
-                <span class="publication-venue">Proceedings of the ACM on Human-Computer Interaction, Volume 9, Issue 5<br>Article No.: MHCI030, Pages 1 - 24</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3743734" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://dl.acm.org/doi/10.1145/3743734" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="publication-item">
-            <img loading="lazy" src="images/paperpal.webp" alt="" class="publication-thumbnail" width="760" height="424">
-            <div class="publication-details">
-                <span class="publication-badge">CUI '25</span>
-                <h4>PaperPal: An AI-Powered Platform for Collaborative Reading and Discussion</h4>
-                <div class="publication-authors">Sakil Sarker, Carlos Carrasco Garcia, Patrick Hung, Heidar Davoudi, <strong>Ali Neshati</strong></div>
-                <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 19, Pages 1 - 6</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3719160.3737637" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://dl.acm.org/doi/full/10.1145/3719160.3737637" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item">
-            <img loading="lazy" src="images/citepeak.webp" alt="" class="publication-thumbnail" width="760" height="432">
-            <div class="publication-details">
-                <span class="publication-badge">CUI '25</span>
-                <h4>CitePeek: Contextual Citation Exploration Within Research Papers</h4>
-                <div class="publication-authors">Yasaman Akhoondzadeh, Heidar Davoudi, <strong>Ali Neshati</strong></div>
-                <span class="publication-venue">CUI '25: Proceedings of the 7th ACM Conference on Conversational User Interfaces<br>Article No.: 20, Pages 1 - 7</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3719160.3737639" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://dl.acm.org/doi/full/10.1145/3719160.3737639" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- 2024 Papers -->
-        <div class="publication-item">
-            <img loading="lazy" src="images/2024_1.webp" alt="" class="publication-thumbnail" width="760" height="480">
-            <div class="publication-details">
-                <span class="publication-badge">IntelliSys '24</span>
-                <h4>Large Language User Interfaces: Voice Interactive User Interfaces powered by LLMs</h4>
-                <div class="publication-authors">Syed Mekael Wasti, Ken Q Pu, <strong>Ali Neshati</strong></div>
-                <span class="publication-venue">Intelligent Systems Conference, 2024 - Springer, pp 639–655</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1007/978-3-031-66329-1_41" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <img loading="lazy" src="images/2024_2.webp" alt="" class="publication-thumbnail" width="760" height="360">
-            <div class="publication-details">
-                <span class="publication-badge">IMWUT '24</span>
-                <h4>Exploring Uni-manual Around Ear Off-Device Gestures for Earables</h4>
-                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
-                <span class="publication-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1<br>Article No.: 3, Pages 1 - 29</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3643513" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================================================================
-             REMOVED 2026-10-12 pending confirmation from Ali.
-
-             This entry appeared to duplicate the GI '26 paper listed above.
-             Evidence:
-               * Identical author list to the GI '26 entry.
-               * arXiv 2606.08198 (linked by the GI '26 entry) carries the
-                 journal-ref "Graphics Interface 2026, Article 13, 21 pages"
-                 and its abstract matches this R2R description (24 participants,
-                 5,568 swipes). "R2R" reads as an earlier working title.
-               * No IMWUT 2024 paper with this title exists in Crossref,
-                 OpenAlex, arXiv or Semantic Scholar.
-               * The venue line below was copied verbatim from the real IMWUT
-                 paper ("Exploring Uni-manual Around Ear Off-Device Gestures"),
-                 which genuinely is IMWUT 8(1), Article 3, pp. 1-29.
-
-             It was hidden rather than deleted because claiming an IMWUT 2024
-             publication that does not exist is worse than briefly omitting a
-             real one. If this IS a separate paper, delete these comment markers
-             and give it its correct venue; otherwise delete the whole block.
-             ==================================================================== -->
-        <!--
-        <div class="publication-item">
-            <img loading="lazy" src="images/earable_r2r.webp" alt="" class="publication-thumbnail" width="760" height="388">
-            <div class="publication-details">
-                <span class="publication-badge">IMWUT '24</span>
-                <h4>Exploring Unimanual Region-to-Region (R2R) Swipes for Off-Device Earable Interaction</h4>
-                <div class="publication-authors">Shaikh Shawon Arefin Shimon, <strong>Ali Neshati</strong>, Junwei Sun, Qiang Xu, Jian Zhao</div>
-                <span class="publication-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Volume 8, Issue 1<br>Article No.: 3, Pages 1 - 29</span>
-                
-                <div class="publication-links">
-                    <a href="https://scholar.google.ca/citations?view_op=view_citation&hl=en&user=XxA76vEAAAAJ&sortby=pubdate&citation_for_view=XxA76vEAAAAJ:KlAtU1dfN6UC" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        -->
-
-        <div class="publication-item">
-            <img loading="lazy" src="images/2024_4.webp" alt="" class="publication-thumbnail" width="760" height="414">
-            <div class="publication-details">
-                <span class="publication-badge">CHI '24</span>
-                <h4>Exploring Interactive Color Palettes for Abstraction-Driven Exploratory Image Colorization</h4>
-                <div class="publication-authors">Xinyu Shi, Mingyu Liu, Ziqi Zhou, <strong>Ali Neshati</strong>, Ryan Rossi, Jian Zhao</div>
-                <span class="publication-venue">CHI '24: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems<br>Article No.: 146, Pages 1 - 16</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3613904.3642223" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://youtu.be/wMQX_HB21PU" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2023 Papers -->
-        <div class="publication-item">
-            <img loading="lazy" src="images/2023_1.webp" alt="" class="publication-thumbnail" width="585" height="358">
-            <div class="publication-details">
-                <span class="publication-badge">CHI '23</span>
-                <h4>In-vehicle Performance and Distraction for Midair and Touch Directional Gestures</h4>
-                <div class="publication-authors">Arman Hafizi, Jay Henderson, <strong>Ali Neshati</strong>, Wei Zhou, Edward Lank, Daniel Vogel</div>
-                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 316, Pages 1 - 13</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3544548.3581335" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=UOUjDgjA6c4" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item">
-            <img loading="lazy" src="images/2023_2.webp" alt="" class="publication-thumbnail" width="760" height="253">
-            <div class="publication-details">
-                <span class="publication-badge">CHI '23</span>
-                <h4>De-Stijl: Facilitating graphics design with interactive 2D color palette recommendation</h4>
-                <div class="publication-authors">Xinyu Shi, Ziqi Zhou, Jing Wen Zhang, <strong>Ali Neshati</strong>, Anjul Kumar Tyagi, Ryan Rossi, Shunan Guo, Fan Du, Jian Zhao</div>
-                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 122, Pages 1 - 19</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3544548.3581070" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=ScBnkmo-YKs" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item">
-            <img loading="lazy" src="images/2023_3.webp" alt="" class="publication-thumbnail" width="591" height="435">
-            <div class="publication-details">
-                <span class="publication-badge">CHI EA '23</span>
-                <h4>Interaction Region Characteristics for Midair Barehand Targeting on a Television</h4>
-                <div class="publication-authors">Jay Henderson, <strong>Ali Neshati</strong>, Sachi Mizobuchi, Wei Zhou, Daniel Vogel, Edward Lank</div>
-                <span class="publication-venue">CHI EA '23: Extended Abstracts of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 180, Pages 1 - 7</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3544549.3585877" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="publication-item">
-            <img loading="lazy" src="images/2023_4.webp" alt="" class="publication-thumbnail" width="633" height="366">
-            <div class="publication-details">
-                <span class="publication-badge">CHI '23</span>
-                <h4>Slide4n: Creating presentation slides from computational notebooks with human-ai collaboration</h4>
-                <div class="publication-authors">Fengjie Wang, Xuye Liu, Oujing Liu, <strong>Ali Neshati</strong>, Tengfei Ma, Min Zhu, Jian Zhao</div>
-                <span class="publication-venue">CHI '23: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems<br>Article No.: 364, Pages 1 - 18</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3544548.3580753" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=8srkyc7Utr8" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        
-        <!-- 2022 Papers -->
-        <div class="publication-item">
-            <img loading="lazy" src="images/1stPaper.webp" alt="" class="publication-thumbnail" width="760" height="341">
-            <div class="publication-details">
-                <span class="publication-badge">ICMI '22</span>
-                <h4>EdgeSelect: Smartwatch Data Interaction with Minimal Screen Occlusion</h4>
-                <div class="publication-authors"><strong>A Neshati</strong>, A Salo, SA Faleel, Z Li, HN Liang, C Latulipe, P Irani</div>
-                <span class="publication-venue">ICMI '22: Proceedings of the 2022 International Conference on Multimodal Interaction<br>Pages 288 - 29</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3536221.3556586" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <img loading="lazy" src="images/dataviz.webp" alt="" class="publication-thumbnail" width="560" height="330">
-            <div class="publication-details">
-                <span class="publication-badge">Thesis</span>
-                <h4>Data visualization and interaction on smartwatch small screens</h4>
-                <div class="publication-authors"><strong>Ali Neshati</strong></div>
-                <span class="publication-venue">University of Manitoba, 2022</span>
-                
-                <div class="publication-links">
-                    <a href="https://mspace.lib.umanitoba.ca/bitstream/handle/1993/36218/neshati_ali.pdf?sequence=1" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <img loading="lazy" src="images/2ndPaper.webp" alt="" class="publication-thumbnail" width="760" height="341">
-            <div class="publication-details">
-                <span class="publication-badge">MobileHCI '22</span>
-                <h4>Understanding and Adapting Bezel-to-Bezel Interactions for Circular Smartwatches in Mobile and Encumbered Scenarios</h4>
-                <div class="publication-authors">B Rey, K Zhu, ST Perrault, S Bardot, <strong>A Neshati</strong>, P Irani</div>
-                <span class="publication-venue">Proceedings of the ACM on Human-Computer Interaction, Volume 6, Issue MHCI<br>Article No.: 201, Pages 1 - 28</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3546736" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 2021 Papers -->
-        <div class="publication-item">
-            <img loading="lazy" src="images/21.webp" alt="" class="publication-thumbnail" width="756" height="541">
-            <div class="publication-details">
-                <span class="publication-badge">CHI '18</span>
-                <h4>Crowdsourcing vs laboratory-style social acceptability studies? Examining the social acceptability of spatial user interactions for head-worn displays</h4>
-                <div class="publication-authors">Fouad Alallah, <strong>Ali Neshati</strong>, Nima Sheibani, Yumiko Sakamoto, Andrea Bunt, Pourang Irani, Khalad Hasan</div>
-                <span class="publication-venue">CHI '18: Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 310, Pages 1 - 7</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3173574.3173884" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <img loading="lazy" src="images/3rdPaper.webp" alt="" class="publication-thumbnail" width="760" height="217">
-            <div class="publication-details">
-                <span class="publication-badge">CHI '21</span>
-                <h4>BezelGlide: Interacting with Graphs on Smartwatches with Minimal Screen Occlusion</h4>
-                <div class="publication-authors"><strong>A Neshati</strong>, B Rey, AS Mohommed Faleel, S Bardot, C Latulipe, P Irani</div>
-                <span class="publication-venue">CHI '21: Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems<br>Article No.: 501, Pages 1 - 13</span>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3411764.3445201" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=gJ_x89-Yuj8" class="btn-pub btn-video" target="_blank">
-                        <i class="fas fa-video"></i> Watch Video
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <img loading="lazy" src="images/4thpaper.webp" alt="" class="publication-thumbnail" width="760" height="497">
-            <div class="publication-details">
-                <span class="publication-badge">MobileHCI '21</span>
-                <h4>SF-LG: Space-Filling Line Graphs for Visualizing Interrelated Time-series Data on Smartwatches</h4>
-                <div class="publication-authors"><strong>A Neshati</strong>, F Alallah, B Rey, Y Sakamoto, M Serrano, P Irani</div>
-                <span class="publication-venue">MobileHCI '21: Proceedings of the 23rd International Conference on Mobile Human-Computer Interaction<br>Article No.: 5, Pages 1 - 13</span>
-                <div class="honorable-mention"><i class="fas fa-medal" style="margin-right:5px;"></i>Honorable Mention Award</div>
-                
-                <div class="publication-links">
-                    <a href="https://doi.org/10.1145/3447526.3472040" class="btn-pub btn-pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Read Paper
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- 2020 Papers -->
-<div class="publication-item">
-    <img loading="lazy" src="images/5thPpaer.webp" alt="" class="publication-thumbnail" width="760" height="318">
-    <div class="publication-details">
-        <span class="publication-badge">AH '20</span>
-        <h4>Using Guessability Framework: Age-related Differences in Hand Gesture Interaction</h4>
-        <div class="publication-authors">Y Vasylkiv, <strong>A Neshati</strong>, SAM Faleel, Y Sakamoto, P Irani</div>
-        <span class="publication-venue">AH '20: Proceedings of the 11th Augmented Human International Conference<br>Article No.: 24, Pages 1 - 2</span>
-        
-        <div class="publication-links">
-            <a href="https://doi.org/10.1145/3396339.3396394" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="publication-item">
-    <img loading="lazy" src="images/6thPaper.webp" alt="" class="publication-thumbnail" width="677" height="302">
-    <div class="publication-details">
-        <span class="publication-badge">AH '20</span>
-        <h4>Eyes-Free Graph Legibility: Using Skin-Dragging to Provide a Tactile Graph Visualization on the Arm</h4>
-        <div class="publication-authors">S Bardot, S Rempel, B Rey, <strong>A Neshati</strong>, Y Sakamoto, C Menon, P Irani</div>
-        <span class="publication-venue">AH '20: Proceedings of the 11th Augmented Human International Conference<br>Article No.: 1, Pages 1 - 8</span>
-        
-        <div class="publication-links">
-            <a href="https://hci.cs.umanitoba.ca/assets/publication_files/Sandra_paper.pdf" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- 2019 Papers -->
-<div class="publication-item">
-    <img loading="lazy" src="images/7thPaper.webp" alt="" class="publication-thumbnail" width="572" height="205">
-    <div class="publication-details">
-        <span class="publication-badge">GI '19</span>
-        <h4>G-Sparks: Glanceable Sparklines on Smartwatches</h4>
-        <div class="publication-authors"><strong>A Neshati</strong>, Y Sakamoto, L Leboe-Mcgowan, J Leboe-McGowan, M Serrano, P Irani</div>
-        <span class="publication-venue">GI '19: Proceedings of the 45th Graphics Interface Conference<br>Article No.: 23, Pages 1 - 9</span>
-        
-        <div class="publication-links">
-            <a href="https://doi.org/10.20380/gi2019.23" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="publication-item">
-    <img loading="lazy" src="images/8thPaper.webp" alt="" class="publication-thumbnail" width="577" height="356">
-    <div class="publication-details">
-        <span class="publication-badge">CHI '19</span>
-        <h4>An Analytic Model for Time-Efficient Personal Hierarchies</h4>
-        <div class="publication-authors">W Delamare, <strong>A Neshati</strong>, P Irani, X Ren</div>
-        <span class="publication-venue">CHI '19: Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems<br>Paper No.: 368, Pages 1 - 11</span>
-        <div class="honorable-mention"><i class="fas fa-medal" style="margin-right:5px;"></i>Honorable Mention Award</div>
-        
-        <div class="publication-links">
-            <a href="https://doi.org/10.1145/3290605.3300598" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="publication-item">
-    <img loading="lazy" src="images/9thpaper.webp" alt="" class="publication-thumbnail" width="760" height="220">
-    <div class="publication-details">
-        <span class="publication-badge">SHTI '18</span>
-        <h4>Smart Home Interactions for People with Reduced Hand Mobility Using Subtle EMG-Signal Gestures</h4>
-        <div class="publication-authors">Y Vasylkiv, <strong>A Neshati</strong>, Y Sakamoto, R Gomez, K Nakamura, P Irani</div>
-        <span class="publication-venue">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 436 - 443</span>
-        
-        <div class="publication-links">
-            <a href="https://ebooks.iospress.nl/volumearticle/51200" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="publication-item">
-    <img loading="lazy" src="images/10thPaper.webp" alt="" class="publication-thumbnail" width="722" height="312">
-    <div class="publication-details">
-        <span class="publication-badge">SHTI '18</span>
-        <h4>Challenges in Displaying Health Data on Small Smartwatch Screens</h4>
-        <div class="publication-authors"><strong>A Neshati</strong>, Y Sakamoto, P Irani</div>
-        <span class="publication-venue">Studies in Health Technology and Informatics, Volume 257: Improving Usability, Safety and Patient Outcomes with Health Information Technology, Pages 325 - 332</span>
-        
-        <div class="publication-links">
-            <a href="https://ebooks.iospress.nl/doi/10.3233/978-1-61499-951-5-325" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-<!-- 2018 Papers -->
-<div class="publication-item">
-    <img loading="lazy" src="images/11thpaper.webp" alt="" class="publication-thumbnail" width="421" height="225">
-    <div class="publication-details">
-        <span class="publication-badge">VRST '18</span>
-        <h4>Performer vs. Observer: Whose Comfort Level Should We Consider When Examining the Social Acceptability of Input Modalities for Head-Worn Display?</h4>
-        <div class="publication-authors">F Alallah, <strong>A Neshati</strong>, Y Sakamoto, K Hasan, E Lank, A Bunt, P Irani</div>
-        <span class="publication-venue">VRST '18: Proceedings of the 24th ACM Symposium on Virtual Reality Software and Technology<br>Article No.: 10, Pages 1 - 9</span>
-        
-        <div class="publication-links">
-            <a href="https://hci.cs.umanitoba.ca/assets/publication_files/PerformVSObserve.pdf" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- 2014 Papers -->
-<div class="publication-item">
-    <img loading="lazy" src="images/13thPaper.webp" alt="" class="publication-thumbnail" width="622" height="186">
-    <div class="publication-details">
-        <span class="publication-badge">CSE '14</span>
-        <h4>Is Really NACK Protocol Secure to Be Employed in MANETs?</h4>
-        <div class="publication-authors">M Saeed, A Mackvandi, M Taghavi, MZ Bidoki, M Ghasemi, A Neshati</div>
-        <span class="publication-venue">2014 IEEE 17th International Conference on Computational Science and Engineering</span>
-        
-        <div class="publication-links">
-            <a href="https://www.researchgate.net/profile/Mehdi-Ghasemi-18/publication/295504931_Is_Really_NACK_Protocol_Secure_to_Be_Employed_in_MANETs/links/619e18e44fe4ea1cea97e7cd/Is-Really-NACK-Protocol-Secure-to-Be-Employed-in-MANETs.pdf" class="btn-pub btn-pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Read Paper
-            </a>
-        </div>
-    </div>
-</div>
-
-
-    </div>
-</section>
-
+<!-- People -->
 <section id="people" style="padding: 30px 0; background: linear-gradient(135deg, #1D3557, #2C3E50); color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
         <h2 class="section-title" style="margin-bottom: 40px;">Our Team</h2>
@@ -1206,8 +1285,6 @@
                     </div>
                     <h4 style="font-size: 1.5rem; color: #F4D03F;">Ali Neshati</h4>
                     <p>Assistant Professor<br>Faculty of Science<br>Ontario Tech University</p>
-
-
 
 
                     <div class="contact-info" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
@@ -1495,12 +1572,6 @@
 </section>
 
 
-
-
-
-
-
-
 <section id="teaching" class="section-container" style="background: linear-gradient(135deg, #2C3E50, #34495E); padding: 24px 0; color: #ECECEC;">
     <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
         <h2 class="section-title" style="margin-bottom: 20px;">Teaching</h2>
@@ -1561,11 +1632,6 @@
 </section>
 
 
-
-
-
-
-
     </main>
 
 <!-- Footer -->
@@ -1609,16 +1675,5 @@
 <script defer src="main.js?v=2026-10-12"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
