@@ -1,0 +1,1234 @@
+/* ============================================================================
+   UXID Lab stylesheet
+   Extracted from index.html on 2026-10-12. Previously 15 separate <style>
+   blocks with no shared variables, which is why the same component was
+   redefined up to six times with conflicting values.
+
+   Edit colours, spacing and type here in :root; everything else refers to it.
+   ========================================================================= */
+
+:root {
+  /* Colour -------------------------------------------------------------- */
+  --color-bg:              #1D3557;  /* page + alternating sections (navy)  */
+  --color-surface:         #2C3E50;  /* section panels (slate)              */
+  --color-surface-raised:  #1F2937;  /* cards, publication rows, team cards */
+  --color-border:          rgba(255, 255, 255, 0.10);
+  --color-text:            #ECECEC;
+  --color-text-muted:      #AAB7B8;
+  --color-accent:          #F4D03F;  /* gold - 8.2:1 on navy                */
+  --color-accent-contrast: #1F2937;  /* text on gold fills                  */
+  --color-accent-soft:     rgba(244, 208, 63, 0.14);
+
+  /* Type ---------------------------------------------------------------- */
+  --font-body:    'Roboto', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --text-xs:      clamp(0.72rem, 0.70rem + 0.15vw, 0.80rem);
+  --text-sm:      clamp(0.85rem, 0.82rem + 0.20vw, 0.95rem);
+  --text-base:    clamp(1.00rem, 0.95rem + 0.30vw, 1.125rem);
+  --text-lg:      clamp(1.15rem, 1.05rem + 0.50vw, 1.40rem);
+  --text-xl:      clamp(1.50rem, 1.20rem + 1.20vw, 2.25rem);
+  --text-display: clamp(1.9rem, 1.35rem + 2.2vw, 2.6rem);
+  --leading-body: 1.65;
+
+  /* Space --------------------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+  --space-5: 4rem;
+  --space-section: clamp(2rem, 5vw, 4rem);
+
+  /* Shape and depth ----------------------------------------------------- */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.30);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.30);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.40);
+
+  /* Layout -------------------------------------------------------------- */
+  --container-max:    1200px;
+  --container-narrow: 1000px;
+  --header-h:         65px;
+}
+
+/* ---------- block 1 of 15 (was inline in index.html) ---------- */
+
+        /* Reset and Global Styles */
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333333;
+            background-color: #f3f4f6;
+            line-height: 1.6;
+        }
+        .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
+
+        /* Section Titles */
+        /* Section Titles */
+        h2.section-title {
+            font-size: 3rem;
+            color: #F4D03F;
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase !important;
+            font-weight: 700;
+        }
+
+        /* Generic Section Styling */
+        section {
+            padding: 30px 0;
+            background-color: #fefefe;
+        }
+
+        /* Teaching and Research Sections */
+
+        /* People Section */
+
+        /* Publications Section */
+        #publications { padding: 60px 0; background-color: #ffffff; color: #333333; }
+
+        /* Contact Section */
+
+        /* Footer */
+        footer {
+            background-color: #003049;
+            padding: 40px 0;
+            color: #f7f7f7;
+            border-top: 4px solid #fcbf49;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer a { color: #fcbf49; text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: #f77f00; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; }
+            .publication-item, .content-section { flex-direction: column; text-align: center; }
+        }
+
+/* ---------- block 2 of 15 (was inline in index.html) ---------- */
+
+        /* Team Section */
+        #people {
+            padding: 40px 0;
+            background-color: #fefae0;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            color: #264653;
+            text-align: center;
+            margin-bottom: 50px;
+            font-family: 'Playfair Display', serif;
+        }
+        .team-category {
+            margin-bottom: 40px;
+        }
+        .team-category h3 {
+            font-size: 2rem;
+            color: #2A9D8F;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Card Layout for Team Members */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .team-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .team-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .team-card h4 {
+            font-size: 1.2rem;
+            color: #264653;
+            margin-bottom: 10px;
+        }
+        .team-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+/* Contact Section */
+
+/* ---------- block 3 of 15 (was inline in index.html) ---------- */
+
+        
+        /* Teaching & Research Sections */
+
+        /* Publications Section */
+        #publications { padding: 40px 0; background: linear-gradient(135deg, #1F2937, #2C3E50); color: #ECECEC; }
+
+        .publication-item {
+            display: flex;
+            align-items: flex-start;
+            background-color: rgba(31, 41, 55, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .publication-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(244, 208, 63, 0.3);
+        }
+
+        .publication-thumbnail {
+            width: 180px;
+            height: 115px;
+            border-radius: 6px;
+            margin-right: 18px;
+            border: 2px solid #F4D03F;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .publication-details {
+            flex: 1;
+        }
+
+        .publication-details h4 {
+            font-size: 1.15rem;
+            color: #F4D03F;
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.25;
+            padding-right: 120px;
+        }
+
+        .publication-authors {
+            font-size: 0.9rem;
+            color: #ECECEC;
+            font-style: italic;
+            margin-bottom: 4px;
+        }
+
+        /* Full Venue Detail Style (Normal Text) */
+        .publication-venue {
+            display: block;
+            font-size: 0.85rem;
+            color: #AAB7B8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        /* Restored Button and Link Styles */
+        .publication-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-pub {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-pdf {
+            background: rgba(244, 208, 63, 0.12);
+            color: #F4D03F;
+            border: 1px solid #F4D03F;
+        }
+
+        .btn-pdf:hover {
+            background: #F4D03F;
+            color: #1F2937;
+        }
+
+        .btn-video {
+            background: rgba(133, 193, 233, 0.12);
+            color: #A9CCE3;
+            border: 1px solid #A9CCE3;
+        }
+
+        .btn-video:hover {
+            background: #A9CCE3;
+            color: #1F2937;
+        }
+
+        .honorable-mention {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #F4D03F;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Badge Style (Short Acronym) */
+        .publication-badge {
+            display: inline-block;
+            background-color: rgba(244, 208, 63, 0.1);
+            color: #F4D03F;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            border: 1px solid rgba(244, 208, 63, 0.3);
+        }
+
+        /* Desktop Positioning for Badge */
+        @media (min-width: 769px) {
+            .publication-badge {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background-color: #F4D03F;
+                color: #1F2937;
+                padding: 3px 10px;
+                border-radius: 15px;
+                font-weight: 700;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                border: none;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Mobile Style */
+        @media (max-width: 768px) {
+            .publication-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 15px;
+            }
+            .publication-thumbnail {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 12px;
+                max-width: 250px; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            }
+            .publication-details h4 {
+                padding-right: 0;
+                font-size: 1.05rem;
+            }
+            .publication-links {
+                justify-content: center;
+            }
+            .publication-badge {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+/* ---------- block 4 of 15 (was inline in index.html) ---------- */
+        /* Teaching and Research Sections */
+.section-container {
+    padding: 30px 0;
+    background-color: #2C3E50;
+    color: #ECECEC;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #F4D03F;
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+}
+
+/* Teaching Grid */
+.teaching-grid, .research-areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.course-block, .research-area {
+    background-color: #34495E;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 320px;
+    transition: transform 0.3s ease;
+}
+
+.course-block:hover, .research-area:hover {
+    transform: translateY(-5px);
+}
+
+.course-block h3, .research-area h3 {
+    font-size: 1.8rem;
+    color: #F4D03F;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* List Styles */
+
+/* ---------- block 5 of 15 (was inline in index.html) ---------- */
+    /* General Section Styling */
+.section-container, #publications, #people, #opportunities {
+    padding: 30px 0;
+    background: linear-gradient(135deg, #2C3E50, #34495E) !important; /* Strong gradient background */
+    color: #ECECEC;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Publications Section */
+#publications .publication-list li {
+    background-color: rgba(44, 62, 80, 0.9) !important; /* Dark background */
+    color: #ECECEC !important;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#publications .publication-list li:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#publications .publication-thumbnail {
+    border: 3px solid #F4D03F;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* People Section Styling */
+#people {
+    padding: 30px 0;
+    background-color: #34495E;
+    color: #ECECEC;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 3rem;
+    color: #F4D03F;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase !important;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.team-category h3 {
+    font-size: 1.8rem;
+    color: #F4D03F;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.team-card {
+    background-color: #2C3E50;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.team-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.team-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #F4D03F;
+    margin-bottom: 15px;
+}
+
+.team-card h4 {
+    font-size: 1.3rem;
+    color: #F4D03F;
+    margin-bottom: 10px;
+}
+
+.team-card p {
+    font-size: 1rem;
+    color: #ECECEC;
+    line-height: 1.6;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.contact-info a {
+    font-size: 1.4rem;
+    color: #F4D03F;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #F4D03F;
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Opportunities Grid Layout */
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .opportunity-grid {
+        flex-direction: column;
+    }
+}
+
+/* People Section Styling */
+#people {
+    padding: 30px 0;
+    background-color: #34495E;
+    color: #ECECEC;
+    text-align: center;
+}
+
+.team-category h3 {
+    font-size: 1.8rem;
+    color: #F4D03F;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Team Grid and Card Layout */
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.team-card {
+    background-color: #2C3E50;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+.image-container {
+    position: relative;
+}
+.image-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #F4D03F;
+    transition: transform 0.3s;
+}
+.image-container:hover img {
+    transform: scale(1.1);
+}
+
+.team-card h4 {
+    font-size: 1.3rem;
+    color: #F4D03F;
+    margin: 15px 0 10px;
+}
+
+.team-card p {
+    font-size: 1rem;
+    color: #ECECEC;
+    line-height: 1.4;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.contact-info a {
+    font-size: 1.4rem;
+    color: #F4D03F;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #F4D03F;
+}
+
+/* Description Section (Hidden by Default) */
+.description {
+    display: none;
+    background-color: #1F2937;
+    color: #ECECEC;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Teaching Section */
+#teaching {
+    padding: 30px 0;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    color: #ececec;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #f39c12;
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+}
+
+.teaching-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.course-block {
+    background-color: #2f3640;
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 360px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.course-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.course-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.course-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.course-block h3 {
+    font-size: 1.35rem;
+    color: #f4d03f;
+    margin-bottom: 6px;
+}
+
+.course-block p {
+    font-size: 1rem;
+    color: #dcdde1;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.details-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.details-list li {
+    padding: 6px 0 6px 26px;
+    border-bottom: 1px solid rgba(244, 208, 63, 0.2);
+    color: #e1e1e1;
+    position: relative;
+    text-align: left;
+    line-height: 1.35;
+}
+
+.details-list li::before {
+    content: '\f19d'; /* Graduation Cap Icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: #F4D03F;
+    font-size: 0.9rem;
+}
+
+.details-list li:last-child {
+    border-bottom: none;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .teaching-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .details-list li {
+        padding-left: 20px;
+    }
+}
+
+/* ---------- block 6 of 15 (was inline in index.html) ---------- */
+/* General Styles */
+.nav-link {
+    color: #F1FAEE;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+}
+.nav-link:hover {
+    background-color: #A8DADC;
+    color: #1D3557;
+}
+
+/* Desktop Navigation Styles */
+.desktop-nav {
+    display: flex;
+    gap: 20px;
+}
+
+/* Hide Mobile Menu and Button on Larger Screens */
+.menu-btn, .mobile-nav {
+    display: none;
+}
+
+/* Hide logo full text on medium screens to save navbar space */
+@media (max-width: 1100px) {
+    .logo-text {
+        display: none;
+    }
+}
+
+/* Show Mobile Button and Hide Desktop Navigation on Smaller Screens */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+    .menu-btn {
+        display: block;
+        background-color: #A8DADC;
+        color: #1D3557;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .mobile-nav {
+        display: none;
+        background-color: #1D3557;
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+        top: 65px; /* must match the fixed header height */
+        left: 0;
+        z-index: 999;
+    }
+    .mobile-nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Show Mobile Menu when Active */
+    .mobile-nav.active {
+        display: block;
+    }
+}
+
+/* ---------- block 7 of 15 (was inline in index.html) ---------- */
+/* Mobile Menu Button */
+.menu-btn {
+    display: none; /* Hidden on larger screens */
+    background: linear-gradient(135deg, #A8DADC, #457B9D);
+    color: #1D3557;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect */
+.menu-btn:hover {
+    background: linear-gradient(135deg, #F1FAEE, #A8DADC);
+    color: #1D3557;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1.07) translateY(-2px);
+}
+
+/* Advanced Shadow and Click State */
+.menu-btn:active {
+    transform: scale(0.98) translateY(1px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Pulsing Animation */
+.menu-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: transform 0.5s ease-out;
+    z-index: 1;
+}
+
+.menu-btn:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Display on Mobile Screens */
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+    }
+}
+
+/* ---------- block 8 of 15 (was inline in index.html) ---------- */
+    /* Push body content below the fixed header with no gap */
+    body { padding-top: 65px; }
+    #hero-carousel-section { height: calc(100vh - 65px) !important; margin-top: 0 !important; padding: 0 !important; }
+    /* dvh avoids the mobile-Safari toolbar overflow; falls back to the vh rule above */
+    @supports (height: 100dvh) {
+        #hero-carousel-section { height: calc(100dvh - 65px) !important; }
+    }
+    /* Anchor targets must clear the fixed header + section indicator bar */
+    section[id], footer[id], [id^="news-"] { scroll-margin-top: 110px; }
+    /* Screen-reader-only utility */
+    .visually-hidden {
+        position: absolute !important; width: 1px; height: 1px;
+        padding: 0; margin: -1px; overflow: hidden;
+        clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+    }
+    /* Visible keyboard focus everywhere (there was none before) */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+        outline: 3px solid #F4D03F;
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+    /* Skip link */
+    .skip-link {
+        position: absolute; left: 8px; top: -60px; z-index: 2000;
+        background: #F4D03F; color: #1F2937; padding: 10px 16px;
+        border-radius: 0 0 8px 8px; font-weight: 700; text-decoration: none;
+        transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+/* ---------- block 9 of 15 (was inline in index.html) ---------- */
+    @media (max-width: 768px) {
+        #lab-stats .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+
+/* ---------- block 10 of 15 (was inline in index.html) ---------- */
+    /* Responsive Styles for Full Width Hero */
+    @media (max-width: 992px) {
+        #hero-text-section h2, #hero h2 {
+            font-size: 2.8rem !important;
+        }
+        #hero-text-section p, #hero p {
+            font-size: 1.1rem !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #hero {
+            height: auto !important;
+            min-height: 100vh;
+            padding-top: 100px; /* Space for fixed header */
+        }
+        #hero-text-section h2, #hero h2 {
+            font-size: 2.2rem !important;
+        }
+        #hero-text-section p, #hero p {
+            font-size: 1.05rem !important;
+        }
+        /* Allow the carousel to take natural height to avoid cropping */
+        #hero-carousel-section {
+            height: auto !important;
+            min-height: unset !important;
+        }
+        .hero-carousel, #heroCarousel, .carousel-inner, .carousel-item, .carousel-item img, .carousel-item video {
+            height: auto !important;
+            min-height: unset !important;
+            width: 100% !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #hero-text-section h2, #hero h2 {
+            font-size: 1.8rem !important;
+        }
+    }
+
+/* ---------- block 11 of 15 (was inline in index.html) ---------- */
+    .news-permalink {
+        color: rgba(244, 208, 63, 0.35);
+        text-decoration: none;
+        font-weight: 700;
+        margin-right: 6px;
+        transition: color 0.2s ease;
+    }
+    .news-permalink:hover, .news-permalink:focus { color: #F4D03F; }
+    .news-date-chip {
+        display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F;
+        border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px;
+        font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+        padding: 2px 10px; margin-right: 8px; vertical-align: 2px; white-space: nowrap;
+    }
+    .news-new-badge {
+        display: inline-block; background: #F4D03F; color: #1F2937; border-radius: 20px;
+        font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+        padding: 2px 10px; margin-right: 8px; vertical-align: 2px;
+    }
+
+/* ---------- block 12 of 15 (was inline in index.html) ---------- */
+    @media (max-width: 768px) {
+        #awards .awards-grid { grid-template-columns: 1fr !important; }
+    }
+
+/* ---------- block 13 of 15 (was inline in index.html) ---------- */
+.events-timeline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media (min-width: 769px) {
+    .events-timeline {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, auto);
+        grid-auto-flow: column;
+    }
+}
+
+.event-card {
+    display: flex;
+    align-items: center;
+    background: rgba(31, 41, 55, 0.7);
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-left: 5px solid #F4D03F;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.event-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    background: rgba(31, 41, 55, 0.9);
+}
+.event-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #F4D03F;
+    color: #1F2937;
+    min-width: 65px;
+    height: 65px;
+    border-radius: 8px;
+    margin-right: 15px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+.event-date .month {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.event-date .day {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+.event-details h4 {
+    color: #F4D03F;
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+    font-family: 'Playfair Display', serif;
+}
+.event-details p {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #AAB7B8;
+}
+
+@media (max-width: 768px) {
+    .event-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 15px;
+    }
+    .event-date {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+/* ---------- block 14 of 15 (was inline in index.html) ---------- */
+.pub-filter-btn {
+    padding: 8px 18px; border: 2px solid #F4D03F; border-radius: 25px;
+    background: transparent; color: #F4D03F; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease;
+}
+.pub-filter-btn:hover, .pub-filter-btn.active {
+    background: #F4D03F; color: #1F2937;
+}
+.publication-item { transition: opacity 0.3s ease, transform 0.3s ease; }
+.publication-item.hidden { display: none; }
+#backToTop:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+
+/* Collapsible Abstract Styles */
+.btn-abstract {
+    background: rgba(168, 218, 220, 0.1); color: #A8DADC; border: 1px solid #A8DADC;
+}
+.btn-abstract:hover { background: #A8DADC; color: #1F2937; }
+.pub-abstract {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;
+    background: rgba(29, 53, 87, 0.5); border-radius: 6px; margin-top: 8px;
+    font-size: 0.85rem; line-height: 1.5; color: #ccc; padding: 0 12px;
+}
+.pub-abstract.expanded {
+    max-height: 300px; padding: 10px 12px; overflow-y: auto;
+}
+
+/* Section Indicator responsive */
+@media (max-width: 768px) {
+    #section-indicator { top: 65px; }
+}
+
+/* Comprehensive Mobile Fixes */
+@media (max-width: 768px) {
+    /* Header padding - less on mobile */
+    header > div { padding: 0 15px !important; }
+
+    /* Team cards */
+    .team-card { width: 100% !important; max-width: 300px !important; }
+    .team-category h3 { font-size: 1.5rem !important; margin-bottom: 15px !important; margin-top: 25px !important; }
+
+    /* Section titles smaller on mobile */
+    .section-title { font-size: 2rem !important; margin-bottom: 20px !important; }
+
+    /* Teaching grid tighter */
+    .teaching-grid { gap: 15px !important; }
+    .course-block { max-width: 100% !important; width: 100% !important; }
+
+    /* Opportunity grid tighter */
+    .opportunity-grid { gap: 15px !important; }
+
+    /* Publication filter buttons tighter */
+    .pub-filter-btn { padding: 6px 12px; font-size: 0.8rem; }
+
+    /* Back to top button smaller */
+    #backToTop { width: 42px !important; height: 42px !important; bottom: 20px !important; right: 20px !important; font-size: 1.1rem !important; }
+
+    /* Footer tighter */
+    footer .container { padding: 0 15px !important; }
+    footer div[style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+    header > div { padding: 0 10px !important; }
+    .section-title { font-size: 1.7rem !important; }
+    .pub-filter-btn { padding: 5px 10px; font-size: 0.75rem; }
+    .publication-item { padding: 10px !important; }
+    .publication-details h4 { font-size: 0.95rem !important; }
+    .publication-authors { font-size: 0.8rem !important; }
+    .publication-venue { font-size: 0.75rem !important; }
+}
+
+/* ---------- block 15 of 15 (was inline in index.html) ---------- */
+    .reveal-init {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        will-change: opacity, transform;
+    }
+    .reveal-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+/* ============================================================================
+   PHASE 2 POLISH LAYER (2026-10-12)
+
+   The rules above accumulated over time: the same component is declared up to
+   six times with conflicting values, so editing an earlier one often does
+   nothing. Rather than rewrite all of it at once, this layer sets the small
+   number of properties that carry the visual identity, expressed in tokens.
+   Anything here should eventually migrate up into the component rules.
+   ========================================================================= */
+
+/* --- Page base. The body was white with Bootstrap's font stack, which showed
+       through on overscroll and during the brief moment before sections paint. */
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: var(--leading-body);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Section headings: 3rem uppercase everywhere flattened the hierarchy and
+       wrapped awkwardly on phones. Sentence case at a fluid size, with a short
+       gold rule to mark the start of a section. */
+h2.section-title {
+    font-size: var(--text-display);
+    text-transform: none !important;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-4);
+}
+h2.section-title::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: var(--space-3) auto 0;
+    background: var(--color-accent);
+    border-radius: var(--radius-pill);
+}
+
+/* --- Cards: dark cards on a dark background had almost no edge. A hairline
+       border separates them from the section without lightening the palette. */
+.publication-item,
+.team-card,
+.award-card,
+.event-card,
+.stat-tile,
+.course-block {
+    border: 1px solid var(--color-border);
+}
+
+/* --- Consistent, calmer hover. Several components animated `all`, which also
+       animates layout properties. */
+.publication-item,
+.team-card,
+.award-card,
+.event-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.publication-item:hover,
+.team-card:hover,
+.award-card:hover,
+.event-card:hover {
+    border-color: rgba(244, 208, 63, 0.35);
+    box-shadow: var(--shadow-lg);
+}
+
+/* --- Body copy was 1.15-1.25rem with a 1.8 line height, which reads as large
+       and loose on desktop and overflows on small phones. */
+#hero-text-section p,
+.publication-authors,
+.publication-venue {
+    font-size: var(--text-base);
+}
+
+/* --- Mobile menu overlay: page text used to show through underneath it. */
+body.menu-open { overflow: hidden; }
+@media (max-width: 768px) {
+    .mobile-nav.active {
+        min-height: calc(100vh - var(--header-h));
+        background-color: var(--color-bg);
+        overflow-y: auto;
+        padding-bottom: var(--space-5);
+    }
+}
+
+/* --- Respect reduced motion everywhere, including the auto-advancing carousel
+       and the smooth scrolling, which were previously unguarded. */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal-init { opacity: 1 !important; transform: none !important; }
+}
+
+/* The Abstract control is a real <button> (it toggles content, it does not
+   navigate). Match it to the sibling link-buttons. */
+button.btn-pub {
+    font: inherit;
+    cursor: pointer;
+    background: none;
+}
