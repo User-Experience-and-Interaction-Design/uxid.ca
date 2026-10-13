@@ -33,7 +33,6 @@ jobs:
           cp feed.xml _site/ 2>/dev/null || true
           cp styles.css _site/ 2>/dev/null || true
           cp main.js _site/ 2>/dev/null || true
-          cp phd-hci-opportunity.html masters-human-ai-interaction.html research-collaboration.html _site/ 2>/dev/null || true
           cp -R images _site/images
           echo "--- published files ---"
           find _site -type f | sort

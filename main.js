@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // Back to Top Button
 (function() {
     var btn = document.getElementById('backToTop');
+    if (!btn) { return; }
     var ticking = false;
     window.addEventListener('scroll', function() {
         if (ticking) { return; }
@@ -301,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
 (function() {
     var indicator = document.getElementById('section-indicator');
     var indicatorText = document.getElementById('section-indicator-text');
+    if (!indicator || !indicatorText) { return; }
     var sectionNames = {
         'hero': 'Home',
         'about': 'About',
@@ -574,4 +576,20 @@ document.addEventListener('DOMContentLoaded', function () {
         card.appendChild(body);
         wrap.appendChild(card);
     });
+})();
+
+/* ---------- Footer: year and last-updated ---------- */
+(function () {
+    var y = document.getElementById('footer-year');
+    if (y) { y.textContent = String(new Date().getFullYear()); }
+    var lu = document.getElementById('last-updated');
+    if (lu) {
+        // document.lastModified reflects the Last-Modified header GitHub Pages
+        // sends, i.e. the most recent deploy of this file.
+        var d = new Date(document.lastModified);
+        if (!isNaN(d)) {
+            lu.textContent = d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+            lu.setAttribute('datetime', d.toISOString().slice(0, 10));
+        }
+    }
 })();
