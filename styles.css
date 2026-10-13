@@ -215,7 +215,7 @@
             flex: 1;
         }
 
-        .publication-details h4 {
+        .publication-details h3, .publication-details h4 {
             font-size: 1.15rem;
             color: #F4D03F;
             margin-bottom: 5px;
@@ -339,7 +339,7 @@
                 margin-bottom: 12px;
                 max-width: 250px; height: auto; aspect-ratio: 16/9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             }
-            .publication-details h4 {
+            .publication-details h3, .publication-details h4 {
                 padding-right: 0;
                 font-size: 1.05rem;
             }
@@ -1005,7 +1005,7 @@
     font-size: 1.6rem;
     line-height: 1;
 }
-.event-details h4 {
+.event-details h3, .event-details h4 {
     color: #F4D03F;
     font-size: 1.25rem;
     margin-bottom: 2px;
@@ -1098,7 +1098,7 @@
     .section-title { font-size: 1.7rem !important; }
     .pub-filter-btn { padding: 5px 10px; font-size: 0.75rem; }
     .publication-item { padding: 10px !important; }
-    .publication-details h4 { font-size: 0.95rem !important; }
+    .publication-details h3, .publication-details h3, .publication-details h4 { font-size: 0.95rem !important; }
     .publication-authors { font-size: 0.8rem !important; }
     .publication-venue { font-size: 0.75rem !important; }
 }
@@ -1757,3 +1757,121 @@ button.btn-pub {
 }
 .contact-info a { font-size: 1.4rem; color: var(--color-accent); transition: transform 0.2s ease; }
 .contact-info a:hover { transform: translateY(-2px); color: #ffdf5c; }
+
+/* ============================================================================
+   HOISTED FROM INLINE STYLES (Phase 4, 2026-10-13)
+   Each rule is the exact declaration list that used to sit in a style="..."
+   attribute on the elements named in its comment. Moved here so the markup
+   is editable and the cascade is visible. The main/header/footer-prefixed
+   selectors keep these at or above the specificity of older element rules;
+   the block is kept last in the file so it wins ties by order. The doubled
+   class (.x.x) lifts specificity to beat the older two-class element rules
+   (e.g. .publication-item .publication-thumbnail) that inline styles used to override.
+   ========================================================================= */
+/* was inline on <header> */
+.page-x1.page-x1, main .page-x1.page-x1, header .page-x1.page-x1, footer .page-x1.page-x1 { background-color: #1D3557; color: #F1FAEE; padding: 0; height: 65px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3); }
+/* was inline on <div> */
+.header-x1.header-x1, main .header-x1.header-x1, header .header-x1.header-x1, footer .header-x1.header-x1 { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px; }
+/* was inline on <a> */
+.header-x2.header-x2, main .header-x2.header-x2, header .header-x2.header-x2, footer .header-x2.header-x2 { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+/* was inline on <span> */
+.header-x3.header-x3, main .header-x3.header-x3, header .header-x3.header-x3, footer .header-x3.header-x3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #A8DADC; line-height: 1.3; white-space: nowrap; font-weight: 600; }
+/* was inline on <ul> */
+.header-x4.header-x4, main .header-x4.header-x4, header .header-x4.header-x4, footer .header-x4.header-x4 { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+/* was inline on <div> */
+.page-x2.page-x2, main .page-x2.page-x2, header .page-x2.page-x2, footer .page-x2.page-x2 { position: fixed; top: 65px; left: 0; width: 100%; z-index: 999; background: rgba(29, 53, 87, 0.95); backdrop-filter: blur(5px); padding: 6px 20px; display: none; border-bottom: 2px solid #F4D03F; transition: opacity 0.3s ease; }
+/* was inline on <span> */
+.page-x3.page-x3, main .page-x3.page-x3, header .page-x3.page-x3, footer .page-x3.page-x3 { color: #F4D03F; font-size: 0.85rem; font-weight: 600; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 1px; }
+/* was inline on <section> */
+#lab-stats.lab-stats-section, .lab-stats-section.lab-stats-section { background: linear-gradient(135deg, #2C3E50, #34495E); padding: 36px 0; color: #ECECEC; }
+/* was inline on <div> */
+.container--narrow.container--narrow, main .container--narrow.container--narrow, header .container--narrow.container--narrow, footer .container--narrow.container--narrow { max-width: 1000px; margin: auto; }
+/* was inline on <div> */
+.stats-x1.stats-x1, main .stats-x1.stats-x1, header .stats-x1.stats-x1, footer .stats-x1.stats-x1 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: center; }
+/* was inline on <div> */
+.stat-tile.stat-tile, main .stat-tile.stat-tile, header .stat-tile.stat-tile, footer .stat-tile.stat-tile { background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 22px 12px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+/* was inline on <i> */
+.stat-icon.stat-icon, main .stat-icon.stat-icon, header .stat-icon.stat-icon, footer .stat-icon.stat-icon { font-size: 1.4rem; color: #F4D03F; margin-bottom: 10px; }
+/* was inline on <div> */
+.stat-number.stat-number, main .stat-number.stat-number, header .stat-number.stat-number, footer .stat-number.stat-number { font-size: 2.4rem; font-weight: 700; color: #F4D03F; font-family: 'Playfair Display', serif; line-height: 1.1; }
+/* was inline on <div> */
+.stat-label.stat-label, main .stat-label.stat-label, header .stat-label.stat-label, footer .stat-label.stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #ECECEC; margin-top: 6px; }
+/* was inline on <h2> */
+.publications-x3.publications-x3, main .publications-x3.publications-x3, header .publications-x3.publications-x3, footer .publications-x3.publications-x3 { font-size: 3rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; }
+/* was inline on <img> */
+.publications-x1.publications-x1, main .publications-x1.publications-x1, header .publications-x1.publications-x1, footer .publications-x1.publications-x1 { object-fit: contain; background: #fff; }
+/* was inline on <i> */
+.publications-x2.publications-x2, main .publications-x2.publications-x2, header .publications-x2.publications-x2, footer .publications-x2.publications-x2 { margin-right:5px; }
+/* was inline on <section> */
+#recent-news.recent-news-section, .recent-news-section.recent-news-section { background: linear-gradient(135deg, #34495E, #2C3E50); padding: 40px 0; color: #ECECEC; }
+/* was inline on <h2> */
+.news-x1.news-x1, main .news-x1.news-x1, header .news-x1.news-x1, footer .news-x1.news-x1 { margin-bottom: 30px; }
+/* was inline on <li> */
+.news-item.news-item, main .news-item.news-item, header .news-item.news-item, footer .news-item.news-item { margin-bottom: 15px; position: relative; padding-left: 20px; }
+/* was inline on <i> */
+.news-icon.news-icon, main .news-icon.news-icon, header .news-icon.news-icon, footer .news-icon.news-icon { position: absolute; left: 0; top: 5px; color: #F4D03F; }
+/* was inline on <span> */
+.news-text.news-text, main .news-text.news-text, header .news-text.news-text, footer .news-text.news-text { font-size: 1.15rem; line-height: 1.6; color: #ECECEC; }
+/* was inline on <a> */
+.news-x2.news-x2, main .news-x2.news-x2, header .news-x2.news-x2, footer .news-x2.news-x2 { color: #F4D03F; text-decoration: none; }
+/* was inline on <section> */
+#awards.awards-section, .awards-section.awards-section,
+#important-dates.important-dates-section, .important-dates-section.important-dates-section { background: linear-gradient(135deg, #1D3557, #2C3E50); padding: 40px 0; color: #ECECEC; }
+/* was inline on <div> */
+.awards-x3.awards-x3, main .awards-x3.awards-x3, header .awards-x3.awards-x3, footer .awards-x3.awards-x3 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+/* was inline on <div> */
+.award-card.award-card, main .award-card.award-card, header .award-card.award-card, footer .award-card.award-card { background: rgba(31, 41, 55, 0.55); border-radius: 12px; padding: 24px 20px; border-top: 3px solid #F4D03F; box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-align: center; }
+/* was inline on <i> */
+.award-icon.award-icon, main .award-icon.award-icon, header .award-icon.award-icon, footer .award-icon.award-icon { font-size: 2rem; color: #F4D03F; margin-bottom: 12px; }
+/* was inline on <div> */
+.awards-x2.awards-x2, main .awards-x2.awards-x2, header .awards-x2.awards-x2, footer .awards-x2.awards-x2 { display: inline-block; background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content; }
+/* was inline on <h3> */
+.award-title.award-title, main .award-title.award-title, header .award-title.award-title, footer .award-title.award-title { font-size: 1.1rem; color: #FDFDFD; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+/* was inline on <p> */
+.awards-x1.awards-x1, main .awards-x1.awards-x1, header .awards-x1.awards-x1, footer .awards-x1.awards-x1 { font-size: 0.95rem; color: #C9D2DB; line-height: 1.55; margin: 0; }
+/* was inline on <strong> */
+.text-accent.text-accent, main .text-accent.text-accent, header .text-accent.text-accent, footer .text-accent.text-accent { color: #F4D03F; }
+/* was inline on <div> */
+.awards-x4.awards-x4, main .awards-x4.awards-x4, header .awards-x4.awards-x4, footer .awards-x4.awards-x4 { background: rgba(244, 208, 63, 0.15); color: #F4D03F; border: 1px solid rgba(244, 208, 63, 0.35); border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 2px 12px; margin: 0 auto 10px; display: block; width: fit-content; }
+/* was inline on <a> */
+.link-accent.link-accent, main .link-accent.link-accent, header .link-accent.link-accent, footer .link-accent.link-accent { color: #F4D03F; text-decoration: none; transition: color 0.3s; }
+/* was inline on <section> */
+.dates-x1.dates-x1, main .dates-x1.dates-x1, header .dates-x1.dates-x1, footer .dates-x1.dates-x1 { padding: 30px 0; background: linear-gradient(135deg, #1D3557, #2C3E50); color: #ECECEC; }
+/* was inline on <div> */
+.people-x7.people-x7, main .people-x7.people-x7, header .people-x7.people-x7, footer .people-x7.people-x7 { max-width: 1200px; margin: auto; text-align: center; }
+/* was inline on <h3> */
+.people-x2.people-x2, main .people-x2.people-x2, header .people-x2.people-x2, footer .people-x2.people-x2 { font-size: 2.2rem; color: #F4D03F; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-weight: 700; }
+/* was inline on <div> */
+.people-x3.people-x3, main .people-x3.people-x3, header .people-x3.people-x3, footer .people-x3.people-x3 { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+/* was inline on <div> */
+.people-x1.people-x1, main .people-x1.people-x1, header .people-x1.people-x1, footer .people-x1.people-x1 { background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+/* was inline on <div> */
+.team-avatar.team-avatar, main .team-avatar.team-avatar, header .team-avatar.team-avatar, footer .team-avatar.team-avatar { overflow: hidden; border-radius: 50%; width: 120px; height: 120px; margin: auto; margin-bottom: 15px; }
+/* was inline on <img> */
+.team-avatar__img.team-avatar__img, main .team-avatar__img.team-avatar__img, header .team-avatar__img.team-avatar__img, footer .team-avatar__img.team-avatar__img { width: 100%; height: 100%; object-fit: cover; }
+/* was inline on <h4> */
+.team-name.team-name, main .team-name.team-name, header .team-name.team-name, footer .team-name.team-name { font-size: 1.5rem; color: #F4D03F; }
+/* was inline on <div> */
+.contact-info.contact-info, main .contact-info.contact-info, header .contact-info.contact-info, footer .contact-info.contact-info { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
+/* was inline on <a> */
+.people-x6.people-x6, main .people-x6.people-x6, header .people-x6.people-x6, footer .people-x6.people-x6 { font-size: 1.4rem; color: #F4D03F; }
+/* was inline on <span> */
+.pill-grad.pill-grad, main .pill-grad.pill-grad, header .pill-grad.pill-grad, footer .pill-grad.pill-grad { display: inline-block; background: #059669; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px; }
+/* was inline on <p> */
+.team-dates.team-dates, main .team-dates.team-dates, header .team-dates.team-dates, footer .team-dates.team-dates { font-size: 0.9rem; color: #BBB; margin-bottom: 5px; }
+/* was inline on <div> */
+.people-x8.people-x8, main .people-x8.people-x8, header .people-x8.people-x8, footer .people-x8.people-x8 { width: 100%; height: 100%; background-color: #374151; display: flex; align-items: center; justify-content: center; color: #F4D03F; font-size: 2.5rem; font-weight: bold; }
+/* was inline on <div> */
+.team-card.team-card, main .team-card.team-card, header .team-card.team-card, footer .team-card.team-card { background-color: #1F2937; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align: center; max-width: 100%; height: auto; }
+/* was inline on <img> */
+.people-x9.people-x9, main .people-x9.people-x9, header .people-x9.people-x9, footer .people-x9.people-x9 { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
+/* was inline on <p> */
+.people-x4.people-x4, main .people-x4.people-x4, header .people-x4.people-x4, footer .people-x4.people-x4 { font-size: 0.8rem; color: #F4D03F; margin-bottom: 6px; }
+/* was inline on <i> */
+.people-x5.people-x5, main .people-x5.people-x5, header .people-x5.people-x5, footer .people-x5.people-x5 { margin-right: 4px; }
+/* was inline on <span> */
+.pill-ug.pill-ug, main .pill-ug.pill-ug, header .pill-ug.pill-ug, footer .pill-ug.pill-ug { display: inline-block; background: #2563EB; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.4px; }
+/* was inline on <section> */
+#teaching.teaching-section, .teaching-section.teaching-section { background: linear-gradient(135deg, #2C3E50, #34495E); padding: 24px 0; color: #ECECEC; }
+/* was inline on <button> */
+.footer-x1.footer-x1, main .footer-x1.footer-x1, header .footer-x1.footer-x1, footer .footer-x1.footer-x1 { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 999; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; background: #F4D03F; color: #1D3557; font-size: 1.4rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; }

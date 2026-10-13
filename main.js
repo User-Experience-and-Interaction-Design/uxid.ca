@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.publication-links').forEach(function(links) {
         var pubDetails = links.closest('.publication-details');
-        var titleEl = pubDetails.querySelector('h4');
+        var titleEl = pubDetails.querySelector('h3, h4');
         var title = titleEl ? titleEl.textContent.trim() : '';
 
         // Find matching abstract by checking if title contains any key
@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function () {
     featured.forEach(function (item) {
         var img    = item.querySelector('.publication-thumbnail');
         var badge  = item.querySelector('.publication-badge');
-        var title  = item.querySelector('h4');
+        var title  = item.querySelector('h3, h4');
         var award  = item.querySelector('.honorable-mention');
         var teaser = item.getAttribute('data-teaser') || '';
 
@@ -524,7 +524,8 @@ document.addEventListener('DOMContentLoaded', function () {
         media.href = '#' + item.id;
         if (img) {
             var clone = img.cloneNode(true);
-            clone.removeAttribute('class');
+            // keep any hoisted presentation class (object-fit/background), drop only the list-layout class
+            clone.classList.remove('publication-thumbnail');
             clone.alt = '';
             clone.loading = 'lazy';
             media.appendChild(clone);
