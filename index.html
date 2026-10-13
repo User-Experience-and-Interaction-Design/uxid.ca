@@ -179,7 +179,7 @@
          replaced. Dropping it removes a render-blocking stylesheet and ~80 KB of JS. -->
 
     <!-- Site stylesheet. Bump ?v= to bust caches. -->
-    <link rel="stylesheet" href="styles.css?v=2026-10-13">
+    <link rel="stylesheet" href="styles.css?v=2026-10-13c">
 
     <!-- Privacy-friendly analytics.
          ACTION REQUIRED: create the site at https://plausible.io (or swap in a GA4 tag),
@@ -283,6 +283,19 @@
 </section>
 
 <!-- Hero Text Section -->
+<!-- =====================================================================
+     Latest. The three most recent News items, built at load time from the
+     News list further down so this can never drift. To control what shows
+     here, set data-summary (one short line) and data-photo on a news <li>.
+     ================================================================== -->
+<section id="latest" class="latest" aria-label="Latest from the lab" hidden>
+    <div class="container latest__inner">
+        <h2 class="latest__heading">Latest from the lab</h2>
+        <ul id="latest-strip" class="latest__list"></ul>
+        <a class="latest__all" href="#recent-news">All news <span aria-hidden="true">&rarr;</span></a>
+    </div>
+</section>
+
 <!-- =====================================================================
      About. Rewritten in the lab's voice (third person). A visitor landing
      here is usually a prospective student, a collaborator or a journalist,
@@ -1119,7 +1132,7 @@
 
         <ul style="list-style: none; padding: 0;">
 
-            <li class="news-item" id="news-uist-2026-posters">
+            <li class="news-item" id="news-uist-2026-posters" data-summary="Two posters accepted at UIST 2026: CiteLen and CTATutor" data-photo="images/citelen.webp">
                 <i class="fas fa-check-circle news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-09">Sep 2026</time><a class="news-permalink" href="#news-uist-2026-posters" aria-label="Permalink to this news item" title="Permalink">#</a><span class="news-new-badge">New</span>
@@ -1127,7 +1140,7 @@
                 </span>
             </li>
 
-            <li class="news-item" id="news-cog-2026-ridge">
+            <li class="news-item" id="news-cog-2026-ridge" data-summary="RIDGE accepted for oral presentation at IEEE CoG 2026, Madrid" data-photo="images/ridge_cog_presentation.webp">
                 <i class="fas fa-check-circle news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-09">Sep 2026</time><a class="news-permalink" href="#news-cog-2026-ridge" aria-label="Permalink to this news item" title="Permalink">#</a>
@@ -1135,7 +1148,7 @@
                 </span>
             </li>
 
-            <li class="news-item" id="news-yasaman-thesis-defence">
+            <li class="news-item" id="news-yasaman-thesis-defence" data-summary="Yasaman Basti defends her MSc thesis, CiteView" data-photo="images/yasaman_thesis_defence.webp">
                 <i class="fas fa-graduation-cap news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-08">Aug 2026</time><a class="news-permalink" href="#news-yasaman-thesis-defence" aria-label="Permalink to this news item" title="Permalink">#</a>
@@ -1143,7 +1156,7 @@
                 </span>
             </li>
 
-            <li class="news-item" id="news-sakil-thesis-defence">
+            <li class="news-item" id="news-sakil-thesis-defence" data-summary="Sakil Sarker defends his MSc thesis, nominated for Best Thesis" data-photo="images/sakil_thesis_defence.webp">
                 <i class="fas fa-graduation-cap news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-08">Aug 2026</time><a class="news-permalink" href="#news-sakil-thesis-defence" aria-label="Permalink to this news item" title="Permalink">#</a>
@@ -1151,7 +1164,7 @@
                 </span>
             </li>
 
-            <li class="news-item" id="news-coread-icmi-2026">
+            <li class="news-item" id="news-coread-icmi-2026" data-summary="CoRead accepted at ICMI 2026" data-photo="images/coread.webp">
                 <i class="fas fa-check-circle news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-07">Jul 2026</time><a class="news-permalink" href="#news-coread-icmi-2026" aria-label="Permalink to this news item" title="Permalink">#</a>
@@ -1159,7 +1172,7 @@
                 </span>
             </li>
 
-            <li class="news-item" id="news-gi-2026-earable">
+            <li class="news-item" id="news-gi-2026-earable" data-summary="Earable swipe-gesture paper presented at Graphics Interface 2026" data-photo="images/earable_gi26.webp">
                 <i class="fas fa-microphone news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-06">Jun 2026</time><a class="news-permalink" href="#news-gi-2026-earable" aria-label="Permalink to this news item" title="Permalink">#</a>
@@ -1167,7 +1180,7 @@
                 </span>
             </li>
 
-            <li class="news-item" id="news-undergrad-thesis-awards-2026">
+            <li class="news-item" id="news-undergrad-thesis-awards-2026" data-summary="Best Undergraduate Thesis Award, third year in a row" data-photo="images/alyesha_award.webp">
                 <i class="fas fa-trophy news-icon"></i>
                 <span class="news-text">
                     <time class="news-date-chip" datetime="2026-04">Apr 2026</time><a class="news-permalink" href="#news-undergrad-thesis-awards-2026" aria-label="Permalink to this news item" title="Permalink">#</a>
@@ -1758,7 +1771,7 @@
 
 
 <!-- Subtle scroll-reveal animation (respects prefers-reduced-motion) -->
-<script defer src="main.js?v=2026-10-13"></script>
+<script defer src="main.js?v=2026-10-13c"></script>
 </body>
 </html>
 

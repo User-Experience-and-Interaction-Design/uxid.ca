@@ -305,6 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!indicator || !indicatorText) { return; }
     var sectionNames = {
         'hero': 'Home',
+        'latest': 'Latest',
         'about': 'About',
         'lab-stats': 'At a Glance',
         'research': 'Research',
@@ -593,4 +594,60 @@ document.addEventListener('DOMContentLoaded', function () {
             lu.setAttribute('datetime', d.toISOString().slice(0, 10));
         }
     }
+})();
+
+/* ---------- Latest strip under the hero ----------
+   Built from the first three items of the News list so it never goes stale.
+   A news <li> may carry data-summary (short line) and data-photo (thumbnail);
+   otherwise the item text is truncated and a matching Highlights photo used. */
+(function () {
+    var strip = document.getElementById('latest-strip');
+    if (!strip) { return; }
+    var items = [].slice.call(document.querySelectorAll('#recent-news li[id^="news-"]')).slice(0, 3);
+    if (!items.length) { return; }
+    var photos = {};
+    [].slice.call(document.querySelectorAll('.highlight a')).forEach(function (a) {
+        var img = a.querySelector('img');
+        if (img) { photos[a.getAttribute('href')] = img.getAttribute('src'); }
+    });
+    items.forEach(function (li) {
+        var href = '#' + li.id;
+        var summary = li.getAttribute('data-summary');
+        if (!summary) {
+            var clone = li.cloneNode(true);
+            [].slice.call(clone.querySelectorAll('time, .news-permalink, .news-new-badge, i')).forEach(function (n) { n.remove(); });
+            summary = clone.textContent.replace(/\s+/g, ' ').trim();
+            if (summary.length > 110) { summary = summary.slice(0, 107).replace(/\s+\S*$/, '') + '\u2026'; }
+        }
+        var photo = li.getAttribute('data-photo') || photos[href];
+        var time = li.querySelector('time');
+
+        var card = document.createElement('li');
+        card.className = 'latest__item';
+        var a = document.createElement('a');
+        a.href = href;
+        if (photo) {
+            var img = document.createElement('img');
+            img.src = photo; img.alt = ''; img.loading = 'lazy'; img.width = 144; img.height = 96;
+            a.appendChild(img);
+        }
+        var body = document.createElement('span');
+        body.className = 'latest__body';
+        if (time) {
+            var t = document.createElement('time');
+            t.className = 'news-date-chip';
+            t.setAttribute('datetime', time.getAttribute('datetime') || '');
+            t.textContent = time.textContent.trim();
+            body.appendChild(t);
+        }
+        var txt = document.createElement('span');
+        txt.className = 'latest__text';
+        txt.textContent = summary;
+        body.appendChild(txt);
+        a.appendChild(body);
+        card.appendChild(a);
+        strip.appendChild(card);
+    });
+    var sec = strip.closest('.latest');
+    if (sec) { sec.hidden = false; }
 })();
