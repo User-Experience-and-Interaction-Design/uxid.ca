@@ -596,54 +596,95 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 })();
 
-/* ---------- Latest strip under the hero ----------
-   Built from the first three items of the News list so it never goes stale.
+/* ---------- Latest from the lab (under the hero) ----------
+   Built from the first four items of the News list so it never goes stale.
+   The newest becomes the featured card, the rest are compact cards beside it.
    A news <li> may carry data-summary (short line) and data-photo (thumbnail);
    otherwise the item text is truncated and a matching Highlights photo used. */
 (function () {
     var strip = document.getElementById('latest-strip');
     if (!strip) { return; }
-    var items = [].slice.call(document.querySelectorAll('#recent-news li[id^="news-"]')).slice(0, 3);
+    var items = [].slice.call(document.querySelectorAll('#recent-news li[id^="news-"]')).slice(0, 4);
     if (!items.length) { return; }
     var photos = {};
     [].slice.call(document.querySelectorAll('.highlight a')).forEach(function (a) {
         var img = a.querySelector('img');
         if (img) { photos[a.getAttribute('href')] = img.getAttribute('src'); }
     });
-    items.forEach(function (li) {
+    items.forEach(function (li, i) {
+        var featured = i === 0;
         var href = '#' + li.id;
         var summary = li.getAttribute('data-summary');
         if (!summary) {
             var clone = li.cloneNode(true);
             [].slice.call(clone.querySelectorAll('time, .news-permalink, .news-new-badge, i')).forEach(function (n) { n.remove(); });
             summary = clone.textContent.replace(/\s+/g, ' ').trim();
-            if (summary.length > 110) { summary = summary.slice(0, 107).replace(/\s+\S*$/, '') + '\u2026'; }
+            var cap = featured ? 190 : 110;
+            if (summary.length > cap) { summary = summary.slice(0, cap - 3).replace(/\s+\S*$/, '') + '\u2026'; }
         }
         var photo = li.getAttribute('data-photo') || photos[href];
         var time = li.querySelector('time');
+        var isNew = !!li.querySelector('.news-new-badge');
+        var srcIcon = li.querySelector('i.news-icon');
 
         var card = document.createElement('li');
-        card.className = 'latest__item';
+        card.className = 'latest__item' + (featured ? ' latest__item--featured' : '');
         var a = document.createElement('a');
         a.href = href;
         if (photo) {
+            var media = document.createElement('span');
+            media.className = 'latest__media';
             var img = document.createElement('img');
-            img.src = photo; img.alt = ''; img.loading = 'lazy'; img.width = 144; img.height = 96;
-            a.appendChild(img);
+            img.src = photo;
+            img.alt = '';
+            img.width = featured ? 640 : 160;
+            img.height = featured ? 360 : 108;
+            // The featured image is close to the top of the page; the small
+            // ones are far enough down the viewport to defer.
+            img.loading = featured ? 'eager' : 'lazy';
+            img.decoding = 'async';
+            media.appendChild(img);
+            a.appendChild(media);
+        } else {
+            // No photo for this item: stand the item's own news icon in the
+            // media slot so the card keeps its shape instead of collapsing
+            // into an empty box.
+            var glyph = document.createElement('span');
+            glyph.className = 'latest__glyph';
+            var gi = document.createElement('i');
+            gi.className = srcIcon ? srcIcon.className.replace('news-icon', '').trim() : 'fas fa-newspaper';
+            gi.setAttribute('aria-hidden', 'true');
+            glyph.appendChild(gi);
+            a.appendChild(glyph);
         }
         var body = document.createElement('span');
         body.className = 'latest__body';
+        var meta = document.createElement('span');
+        meta.className = 'latest__meta';
         if (time) {
             var t = document.createElement('time');
             t.className = 'news-date-chip';
             t.setAttribute('datetime', time.getAttribute('datetime') || '');
             t.textContent = time.textContent.trim();
-            body.appendChild(t);
+            meta.appendChild(t);
         }
+        if (isNew) {
+            var badge = document.createElement('span');
+            badge.className = 'news-new-badge';
+            badge.textContent = 'New';
+            meta.appendChild(badge);
+        }
+        if (meta.childNodes.length) { body.appendChild(meta); }
         var txt = document.createElement('span');
         txt.className = 'latest__text';
         txt.textContent = summary;
         body.appendChild(txt);
+        if (featured) {
+            var more = document.createElement('span');
+            more.className = 'latest__more';
+            more.textContent = 'Read more \u2192';
+            body.appendChild(more);
+        }
         a.appendChild(body);
         card.appendChild(a);
         strip.appendChild(card);

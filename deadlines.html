@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Submission deadlines the UXID Lab at Ontario Tech University is tracking: CHI, DIS, MobileHCI, IMWUT, EuroVis, PacificVis, IEEE VR, IUI and the NFRF-E grant.">
+    <title>Deadlines | UXID Lab</title>
+    <link rel="canonical" href="https://uxid.ca/deadlines.html">
+    <meta name="theme-color" content="#1D3557">
+    <link rel="icon" type="image/png" href="images/uxid.png">
+    <link rel="apple-touch-icon" href="images/uxid.png">
+    <meta property="og:site_name" content="UXID Lab">
+    <meta property="og:title" content="Deadlines | UXID Lab">
+    <meta property="og:description" content="Conference and grant submission deadlines the UXID Lab is tracking, on one timeline.">
+    <meta property="og:image" content="https://uxid.ca/images/og-cover.jpg">
+    <meta property="og:url" content="https://uxid.ca/deadlines.html">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Site stylesheet, for the shared header and nav. Bump ?v= to bust caches. -->
+    <link rel="stylesheet" href="styles.css?v=2026-10-18e">
+
+<style>
+/* =====================================================================
+   Deadline Gantt. Self-contained on purpose: this page is internal, so
+   none of it belongs in the site stylesheet that every visitor downloads.
+
+   Series colours are validated for the dark surface #1F2937 (OKLCH
+   lightness band, chroma floor, CVD separation, contrast). The worst
+   CVD pair sits in the 6-8 floor band, which is why every lane carries a
+   text label rather than relying on colour alone.
+   ================================================================== */
+:root {
+    --bg:            #1D3557;
+    --surface:       #1F2937;
+    --surface-2:     #243041;
+    --line:          rgba(255,255,255,0.10);
+    --line-strong:   rgba(255,255,255,0.20);
+    --ink:           #ECECEC;
+    --ink-muted:     #AAB7B8;
+    --ink-dim:       #7D8B99;
+    --accent:        #F4D03F;   /* brand gold: UI chrome only, never a series */
+
+    /* Series (validated) */
+    --c-paper:   #4A86D6;   /* full / archival papers, journal submissions */
+    --c-short:   #C97B2E;   /* posters, short papers, demos, WiP           */
+    --c-grant:   #2F9E6E;   /* grants                                      */
+
+    --font-body:    'Roboto', system-ui, -apple-system, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --label-w: 290px;
+    --radius: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); font-size: 15px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+.wrap { max-width: 1320px; margin: 0 auto; padding: 30px 20px 72px; }
+body { padding-top: 65px; }   /* clears the fixed site header */
+
+h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.6rem); line-height: 1.12; color: var(--accent); margin-bottom: 10px; }
+.lede { max-width: 72ch; color: var(--ink-muted); margin-bottom: 6px; }
+.stamp { font-size: 0.82rem; color: var(--ink-dim); margin-bottom: 26px; }
+
+/* ---------- Controls + legend ---------- */
+.bar-controls {
+    display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center;
+    padding: 12px 16px; margin-bottom: 18px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+    font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+    background: transparent; color: var(--ink-muted);
+    border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 13px;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.filters button:hover { color: var(--ink); border-color: var(--accent); }
+.filters button[aria-pressed="true"] { background: var(--accent); color: #1F2937; border-color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.8rem; color: var(--ink-muted); margin-left: auto; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.sw { width: 13px; height: 13px; border-radius: 3px; flex: none; }
+.sw--paper { background: var(--c-paper); }
+.sw--short { background: var(--c-short); }
+.sw--grant { background: var(--c-grant); }
+.sw--proj  { background: repeating-linear-gradient(135deg, var(--ink-dim) 0 3px, transparent 3px 6px); border: 1px dashed var(--ink-dim); }
+.sw--after { width: 8px; height: 8px; border-radius: 0; background: none; border: 1.5px solid var(--ink-dim); transform: rotate(45deg); }
+
+/* ---------- Gantt ---------- */
+.gantt {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); position: relative;
+    /* Its own scroller in both directions: overflow-x alone already makes this
+       a scroll container, which breaks viewport-level sticky, so the month
+       scale is pinned inside the box instead. */
+    overflow: auto; max-height: 78vh; overscroll-behavior: contain;
+}
+.gantt__inner { min-width: 1020px; position: relative; }
+
+.months, .lane { display: grid; grid-template-columns: var(--label-w) 1fr; }
+.months {
+    position: sticky; top: 0; z-index: 4;
+    background: var(--surface-2); border-bottom: 1px solid var(--line-strong);
+}
+.months__spacer { border-right: 1px solid var(--line-strong); }
+.months__scale { position: relative; height: 42px; }
+.months__m {
+    position: absolute; top: 0; bottom: 0;
+    border-left: 1px solid var(--line);
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--ink-dim); padding: 6px 0 0 6px; white-space: nowrap;
+}
+.months__m[data-q="1"] { border-left-color: var(--line-strong); color: var(--ink-muted); }
+.months__y {
+    position: absolute; bottom: 4px; font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.08em; color: var(--accent); padding-left: 6px;
+}
+
+.group {
+    grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    padding: 13px 14px 7px; background: rgba(255,255,255,0.025);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.group h2 { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; color: var(--ink); }
+.group .meta { font-size: 0.78rem; color: var(--ink-dim); }
+.group .meta a { color: var(--ink-muted); text-decoration: none; border-bottom: 1px dotted var(--ink-dim); }
+.group .meta a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+.lane { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.lane:hover { background: rgba(255,255,255,0.03); }
+.lane__label {
+    padding: 9px 12px 9px 22px; border-right: 1px solid var(--line-strong);
+    font-size: 0.84rem; line-height: 1.35; display: flex; align-items: center; gap: 8px;
+}
+.lane__label .dot { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.lane__label .txt { min-width: 0; color: var(--ink); }
+.lane__label .sub { display: block; font-size: 0.72rem; color: var(--ink-dim); }
+.flag {
+    display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+    border: 1px dashed var(--ink-dim); color: var(--ink-dim); vertical-align: 1px;
+}
+.lane__track { position: relative; height: 40px; overflow: hidden; }
+
+/* Only real, published dates are drawn. The deadline is the hero mark; the
+   thin rule from an abstract to its paper deadline is the one span on the
+   chart, and it is a real interval, not an estimate. */
+.rule { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,0.06); }
+.span {
+    position: absolute; top: 50%; height: 2px; margin-top: -1px;
+    background: currentColor; opacity: 0.55; border-radius: 1px;
+}
+.pin {
+    position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%;
+    background: currentColor; margin: -6px 0 0 -6px;
+    box-shadow: 0 0 0 2px var(--surface);
+}
+.pin--proj { background: var(--surface); border: 2px dashed currentColor; }
+.lbl {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 0.72rem; font-weight: 700; color: var(--ink);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.lbl--left { text-align: right; }
+/* Secondary, deliberately quiet: what happens after you submit. */
+.mk {
+    position: absolute; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
+    transform: rotate(45deg); border: 1.5px solid var(--ink-dim); background: var(--surface);
+}
+.mk--abs { border-color: currentColor; }
+.mk--cr { border-radius: 50%; transform: none; }
+.conf {
+    position: absolute; top: 50%; height: 11px; margin-top: -5.5px; border-radius: 3px;
+    background: rgba(255,255,255,0.09); border: 1px solid var(--line-strong);
+}
+.lane--past { opacity: 0.45; }
+.lane--past .pin, .lane--past .span, .lane--past .mk { color: var(--ink-dim) !important; }
+
+.today {
+    position: absolute; top: 42px; bottom: 0; width: 2px; background: var(--accent);
+    z-index: 3; pointer-events: none;
+}
+/* The tag lives in the sticky month scale, so it stays on screen while you
+   scroll and never lands on top of a group heading. */
+.months__today {
+    position: absolute; top: 0; bottom: 0; width: 2px; background: var(--accent);
+}
+.months__today span {
+    position: absolute; top: 5px; left: 5px; white-space: nowrap;
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: #1F2937;
+    background: var(--accent); padding: 1px 6px; border-radius: 3px;
+}
+
+/* ---------- Tooltip ---------- */
+#tip {
+    position: fixed; z-index: 50; pointer-events: none; opacity: 0;
+    transition: opacity .12s ease; max-width: 310px;
+    background: #0f1620; color: var(--ink); border: 1px solid var(--line-strong);
+    border-radius: var(--radius); padding: 10px 12px; font-size: 0.8rem; line-height: 1.5;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+#tip strong { display: block; font-size: 0.86rem; margin-bottom: 4px; }
+#tip dl { display: grid; grid-template-columns: auto 1fr; gap: 1px 10px; margin-top: 5px; }
+#tip dt { color: var(--ink-dim); }
+#tip dd { font-variant-numeric: tabular-nums; }
+
+/* ---------- Table ---------- */
+h2.sec {
+    font-family: var(--font-display); font-size: 1.5rem; color: var(--accent);
+    margin: 44px 0 6px;
+}
+.sec-note { color: var(--ink-muted); font-size: 0.88rem; margin-bottom: 14px; max-width: 72ch; }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 0.85rem; }
+th, td { text-align: left; padding: 9px 13px; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th {
+    position: sticky; top: 0; background: var(--surface-2); z-index: 1;
+    font-size: 0.68rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-muted);
+}
+tbody tr:last-child td { border-bottom: 0; }
+td.d { font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.is-past td { color: var(--ink-dim); }
+tr.is-next td { background: rgba(244,208,63,0.07); }
+.pill {
+    display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 999px;
+}
+.pill--conf { background: rgba(47,158,110,0.18); color: #6FD3A8; border: 1px solid rgba(47,158,110,0.45); }
+.pill--proj { background: rgba(201,123,46,0.16); color: #E0A165; border: 1px solid rgba(201,123,46,0.45); }
+.pill--past { background: rgba(255,255,255,0.07); color: var(--ink-dim); border: 1px solid var(--line-strong); }
+
+/* Plain div, not <footer>: the site stylesheet styles <footer> as the big
+   page footer (gold rule, centred text, panel background). */
+.note { margin-top: 36px; font-size: 0.8rem; color: var(--ink-dim); max-width: 78ch; text-align: left; }
+.note p + p { margin-top: 8px; }
+.note a { color: var(--ink-muted); }
+
+@media (max-width: 760px) {
+    :root { --label-w: 210px; }
+    .legend { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    #tip, .filters button { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- Same fixed header as tools.html so the page reads as part of the site. -->
+<header style="background-color: #1D3557; color: #F1FAEE; padding: 0; height: 65px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px;">
+
+        <a href="index.html" class="logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0;">
+            <img src="images/uxid.png" alt="UXID Lab" style="height: 55px; width: auto;" width="2048" height="2048">
+            <span class="logo-text" style="font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #A8DADC; line-height: 1.3; white-space: nowrap; font-weight: 600;">User Experience &amp;<br>Interaction Design</span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main">
+            <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
+                <li><a href="index.html#research" class="nav-link">Research</a></li>
+                <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+                <li><a href="index.html#recent-news" class="nav-link">News</a></li>
+                <li><a href="index.html#people" class="nav-link">People</a></li>
+                <li><a href="index.html#join" class="nav-link">Join Us</a></li>
+                <li><a href="index.html#teaching" class="nav-link">Teaching</a></li>
+                <li><a href="tools.html" class="nav-link">Tools</a></li>
+                <li><a href="deadlines.html" class="nav-link" aria-current="page">Deadlines</a></li>
+                <li><a href="venues.html" class="nav-link">Venues</a></li>
+                <li><a href="index.html#footer" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">Menu</button>
+
+    </div>
+
+    <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
+        <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
+                <li><a href="index.html#research" class="nav-link">Research</a></li>
+                <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+                <li><a href="index.html#recent-news" class="nav-link">News</a></li>
+                <li><a href="index.html#people" class="nav-link">People</a></li>
+                <li><a href="index.html#join" class="nav-link">Join Us</a></li>
+                <li><a href="index.html#teaching" class="nav-link">Teaching</a></li>
+                <li><a href="tools.html" class="nav-link">Tools</a></li>
+                <li><a href="deadlines.html" class="nav-link" aria-current="page">Deadlines</a></li>
+                <li><a href="venues.html" class="nav-link">Venues</a></li>
+                <li><a href="index.html#footer" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="wrap" id="main">
+    <h1>Submission deadlines</h1>
+    <p class="lede">
+        Every track we are targeting between now and the end of 2027, on one timeline.
+        Each dot is a submission deadline, with its date beside it. Where a track has a
+        separate abstract deadline, the thin line runs from the abstract to the paper.
+        The faint marks after a deadline are notification and camera-ready; the grey block
+        is the event itself. Every date shown is a published date.
+    </p>
+    <p class="stamp" id="stamp"></p>
+
+    <div class="bar-controls">
+        <div class="filters" role="group" aria-label="Filter lanes">
+            <button type="button" data-f="all" aria-pressed="true">All tracks</button>
+            <button type="button" data-f="open" aria-pressed="false">Still open</button>
+            <button type="button" data-f="short" aria-pressed="false">Posters &amp; short only</button>
+            <button type="button" data-f="confirmed" aria-pressed="false">Confirmed dates only</button>
+        </div>
+        <div class="legend">
+            <span><i class="sw sw--paper"></i>Full / journal paper</span>
+            <span><i class="sw sw--short"></i>Poster, short, demo</span>
+            <span><i class="sw sw--grant"></i>Grant</span>
+            <span><i class="sw sw--proj"></i>Projected date</span>
+            <span><i class="sw sw--after"></i>Notification / camera-ready</span>
+        </div>
+    </div>
+
+    <div class="gantt">
+        <div class="gantt__inner" id="gantt"></div>
+    </div>
+
+    <h2 class="sec">Every date</h2>
+    <p class="sec-note">
+        The same data as a table, including notification and camera-ready dates that the
+        chart only shows on hover. Rows dim once the deadline has passed.
+    </p>
+    <div class="tablewrap">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Deadline</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Track</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Notification</th>
+                    <th scope="col">Camera-ready</th>
+                    <th scope="col">Event</th>
+                </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+        </table>
+    </div>
+
+    <div class="note">
+        <p>
+            <strong>Dates checked 18 October 2026.</strong> Anything tagged
+            <span class="pill pill--proj">projected</span> comes from the previous cycle
+            because the 2027 call is not published yet &mdash; confirm on the venue site
+            before planning around it.
+        </p>
+        <p>
+            IMWUT is a journal with fixed quarterly intake, so it has no notification date on
+            this chart; its 1&nbsp;August slot takes major-revision resubmissions only, not new
+            submissions. IEEE&nbsp;VR and PacificVis journal tracks and the NFRF-E notice of
+            intent are shown greyed out because they already closed; they are here so the
+            review and revision milestones that follow them stay visible.
+        </p>
+        <p>
+            DIS runs a Provocations and Works-in-Progress track most years, but it is not in
+            the 2027 call yet, so it is not on the chart.
+        </p>
+    </div>
+</main>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+    "use strict";
+
+    var TODAY = new Date(2026, 9, 18);          // 18 Oct 2026
+    var T0    = new Date(2026, 7, 1);           // chart starts 1 Aug 2026
+    var T1    = new Date(2027, 11, 31);         // chart ends 31 Dec 2027
+    var SPAN  = T1 - T0;
+
+    var C = { paper: "var(--c-paper)", short: "var(--c-short)", grant: "var(--c-grant)" };
+
+    function d(y, m, day) { return new Date(y, m - 1, day); }
+    function pct(date) { return ((date - T0) / SPAN) * 100; }
+
+    var FMT = { month: "short", day: "numeric", year: "numeric" };
+    function fmt(date) { return date ? date.toLocaleDateString("en-CA", FMT) : "—"; }
+
+    /* ------------------------------------------------------------------
+       The data. `kind` drives colour and `proj` marks a date carried over
+       from the previous cycle because the 2027 call is not out yet.
+       Every date here is published by the venue; nothing is estimated.
+       ------------------------------------------------------------------ */
+    var GROUPS = [
+        {
+            venue: "NFRF-E — New Frontiers in Research Fund, Exploration",
+            meta: "2026 competition · results by 31 Mar 2027",
+            url: "https://sshrc-crsh.canada.ca/funding-financement/nfrf-fnfr/exploration/2026/competition-concours-eng.aspx",
+            lanes: [
+                { track: "Notice of intent", sub: "closed", kind: "grant", dl: d(2026, 8, 18) },
+                { track: "Full application", sub: "8:00 pm ET", kind: "grant", dl: d(2026, 10, 20),
+                  notif: d(2027, 3, 31), notifLabel: "Results" }
+            ]
+        },
+        {
+            venue: "IMWUT — journal, quarterly intake",
+            meta: "Proc. ACM Interactive, Mobile, Wearable and Ubiquitous Technologies · 23:59 AoE, firm",
+            url: "https://dl.acm.org/journal/imwut/how-to-submit",
+            lanes: [
+                { track: "New submissions", sub: "Nov cycle", kind: "paper", dl: d(2026, 11, 1) },
+                { track: "New submissions", sub: "Feb cycle", kind: "paper", dl: d(2027, 2, 1) },
+                { track: "New submissions", sub: "May cycle", kind: "paper", dl: d(2027, 5, 1) },
+                { track: "Major-revision resubmissions", sub: "no new submissions", kind: "paper", dl: d(2027, 8, 1) }
+            ]
+        },
+        {
+            venue: "PacificVis 2027",
+            meta: "Busan, South Korea · 19–22 Apr 2027",
+            url: "https://pacificvis2027.github.io/",
+            conf: [d(2027, 4, 19), d(2027, 4, 22)],
+            lanes: [
+                { track: "TVCG journal papers", sub: "closed", kind: "paper", dl: d(2026, 9, 8) },
+                { track: "Conference papers", sub: "abstract 2 Nov", kind: "paper", dl: d(2026, 11, 9),
+                  abs: d(2026, 11, 2) },
+                { track: "VisNotes (short)", sub: "", kind: "short", dl: d(2026, 12, 15), proj: true },
+                { track: "Posters", sub: "", kind: "short", dl: d(2027, 2, 18), proj: true }
+            ]
+        },
+        {
+            venue: "IUI 2027",
+            meta: "Helsinki, Finland · 8–11 Feb 2027",
+            url: "https://iui.acm.org/2027/call-for-posters-demos/",
+            conf: [d(2027, 2, 8), d(2027, 2, 11)],
+            lanes: [
+                { track: "Posters and demos", sub: "11:59 pm AoE", kind: "short", dl: d(2026, 11, 10),
+                  notif: d(2026, 12, 14), cr: d(2026, 12, 18) }
+            ]
+        },
+        {
+            venue: "EuroVis 2027",
+            meta: "Stuttgart, Germany · 31 May – 4 Jun 2027",
+            url: "https://www.eurovis.org/",
+            conf: [d(2027, 5, 31), d(2027, 6, 4)],
+            lanes: [
+                { track: "Full papers", sub: "abstract ~26 Nov", kind: "paper", dl: d(2026, 12, 3),
+                  abs: d(2026, 11, 26), proj: true },
+                { track: "STARs", sub: "abstract 30 Nov · published", kind: "paper", dl: d(2026, 12, 7),
+                  abs: d(2026, 11, 30), notif: d(2027, 3, 8) },
+                { track: "Short papers", sub: "", kind: "short", dl: d(2027, 2, 18), proj: true },
+                { track: "Posters and demos", sub: "", kind: "short", dl: d(2027, 4, 5), proj: true }
+            ]
+        },
+        {
+            venue: "IEEE VR 2027",
+            meta: "Melbourne, Australia · 27 Feb – 3 Mar 2027 · 23:59:59 AoE",
+            url: "https://ieeevr.org/2027/contribute/posters/",
+            conf: [d(2027, 2, 27), d(2027, 3, 3)],
+            lanes: [
+                { track: "Papers (TVCG + conference)", sub: "closed · abstract 24 Aug", kind: "paper",
+                  dl: d(2026, 8, 31), abs: d(2026, 8, 24), notif: d(2026, 11, 30), notifLabel: "First notification",
+                  cr: d(2027, 1, 7), crLabel: "Final notification" },
+                { track: "Posters", sub: "2-page abstract · title due 2 Dec", kind: "short",
+                  dl: d(2026, 12, 7), abs: d(2026, 12, 2), notif: d(2027, 1, 6), cr: d(2027, 1, 12) }
+            ]
+        },
+        {
+            venue: "CHI 2027",
+            meta: "Pittsburgh, USA · 10–14 May 2027 · AoE",
+            url: "https://chi2027.acm.org/authors/posters/",
+            conf: [d(2027, 5, 10), d(2027, 5, 14)],
+            lanes: [
+                { track: "Posters", sub: "", kind: "short", dl: d(2027, 1, 21),
+                  notif: d(2027, 2, 18), cr: d(2027, 3, 18), crLabel: "Publication-ready" }
+            ]
+        },
+        {
+            venue: "DIS 2027",
+            meta: "Stockholm, Sweden · 28 Jun – 2 Jul 2027",
+            url: "https://dis.acm.org/2027/contributing/",
+            conf: [d(2027, 6, 28), d(2027, 7, 2)],
+            lanes: [
+                { track: "Papers and Pictorials", sub: "abstract 11 Jan", kind: "paper", dl: d(2027, 1, 18),
+                  abs: d(2027, 1, 11), notif: d(2027, 3, 19), cr: d(2027, 4, 16) },
+                { track: "Workshops", sub: "", kind: "short", dl: d(2027, 2, 1),
+                  notif: d(2027, 2, 16), cr: d(2027, 4, 16) },
+                { track: "Interactivity and Arts", sub: "", kind: "short", dl: d(2027, 2, 19),
+                  cr: d(2027, 4, 16) },
+                { track: "Doctoral Consortium", sub: "", kind: "short", dl: d(2027, 2, 19),
+                  notif: d(2027, 3, 19), cr: d(2027, 4, 16) }
+            ]
+        },
+        {
+            venue: "MobileHCI 2027",
+            meta: "Limassol, Cyprus · 20–23 Sep 2027",
+            url: "https://mobilehci.acm.org/2027/",
+            conf: [d(2027, 9, 20), d(2027, 9, 23)],
+            lanes: [
+                { track: "Full papers", sub: "abstract 10 Feb", kind: "paper", dl: d(2027, 2, 17),
+                  abs: d(2027, 2, 10) }
+            ]
+        }
+    ];
+
+    /* ---------- month scale ---------- */
+    function monthScale() {
+        var out = '<div class="months"><div class="months__spacer"></div><div class="months__scale">';
+        var cur = new Date(T0.getFullYear(), T0.getMonth(), 1);
+        while (cur < T1) {
+            var left = pct(cur);
+            var q = (cur.getMonth() % 3 === 0) ? 1 : 0;
+            out += '<div class="months__m" data-q="' + q + '" style="left:' + left + '%">' +
+                   cur.toLocaleDateString("en-CA", { month: "short" }) +
+                   (cur.getMonth() === 0 || left === 0
+                        ? '<span class="months__y">' + cur.getFullYear() + '</span>' : '') +
+                   '</div>';
+            cur = new Date(cur.getFullYear(), cur.getMonth() + 1, 1);
+        }
+        out += '<div class="months__today" style="left:' + pct(TODAY) + '%"><span>TODAY</span></div>';
+        return out + '</div></div>';
+    }
+
+    /* ---------- lanes ---------- */
+    var laneData = [];
+
+    var SHORT = { month: "short", day: "numeric" };
+
+    function laneHTML(g, L, idx) {
+        var past  = L.dl < TODAY;
+        var x1    = pct(L.dl);
+        var color = C[L.kind];
+
+        var bits = '<div class="rule"></div>';
+
+        // The only span on the chart: abstract -> paper deadline, both real.
+        if (L.abs) {
+            var xa = pct(L.abs);
+            bits += '<div class="span" style="left:' + xa + '%;width:' + (x1 - xa) + '%"></div>' +
+                    '<div class="mk mk--abs" style="left:' + xa + '%"></div>';
+        }
+        if (L._conf) {
+            var xc = pct(L._conf[0]);
+            bits += '<div class="conf" style="left:' + xc + '%;width:' +
+                    Math.max(pct(L._conf[1]) - xc, 0.3) + '%"></div>';
+        }
+        if (L.notif) { bits += '<div class="mk" style="left:' + pct(L.notif) + '%"></div>'; }
+        if (L.cr)    { bits += '<div class="mk mk--cr" style="left:' + pct(L.cr) + '%"></div>'; }
+
+        bits += '<div class="pin' + (L.proj ? ' pin--proj' : '') + '" style="left:' + x1 + '%"></div>';
+
+        // Read the date off the chart, not only off the tooltip. Flip the
+        // label to the left near the right edge so it cannot be clipped.
+        var flip = x1 > 76;
+        bits += '<div class="lbl' + (flip ? ' lbl--left' : '') + '" style="' +
+                (flip ? 'right:calc(' + (100 - x1) + '% + 12px)' : 'left:calc(' + x1 + '% + 12px)') +
+                '">' + L.dl.toLocaleDateString("en-CA", SHORT) + '</div>';
+
+        laneData.push(L);
+
+        return '<div class="lane' + (past ? ' lane--past' : '') + '" data-i="' + idx +
+               '" data-kind="' + L.kind + '" data-past="' + (past ? 1 : 0) +
+               '" data-proj="' + (L.proj ? 1 : 0) + '" style="color:' + color + '">' +
+               '<div class="lane__label"><i class="dot" style="background:' + color + '"></i>' +
+               '<span class="txt">' + L.track +
+               (L.proj ? '<span class="flag">projected</span>' : '') +
+               (L.sub ? '<span class="sub">' + L.sub + '</span>' : '') +
+               '</span></div>' +
+               '<div class="lane__track">' + bits + '</div></div>';
+    }
+
+    var html = monthScale(), i = 0;
+    GROUPS.forEach(function (g) {
+        html += '<div class="group"><h2>' + g.venue + '</h2><span class="meta">' + g.meta +
+                ' · <a href="' + g.url + '" target="_blank" rel="noopener">call</a></span></div>';
+        g.lanes.forEach(function (L) {
+            L._venue = g.venue; L._conf = g.conf; L._url = g.url;
+            html += laneHTML(g, L, i++);
+        });
+    });
+
+    var root = document.getElementById("gantt");
+    root.innerHTML = html;
+
+    /* today line, positioned over the track column only */
+    var line = document.createElement("div");
+    line.className = "today";
+    line.style.left = "calc(var(--label-w) + (100% - var(--label-w)) * " + (pct(TODAY) / 100) + ")";
+    root.appendChild(line);
+
+    /* ---------- tooltip ---------- */
+    var tip = document.getElementById("tip");
+    function row(k, v) { return v ? "<dt>" + k + "</dt><dd>" + fmt(v) + "</dd>" : ""; }
+
+    root.addEventListener("mousemove", function (e) {
+        var lane = e.target.closest(".lane");
+        if (!lane) { tip.style.opacity = 0; return; }
+        var L = laneData[+lane.dataset.i];
+        var days = Math.round((L.dl - TODAY) / 86400000);
+        tip.innerHTML = "<strong>" + L._venue + "</strong>" + L.track +
+            (L.proj ? " · projected" : "") +
+            "<dl>" + row("Abstract", L.abs) + row("Deadline", L.dl) +
+            row(L.notifLabel || "Notification", L.notif) +
+            row(L.crLabel || "Camera-ready", L.cr) +
+            (L._conf ? "<dt>Event</dt><dd>" + fmt(L._conf[0]) + " – " + fmt(L._conf[1]) + "</dd>" : "") +
+            "</dl>" +
+            "<div style='margin-top:6px;color:var(--ink-dim)'>" +
+            (days < 0 ? Math.abs(days) + " days ago" : days + " days from today") + "</div>";
+        tip.style.opacity = 1;
+        var x = Math.min(e.clientX + 16, window.innerWidth - 326);
+        var y = Math.min(e.clientY + 16, window.innerHeight - tip.offsetHeight - 10);
+        tip.style.left = x + "px";
+        tip.style.top = y + "px";
+    });
+    root.addEventListener("mouseleave", function () { tip.style.opacity = 0; });
+
+    /* ---------- filters ---------- */
+    var btns = [].slice.call(document.querySelectorAll(".filters button"));
+    btns.forEach(function (b) {
+        b.addEventListener("click", function () {
+            btns.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+            var f = b.dataset.f;
+            [].slice.call(root.querySelectorAll(".lane")).forEach(function (lane) {
+                var show = f === "all" ||
+                    (f === "open"      && lane.dataset.past === "0") ||
+                    (f === "short"     && lane.dataset.kind === "short") ||
+                    (f === "confirmed" && lane.dataset.proj === "0");
+                lane.hidden = !show;
+            });
+        });
+    });
+
+    /* ---------- table ---------- */
+    var flat = laneData.slice().sort(function (a, b) { return a.dl - b.dl; });
+    var nextSeen = false;
+    document.getElementById("rows").innerHTML = flat.map(function (L) {
+        var past = L.dl < TODAY;
+        var isNext = !past && !nextSeen;
+        if (isNext) { nextSeen = true; }
+        var pill = past ? '<span class="pill pill--past">closed</span>'
+                        : (L.proj ? '<span class="pill pill--proj">projected</span>'
+                                  : '<span class="pill pill--conf">confirmed</span>');
+        return '<tr class="' + (past ? "is-past" : (isNext ? "is-next" : "")) + '">' +
+            '<td class="d">' + fmt(L.dl) + '</td>' +
+            '<td>' + L._venue.split(" — ")[0] + '</td>' +
+            '<td>' + L.track + (L.abs ? ' <span style="color:var(--ink-dim)">(abstract ' + fmt(L.abs) + ')</span>' : '') + '</td>' +
+            '<td>' + pill + '</td>' +
+            '<td class="d">' + fmt(L.notif) + '</td>' +
+            '<td class="d">' + fmt(L.cr) + '</td>' +
+            '<td class="d">' + (L._conf ? fmt(L._conf[0]) : "—") + '</td>' +
+            '</tr>';
+    }).join("");
+
+    /* ---------- stamp ---------- */
+    var open = flat.filter(function (L) { return L.dl >= TODAY; });
+    document.getElementById("stamp").textContent =
+        open.length + " deadlines still open · next up: " + open[0].track + " for " +
+        open[0]._venue.split(" — ")[0] + " on " + fmt(open[0].dl) +
+        " · dates checked 18 October 2026";
+})();
+</script>
+
+<script defer src="main.js?v=2026-10-18e"></script>
+
+</body>
+</html>

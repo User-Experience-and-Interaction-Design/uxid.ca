@@ -179,7 +179,7 @@
          replaced. Dropping it removes a render-blocking stylesheet and ~80 KB of JS. -->
 
     <!-- Site stylesheet. Bump ?v= to bust caches. -->
-    <link rel="stylesheet" href="styles.css?v=2026-10-13e">
+    <link rel="stylesheet" href="styles.css?v=2026-10-18e">
 
     <!-- Privacy-friendly analytics.
          ACTION REQUIRED: create the site at https://plausible.io (or swap in a GA4 tag),
@@ -214,6 +214,8 @@
                     <li><a href="#join" class="nav-link">Join Us</a></li>
                     <li><a href="#teaching" class="nav-link">Teaching</a></li>
                     <li><a href="tools.html" class="nav-link">Tools</a></li>
+                    <li><a href="deadlines.html" class="nav-link">Deadlines</a></li>
+                    <li><a href="venues.html" class="nav-link">Venues</a></li>
                     <li><a href="#footer" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
@@ -233,6 +235,8 @@
                 <li><a href="#join" class="nav-link">Join Us</a></li>
                 <li><a href="#teaching" class="nav-link">Teaching</a></li>
                 <li><a href="tools.html" class="nav-link">Tools</a></li>
+                <li><a href="deadlines.html" class="nav-link">Deadlines</a></li>
+                <li><a href="venues.html" class="nav-link">Venues</a></li>
                 <li><a href="#footer" class="nav-link">Contact</a></li>
             </ul>
         </nav>
@@ -284,15 +288,19 @@
 
 <!-- Hero Text Section -->
 <!-- =====================================================================
-     Latest. The three most recent News items, built at load time from the
+     Latest. The four most recent News items, built at load time from the
      News list further down so this can never drift. To control what shows
      here, set data-summary (one short line) and data-photo on a news <li>.
+     The newest item is rendered as a large featured card; the next three
+     sit beside it. See the .latest rules in styles.css.
      ================================================================== -->
 <section id="latest" class="latest" aria-label="Latest from the lab" hidden>
     <div class="container latest__inner">
-        <h2 class="latest__heading">Latest from the lab</h2>
+        <div class="latest__head">
+            <h2 class="latest__heading">Latest from the lab</h2>
+            <a class="latest__all" href="#recent-news">All news <span aria-hidden="true">&rarr;</span></a>
+        </div>
         <ul id="latest-strip" class="latest__list"></ul>
-        <a class="latest__all" href="#recent-news">All news <span aria-hidden="true">&rarr;</span></a>
     </div>
 </section>
 
@@ -1093,6 +1101,15 @@
              each card links to the matching dated item in the list below. -->
         <ul class="highlights" aria-label="News highlights">
             <li class="highlight">
+                <a href="#news-icmi-2026-coread-presented">
+                    <img loading="lazy" src="images/sakil_icmi26_napoli.webp" alt="" width="1920" height="1080">
+                    <span class="highlight__body">
+                        <time class="news-date-chip" datetime="2026-10">Oct 2026</time>
+                        <span class="highlight__title">CoRead presented at ICMI 2026, Napoli</span>
+                    </span>
+                </a>
+            </li>
+            <li class="highlight">
                 <a href="#news-cog-2026-ridge">
                     <img loading="lazy" src="images/ridge_cog_presentation.webp" alt="" width="1920" height="1080">
                     <span class="highlight__body">
@@ -1119,23 +1136,22 @@
                     </span>
                 </a>
             </li>
-            <li class="highlight">
-                <a href="#news-undergrad-thesis-awards-2026">
-                    <img loading="lazy" src="images/alyesha_award.webp" alt="" width="1800" height="1350">
-                    <span class="highlight__body">
-                        <time class="news-date-chip" datetime="2026-04">Apr 2026</time>
-                        <span class="highlight__title">Best Undergraduate Thesis Award, third year running</span>
-                    </span>
-                </a>
-            </li>
         </ul>
 
         <ul style="list-style: none; padding: 0;">
 
+            <li class="news-item" id="news-icmi-2026-coread-presented" data-summary="Sakil Sarker presented CoRead at ICMI 2026 in Napoli, Italy" data-photo="images/sakil_icmi26_napoli.webp">
+                <i class="fas fa-microphone news-icon"></i>
+                <span class="news-text">
+                    <time class="news-date-chip" datetime="2026-10">Oct 2026</time><a class="news-permalink" href="#news-icmi-2026-coread-presented" aria-label="Permalink to this news item" title="Permalink">#</a><span class="news-new-badge">New</span>
+                    <strong>Sakil Sarker</strong> presented our full paper <strong>"CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading"</strong> at the 28th ACM <strong><a class="news-x2" href="https://icmi.acm.org/2026/" target="_blank" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#F4D03F'">International Conference on Multimodal Interaction (ICMI 2026)</a></strong> in Napoli, Italy, 5&ndash;9 October 2026. Congratulations, Sakil!
+                </span>
+            </li>
+
             <li class="news-item" id="news-uist-2026-posters" data-summary="Two posters accepted at UIST 2026: CiteLen and CTATutor" data-photo="images/citelen.webp">
                 <i class="fas fa-check-circle news-icon"></i>
                 <span class="news-text">
-                    <time class="news-date-chip" datetime="2026-09">Sep 2026</time><a class="news-permalink" href="#news-uist-2026-posters" aria-label="Permalink to this news item" title="Permalink">#</a><span class="news-new-badge">New</span>
+                    <time class="news-date-chip" datetime="2026-09">Sep 2026</time><a class="news-permalink" href="#news-uist-2026-posters" aria-label="Permalink to this news item" title="Permalink">#</a>
                     Two poster papers accepted at <strong><a class="news-x2" href="https://uist.acm.org/2026/" target="_blank" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#F4D03F'">UIST 2026</a></strong> in Detroit: <strong>"CiteLen: In-Situ Multi-Lens Citation Analysis for Scholarly Reading"</strong> and <strong>"CTATutor: From Instructor-Guided Computational Thinking Blueprints to Adaptive Algorithm Tutoring"</strong>. Congratulations to Yasaman and Zeyuan!
                 </span>
             </li>
@@ -1410,7 +1426,6 @@
             <h4 class="team-name">Mohammad Zawad</h4>
             <span class="pill-grad">Master's</span>
             <p class="team-dates">(Jan 2026)</p>
-            <p>Researching data visualization and interaction on smartwatches.</p>
             <div class="contact-info">
             </div>
         </div>
@@ -1434,7 +1449,6 @@
             </div>
             <h4 class="team-name">Aron-Seth Cohen</h4>
             <span class="pill-grad">Master's</span>
-            <p>Researching HCI with a focus on interaction design and usability in complex systems.</p>
 
             <div class="contact-info">
             </div>
@@ -1443,7 +1457,7 @@
         <!-- Card for Kevin Chua -->
         <div class="team-card people-x1">
             <div class="image-container team-avatar">
-                <div class="people-x8">KC</div>
+                <img class="team-avatar__img" loading="lazy" src="images/kevin.webp" alt="Kevin Chua" width="400" height="400">
             </div>
             <h4 class="team-name">Kevin Chua</h4>
             <span class="pill-grad">Master's</span>
@@ -1529,6 +1543,7 @@
             <h4 class="team-name">Yasaman Akhoondzadeh</h4>
             <span class="pill-grad">Master's</span>
             <p class="team-dates">(Graduated Summer 2026)</p>
+            <p class="people-x4"><i class="fas fa-briefcase people-x5"></i>Now at <strong>CIBC</strong></p>
             <div class="contact-info">
             </div>
         </div>
@@ -1542,6 +1557,7 @@
             <span class="pill-ug">Undergraduate</span>
             <p class="team-dates">(2025 - 2026)</p>
             <p class="people-x4"><i class="fas fa-trophy people-x5"></i><strong>Undergrad Thesis Award (2026)</strong></p>
+            <p class="people-x4"><i class="fas fa-briefcase people-x5"></i>Now at <strong>IBM</strong></p>
             <div class="contact-info">
             </div>
         </div>
@@ -1590,6 +1606,7 @@
             <h4 class="team-name">Neel Shah</h4>
             <span class="pill-ug">Undergraduate</span>
             <p class="people-x4"><i class="fas fa-trophy people-x5"></i><strong>Undergrad Thesis Award (2025)</strong></p>
+            <p class="people-x4"><i class="fas fa-award people-x5"></i><strong>Vector Scholarship in AI</strong></p>
             <div class="contact-info">
             </div>
         </div>
@@ -1654,6 +1671,7 @@
             <span class="pill-ug">Undergraduate</span>
             <p class="team-dates">(2023 - 2024)</p>
             <p class="people-x4"><i class="fas fa-trophy people-x5"></i><strong>Undergrad Thesis Award (2024)</strong></p>
+            <p class="people-x4"><i class="fas fa-award people-x5"></i><strong>Vector Scholarship in AI</strong></p>
             <div class="contact-info">
             </div>
         </div>
@@ -1771,7 +1789,7 @@
 
 
 <!-- Subtle scroll-reveal animation (respects prefers-reduced-motion) -->
-<script defer src="main.js?v=2026-10-13c"></script>
+<script defer src="main.js?v=2026-10-18e"></script>
 </body>
 </html>
 

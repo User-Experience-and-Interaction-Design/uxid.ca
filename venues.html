@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Gated page: kept out of search results on purpose. -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Venue Guide | UXID Lab</title>
+    <meta name="theme-color" content="#1D3557">
+    <link rel="icon" type="image/png" href="images/uxid.png">
+    <link rel="apple-touch-icon" href="images/uxid.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=2026-10-18e">
+
+<style>
+:root {
+    --bg: #1D3557; --surface: #1F2937; --surface-2: #243041;
+    --line: rgba(255,255,255,0.10); --line-strong: rgba(255,255,255,0.20);
+    --ink: #ECECEC; --ink-muted: #AAB7B8; --ink-dim: #7D8B99;
+    --accent: #F4D03F;
+    --ok-ink: #7FD7AF; --mid-ink: #E3A869; --hi-ink: #E59690;
+    --font-body: 'Roboto', system-ui, -apple-system, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.6; padding-top: 65px; }
+.wrap { max-width: 1480px; margin: 0 auto; padding: 22px 20px 60px; }
+a { color: var(--accent); }
+
+h1 { font-family: var(--font-display); font-size: clamp(1.8rem,1.3rem + 2vw,2.5rem); line-height: 1.12; color: var(--accent); margin-bottom: 10px; }
+h2.sec { font-family: var(--font-display); font-size: 1.3rem; color: var(--accent); margin: 28px 0 3px; scroll-margin-top: 80px; }
+.lede { max-width: 82ch; color: var(--ink-muted); }
+.stamp { font-size: .8rem; color: var(--ink-dim); margin-top: 8px; }
+.sec-note { color: var(--ink-muted); font-size: .88rem; margin-bottom: 14px; max-width: 82ch; }
+
+/* ---------- Gate ---------- */
+#gate { max-width: 440px; margin: 10vh auto; padding: 30px 28px; text-align: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+#gate i.lock { font-size: 2rem; color: var(--accent); margin-bottom: 12px; display: block; }
+#gate h1 { font-size: 1.5rem; margin-bottom: 8px; }
+#gate p { color: var(--ink-muted); font-size: .9rem; margin-bottom: 18px; }
+#gate form { display: flex; gap: 8px; }
+#gate input { flex: 1; font: inherit; padding: 10px 12px; border-radius: 6px;
+    border: 1px solid var(--line-strong); background: #16202c; color: var(--ink); }
+#gate button { font: inherit; font-weight: 700; cursor: pointer; padding: 10px 18px; border: none;
+    border-radius: 6px; background: var(--accent); color: #1F2937; }
+#gate .err { color: var(--hi-ink); font-size: .85rem; margin-top: 12px; min-height: 1.2em; }
+#content[hidden] { display: none; }
+
+/* ---------- Filters ---------- */
+.filters { background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 10px 14px; margin: 14px 0 8px; display: grid; gap: 12px 20px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); align-items: end; }
+.fld { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.fld label { font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-dim); }
+.fld select, .fld input[type="search"] {
+    font: inherit; font-size: .88rem; padding: 7px 10px; border-radius: 6px; width: 100%;
+    border: 1px solid var(--line-strong); background: #16202c; color: var(--ink);
+}
+.fld select:focus-visible, .fld input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: .88rem; cursor: pointer; padding-bottom: 7px; }
+.chk input { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; }
+.countbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; margin-bottom: 10px; font-size: .85rem; color: var(--ink-muted); }
+.countbar b { color: var(--accent); font-size: 1rem; }
+.countbar button { font: inherit; font-size: .8rem; color: var(--ink-muted); background: none;
+    border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 11px; cursor: pointer; }
+.countbar button:hover { color: var(--ink); border-color: var(--accent); }
+
+/* ---------- Table ---------- */
+/* No inner scroller on a wide screen: the table flows with the page, so there
+   is one scrollbar instead of a box that traps the wheel, and the header
+   sticks under the site nav. Below 1300px the table needs sideways room, so it
+   becomes a scroll container again and the header sticks to the box instead. */
+.tablewrap { overflow: visible; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 8px; }
+@media (max-width: 1300px) {
+    .tablewrap { overflow: auto; max-height: 78vh; overscroll-behavior: contain; }
+    thead th { top: 0 !important; }
+}
+/* Fixed layout: auto layout ignores max-width on a <td>, so one long value
+   (an impact factor written as a sentence) could stretch a whole column. */
+table { border-collapse: collapse; width: 100%; font-size: .81rem; line-height: 1.35;
+    table-layout: fixed; }
+#t-main { min-width: 1260px; }
+th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+/* One line per cell: long values truncate and carry the full text in a tooltip
+   and in the expanded row, so row height stays constant. */
+td.trk, td.pg, td.acc, td.ev, td.how, td.size, td.jn, td.pubc, td.metric {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+thead th { position: sticky; top: 65px; background: var(--surface-2); z-index: 2;
+    padding: 6px 8px; font-size: .64rem; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-muted); border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+/* Track-category highlight. Colours validated for this dark surface; the
+   worst CVD pair sits in the 6-8 floor band, which is why every highlighted
+   row also carries a text label rather than relying on colour alone. */
+:root { --c-full: #2F9E6E; --c-post: #4A86D6; --c-lbw: #C568AC; }
+tbody tr.row { cursor: pointer; border-left: 4px solid transparent; }
+tbody tr.jrow { cursor: pointer; }
+tbody tr.jrow:hover { background: rgba(255,255,255,.04); }
+tbody tr.jrow.open { background: rgba(244,208,63,.06); }
+td.jn .chev { display: inline-block; width: 0; height: 0; margin: 0 8px 2px 0; vertical-align: middle;
+    border: 4px solid transparent; border-left-color: var(--ink-dim); border-right-width: 0;
+    transition: transform .15s ease; }
+tr.jrow.open .chev { transform: rotate(90deg); border-left-color: var(--accent); }
+tbody tr.cat-full { border-left-color: var(--c-full); background: rgba(47,158,110,.09); }
+tbody tr.cat-post { border-left-color: var(--c-post); background: rgba(74,134,214,.09); }
+tbody tr.cat-lbw  { border-left-color: var(--c-lbw);  background: rgba(197,104,172,.09); }
+tbody tr.cat-full:hover { background: rgba(47,158,110,.16); }
+tbody tr.cat-post:hover { background: rgba(74,134,214,.16); }
+tbody tr.cat-lbw:hover  { background: rgba(197,104,172,.16); }
+.cp { display: inline-block; font-size: .63rem; font-weight: 800; letter-spacing: .06em;
+    text-transform: uppercase; padding: 1px 7px; border-radius: 3px; margin-right: 8px;
+    vertical-align: 1px; white-space: nowrap; }
+.cp-full { background: var(--c-full); color: #0d1f17; }
+.cp-post { background: var(--c-post); color: #0b1826; }
+.cp-lbw  { background: var(--c-lbw);  color: #230f1d; }
+.catlegend { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+    font-size: .8rem; color: var(--ink-dim); margin-left: auto; }
+.catlegend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+tbody tr.row:hover { background: rgba(255,255,255,.04); }
+tbody tr.row.open { background: rgba(244,208,63,.06); }
+td.v { white-space: nowrap; }
+td.v b { color: var(--ink); }
+td.v .chev {
+    display: inline-block; width: 0; height: 0; margin: 0 8px 1px 0; vertical-align: middle;
+    border: 4px solid transparent; border-left-color: var(--ink-dim); border-right-width: 0;
+    transition: transform .15s ease;
+}
+tr.row.open .chev { transform: rotate(90deg); border-left-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { td.v .chev { transition: none; } }
+td.trk { color: var(--ink); }
+td.d { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+td.acc { color: var(--ink-muted); }
+
+td.ev b { color: var(--ink); font-weight: 600; }
+td.ev span { color: var(--ink-dim); }
+.core { font-family: ui-monospace, Menlo, monospace; font-weight: 700; }
+tr.past td.d, tr.past td.v b, tr.past td.trk { color: var(--ink-dim); }
+
+tr.det td { background: #16202c; border-bottom: 2px solid var(--line-strong); }
+.det-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 4px 26px; }
+.det-grid dt { font-size: .67rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-dim); }
+.det-grid dd { margin-bottom: 8px; color: var(--ink); }
+.why { margin-top: 10px; color: var(--ink-muted); font-size: .85rem; max-width: 95ch; }
+
+/* ---------- Pills ---------- */
+.pill { display: inline-block; font-size: .63rem; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+.t1 { background: rgba(244,208,63,.18); color: var(--accent); border: 1px solid rgba(244,208,63,.45); }
+.t2 { background: rgba(255,255,255,.08); color: var(--ink-muted); border: 1px solid var(--line-strong); }
+.t3 { background: none; color: var(--ink-dim); border: 1px solid var(--line); }
+.us-na  { background: rgba(255,255,255,.05); color: var(--ink-dim);  border: 1px solid var(--line-strong); }
+.us-ok  { background: rgba(47,158,110,.18); color: var(--ok-ink);  border: 1px solid rgba(47,158,110,.45); }
+.us-mid { background: rgba(201,123,46,.16); color: var(--mid-ink); border: 1px solid rgba(201,123,46,.45); }
+.us-hi  { background: rgba(192,86,78,.16);  color: var(--hi-ink);  border: 1px solid rgba(192,86,78,.45); }
+.areachip { background: rgba(74,134,214,.16); color: #9CC2EE; border: 1px solid rgba(74,134,214,.4);
+    margin: 0 4px 4px 0; text-transform: none; letter-spacing: 0; font-weight: 600; }
+.areachip.part { background: none; color: var(--ink-dim); border-color: var(--line-strong); }
+.alsoline { margin-top: 7px; padding-top: 7px; border-top: 1px dashed var(--line); line-height: 2; }
+.alsoline > span { font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-dim); margin-right: 6px; }
+/* Fit score: an ordinal ramp in one hue, validated against this surface
+   (monotone lightness, visible step gaps, light end clears the background). */
+.fit { display: inline-block; min-width: 30px; text-align: center; font-weight: 800;
+    font-size: .8rem; padding: 2px 6px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.fit1 { background: #4F6E62; color: #dfe9e5; }
+.fit2 { background: #3F8A6C; color: #eaf5f0; }
+.fit3 { background: #36A378; color: #0b1f16; }
+.fit4 { background: #43BD8C; color: #0b1f16; }
+.fit5 { background: #73D6AF; color: #0b1f16; }
+td.fitc, td.relc, td.tierc { white-space: nowrap; }
+td.pg { color: var(--ink-muted); }
+td.att { font-size: .8rem; white-space: nowrap; }
+td.att i { width: 13px; margin-right: 5px; color: var(--ink-dim); }
+td.size { font-size: .78rem; color: var(--ink-dim); white-space: nowrap; }
+td.acc { min-width: 8ch; }
+.rel-core { background: rgba(244,208,63,.18); color: var(--accent); border: 1px solid rgba(244,208,63,.45); }
+.rel-high { background: rgba(255,255,255,.08); color: var(--ink); border: 1px solid var(--line-strong); }
+.rel-adj  { background: none; color: var(--ink-muted); border: 1px solid var(--line); }
+.rel-ind  { background: none; color: var(--ink-dim); border: 1px dashed var(--line); }
+/* The area table wraps its chip lists instead of truncating them. */
+#t-area td { white-space: normal; vertical-align: top; padding: 7px 10px; }
+
+.rolling { color: var(--ok-ink); font-weight: 700; }
+.tba { color: var(--ink-dim); font-style: italic; font-weight: 400; }
+
+/* ---------- Journals subsection ---------- */
+#t-jrnl { min-width: 1120px; }
+
+td.jn b { color: var(--ink); }
+td.jn small { color: var(--ink-dim); }
+td.metric { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.metric b { color: var(--ink); }
+td.metric span { font-size: .75rem; color: var(--ink-dim); }
+.hbar { display: inline-block; vertical-align: middle; height: 5px; border-radius: 3px;
+    background: rgba(255,255,255,.09); margin-left: 7px; width: 54px; overflow: hidden; }
+.hbar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.hbar i.over { background: #73D6AF; }
+td.how { color: var(--ink-muted); }
+td.how b { color: var(--ink); font-weight: 600; }
+.jnote { font-size: .8rem; color: var(--ink-dim); margin: 10px 0 0; max-width: 92ch; }
+
+.note { margin-top: 32px; font-size: .8rem; color: var(--ink-dim); max-width: 86ch; text-align: left; }
+.note p + p { margin-top: 8px; }
+.note strong { color: var(--ink-muted); }
+.note code { color: var(--ink-muted); }
+#loading { padding: 40px; text-align: center; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header style="background-color: #1D3557; color: #F1FAEE; padding: 0; height: 65px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 40px;">
+        <a href="index.html" class="logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0;">
+            <img src="images/uxid.png" alt="UXID Lab" style="height: 55px; width: auto;" width="2048" height="2048">
+            <span class="logo-text" style="font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #A8DADC; line-height: 1.3; white-space: nowrap; font-weight: 600;">User Experience &amp;<br>Interaction Design</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Main">
+            <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
+                <li><a href="index.html#research" class="nav-link">Research</a></li>
+                <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+                <li><a href="index.html#recent-news" class="nav-link">News</a></li>
+                <li><a href="index.html#people" class="nav-link">People</a></li>
+                <li><a href="index.html#join" class="nav-link">Join Us</a></li>
+                <li><a href="index.html#teaching" class="nav-link">Teaching</a></li>
+                <li><a href="tools.html" class="nav-link">Tools</a></li>
+                <li><a href="deadlines.html" class="nav-link">Deadlines</a></li>
+                <li><a href="venues.html" class="nav-link" aria-current="page">Venues</a></li>
+                <li><a href="index.html#footer" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">Menu</button>
+    </div>
+    <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
+        <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
+            <li><a href="index.html#research" class="nav-link">Research</a></li>
+            <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+            <li><a href="index.html#recent-news" class="nav-link">News</a></li>
+            <li><a href="index.html#people" class="nav-link">People</a></li>
+            <li><a href="index.html#join" class="nav-link">Join Us</a></li>
+            <li><a href="index.html#teaching" class="nav-link">Teaching</a></li>
+            <li><a href="tools.html" class="nav-link">Tools</a></li>
+            <li><a href="deadlines.html" class="nav-link">Deadlines</a></li>
+            <li><a href="venues.html" class="nav-link" aria-current="page">Venues</a></li>
+            <li><a href="index.html#footer" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main id="main">
+
+<section id="gate">
+    <i class="fas fa-lock lock" aria-hidden="true"></i>
+    <h1>Venue guide</h1>
+    <p>This page is for the lab. Enter the passcode to continue.</p>
+    <form id="gateForm" autocomplete="off">
+        <label for="pw" class="visually-hidden">Passcode</label>
+        <input type="password" id="pw" inputmode="numeric" placeholder="Passcode" autocomplete="off">
+        <button type="submit">Unlock</button>
+    </form>
+    <p class="err" id="gateErr" role="alert"></p>
+</section>
+
+<div class="wrap" id="content" hidden>
+    <h1>Venue guide</h1>
+    <p class="lede">
+        Every conference and journal track from the lab's deadline workbook, with tier,
+        CORE rank, acceptance rate, whether it needs a user study, and where the next
+        edition is. Dates are month and day only, since these repeat at roughly the same
+        point each year. <strong>Click any row</strong> for page limits, notification and
+        camera-ready dates, the areas it covers and why it is relevant.
+    </p>
+    <p class="stamp" id="stamp">Loading&hellip;</p>
+
+    <div id="loading">Loading venue data&hellip;</div>
+
+    <div id="app" hidden>
+        <div class="filters">
+            <div class="fld">
+                <label for="q">Search venue or track</label>
+                <input type="search" id="q" placeholder="e.g. CHI, poster, Helsinki">
+            </div>
+            <div class="fld">
+                <label for="fArea">HCI area</label>
+                <select id="fArea"><option value="">Any area</option></select>
+            </div>
+            <div class="fld">
+                <label for="fTier">Tier</label>
+                <select id="fTier">
+                    <option value="">Any tier</option>
+                    <option value="1">Tier 1 only</option>
+                    <option value="12" selected>Tier 1 and 2</option>
+                    <option value="2">Tier 2 only</option>
+                    <option value="3">Tier 3</option>
+                    <option value="4">Tier 4</option>
+                </select>
+            </div>
+            <div class="fld">
+                <label for="fUs">User study</label>
+                <select id="fUs">
+                    <option value="">Any</option>
+                    <option value="no">Not needed (optional or n/a)</option>
+                    <option value="yes">Required or expected</option>
+                </select>
+            </div>
+            <div class="fld">
+                <label for="fCat">Track category</label>
+                <select id="fCat"><option value="">Any category</option></select>
+            </div>
+            <div class="fld">
+                <label for="fType">Type</label>
+                <select id="fType">
+                    <option value="">Conferences and journals</option>
+                    <option value="C">Conferences only</option>
+                    <option value="J">Journals only</option>
+                </select>
+            </div>
+            <div class="fld">
+                <label for="fSort">Sort by</label>
+                <select id="fSort">
+                    <option value="dl">Deadline</option>
+                    <option value="name">Venue name</option>
+                    <option value="tier">Tier, then deadline</option>
+                    <option value="fit">Fit to our research</option>
+                </select>
+            </div>
+            <label class="chk" for="fUp"><input type="checkbox" id="fUp" checked> Upcoming only</label>
+        </div>
+
+        <div class="countbar">
+            <span><b id="cnt">0</b> tracks across <b id="cntV">0</b> venues</span>
+            <button type="button" id="reset">Reset filters</button>
+            <span class="catlegend">
+                <span><i style="background:var(--c-full)"></i>Full paper</span>
+                <span><i style="background:var(--c-post)"></i>Poster</span>
+                <span><i style="background:var(--c-lbw)"></i>Late-breaking work</span>
+                <span><i style="background:transparent;border:1px solid var(--line-strong)"></i>Everything else</span>
+            </span>
+        </div>
+
+        <div class="tablewrap">
+            <table id="t-main">
+                <colgroup>
+                    <col style="width:8%"><col style="width:15%"><col style="width:5.5%">
+                    <col style="width:5.5%"><col style="width:8%"><col style="width:7%">
+                    <col style="width:4%"><col style="width:6%"><col style="width:5%">
+                    <col style="width:4.5%"><col style="width:6%"><col style="width:7.5%">
+                    <col style="width:6%"><col style="width:12%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Track</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Abstract</th>
+                        <th scope="col">Pages</th>
+                        <th scope="col">User study</th>
+                        <th scope="col" title="Fit to the lab's research, 1 to 5">Fit</th>
+                        <th scope="col">HCI</th>
+                        <th scope="col">Tier</th>
+                        <th scope="col">CORE</th>
+                        <th scope="col">Accept</th>
+                        <th scope="col">Attendance</th>
+                        <th scope="col">Size / yr</th>
+                        <th scope="col">Next event</th>
+                    </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+            </table>
+        </div>
+
+        <h2 class="sec">Journals only</h2>
+        <p class="sec-note">
+            The 52 journals from the workbook, with the metrics conferences do not have
+            &mdash; impact factor, CiteScore and h5&nbsp;index &mdash; plus how you actually submit.
+            <strong>Click a row</strong> for the submission system, review process and turnaround,
+            open-access policy and any fee.
+        </p>
+        <div class="tablewrap">
+            <table id="t-jrnl">
+                <colgroup>
+                    <col style="width:16%"><col style="width:8%"><col style="width:5%">
+                    <col style="width:9%"><col style="width:7%"><col style="width:11%">
+                    <col style="width:4%"><col style="width:6%"><col style="width:8%">
+                    <col style="width:7%"><col style="width:13%"><col style="width:6%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">Journal</th>
+                        <th scope="col">Publisher</th>
+                        <th scope="col">Tier</th>
+                        <th scope="col">Impact factor</th>
+                        <th scope="col">CiteScore</th>
+                        <th scope="col" title="Google Scholar five-year h-index, and that as a percentage of CHI's">h5 (% of CHI)</th>
+                        <th scope="col">Fit</th>
+                        <th scope="col">HCI</th>
+                        <th scope="col">User study</th>
+                        <th scope="col">Pages</th>
+                        <th scope="col">How to submit</th>
+                        <th scope="col">Intake</th>
+                    </tr>
+                </thead>
+                <tbody id="jrnlRows"></tbody>
+            </table>
+        </div>
+        <p class="jnote" id="jnote"></p>
+
+        <h2 class="sec">Which venue for which area</h2>
+        <p class="sec-note">
+            Built from the area tags in the workbook. The first line is where the workbook
+            marks that area a <em>core</em> topic (gold is Tier&nbsp;1). Generalist venues like
+            CHI, DIS and UIST are tagged as partial on nearly every area rather than core,
+            so the Tier&nbsp;1 venues that also cover it are listed underneath.
+        </p>
+        <div class="tablewrap">
+            <table id="t-area">
+                <colgroup><col style="width:15%"><col></colgroup>
+                <thead><tr><th scope="col">Area</th><th scope="col">Venues that treat it as a core topic</th></tr></thead>
+                <tbody id="areaRows"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="note">
+        <p><strong>Source:</strong> <code id="srcname"></code> in your iCloud Conference&nbsp;Deadlines
+        folder. The page is generated from that workbook, so the spreadsheet stays the one place you
+        edit; re-export and the page follows.</p>
+        <p><strong>Fit is computed, not from the workbook.</strong> Your <code>Fit_Score</code>
+        column is empty, so the page derives it: the area tags the workbook gives each venue,
+        weighted towards the lab's own topics (smartwatch 1.0, mobile 0.8, human-AI 0.8,
+        visualization 0.6, accessibility 0.5; a &ldquo;partial&rdquo; tag counts half), plus the HCI
+        relevance rating, all multiplied by a tier factor so a weak venue tagged across many
+        areas cannot outrank a strong one. The result is scaled so the closest-fitting venue
+        in the list scores&nbsp;5 &mdash; <strong>5 means best fit here, not perfect fit</strong>.
+        Fill in <code>Fit_Score</code> in the spreadsheet and the page will use your number instead.</p>
+        <p><strong>Attendance</strong> comes from the workbook's presentation mode.
+        &ldquo;In&nbsp;person*&rdquo; means in person with remote allowed only by exception;
+        the exact wording is in the expanded row. <strong>Pages</strong> and
+        <strong>acceptance</strong> are shortened in the table and shown in full there too.</p>
+        <p><strong>On the passcode:</strong> it is checked in the browser, so anyone who views the page
+        source can read it, and the data file sits at a plain URL beside the page. It keeps this out of
+        casual sight and out of search results; it is not real access control.</p>
+        <p><strong>Not every row is dated.</strong> Rolling journals show <span class="rolling">Rolling</span>
+        and tracks whose call is not out yet show <span class="tba">not announced</span>; both stay
+        visible under &ldquo;upcoming only&rdquo;. Venues the workbook marks discontinued are left out.</p>
+    </div>
+</div>
+
+</main>
+
+<script>
+(function () {
+    "use strict";
+
+    var PASS = "123456", KEY = "uxid-venues-unlocked";
+    var gate = document.getElementById("gate"),
+        content = document.getElementById("content"),
+        err = document.getElementById("gateErr");
+
+    function unlock() {
+        gate.hidden = true; gate.style.display = "none";
+        content.hidden = false;
+        if (!content.dataset.started) { content.dataset.started = "1"; load(); }
+    }
+    document.getElementById("gateForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (document.getElementById("pw").value.trim() === PASS) {
+            try { sessionStorage.setItem(KEY, "1"); } catch (e2) {}
+            err.textContent = ""; unlock();
+        } else {
+            err.textContent = "Wrong passcode.";
+            document.getElementById("pw").select();
+        }
+    });
+
+    /* ---------------- helpers ---------------- */
+    var TODAY = "2026-10-18";
+    var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    function md(iso) {                       // "2026-11-10" -> "Nov 10"
+        if (!iso) { return ""; }
+        var p = iso.split("-");
+        return MON[+p[1] - 1] + " " + (+p[2]);
+    }
+    function noYear(s) {                     // "May 31 - Jun 4, 2027" -> "May 31 - Jun 4"
+        return (s || "").replace(/,?\s*(19|20)\d{2}/g, "").replace(/[\s,–-]+$/, "").trim();
+    }
+    function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+        });
+    }
+    var USMAP = {
+        "Not Applicable": ["us-na",  "n/a"],
+        "Optional":       ["us-ok",  "Optional"],
+        "Recommended":    ["us-mid", "Recommended"],
+        "Expected":       ["us-hi",  "Expected"],
+        "Required":       ["us-hi",  "Required"]
+    };
+    var NOSTUDY = { "Not Applicable": 1, "Optional": 1 };
+    // Only these three are colour-coded; every other category stays neutral.
+    var CATSTYLE = {
+        "Full Papers":        ["cat-full", "cp-full", "Full paper"],
+        "Posters":            ["cat-post", "cp-post", "Poster"],
+        "Late-Breaking Work": ["cat-lbw",  "cp-lbw",  "LBW"]
+    };
+    function pill(c, t) { return '<span class="pill ' + c + '">' + esc(t) + "</span>"; }
+    // "~25% (full papers, published in CGF)" -> "~25%"; full text stays in the detail row.
+    function shortAcc(a) {
+        if (!a) { return "—"; }
+        var i = a.indexOf(" (");
+        return i > 0 ? a.slice(0, i) : (a.length > 14 ? a.slice(0, 13) + "\u2026" : a);
+    }
+    function shortIF(v) {
+        if (!v) { return "—"; }
+        var t = v.replace(/^IF:\s*/, "").split(";")[0].trim();
+        return t.length > 24 ? t.slice(0, 23) + "\u2026" : t;
+    }
+    function shortPages(p) {
+        if (!p) { return "—"; }
+        return p.replace(/\s*pages?/i, " pp").replace(/\+\s*refs?(erences)?/i, "+refs").trim();
+    }
+    var RELP = { "Core": ["rel-core", "Core"], "High": ["rel-high", "High"],
+                 "Adjacent": ["rel-adj", "Adjacent"], "Indirect": ["rel-ind", "Indirect"] };
+    var ATTI = {
+        "In person only":      ["fa-location-dot", "In person"],
+        "Remote by exception": ["fa-location-dot", "In person*"],
+        "Remote option":       ["fa-video",        "Remote ok"],
+        "Virtual":             ["fa-globe",        "Virtual"],
+        "No presentation":     ["fa-file-lines",   "None"]
+    };
+    function fitBadge(f) {
+        var step = Math.max(1, Math.min(5, Math.ceil(f)));
+        return '<span class="fit fit' + step + '" title="Fit to the lab\u2019s areas: ' +
+               f + ' of 5">' + f + "</span>";
+    }
+    function tierPill(t) { return t ? pill(t === 1 ? "t1" : (t === 2 ? "t2" : "t3"), "Tier " + t) : ""; }
+
+    /* ---------------- load ---------------- */
+    var DATA = null;
+
+    function load() {
+        fetch("venues-data.json")
+            .then(function (r) {
+                if (!r.ok) { throw new Error("HTTP " + r.status); }
+                return r.json();
+            })
+            .then(function (j) {
+                DATA = j;
+                document.getElementById("loading").hidden = true;
+                document.getElementById("app").hidden = false;
+                document.getElementById("srcname").textContent = j.source;
+                var sel = document.getElementById("fArea");
+                j.areas.forEach(function (a) {
+                    var o = document.createElement("option");
+                    o.value = a; o.textContent = a; sel.appendChild(o);
+                });
+                var cats = {};
+                j.rows.forEach(function (r) { cats[r.cat] = (cats[r.cat] || 0) + 1; });
+                var csel = document.getElementById("fCat");
+                Object.keys(cats).sort().forEach(function (c) {
+                    var o = document.createElement("option");
+                    o.value = c; o.textContent = c + " (" + cats[c] + ")"; csel.appendChild(o);
+                });
+                var venues = {};
+                j.rows.forEach(function (r) { venues[r.n] = 1; });
+                document.getElementById("stamp").textContent =
+                    j.rows.length + " tracks across " + Object.keys(venues).length +
+                    " venues · exported from the workbook on " + j.generated;
+                buildAreas();
+                buildJournals();
+                wire();
+                render();
+            })
+            .catch(function (e) {
+                document.getElementById("loading").innerHTML =
+                    "Could not load <code>venues-data.json</code> (" + esc(e.message) + ").";
+            });
+    }
+
+    function current() {
+        var q = document.getElementById("q").value.trim().toLowerCase(),
+            area = document.getElementById("fArea").value,
+            tier = document.getElementById("fTier").value,
+            us = document.getElementById("fUs").value,
+            cat = document.getElementById("fCat").value,
+            ty = document.getElementById("fType").value,
+            up = document.getElementById("fUp").checked,
+            sort = document.getElementById("fSort").value;
+
+        var out = DATA.rows.filter(function (r) {
+            if (q && (r.n + " " + r.fn + " " + r.tr + " " + r.loc).toLowerCase().indexOf(q) < 0) { return false; }
+            if (area && r.yes.indexOf(area) < 0 && r.part.indexOf(area) < 0) { return false; }
+            if (tier === "12") { if (r.tier !== 1 && r.tier !== 2) { return false; } }
+            else if (tier && String(r.tier) !== tier) { return false; }
+            if (us === "no" && !NOSTUDY[r.us]) { return false; }
+            if (us === "yes" && r.us !== "Required" && r.us !== "Expected") { return false; }
+            if (cat && r.cat !== cat) { return false; }
+            if (ty && r.ty !== ty) { return false; }
+            // rolling and not-yet-announced tracks are always still open
+            if (up && r.st === "dated" && r.dl < TODAY) { return false; }
+            return true;
+        });
+
+        out.sort(function (a, b) {
+            if (sort === "name") { return a.n.localeCompare(b.n) || (a.dl || "9").localeCompare(b.dl || "9"); }
+            if (sort === "tier") { return (a.tier || 9) - (b.tier || 9) || (a.dl || "9").localeCompare(b.dl || "9"); }
+            if (sort === "fit") { return b.fit - a.fit || (a.dl || "9").localeCompare(b.dl || "9"); }
+            return (a.dl || "9999").localeCompare(b.dl || "9999") || a.n.localeCompare(b.n);
+        });
+        return out;
+    }
+
+    function render() {
+        var list = current();
+        document.getElementById("cnt").textContent = list.length;
+        var vs = {};
+        list.forEach(function (r) { vs[r.n] = 1; });
+        document.getElementById("cntV").textContent = Object.keys(vs).length;
+
+        document.getElementById("rows").innerHTML = list.map(function (r, i) {
+            var u = USMAP[r.us] || ["us-na", r.us || "—"];
+            var dl = r.st === "rolling" ? '<span class="rolling">Rolling</span>'
+                   : (r.st === "tba" ? '<span class="tba">not announced</span>' : md(r.dl));
+            var past = r.st === "dated" && r.dl < TODAY;
+            var cs = CATSTYLE[r.cat];
+            var rp = RELP[r.relb];
+            var at = ATTI[r.att];
+            return '<tr class="row' + (past ? " past" : "") + (cs ? " " + cs[0] : "") +
+                   '" data-i="' + i + '">' +
+                '<td class="v"><span class="chev"></span><b>' + esc(r.n) + "</b></td>" +
+                '<td class="trk" title="' + esc(r.tr) + '">' +
+                    (cs ? '<span class="cp ' + cs[1] + '">' + cs[2] + "</span>" : "") + esc(r.tr) + "</td>" +
+                '<td class="d">' + dl + "</td>" +
+                '<td class="d">' + (r.ab ? md(r.ab) : "—") + "</td>" +
+                '<td class="pg" title="' + esc(r.pg) + '">' + esc(shortPages(r.pg)) + "</td>" +
+                "<td>" + pill(u[0], u[1]) + "</td>" +
+                '<td class="fitc">' + fitBadge(r.fit) + "</td>" +
+                '<td class="relc">' + (rp ? pill(rp[0], rp[1]) : "—") + "</td>" +
+                '<td class="tierc">' + tierPill(r.tier) + "</td>" +
+                '<td class="core">' + esc(r.core || "—") + "</td>" +
+                '<td class="acc" title="' + esc(r.acc) + '">' + esc(shortAcc(r.acc)) + "</td>" +
+                '<td class="att">' + (at ? '<i class="fas ' + at[0] + '" aria-hidden="true"></i>' + esc(at[1])
+                                         : esc(r.att || "—")) + "</td>" +
+                '<td class="size">' + esc((r.size || "—").replace(/\s*papers?\/yr/i, "")) + "</td>" +
+                '<td class="ev" title="' + esc((r.loc || "") + " " + (r.cd || "")) + '"><b>' +
+                    esc(r.loc || "—") + "</b> <span>" + esc(noYear(r.cd)) + "</span></td>" +
+                "</tr>";
+        }).join("");
+        document.getElementById("rows")._list = list;
+    }
+
+    document.getElementById("rows").addEventListener("click", function (e) {
+        var tr = e.target.closest("tr.row");
+        if (!tr) { return; }
+        var open = tr.classList.contains("open");
+        [].slice.call(this.querySelectorAll("tr.det")).forEach(function (d) { d.remove(); });
+        [].slice.call(this.querySelectorAll("tr.open")).forEach(function (o) {
+            o.classList.remove("open");
+        });
+        if (open) { return; }
+
+        var r = this._list[+tr.dataset.i];
+        var chips = r.yes.map(function (a) { return pill("areachip", a); }).join("") +
+                    r.part.map(function (a) { return pill("areachip part", a); }).join("");
+        var d = document.createElement("tr");
+        d.className = "det";
+        d.innerHTML = '<td colspan="14"><div class="det-grid">' +
+            "<div><dt>Full name</dt><dd>" + esc(r.fn || "—") + "</dd></div>" +
+            "<div><dt>Page limit</dt><dd>" + esc(r.pg || "—") + "</dd></div>" +
+            "<div><dt>Notification</dt><dd>" + (r.nt ? md(r.nt) : "—") + "</dd></div>" +
+            "<div><dt>Camera-ready</dt><dd>" + (r.cr ? md(r.cr) : "—") + "</dd></div>" +
+            "<div><dt>CORE / CCF</dt><dd>" + esc((r.core || "—") + " / " + (r.ccf || "—")) + "</dd></div>" +
+            "<div><dt>HCI relevance</dt><dd>" + esc(r.rel || "—") + "</dd></div>" +
+            "<div><dt>Acceptance rate</dt><dd>" + esc(r.acc || "—") + "</dd></div>" +
+            "<div><dt>Attendance</dt><dd>" + esc(r.pm || r.fmt || "—") +
+                (r.rod ? ' <span style="color:var(--ink-dim)">— ' + esc(r.rod) + "</span>" : "") + "</dd></div>" +
+            "<div><dt>Venue size</dt><dd>" + esc(r.size || "—") +
+                (r.subs ? " \u00b7 " + esc(r.subs) + " submissions" : "") + "</dd></div>" +
+            "<div><dt>Fit to our areas</dt><dd>" + fitBadge(r.fit) +
+                ' <span style="color:var(--ink-dim)">computed, see note</span></dd></div>' +
+            "</div>" +
+            (chips ? '<div style="margin-top:10px">' + chips + "</div>" : "") +
+            (r.why ? '<p class="why">' + esc(r.why) + "</p>" : "") +
+            (r.web ? '<p class="why"><a href="' + esc(r.web) + '" target="_blank" rel="noopener">' +
+                     esc(r.web) + "</a></p>" : "") +
+            "</td>";
+        tr.after(d);
+        tr.classList.add("open");
+    });
+
+    function buildJournals() {
+        var CHI_H = DATA.chi_h || 122;
+        var js = DATA.rows.filter(function (r) { return r.ty === "J"; })
+                          .sort(function (a, b) { return (b.h || 0) - (a.h || 0); });
+
+        document.getElementById("jrnlRows").innerHTML = js.map(function (r, i) {
+            var rp = RELP[r.relb], u = USMAP[r.us] || ["us-na", r.us || "—"];
+            var pctRaw = r.h ? Math.round(r.h / CHI_H * 100) : null;
+            var hcell = r.h
+                ? "<b>" + r.h + "</b> <span>" + pctRaw + "%</span>" +
+                  '<span class="hbar"><i class="' + (pctRaw >= 100 ? "over" : "") +
+                  '" style="width:' + Math.min(pctRaw, 100) + '%"></i></span>'
+                : "—";
+            // Intake: rolling journals have no single date.
+            var intake = r.st === "rolling" ? '<span class="rolling">Rolling</span>'
+                       : (r.st === "tba" ? '<span class="tba">not announced</span>' : md(r.dl));
+            return '<tr class="jrow" data-j="' + i + '">' +
+                '<td class="jn" title="' + esc(r.fn) + '"><span class="chev"></span><b>' +
+                    esc(r.n) + "</b> <small>" + esc(r.fn) + "</small></td>" +
+                '<td class="pubc" title="' + esc(r.pub || "") + '">' + esc(r.pub || "—") + "</td>" +
+                "<td>" + tierPill(r.tier) + "</td>" +
+                '<td class="metric" title="' + esc(r.if_ || "") + '">' + esc(shortIF(r.if_)) + "</td>" +
+                '<td class="metric">' + esc(r.cs || "—") + "</td>" +
+                '<td class="metric">' + hcell + "</td>" +
+                '<td class="fitc">' + fitBadge(r.fit) + "</td>" +
+                '<td class="relc">' + (rp ? pill(rp[0], rp[1]) : "—") + "</td>" +
+                "<td>" + pill(u[0], u[1]) + "</td>" +
+                '<td class="pg">' + esc(shortPages(r.pg)) + "</td>" +
+                '<td class="how" title="' + esc((r.sys || "") + " \u00b7 " + (r.rev || "")) + '"><b>' +
+                    esc((r.sys || "—").replace(/\s*\(.*$/, "")) + "</b> " + esc(r.rev || "") + "</td>" +
+                '<td class="d">' + intake + "</td>" +
+                "</tr>";
+        }).join("");
+        document.getElementById("jrnlRows")._list = js;
+
+        var over = js.filter(function (r) { return r.h && r.h >= CHI_H; }).length;
+        document.getElementById("jnote").innerHTML =
+            "h5 is the Google Scholar five-year h-index; CHI's is <b>" + CHI_H + "</b>. " +
+            over + " of these journals sit at or above it \u2014 but h5 rises with how much a " +
+            "venue publishes, so a large generalist journal can outscore CHI without carrying " +
+            "more weight in HCI. Read it as reach, not prestige.";
+    }
+
+    document.getElementById("jrnlRows").addEventListener("click", function (e) {
+        var tr = e.target.closest("tr.jrow");
+        if (!tr) { return; }
+        var open = tr.classList.contains("open");
+        [].slice.call(this.querySelectorAll("tr.det")).forEach(function (d) { d.remove(); });
+        [].slice.call(this.querySelectorAll("tr.open")).forEach(function (o) { o.classList.remove("open"); });
+        if (open) { return; }
+        var r = this._list[+tr.dataset.j];
+        function cell(k, v) { return v ? "<div><dt>" + k + "</dt><dd>" + esc(v) + "</dd></div>" : ""; }
+        var d = document.createElement("tr");
+        d.className = "det";
+        d.innerHTML = '<td colspan="12"><div class="det-grid">' +
+            cell("Impact factor", r.if_) +
+            cell("CiteScore", r.cs) +
+            cell("Submission system", r.sys) +
+            cell("Portal", r.portal) +
+            cell("Template", r.tmpl) +
+            cell("Review process", r.rev) +
+            cell("Reviewers", r.nrev) +
+            cell("First decision", r.turn) +
+            cell("Open access", r.oa) +
+            cell("Fee / APC", r.apc) +
+            cell("Indexed in", r.idx) +
+            cell("Intake", r.freq) +
+            cell("Special issue partner", r.sip) +
+            cell("Acceptance rate", r.acc) +
+            "</div>" +
+            (r.why ? '<p class="why">' + esc(r.why) + "</p>" : "") +
+            (r.web ? '<p class="why"><a href="' + esc(r.web) + '" target="_blank" rel="noopener">' +
+                     esc(r.web) + "</a></p>" : "") +
+            "</td>";
+        tr.after(d);
+        tr.classList.add("open");
+    });
+
+    function buildAreas() {
+        // "Yes" = the workbook calls this a core topic. Generalist venues such as
+        // CHI and DIS are tagged Partial on every area, so a Yes-only list would
+        // drop them; Tier 1 Partial venues get a second, muted line.
+        var core = {}, also = {};
+        DATA.areas.forEach(function (a) { core[a] = {}; also[a] = {}; });
+        DATA.rows.forEach(function (r) {
+            var t = r.tier || 9;
+            r.yes.forEach(function (a) {
+                if (!core[a][r.n] || t < core[a][r.n]) { core[a][r.n] = t; }
+            });
+            if (t === 1) {
+                r.part.forEach(function (a) { also[a][r.n] = 1; });
+            }
+        });
+        function sorted(m) {
+            return Object.keys(m).sort(function (x, y) { return m[x] - m[y] || x.localeCompare(y); });
+        }
+        document.getElementById("areaRows").innerHTML = DATA.areas.map(function (a) {
+            var vs = sorted(core[a]);
+            var extra = sorted(also[a]).filter(function (v) { return !core[a][v]; });
+            if (!vs.length && !extra.length) { return ""; }
+            var cells = vs.map(function (v) { return pill(core[a][v] === 1 ? "t1" : "t2", v); }).join(" ");
+            if (extra.length) {
+                cells += '<div class="alsoline"><span>Tier 1, also covers it:</span> ' +
+                         extra.map(function (v) { return pill("t3", v); }).join(" ") + "</div>";
+            }
+            return '<tr><td style="white-space:nowrap"><b>' + esc(a) + "</b></td><td>" + cells + "</td></tr>";
+        }).join("");
+    }
+
+    function wire() {
+        ["q", "fArea", "fTier", "fUs", "fCat", "fType", "fSort", "fUp"].forEach(function (id) {
+            document.getElementById(id)
+                .addEventListener(id === "q" ? "input" : "change", render);
+        });
+        document.getElementById("reset").addEventListener("click", function () {
+            document.getElementById("q").value = "";
+            document.getElementById("fArea").value = "";
+            document.getElementById("fTier").value = "12";
+            document.getElementById("fUs").value = "";
+            document.getElementById("fCat").value = "";
+            document.getElementById("fType").value = "";
+            document.getElementById("fSort").value = "dl";
+            document.getElementById("fUp").checked = true;
+            render();
+        });
+    }
+
+    var remembered = false;
+    try { remembered = sessionStorage.getItem(KEY) === "1"; } catch (e) {}
+    if (remembered) { unlock(); }
+})();
+</script>
+
+<script defer src="main.js?v=2026-10-18e"></script>
+</body>
+</html>

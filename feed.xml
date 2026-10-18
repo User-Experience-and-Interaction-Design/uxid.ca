@@ -11,6 +11,14 @@
          Keep <guid> identical to the news item's permalink. -->
 
     <item>
+      <title>CoRead presented at ICMI 2026 in Napoli, Italy</title>
+      <link>https://uxid.ca/#news-icmi-2026-coread-presented</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-icmi-2026-coread-presented</guid>
+      <pubDate>Wed, 07 Oct 2026 09:00:00 -0400</pubDate>
+      <description>Sakil Sarker presented our full paper CoRead: Using Implicit Behavioural Signals for Mixed-Initiative AI Support in Collaborative Academic Reading at the 28th ACM International Conference on Multimodal Interaction (ICMI 2026) in Napoli, Italy, 5-9 October 2026.</description>
+    </item>
+
+    <item>
       <title>Two poster papers accepted at UIST 2026</title>
       <link>https://uxid.ca/#news-uist-2026-posters</link>
       <guid isPermaLink="true">https://uxid.ca/#news-uist-2026-posters</guid>
