@@ -1411,7 +1411,7 @@ button.btn-pub {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 45%;
+    object-position: right center;
     display: block;
 }
 /* Legibility over an arbitrary photograph: a strong directional scrim rather
@@ -1448,14 +1448,31 @@ button.btn-pub {
 }
 .hero__title {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4rem);
-    line-height: 1.12;
+    font-size: clamp(2.2rem, 1.1rem + 4.4vw, 4.2rem);
+    line-height: 1.0;
     color: #fff;
-    max-width: 19ch;
+    max-width: 24ch;
     margin: 0 0 var(--space-3);
+    padding-top: var(--space-3);
     font-weight: 700;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.03em;
+    position: relative;
 }
+/* Short gold rule above the headline. Picks up the accent used by the eyebrow,
+   the buttons and the section headings without tinting the words themselves. */
+.hero__title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72px;
+    height: 3px;
+    background: var(--color-accent);
+}
+/* The headline breaks are set with <br> in the markup so that "people and AI"
+   never splits across lines; nowrap guards the phrase if the breaks are ever
+   removed or the font metrics shift. */
+.hero__title-em { white-space: nowrap; }
 .hero__sub {
     font-size: var(--text-base);
     line-height: 1.6;
@@ -1495,6 +1512,11 @@ button.btn-pub {
 
 @media (max-width: 768px) {
     .hero { min-height: auto; }
+    /* The hero banner carries the UXID wordmark on its right third. Anchoring
+       right keeps that mark intact on wide screens, but at phone widths the
+       crop is tight enough that a right anchor shows only the wordmark, which
+       then collides with the headline. Pull back to the device photography. */
+    .hero__bg img { object-position: 28% center; }
     .hero__inner { padding: var(--space-5) var(--space-3) var(--space-4); }
     .hero__title { max-width: none; }
     .hero__cta .btn { flex: 1 1 100%; justify-content: center; }
@@ -1565,13 +1587,18 @@ button.btn-pub {
 
 /* ===== About ============================================================= */
 .about-section { background: linear-gradient(135deg, #1D3557, #2C3E50); color: var(--color-text); }
-.about-container { max-width: 74ch; margin: 0 auto; text-align: left; }
+.about-container { max-width: 960px; margin: 0 auto; text-align: left; }
 .about-container .section-title { text-align: center; }
+
+/* The lead keeps a comfortable reading measure even though the container is
+   wide enough for the two-column grid below it. */
 .about-lead {
-    font-size: var(--text-lg);
-    line-height: 1.55;
+    font-size: clamp(1.2rem, 1.0rem + 0.8vw, 1.6rem);
+    line-height: 1.45;
     color: #fff;
-    margin: 0 0 var(--space-3);
+    max-width: 58ch;
+    margin: 0 auto var(--space-4);
+    text-align: center;
 }
 .about-body {
     font-size: var(--text-base);
@@ -1579,13 +1606,116 @@ button.btn-pub {
     margin: 0 0 var(--space-3);
     opacity: 0.92;
 }
+.about-body--intro {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: #fff;
+    opacity: 1;
+    margin-bottom: var(--space-3);
+}
+
+/* Two levels, two columns. Collapses to one column on narrow screens. */
+.about-levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+.about-level {
+    background: rgba(31, 41, 55, 0.45);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+}
+.about-level__label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+}
+.about-level p {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    opacity: 0.92;
+}
+
+/* Accessibility runs across both levels, so it sits across both columns. */
+.about-note {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: rgba(31, 41, 55, 0.45);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+}
+.about-note i {
+    color: var(--color-accent);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+.about-venues { text-align: center; margin-bottom: var(--space-4); }
+.about-venues__label {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+.venue-chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+}
+.about-venues__note {
+    margin: var(--space-3) 0 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+.venue-chips li {
+    border: 1px solid rgba(244, 208, 63, 0.40);
+    border-radius: var(--radius-pill);
+    padding: 6px 16px;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
 .about-director {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
     margin-top: var(--space-4);
     padding: var(--space-3);
     background: rgba(31, 41, 55, 0.5);
     border-left: 3px solid var(--color-accent);
     border-radius: var(--radius-sm);
 }
+.about-director__photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.about-director__text { min-width: 0; }
 .about-director h3 {
     margin: 0 0 var(--space-2);
     font-family: var(--font-display);
@@ -1595,6 +1725,9 @@ button.btn-pub {
     color: var(--color-accent);
 }
 .about-director p { margin: 0; font-size: var(--text-sm); line-height: 1.6; opacity: 0.92; }
+@media (max-width: 600px) {
+    .about-director { flex-direction: column; align-items: flex-start; }
+}
 
 /* ===== Phase 4: Join Us ================================================== */
 .join-section { background: linear-gradient(135deg, #2C3E50, #34495E); color: var(--color-text); }

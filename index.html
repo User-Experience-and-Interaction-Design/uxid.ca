@@ -181,12 +181,6 @@
     <!-- Site stylesheet. Bump ?v= to bust caches. -->
     <link rel="stylesheet" href="styles.css?v=2026-10-18e">
 
-    <!-- Privacy-friendly analytics.
-         ACTION REQUIRED: create the site at https://plausible.io (or swap in a GA4 tag),
-         then uncomment the line below. Nothing is tracked until you do.
-    <script defer data-domain="uxid.ca" src="https://plausible.io/js/script.outbound-links.js"></script>
-    -->
-
 
 <!-- Bootstrap Carousel CSS and JS (for automatic sliding) -->
 <!-- Bootstrap moved to <head> and deferred; it used to block parsing here. -->
@@ -261,7 +255,7 @@
 <span id="home" aria-hidden="true" style="display:block;height:0;overflow:hidden;"></span>
 <section id="hero" class="hero">
     <picture class="hero__bg">
-        <img src="images/campus_autumn.webp" alt="" width="1290" height="866" fetchpriority="high" decoding="async">
+        <img src="images/hero_workspace.webp" alt="" width="1983" height="793" fetchpriority="high" decoding="async">
     </picture>
 
     <div class="hero__inner container">
@@ -271,7 +265,7 @@
             <span class="hero__eyebrow-short">Recruiting MSc &amp; PhD students, 2027</span>
         </p>
 
-        <h1 class="hero__title">Human-centred interaction for small screens, wearables and AI.</h1>
+        <h1 class="hero__title">Designing how<br><span class="hero__title-em">people and AI</span><br>work together.</h1>
 
         <p class="hero__sub">
             The UXID Lab is a Human-Computer Interaction research group in the Faculty of
@@ -315,35 +309,67 @@
         <h2 class="section-title">About the lab</h2>
 
         <p class="about-lead">
-            The UXID Lab designs and evaluates the ways people interact with devices
-            that have very little room for interaction: smartwatches, earbuds, phones
-            used one-handed, and increasingly the AI systems layered on top of them.
+            The UXID Lab is a Human-Computer Interaction research group studying how
+            people and AI systems work together, and designing the interfaces that make
+            that collaboration work. We develop new interaction techniques and
+            AI-assisted systems, then evaluate them with the people they are built for.
         </p>
 
-        <p class="about-body">
-            We build new interaction techniques and AI-assisted tools, then test them with
-            people to find out whether they actually help. That work runs from low-level
-            input sensing &mdash; gestures around the ear, swipes on the back of a phone,
-            occlusion-free control of a watch face &mdash; up to systems that read
-            behavioural signals to decide when an AI should offer help and when it should
-            stay quiet. Accessibility runs through all of it: several projects focus on
-            older adults and people with reduced hand mobility.
+        <p class="about-body about-body--intro">This work spans two levels.</p>
+
+        <!-- The two levels were one long paragraph. They are the paragraph's own
+             structure, so they are now shown as structure rather than described. -->
+        <div class="about-levels">
+            <div class="about-level">
+                <span class="about-level__label">Input</span>
+                <p>
+                    We develop sensing and interaction techniques for devices with limited
+                    screen space and attention, including gestures performed around the ear,
+                    back-of-device touch, and occlusion-free control of smartwatch displays.
+                </p>
+            </div>
+            <div class="about-level">
+                <span class="about-level__label">Systems</span>
+                <p>
+                    We design user-centred AI systems that adapt to how people actually work,
+                    judging when assistance is warranted and when to defer, with projects
+                    spanning scholarly reading, tutoring and creative work.
+                </p>
+            </div>
+        </div>
+
+        <p class="about-note">
+            <i class="fas fa-universal-access" aria-hidden="true"></i>
+            <span>Accessibility is integral to this agenda, with several projects addressing
+            older adults and users with reduced hand mobility.</span>
         </p>
 
-        <p class="about-body">
-            The lab publishes at ACM CHI, UIST, IMWUT, MobileHCI, ICMI and Graphics
-            Interface, and students here have taken the Best Undergraduate Thesis Award
-            three years running.
-        </p>
+        <div class="about-venues">
+            <h3 class="about-venues__label">Where we publish</h3>
+            <ul class="venue-chips">
+                <li>ACM CHI</li>
+                <li>UIST</li>
+                <li>IMWUT</li>
+                <li>MobileHCI</li>
+                <li>ICMI</li>
+                <li>Graphics Interface</li>
+            </ul>
+            <p class="about-venues__note">
+                Students here have taken the Best Undergraduate Thesis Award three years running.
+            </p>
+        </div>
 
         <div class="about-director">
-            <h3>Director</h3>
-            <p>
-                <strong>Dr. Ali Neshati</strong> is an Assistant Professor in Computer Science
-                at Ontario Tech University. He completed his PhD at the University of Manitoba
-                with Dr.&nbsp;Pourang Irani and a postdoctoral fellowship at the University of
-                Waterloo with Dr.&nbsp;Daniel Vogel and Dr.&nbsp;Jian Zhao.
-            </p>
+            <img class="about-director__photo" src="images/ALI.webp" alt="" loading="lazy" width="800" height="874">
+            <div class="about-director__text">
+                <h3>Director</h3>
+                <p>
+                    <strong>Dr. Ali Neshati</strong> is an Assistant Professor in Computer Science
+                    at Ontario Tech University. He completed his PhD at the University of Manitoba
+                    with Dr.&nbsp;Pourang Irani and a postdoctoral fellowship at the University of
+                    Waterloo with Dr.&nbsp;Daniel Vogel and Dr.&nbsp;Jian Zhao.
+                </p>
+            </div>
         </div>
     </div>
 </section>
@@ -1790,6 +1816,19 @@
 
 <!-- Subtle scroll-reveal animation (respects prefers-reduced-motion) -->
 <script defer src="main.js?v=2026-10-18e"></script>
+
+<!-- =====================================================================
+     Cloudflare Web Analytics. Cookieless and privacy-preserving: no
+     cookies are set and no personal data is collected, so this needs no
+     consent banner. Free, and the DNS for uxid.ca stays on Google Cloud
+     DNS - the beacon works standalone.
+
+     The site is registered in Cloudflare as uxid.ca and the token below is
+     live. A beacon token is public by design - it ships in the page source
+     and is not a credential. The same token is used on every page.
+     Manage at: Observability > Analytics > Web analytics.
+     ================================================================== -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "62905d72531b4f808df56292f8b5b6a4"}'></script>
 </body>
 </html>
 
