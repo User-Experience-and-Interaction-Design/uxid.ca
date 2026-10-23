@@ -389,7 +389,8 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
 (function () {
     "use strict";
 
-    var TODAY = new Date(2026, 9, 18);          // 18 Oct 2026
+    var NOW   = new Date();                     // midnight, so a deadline due today still counts as open
+    var TODAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
     var T0    = new Date(2026, 7, 1);           // chart starts 1 Aug 2026
     var T1    = new Date(2027, 11, 31);         // chart ends 31 Dec 2027
     var SPAN  = T1 - T0;
