@@ -375,6 +375,12 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
             the 2027 call yet, so it is not on the chart.
         </p>
         <p>
+            EuroVis 2027 has only published dates for STARs and workshop proposals so far
+            (checked 23&nbsp;October 2026). Its other tracks are projected from EuroVis 2026 in
+            Nottingham. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
+            it is not in the 2027 call yet, so it is not on the chart.
+        </p>
+        <p>
             The Destination Horizon comprehensive and administrative reviews are Ontario Tech
             internal deadlines set by the research office, ahead of SSHRC&rsquo;s 22&nbsp;January
             deadline. The full application goes through the Convergence Portal, and every
@@ -466,14 +472,19 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
         {
             venue: "EuroVis 2027",
             meta: "Stuttgart, Germany · 31 May – 4 Jun 2027",
-            url: "https://www.eurovis.org/",
+            url: "https://eurovis27.github.io/web/submissions/all-deadlines/",
             conf: [d(2027, 5, 31), d(2027, 6, 4)],
             lanes: [
+                { track: "Workshop proposals", sub: "closed", kind: "short", dl: d(2026, 10, 12),
+                  notif: d(2026, 10, 26) },
                 { track: "Full papers", sub: "abstract ~26 Nov", kind: "paper", dl: d(2026, 12, 3),
                   abs: d(2026, 11, 26), proj: true },
-                { track: "STARs", sub: "abstract 30 Nov · published", kind: "paper", dl: d(2026, 12, 7),
-                  abs: d(2026, 11, 30), notif: d(2027, 3, 8) },
+                { track: "STARs", sub: "abstract 30 Nov", kind: "paper", dl: d(2026, 12, 7),
+                  abs: d(2026, 11, 30), notif: d(2027, 2, 2), notifLabel: "First-round notification" },
+                { track: "STAR revisions", sub: "second round", kind: "paper", dl: d(2027, 2, 22),
+                  notif: d(2027, 3, 8), notifLabel: "Final notification", cr: d(2027, 3, 22) },
                 { track: "Short papers", sub: "", kind: "short", dl: d(2027, 2, 18), proj: true },
+                { track: "Panels and tutorials", sub: "proposals", kind: "short", dl: d(2027, 2, 25), proj: true },
                 { track: "Posters and demos", sub: "", kind: "short", dl: d(2027, 4, 5), proj: true }
             ]
         },
