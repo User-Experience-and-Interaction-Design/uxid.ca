@@ -1,42 +1,48 @@
 /* ============================================================================
-   UXID Lab behaviour
-   Extracted from index.html on 2026-10-12 (was 10 inline <script> blocks).
+   UXID Lab - homepage behaviour
+   Split out of main.js on 2026-10-21; see site.js for the shared half.
+   Only index.html loads this. Each block still guards on its own elements.
    Loaded with defer, so it runs after parsing and never blocks render.
+
+   Load order matters in one place: the lab-stats block derives the publication
+   counts and must run before the count-up animation reads data-target. Both
+   live in the first block below, in that order.
    ========================================================================= */
 
-/* ---------- block 1 of 10 ---------- */
-    function toggleMobileMenu() {
-        const mobileMenu = document.getElementById("mobileMenu");
-        const toggle = document.getElementById("menuToggle");
-        const open = mobileMenu.classList.toggle("active");
-        if (toggle) { toggle.setAttribute("aria-expanded", open ? "true" : "false"); }
-        // Lock the page behind the overlay so content does not show through
-        document.body.classList.toggle("menu-open", open);
-    }
-
-    function closeMobileMenu() {
-        const mobileMenu = document.getElementById("mobileMenu");
-        const toggle = document.getElementById("menuToggle");
-        if (!mobileMenu || !mobileMenu.classList.contains("active")) { return; }
-        mobileMenu.classList.remove("active");
-        document.body.classList.remove("menu-open");
-        if (toggle) { toggle.setAttribute("aria-expanded", "false"); toggle.focus(); }
-    }
-
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") { closeMobileMenu(); }
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const mobileMenu = document.getElementById("mobileMenu");
-        if (!mobileMenu) { return; }
-        // Tapping a link should dismiss the overlay, not leave it covering the target.
-        mobileMenu.querySelectorAll("a").forEach(function (a) {
-            a.addEventListener("click", closeMobileMenu);
-        });
-    });
-
 /* ---------- block 2 of 10 ---------- */
+    // Lab stats, derived from the publication list so they cannot drift.
+    //
+    // Two of the four tiles are facts about the list further down the page, and
+    // they were previously hand-maintained - by the time this was written the
+    // Publications tile said 30 against 31 entries. Recomputing them here is the
+    // same approach the "Latest from the lab" strip takes with the news list.
+    //
+    // This runs before the count-up block below (listeners fire in registration
+    // order) so the animation reads the corrected data-target, and it runs
+    // regardless of prefers-reduced-motion, which the count-up does not.
+    //
+    // "Papers at ACM CHI" counts full CHI papers only: `CHI '24` matches,
+    // `CHI EA '23` deliberately does not.
+    document.addEventListener('DOMContentLoaded', function() {
+        var items = document.querySelectorAll('#publications .publication-item');
+        if (!items.length) return;               // not the homepage
+
+        var chi = 0;
+        items.forEach(function(item) {
+            var badge = item.querySelector('.publication-badge');
+            if (badge && /^CHI '\d{2}$/.test(badge.textContent.trim())) chi++;
+        });
+
+        function setStat(id, value) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.setAttribute('data-target', String(value));
+            el.textContent = String(value) + (el.getAttribute('data-suffix') || '');
+        }
+        setStat('stat-publications', items.length);
+        setStat('stat-chi', chi);
+    });
+
     // Count-up animation for lab stats (respects reduced motion)
     document.addEventListener('DOMContentLoaded', function() {
         var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -63,20 +69,6 @@
         counters.forEach(function(c) { observer.observe(c); });
     });
 
-/* ---------- block 3 of 10 ---------- */
-function toggleDescription2() {
-    const description = document.getElementById("description");
-    const button = document.getElementById("readMoreButton");
-
-    if (description.style.maxHeight === "150px") {
-        description.style.maxHeight = "1000px";
-        button.innerText = "Show Less";
-    } else {
-        description.style.maxHeight = "150px";
-        button.innerText = "Read More";
-    }
-}
-
 /* ---------- block 4 of 10 ---------- */
 // Automatically sort events by date and calculate countdowns
 document.addEventListener("DOMContentLoaded", function() {
@@ -86,29 +78,40 @@ document.addEventListener("DOMContentLoaded", function() {
         const today = new Date();
         today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for accurate comparison
         
+        // Dates are resolved in their own pass, BEFORE sorting.
+        //
+        // This used to happen inside the sort comparator, which meant a single
+        // event never got a date at all - Array.sort does not invoke the
+        // comparator for a one-element array, so parsedDate stayed undefined and
+        // the badge loop below skipped every card.
+        //
+        // Prefer the explicit data-date="YYYY-MM-DD" on the card. The old path
+        // scraped the year out of the card's prose with /\b(202\d)\b/, which
+        // happily picks up any other year mentioned in the title or blurb.
+        const getEventDate = (card) => {
+            const iso = card.getAttribute('data-date');
+            if (iso) {
+                const d = new Date(iso + 'T00:00:00');
+                if (!isNaN(d)) return d;
+            }
+            // Fallback for a card without data-date.
+            const monthEl = card.querySelector('.month');
+            const dayEl = card.querySelector('.day');
+            const detailsEl = card.querySelector('.event-details');
+            if (!monthEl || !dayEl) return null;      // malformed card: skip it,
+                                                      // don't throw mid-sort
+            const yearMatch = detailsEl ? detailsEl.innerText.match(/\b(202\d)\b/) : null;
+            const year = yearMatch ? yearMatch[1] : new Date().getFullYear();
+            const d = new Date(`${monthEl.innerText.trim()} ${dayEl.innerText.trim()}, ${year}`);
+            return isNaN(d) ? null : d;
+        };
+
+        events.forEach(card => { card.parsedDate = getEventDate(card); });
+
         events.sort((a, b) => {
-            const getEventDate = (card) => {
-                // Parse month and day from the badges
-                const monthText = card.querySelector('.month').innerText.trim();
-                const dayText = card.querySelector('.day').innerText.trim();
-                
-                // Try to extract a year from the card text (e.g., 2026), 
-                // otherwise fallback to the current year
-                const detailsText = card.querySelector('.event-details').innerText;
-                const yearMatch = detailsText.match(/\b(202\d)\b/);
-                const year = yearMatch ? yearMatch[1] : new Date().getFullYear();
-                
-                return new Date(`${monthText} ${dayText}, ${year}`);
-            };
-
-            const dateA = getEventDate(a);
-            const dateB = getEventDate(b);
-
-            // Temporarily store the calculated date on the event card node
-            a.parsedDate = dateA;
-            b.parsedDate = dateB;
-
-            return dateA - dateB;
+            if (!a.parsedDate) return 1;              // undated cards sink to the end
+            if (!b.parsedDate) return -1;
+            return a.parsedDate - b.parsedDate;
         });
         
         // Process, style, and re-append events in sorted order
@@ -133,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 // Change style based on whether the date is upcoming, today, or past
                 if (daysDiff > 0) {
-                    countdownBadge.innerHTML = `<i class="fas fa-hourglass-half" style="margin-right:4px;"></i>${daysDiff} days left`;
+                    countdownBadge.innerHTML = `<svg class="icon" aria-hidden="true" style="margin-right:4px"><use href="#i-hourglass-half"/></svg>${daysDiff} days left`;
                     if (daysDiff < 60) {
                         // Less than 60 days: Red and bolder
                         countdownBadge.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
@@ -152,12 +155,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         countdownBadge.style.border = '1px solid rgba(244, 208, 63, 0.3)';
                     }
                 } else if (daysDiff === 0) {
-                    countdownBadge.innerHTML = `<i class="fas fa-bell" style="margin-right:4px;"></i>Today!`;
+                    countdownBadge.innerHTML = `<svg class="icon" aria-hidden="true" style="margin-right:4px"><use href="#i-bell"/></svg>Today!`;
                     countdownBadge.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
                     countdownBadge.style.color = '#e74c3c';
                     countdownBadge.style.border = '1px solid rgba(231, 76, 60, 0.3)';
                 } else {
-                    countdownBadge.innerHTML = `<i class="fas fa-check" style="margin-right:4px;"></i>Past Event`;
+                    countdownBadge.innerHTML = `<svg class="icon" aria-hidden="true" style="margin-right:4px"><use href="#i-check"/></svg>Past Event`;
                     countdownBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
                     countdownBadge.style.color = '#AAB7B8';
                     countdownBadge.style.border = '1px solid rgba(255, 255, 255, 0.1)';
@@ -173,31 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
-
-/* ---------- block 5 of 10 ---------- */
-    function toggleDescription(id) {
-        const desc = document.getElementById(id);
-        desc.style.display = desc.style.display === 'block' ? 'none' : 'block';
-    }
-
-/* ---------- block 6 of 10 ---------- */
-// Back to Top Button
-(function() {
-    var btn = document.getElementById('backToTop');
-    if (!btn) { return; }
-    var ticking = false;
-    window.addEventListener('scroll', function() {
-        if (ticking) { return; }
-        ticking = true;
-        window.requestAnimationFrame(function() {
-            btn.style.display = window.scrollY > 400 ? 'block' : 'none';
-            ticking = false;
-        });
-    }, { passive: true });
-    btn.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-})();
 
 // Publication filtering: year AND theme AND free-text search compose.
 // data-year / data-theme are now hard-coded on each item in the HTML, so the
@@ -282,16 +260,9 @@ document.addEventListener("DOMContentLoaded", function() {
     apply();
 })();
 
-// Lazy Loading for images below the fold
-document.addEventListener('DOMContentLoaded', function() {
-    var imgs = document.querySelectorAll('img');
-    imgs.forEach(function(img, i) {
-        // Skip the hero image, which must load eagerly
-        if (!img.closest('#hero')) {
-            img.setAttribute('loading', 'lazy');
-        }
-    });
-});
+// Images declare loading="lazy" in the markup. A runtime pass used to live here, but
+// it ran after DOMContentLoaded - too late to cancel a fetch already in flight - and
+// its only real effect was lazy-loading the above-the-fold site logo. Removed.
 
 // ARIA now lives in the markup (nav aria-label, button aria-expanded/aria-controls),
 // so it is present before JS runs and survives a script failure. The previous
@@ -403,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
         abstractBtn.type = 'button';
         abstractBtn.className = 'btn-pub btn-abstract';
         abstractBtn.setAttribute('aria-expanded', 'false');
-        abstractBtn.innerHTML = '<i class="fas fa-align-left"></i> Abstract';
+        abstractBtn.innerHTML = '<svg class=\"icon\" aria-hidden=\"true\"><use href=\"#i-align-left\"/></svg> Abstract';
         links.appendChild(abstractBtn);
 
         var abstract = document.createElement('div');
@@ -415,72 +386,231 @@ document.addEventListener('DOMContentLoaded', function() {
             var open = abstract.classList.toggle('expanded');
             abstractBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
             abstractBtn.innerHTML = open
-                ? '<i class="fas fa-align-left"></i> Hide Abstract'
-                : '<i class="fas fa-align-left"></i> Abstract';
+                ? '<svg class=\"icon\" aria-hidden=\"true\"><use href=\"#i-align-left\"/></svg> Hide Abstract'
+                : '<svg class=\"icon\" aria-hidden=\"true\"><use href=\"#i-align-left\"/></svg> Abstract';
         });
     });
 })();
 
-/* ---------- block 7 ---------- */
-    // The hero carousel (and its 21 MB background video) was removed in favour of
-    // a static hero, so the play/pause controller that gated the video is gone too.
+/* ---------- Citation export (BibTeX) ----------
+   Adds a "Cite" button beside each paper's links that reveals a BibTeX entry
+   with copy-to-clipboard.
 
-/* ---------- block 8: scroll reveal ---------- */
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        if (!('IntersectionObserver' in window)) return;
-        var targets = document.querySelectorAll(
-            '.section-title, .stat-tile, .award-card, .event-card, .publication-item, .team-card, .research-card, .pub-feature'
-        );
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0, rootMargin: '0px 0px 25% 0px' });
-        targets.forEach(function(el) {
-            // Anything within 1.5 viewports is shown immediately. Previously only
-            // the first viewport was exempt, so fast scrolling, screenshots and
-            // crawlers caught whole sections mid-fade and saw them blank.
-            var rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 1.5) return;
-            el.classList.add('reveal-init');
-            observer.observe(el);
-        });
-    });
+   Everything is derived from the markup, so a paper's details still exist in
+   exactly one place. That has a known limit: the venue line is free text
+   ("Proceedings of ... (ICMI '26)" then place/pages after a <br>). Volume,
+   issue and a "Pages N - M" range are pulled out when they are stated in that
+   recognisable form; publisher, address, month and article numbers are NOT
+   emitted, because they are not reliably parseable. The entries are correct on
+   author/title/year/venue/DOI and deliberately silent on the rest, rather than
+   confidently wrong.
 
-/* ---------- block 9: email ---------- */
-// Build the mailto: at runtime. Humans get a working link; naive address
-// harvesters scraping the HTML source do not get a plain address.
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a.js-email').forEach(function (a) {
-        var addr = a.dataset.user + '@' + a.dataset.domain;
-        a.href = 'mailto:' + addr;
-        a.textContent = addr;
-    });
-});
-
-/* ---------- block 10: hash target correction ---------- */
+   For exact pages and volume, the DOI link on each entry is authoritative. */
 (function () {
-    function scrollToHash() {
-        if (!location.hash || location.hash === '#') { return; }
-        var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-        if (!el) { return; }
-        // 'instant' so this correction does not fight the CSS smooth-scroll
-        var y = el.getBoundingClientRect().top + window.scrollY
-                - parseInt(getComputedStyle(el).scrollMarginTop || '0', 10);
-        window.scrollTo({ top: y, behavior: 'instant' });
-    }
-    // after webfonts swap (metrics change -> section offsets move)
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(function () { requestAnimationFrame(scrollToHash); });
-    }
-    // and after every image has reserved/settled its box
-    window.addEventListener('load', function () { requestAnimationFrame(scrollToHash); });
-})();
+    var items = [].slice.call(document.querySelectorAll('.publication-item'));
+    if (!items.length) { return; }
 
+    function clean(t) { return (t || '').replace(/\s+/g, ' ').trim(); }
+
+    // The venue span packs venue + place/pages into one node separated by <br>.
+    // The first segment is the venue name; volume, issue and pages may appear in
+    // either segment, so they are hunted for across the whole string and then
+    // stripped out of the name.
+    function venueOf(item) {
+        var el = item.querySelector('.publication-venue');
+        if (!el) { return { name: '' }; }
+
+        var tmp = document.createElement('div');
+        tmp.innerHTML = el.innerHTML.split(/<br\s*\/?>/i)[0];
+        var name = clean(tmp.textContent);
+        var full = clean(el.textContent);
+
+        var out = { name: name };
+
+        var vol = /\bVolume\s+(\d+)/i.exec(full) || /\bVol\.?\s+(\d+)/i.exec(full);
+        if (vol) { out.volume = vol[1]; }
+
+        var iss = /\bIssue\s+(\d+)/i.exec(full);
+        if (iss) { out.number = iss[1]; }
+
+        var pg = /\bPages?\s+(\d+)\s*[-\u2013]\s*(\d+)/i.exec(full);
+        if (pg) { out.pages = pg[1] + '--' + pg[2]; }
+
+        // Strip the bits now carried by their own fields out of the name.
+        out.name = out.name
+            .replace(/,?\s*Volume\s+\d+(,\s*Issue\s+\d+)?/ig, '')
+            .replace(/,?\s*Pages?\s+\d+\s*[-\u2013]\s*\d+/ig, '')
+            .replace(/\s*,\s*$/, '')
+            .trim();
+
+        return out;
+    }
+
+    // A DOI may be the link target itself (doi.org/...) or embedded in a
+    // publisher URL (e.g. ebooks.iospress.nl/doi/10.3233/...).
+    function doiOf(item) {
+        var hrefs = [].slice.call(item.querySelectorAll('a[href]'))
+                      .map(function (a) { return a.getAttribute('href'); });
+        for (var i = 0; i < hrefs.length; i++) {
+            var m = /(10\.\d{4,9}\/[^\s"'<>]+)/.exec(hrefs[i]);
+            if (m) { return m[1].replace(/[.,;]$/, ''); }
+        }
+        return '';
+    }
+
+    function primaryUrl(item) {
+        var a = item.querySelector('.publication-links a[href^="http"]');
+        return a ? a.getAttribute('href') : '';
+    }
+
+    // `venue` is the parsed object. Note it must be consulted for volume/number
+    // too: those are stripped out of venue.name into their own fields, so a
+    // journal is no longer detectable from the name string alone.
+    function typeOf(venue, badge) {
+        var v = (venue.name + ' ' + badge).toLowerCase();
+        if (/thesis/.test(v)) { return 'phdthesis'; }
+        if (venue.volume || venue.number) { return 'article'; }
+        if (/proceedings of the acm on|imwut|transactions|journal|studies in/.test(v)) { return 'article'; }
+        if (/proceedings|symposium|conference|workshop|graphics interface/.test(v)) { return 'inproceedings'; }
+        return 'misc';
+    }
+
+    // Authors are stored "First Last, First Last". BibTeX parses "First Last"
+    // correctly on its own, so they are joined with " and " rather than
+    // reordered - reordering would mangle multi-word surnames.
+    function authorsOf(item) {
+        var el = item.querySelector('.publication-authors');
+        if (!el) { return ''; }
+        return clean(el.textContent).split(/\s*,\s*/).filter(Boolean).join(' and ');
+    }
+
+    function keyFor(authors, year, title) {
+        var first = (authors.split(' and ')[0] || 'anon').trim().split(/\s+/).pop();
+        var word = (title.replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/)[0] || 'ref');
+        return (first + year + word).toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function bibtexFor(item) {
+        var titleEl = item.querySelector('.pub-title');
+        var title   = clean(titleEl ? titleEl.textContent : '');
+        var authors = authorsOf(item);
+        var year    = item.getAttribute('data-year') || '';
+        var badgeEl = item.querySelector('.publication-badge');
+        var badge   = clean(badgeEl ? badgeEl.textContent : '');
+        var venue   = venueOf(item);
+        var doi     = doiOf(item);
+        var url     = primaryUrl(item);
+        var type    = typeOf(venue, badge);
+
+        var fields = [];
+        if (authors) { fields.push(['author', authors]); }
+        // double braces keep the original capitalisation of titles
+        if (title)   { fields.push(['title', '{' + title + '}']); }
+        if (venue.name) {
+            if (type === 'article') { fields.push(['journal', venue.name]); }
+            else if (type === 'inproceedings') { fields.push(['booktitle', venue.name]); }
+            else if (type === 'phdthesis') {
+                // the venue reads "University of Manitoba, 2022"; the year has
+                // its own field, so drop it from the school name
+                fields.push(['school', venue.name.replace(/,\s*(19|20)\d{2}\s*$/, '')]);
+            }
+            else { fields.push(['howpublished', venue.name]); }
+        }
+        if (venue.volume) { fields.push(['volume', venue.volume]); }
+        if (venue.number) { fields.push(['number', venue.number]); }
+        if (venue.pages)  { fields.push(['pages', venue.pages]); }
+        if (year) { fields.push(['year', year]); }
+        if (doi)  { fields.push(['doi', doi]); }
+        else if (url) { fields.push(['url', url]); }
+
+        var pad = 0;
+        fields.forEach(function (f) { pad = Math.max(pad, f[0].length); });
+        var body = fields.map(function (f) {
+            return '  ' + f[0] + new Array(pad - f[0].length + 1).join(' ') + ' = {' + f[1] + '}';
+        }).join(',\n');
+
+        return '@' + type + '{' + keyFor(authors, year, title) + ',\n' + body + '\n}';
+    }
+
+    var ICON = function (name) {
+        return '<svg class="icon" aria-hidden="true"><use href="#i-' + name + '"/></svg>';
+    };
+
+    items.forEach(function (item) {
+        var links = item.querySelector('.publication-links');
+        if (!links) { return; }
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-pub btn-cite';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = ICON('quote-left') + ' Cite';
+        links.appendChild(btn);
+
+        var panel = document.createElement('div');
+        panel.className = 'pub-cite';
+        panel.hidden = true;
+
+        var pre = document.createElement('pre');
+        pre.className = 'pub-cite__code';
+        pre.tabIndex = 0;
+        pre.textContent = bibtexFor(item);
+
+        var copy = document.createElement('button');
+        copy.type = 'button';
+        copy.className = 'pub-cite__copy';
+        copy.innerHTML = ICON('copy') + ' Copy BibTeX';
+
+        var status = document.createElement('span');
+        status.className = 'pub-cite__status';
+        status.setAttribute('role', 'status');
+
+        panel.appendChild(pre);
+        var bar = document.createElement('div');
+        bar.className = 'pub-cite__bar';
+        bar.appendChild(copy);
+        bar.appendChild(status);
+        panel.appendChild(bar);
+        item.querySelector('.publication-details').appendChild(panel);
+
+        btn.addEventListener('click', function () {
+            var open = panel.hidden;
+            panel.hidden = !open;
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            btn.innerHTML = ICON('quote-left') + (open ? ' Hide' : ' Cite');
+        });
+
+        copy.addEventListener('click', function () {
+            var text = pre.textContent;
+            function done() {
+                status.textContent = 'Copied';
+                copy.innerHTML = ICON('check') + ' Copied';
+                setTimeout(function () {
+                    status.textContent = '';
+                    copy.innerHTML = ICON('copy') + ' Copy BibTeX';
+                }, 2000);
+            }
+            function fallback() {
+                // navigator.clipboard needs a secure context; this covers plain http
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); done(); }
+                catch (e) { status.textContent = 'Press Ctrl/Cmd+C to copy'; pre.focus(); }
+                document.body.removeChild(ta);
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done, fallback);
+            } else {
+                fallback();
+            }
+        });
+    });
+})();
 
 /* ---------- Research theme counts ----------
    Fill the "N papers" figure on each research card from the publication list,
@@ -580,22 +710,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 })();
 
-/* ---------- Footer: year and last-updated ---------- */
-(function () {
-    var y = document.getElementById('footer-year');
-    if (y) { y.textContent = String(new Date().getFullYear()); }
-    var lu = document.getElementById('last-updated');
-    if (lu) {
-        // document.lastModified reflects the Last-Modified header GitHub Pages
-        // sends, i.e. the most recent deploy of this file.
-        var d = new Date(document.lastModified);
-        if (!isNaN(d)) {
-            lu.textContent = d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
-            lu.setAttribute('datetime', d.toISOString().slice(0, 10));
-        }
-    }
-})();
-
 /* ---------- Latest from the lab (under the hero) ----------
    Built from the first four items of the News list so it never goes stale.
    The newest becomes the featured card, the rest are compact cards beside it.
@@ -606,10 +720,25 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!strip) { return; }
     var items = [].slice.call(document.querySelectorAll('#recent-news li[id^="news-"]')).slice(0, 4);
     if (!items.length) { return; }
+    // The Highlights cards below already carry responsive sources. Reuse them
+    // rather than shipping a 1920px original into a 160px card.
+    //
+    // Indexed two ways: by href (for an item with no data-photo of its own) and
+    // by filename stem (for one whose data-photo names the same picture, e.g.
+    // data-photo="images/foo.webp" against a highlight src of "images/foo-640.webp").
+    function photoStem(path) {
+        return String(path || '').split('/').pop()
+            .replace(/-\d+(?=\.\w+$)/, '')   // drop a -320/-640/-1280 width suffix
+            .replace(/\.\w+$/, '');           // drop the extension
+    }
     var photos = {};
+    var responsive = {};
     [].slice.call(document.querySelectorAll('.highlight a')).forEach(function (a) {
         var img = a.querySelector('img');
-        if (img) { photos[a.getAttribute('href')] = img.getAttribute('src'); }
+        if (!img) { return; }
+        var entry = { src: img.getAttribute('src'), srcset: img.getAttribute('srcset') || '' };
+        photos[a.getAttribute('href')] = entry;
+        if (entry.srcset) { responsive[photoStem(entry.src)] = entry; }
     });
     items.forEach(function (li, i) {
         var featured = i === 0;
@@ -622,7 +751,12 @@ document.addEventListener('DOMContentLoaded', function () {
             var cap = featured ? 190 : 110;
             if (summary.length > cap) { summary = summary.slice(0, cap - 3).replace(/\s+\S*$/, '') + '\u2026'; }
         }
-        var photo = li.getAttribute('data-photo') || photos[href];
+        var dataPhoto = li.getAttribute('data-photo');
+        var fromHighlight = photos[href];
+        // Prefer a responsive set for whichever picture this item names.
+        var match = dataPhoto ? responsive[photoStem(dataPhoto)] : fromHighlight;
+        var photo = (match && match.src) || dataPhoto || (fromHighlight && fromHighlight.src);
+        var photoSrcset = li.getAttribute('data-photo-srcset') || (match && match.srcset) || '';
         var time = li.querySelector('time');
         var isNew = !!li.querySelector('.news-new-badge');
         var srcIcon = li.querySelector('i.news-icon');
@@ -636,6 +770,13 @@ document.addEventListener('DOMContentLoaded', function () {
             media.className = 'latest__media';
             var img = document.createElement('img');
             img.src = photo;
+            if (photoSrcset) {
+                img.srcset = photoSrcset;
+                // Featured card renders at 640x360, the three small ones at
+                // 160x108. Without this the browser assumes 100vw and picks the
+                // largest candidate for a thumbnail.
+                img.sizes = featured ? '(max-width: 768px) 92vw, 640px' : '160px';
+            }
             img.alt = '';
             img.width = featured ? 640 : 160;
             img.height = featured ? 360 : 108;
@@ -652,7 +793,13 @@ document.addEventListener('DOMContentLoaded', function () {
             var glyph = document.createElement('span');
             glyph.className = 'latest__glyph';
             var gi = document.createElement('i');
-            gi.className = srcIcon ? srcIcon.className.replace('news-icon', '').trim() : 'fas fa-newspaper';
+            // The source may now be an <svg class="icon ..."> rather than an <i>.
+            // Clone it when present; otherwise fall back to the newspaper glyph.
+            if (srcIcon) {
+                gi.innerHTML = srcIcon.outerHTML;
+            } else {
+                gi.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-newspaper"/></svg>';
+            }
             gi.setAttribute('aria-hidden', 'true');
             glyph.appendChild(gi);
             a.appendChild(glyph);
