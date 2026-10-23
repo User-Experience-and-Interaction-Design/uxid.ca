@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+
+    <!-- Password gate. This only keeps casual visitors out: the dates are
+         in this file and the repo is public, so nothing here is secret.
+         The password is stored as a salted SHA-256 hash (salt
+         "uxid-deadlines:"), and a correct entry is remembered in this
+         browser. To change the password, replace DEADLINES_KEY with the
+         output of: printf '%s' 'uxid-deadlines:NEWPASSWORD' | shasum -a 256
+         Runs in <head> so a returning member never sees the gate flash. -->
+    <script>
+        var DEADLINES_KEY = "c9d66cd11e9111236833f36d87e963801a0a0434fde68b6d3655b4f4b9556aec";
+        try {
+            if (localStorage.getItem("uxid-deadlines") === DEADLINES_KEY) {
+                document.documentElement.classList.add("unlocked");
+            }
+        } catch (e) {}
+    </script>
 
     <meta name="description" content="Submission deadlines the UXID Lab at Ontario Tech University is tracking: CHI, DIS, MobileHCI, IMWUT, EuroVis, PacificVis, IEEE VR, IUI, and the NFRF-E and SSHRC Destination Horizon grants.">
     <title>Deadlines | UXID Lab</title>
@@ -245,6 +262,30 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
 .note p + p { margin-top: 8px; }
 .note a { color: var(--ink-muted); }
 
+/* ---------- Password gate ---------- */
+html:not(.unlocked) #main, html:not(.unlocked) #tip { display: none; }
+html.unlocked #lock { display: none; }
+#main:focus { outline: none; }   /* focused on unlock so screen readers land on the page */
+.lock {
+    max-width: 420px; margin: 12vh auto 72px; padding: 28px 24px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.lock__intro { color: var(--ink-muted); margin-bottom: 18px; }
+.lock label { display: block; font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 6px; }
+.lock__row { display: flex; gap: 8px; }
+.lock input {
+    flex: 1; min-width: 0; font: inherit; color: var(--ink);
+    background: var(--surface-2); border: 1px solid var(--line-strong);
+    border-radius: var(--radius); padding: 9px 12px;
+}
+.lock button {
+    font: inherit; font-weight: 600; cursor: pointer;
+    background: var(--accent); color: #1F2937;
+    border: 1px solid var(--accent); border-radius: var(--radius); padding: 9px 18px;
+}
+.lock input:focus-visible, .lock button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lock__err { min-height: 1.5em; margin-top: 10px; font-size: 0.85rem; color: #F5A3A3; }
+
 @media (max-width: 760px) {
     :root { --label-w: 210px; }
     .legend { margin-left: 0; }
@@ -303,7 +344,22 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
     </nav>
 </header>
 
-<main class="wrap" id="main">
+<div class="wrap" id="lock">
+    <div class="lock">
+        <h1>Deadlines</h1>
+        <p class="lock__intro">This page is for UXID Lab members. Enter the lab password to see it.</p>
+        <form id="lockForm">
+            <label for="lockPw">Password</label>
+            <div class="lock__row">
+                <input type="password" id="lockPw" name="password" autocomplete="current-password" required>
+                <button type="submit">Unlock</button>
+            </div>
+            <p class="lock__err" id="lockErr" role="alert"></p>
+        </form>
+    </div>
+</div>
+
+<main class="wrap" id="main" tabindex="-1">
     <h1>Submission deadlines</h1>
     <p class="lede">
         Every track we are targeting between now and the end of 2027, on one timeline.
@@ -390,6 +446,41 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
 </main>
 
 <div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+    "use strict";
+
+    var root = document.documentElement;
+    var form = document.getElementById("lockForm");
+    var pw   = document.getElementById("lockPw");
+    var err  = document.getElementById("lockErr");
+
+    function hex(buf) {
+        return [].map.call(new Uint8Array(buf), function (b) {
+            return ("0" + b.toString(16)).slice(-2);
+        }).join("");
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var bytes = new TextEncoder().encode("uxid-deadlines:" + pw.value);
+        crypto.subtle.digest("SHA-256", bytes).then(function (buf) {
+            if (hex(buf) !== DEADLINES_KEY) {
+                err.textContent = "That password is not right.";
+                pw.select();
+                return;
+            }
+            try { localStorage.setItem("uxid-deadlines", DEADLINES_KEY); } catch (x) {}
+            root.classList.add("unlocked");
+            err.textContent = "";
+            document.getElementById("main").focus({ preventScroll: true });
+        });
+    });
+
+    if (!root.classList.contains("unlocked")) { pw.focus(); }
+})();
+</script>
 
 <script>
 (function () {
