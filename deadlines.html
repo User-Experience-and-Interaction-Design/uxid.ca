@@ -21,7 +21,7 @@
         } catch (e) {}
     </script>
 
-    <meta name="description" content="Submission deadlines the UXID Lab at Ontario Tech University is tracking: CHI, DIS, MobileHCI, IMWUT, EuroVis, PacificVis, IEEE VR, IUI, and the NFRF-E and SSHRC Destination Horizon grants.">
+    <meta name="description" content="Submission deadlines the UXID Lab at Ontario Tech University is tracking: CHI, DIS, MobileHCI, IMWUT, EuroVis, PacificVis, IEEE VR, IUI, IEEE BigData, and the NFRF-E and SSHRC Destination Horizon grants.">
     <title>Deadlines | UXID Lab</title>
     <link rel="canonical" href="https://uxid.ca/deadlines.html">
     <meta name="theme-color" content="#1D3557">
@@ -183,9 +183,11 @@ h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.
     box-shadow: 0 0 0 2px var(--surface);
 }
 .pin--proj { background: var(--surface); border: 2px dashed currentColor; }
+/* The date label sits just above the line, so a notification mark a few
+   weeks after the deadline can never land on top of it. */
 .lbl {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    font-size: 0.72rem; font-weight: 700; color: var(--ink);
+    position: absolute; top: 50%; margin-top: -4px; transform: translateY(-100%);
+    font-size: 0.72rem; line-height: 1; font-weight: 700; color: var(--ink);
     white-space: nowrap; font-variant-numeric: tabular-nums;
 }
 .lbl--left { text-align: right; }
@@ -414,26 +416,36 @@ html.unlocked #lock { display: none; }
 
     <div class="note">
         <p>
-            <strong>Dates checked 18 October 2026.</strong> Anything tagged
+            <strong>Dates checked 23 October 2026.</strong> Anything tagged
             <span class="pill pill--proj">projected</span> comes from the previous cycle
             because the 2027 call is not published yet &mdash; confirm on the venue site
             before planning around it.
         </p>
         <p>
-            IMWUT is a journal with fixed quarterly intake, so it has no notification date on
-            this chart; its 1&nbsp;August slot takes major-revision resubmissions only, not new
-            submissions. IEEE&nbsp;VR and PacificVis journal tracks and the NFRF-E notice of
-            intent are shown greyed out because they already closed; they are here so the
-            review and revision milestones that follow them stay visible.
+            IMWUT is a journal with fixed quarterly intake. It promises decisions about eight
+            weeks after each deadline rather than on a set date, so it has no notification mark,
+            and its 1&nbsp;August slot takes major-revision resubmissions only, not new
+            submissions. Accepted IMWUT papers are presented at UbiComp/ISWC, which runs
+            3&ndash;7&nbsp;October 2027 in Seoul. IEEE&nbsp;VR and PacificVis journal tracks, the
+            BigData special session and the NFRF-E notice of intent are shown greyed out because
+            they already closed; they
+            are here so the review and revision milestones that follow them stay visible.
+        </p>
+        <p>
+            Where a track has a second review round, the revision deadline gets its own row
+            (&ldquo;revisions, second round&rdquo;), with the final notification and camera-ready
+            after it. The first-round notification stays on the original row. The event column is
+            the whole conference unless the venue gives a track its own days, as DIS does for
+            workshops.
         </p>
         <p>
             DIS runs a Provocations and Works-in-Progress track most years, but it is not in
             the 2027 call yet, so it is not on the chart.
         </p>
         <p>
-            EuroVis 2027 has only published dates for STARs and workshop proposals so far
-            (checked 23&nbsp;October 2026). Its other tracks are projected from EuroVis 2026 in
-            Nottingham. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
+            EuroVis 2027 has only published dates for STARs and workshop proposals so far.
+            Its other tracks are projected from EuroVis 2026 in Nottingham, so they have no
+            notification dates yet. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
             it is not in the 2027 call yet, so it is not on the chart.
         </p>
         <p>
@@ -499,10 +511,17 @@ html.unlocked #lock { display: none; }
 
     var FMT = { month: "short", day: "numeric", year: "numeric" };
     function fmt(date) { return date ? date.toLocaleDateString("en-CA", FMT) : "—"; }
+    function fmtRange(c) {
+        if (!c) { return "—"; }
+        var sameYear = c[0].getFullYear() === c[1].getFullYear();
+        return c[0].toLocaleDateString("en-CA", sameYear ? { month: "short", day: "numeric" } : FMT) +
+               " – " + fmt(c[1]);
+    }
 
     /* ------------------------------------------------------------------
        The data. `kind` drives colour and `proj` marks a date carried over
-       from the previous cycle because the 2027 call is not out yet.
+       from the previous cycle because the 2027 call is not out yet. A lane's
+       own `conf` overrides its group's event dates (e.g. workshop days).
        Every date here is published by the venue; nothing is estimated.
        ------------------------------------------------------------------ */
     var GROUPS = [
@@ -528,7 +547,7 @@ html.unlocked #lock { display: none; }
         },
         {
             venue: "IMWUT — journal, quarterly intake",
-            meta: "Proc. ACM Interactive, Mobile, Wearable and Ubiquitous Technologies · 23:59 AoE, firm",
+            meta: "Proc. ACM Interactive, Mobile, Wearable and Ubiquitous Technologies · 23:59 AoE, firm · decisions about 8 weeks after each deadline · presented at UbiComp/ISWC (2027: Seoul, 3–7 Oct)",
             url: "https://dl.acm.org/journal/imwut/how-to-submit",
             lanes: [
                 { track: "New submissions", sub: "Nov cycle", kind: "paper", dl: d(2026, 11, 1) },
@@ -538,16 +557,33 @@ html.unlocked #lock { display: none; }
             ]
         },
         {
+            venue: "IEEE BigData 2026",
+            meta: "Phoenix, USA · 14–17 Dec 2026 · special session is hybrid",
+            url: "https://bigdataieee.org/BigData2026/calls/special-healthcare",
+            conf: [d(2026, 12, 14), d(2026, 12, 17)],
+            lanes: [
+                { track: "Special Session on HealthCare Data", sub: "closed · Farnaz submitted", kind: "paper",
+                  dl: d(2026, 8, 29), notif: d(2026, 10, 24), cr: d(2026, 11, 14) }
+            ]
+        },
+        {
             venue: "PacificVis 2027",
             meta: "Busan, South Korea · 19–22 Apr 2027",
-            url: "https://pacificvis2027.github.io/",
+            url: "https://pacificvis2027.github.io/contribute/common-call-for-papers/",
             conf: [d(2027, 4, 19), d(2027, 4, 22)],
             lanes: [
-                { track: "TVCG journal papers", sub: "closed", kind: "paper", dl: d(2026, 9, 8) },
+                { track: "TVCG journal papers", sub: "closed · abstract 1 Sep", kind: "paper", dl: d(2026, 9, 8),
+                  abs: d(2026, 9, 1), notif: d(2026, 10, 27), notifLabel: "First-round notification" },
+                { track: "TVCG journal revisions", sub: "second round", kind: "paper", dl: d(2026, 11, 17),
+                  notif: d(2026, 12, 15), notifLabel: "Final notification", cr: d(2027, 1, 5) },
                 { track: "Conference papers", sub: "abstract 2 Nov", kind: "paper", dl: d(2026, 11, 9),
-                  abs: d(2026, 11, 2) },
-                { track: "VisNotes (short)", sub: "", kind: "short", dl: d(2026, 12, 15), proj: true },
-                { track: "Posters", sub: "", kind: "short", dl: d(2027, 2, 18), proj: true }
+                  abs: d(2026, 11, 2), notif: d(2026, 12, 16), notifLabel: "First-round notification" },
+                { track: "Conference paper revisions", sub: "second round", kind: "paper", dl: d(2027, 1, 11),
+                  notif: d(2027, 1, 25), notifLabel: "Final notification", cr: d(2027, 2, 8) },
+                { track: "VisNotes (short)", sub: "", kind: "short", dl: d(2027, 1, 4),
+                  notif: d(2027, 2, 4), cr: d(2027, 2, 18) },
+                { track: "Posters", sub: "poster summary", kind: "short", dl: d(2027, 2, 19),
+                  notif: d(2027, 3, 12), cr: d(2027, 3, 21) }
             ]
         },
         {
@@ -586,8 +622,9 @@ html.unlocked #lock { display: none; }
             conf: [d(2027, 2, 27), d(2027, 3, 3)],
             lanes: [
                 { track: "Papers (TVCG + conference)", sub: "closed · abstract 24 Aug", kind: "paper",
-                  dl: d(2026, 8, 31), abs: d(2026, 8, 24), notif: d(2026, 11, 30), notifLabel: "First notification",
-                  cr: d(2027, 1, 7), crLabel: "Final notification" },
+                  dl: d(2026, 8, 31), abs: d(2026, 8, 24), notif: d(2026, 11, 30), notifLabel: "First-round notification" },
+                { track: "Paper revisions", sub: "second round", kind: "paper", dl: d(2026, 12, 31),
+                  notif: d(2027, 1, 7), notifLabel: "Final notification", cr: d(2027, 1, 12) },
                 { track: "Posters", sub: "2-page abstract · title due 2 Dec", kind: "short",
                   dl: d(2026, 12, 7), abs: d(2026, 12, 2), notif: d(2027, 1, 6), cr: d(2027, 1, 12) }
             ]
@@ -604,16 +641,16 @@ html.unlocked #lock { display: none; }
         },
         {
             venue: "DIS 2027",
-            meta: "Stockholm, Sweden · 28 Jun – 2 Jul 2027",
+            meta: "Stockholm, Sweden · 28 Jun – 2 Jul 2027 · workshops 26–27 Jun",
             url: "https://dis.acm.org/2027/contributing/",
             conf: [d(2027, 6, 28), d(2027, 7, 2)],
             lanes: [
                 { track: "Papers and Pictorials", sub: "abstract 11 Jan", kind: "paper", dl: d(2027, 1, 18),
                   abs: d(2027, 1, 11), notif: d(2027, 3, 19), cr: d(2027, 4, 16) },
-                { track: "Workshops", sub: "", kind: "short", dl: d(2027, 2, 1),
-                  notif: d(2027, 2, 16), cr: d(2027, 4, 16) },
+                { track: "Workshops", sub: "proposals · held 26–27 Jun", kind: "short", dl: d(2027, 2, 1),
+                  notif: d(2027, 2, 16), cr: d(2027, 4, 16), conf: [d(2027, 6, 26), d(2027, 6, 27)] },
                 { track: "Interactivity and Arts", sub: "", kind: "short", dl: d(2027, 2, 19),
-                  cr: d(2027, 4, 16) },
+                  notif: d(2027, 3, 19), cr: d(2027, 4, 16) },
                 { track: "Doctoral Consortium", sub: "", kind: "short", dl: d(2027, 2, 19),
                   notif: d(2027, 3, 19), cr: d(2027, 4, 16) }
             ]
@@ -625,7 +662,9 @@ html.unlocked #lock { display: none; }
             conf: [d(2027, 9, 20), d(2027, 9, 23)],
             lanes: [
                 { track: "Full papers", sub: "abstract 10 Feb", kind: "paper", dl: d(2027, 2, 17),
-                  abs: d(2027, 2, 10) }
+                  abs: d(2027, 2, 10), notif: d(2027, 4, 15), notifLabel: "First-round notification" },
+                { track: "Full paper revisions", sub: "second round", kind: "paper", dl: d(2027, 5, 13),
+                  notif: d(2027, 6, 17), notifLabel: "Final notification", cr: d(2027, 7, 15) }
             ]
         }
     ];
@@ -701,7 +740,7 @@ html.unlocked #lock { display: none; }
         html += '<div class="group"><h2>' + g.venue + '</h2><span class="meta">' + g.meta +
                 ' · <a href="' + g.url + '" target="_blank" rel="noopener">call</a></span></div>';
         g.lanes.forEach(function (L) {
-            L._venue = g.venue; L._conf = g.conf; L._url = g.url;
+            L._venue = g.venue; L._conf = L.conf || g.conf; L._url = g.url;
             html += laneHTML(g, L, i++);
         });
     });
@@ -729,7 +768,7 @@ html.unlocked #lock { display: none; }
             "<dl>" + row("Abstract", L.abs) + row("Deadline", L.dl) +
             row(L.notifLabel || "Notification", L.notif) +
             row(L.crLabel || "Camera-ready", L.cr) +
-            (L._conf ? "<dt>Event</dt><dd>" + fmt(L._conf[0]) + " – " + fmt(L._conf[1]) + "</dd>" : "") +
+            (L._conf ? "<dt>Event</dt><dd>" + fmtRange(L._conf) + "</dd>" : "") +
             "</dl>" +
             "<div style='margin-top:6px;color:var(--ink-dim)'>" +
             (days < 0 ? Math.abs(days) + " days ago" : days + " days from today") + "</div>";
@@ -774,7 +813,7 @@ html.unlocked #lock { display: none; }
             '<td>' + pill + '</td>' +
             '<td class="d">' + fmt(L.notif) + '</td>' +
             '<td class="d">' + fmt(L.cr) + '</td>' +
-            '<td class="d">' + (L._conf ? fmt(L._conf[0]) : "—") + '</td>' +
+            '<td class="d">' + fmtRange(L._conf) + '</td>' +
             '</tr>';
     }).join("");
 
@@ -783,7 +822,7 @@ html.unlocked #lock { display: none; }
     document.getElementById("stamp").textContent =
         open.length + " deadlines still open · next up: " + open[0].track + " for " +
         open[0]._venue.split(" — ")[0] + " on " + fmt(open[0].dl) +
-        " · dates checked 18 October 2026";
+        " · dates checked 23 October 2026";
 })();
 </script>
 
