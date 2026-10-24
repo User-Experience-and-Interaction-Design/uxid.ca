@@ -125,6 +125,14 @@ tbody tr.row:hover { background: rgba(255,255,255,.04); }
 tbody tr.row.open { background: rgba(244,208,63,.06); }
 td.v { white-space: nowrap; }
 td.v b { color: var(--ink); }
+/* The lab's main venues: a solid gold label, like the active filter button.
+   Capped to the cell so a long name ("UBICOMP/IMWUT") truncates inside it. */
+td.v b.key {
+    display: inline-block; max-width: calc(100% - 12px); vertical-align: middle;
+    overflow: hidden; text-overflow: ellipsis;
+    background: var(--accent); color: #1F2937; border-radius: 4px; padding: 1px 6px;
+}
+tr.past td.v b.key { color: #1F2937; opacity: .5; }
 td.v .chev {
     display: inline-block; width: 0; height: 0; margin: 0 8px 1px 0; vertical-align: middle;
     border: 4px solid transparent; border-left-color: var(--ink-dim); border-right-width: 0;
@@ -137,8 +145,26 @@ td.d { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600
 td.acc { color: var(--ink-muted); }
 
 td.ev b { color: var(--ink); font-weight: 600; }
+/* Next-event location, tinted by region (see REGION in the script) */
+/* Solid fills, spread round the hue wheel and split by lightness too (dark text
+   on the light fills, white on the dark ones), so red/pink and green/blue stay
+   apart even with red-green colour blindness. Text contrast is 4.8:1 or more. */
+td.ev b[class^="r-"] { border-radius: 4px; padding: 0 5px; }
+td.ev b.r-us, .r-us { color: #FFFFFF; background: #2563EB; }
+td.ev b.r-ca, .r-ca { color: #FFFFFF; background: #DC2626; }
+td.ev b.r-eu, .r-eu { color: #052E16; background: #4ADE80; }
+td.ev b.r-as, .r-as { color: #4A0D33; background: #F9A8D4; }
+td.ev b.r-oc, .r-oc { color: #1F2937; background: #FACC15; }
+.reglegend { display: inline-flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
 td.ev span { color: var(--ink-dim); }
 .core { font-family: ui-monospace, Menlo, monospace; font-weight: 700; }
+/* CORE A*: solid gold with dark text, like the main-venue labels, so it
+   reads at a glance against the plain A / B / C around it. */
+.core .astar {
+    display: inline-block; padding: 1px 6px; border-radius: 4px;
+    color: #1F2937; background: var(--accent); font-weight: 800;
+    box-shadow: 0 0 0 2px rgba(244,208,63,.25);
+}
 tr.past td.d, tr.past td.v b, tr.past td.trk { color: var(--ink-dim); }
 
 tr.det td { background: #16202c; border-bottom: 2px solid var(--line-strong); }
@@ -422,6 +448,21 @@ td.how b { color: var(--ink); font-weight: 600; }
                 </select>
             </div>
             <div class="fld">
+                <label for="fLoc">Continent (next event)</label>
+                <select id="fLoc">
+                    <option value="">Anywhere</option>
+                    <option value="na">North America (US + Canada)</option>
+                    <option value="us">&nbsp;&nbsp;US only</option>
+                    <option value="ca">&nbsp;&nbsp;Canada only</option>
+                    <option value="eu">Europe</option>
+                    <option value="as">Asia</option>
+                    <option value="oc">Australia</option>
+                    <option value="af">Africa</option>
+                    <option value="sa">South America</option>
+                    <option value="tba">Not announced yet</option>
+                </select>
+            </div>
+            <div class="fld">
                 <label for="fSort">Sort by</label>
                 <select id="fSort">
                     <option value="dl">Deadline</option>
@@ -441,6 +482,10 @@ td.how b { color: var(--ink); font-weight: 600; }
                 <span><i style="background:var(--c-post)"></i>Poster</span>
                 <span><i style="background:var(--c-lbw)"></i>Late-breaking work</span>
                 <span><i style="background:transparent;border:1px solid var(--line-strong)"></i>Everything else</span>
+                <span class="reglegend">Next event:
+                    <span><i class="r-us"></i>US</span><span><i class="r-ca"></i>Canada</span>
+                    <span><i class="r-eu"></i>Europe</span><span><i class="r-as"></i>Asia</span>
+                    <span><i class="r-oc"></i>Australia</span></span>
             </span>
         </div>
 
@@ -580,7 +625,12 @@ td.how b { color: var(--ink); font-weight: 600; }
     });
 
     /* ---------------- helpers ---------------- */
-    var TODAY = "2026-10-18";
+    // The visitor's local date as "YYYY-MM-DD", the format of r.dl, so a
+    // deadline due today still counts as upcoming.
+    var TODAY = (function () {
+        var n = new Date();
+        return n.getFullYear() + "-" + ("0" + (n.getMonth() + 1)).slice(-2) + "-" + ("0" + n.getDate()).slice(-2);
+    })();
     var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     function md(iso) {                       // "2026-11-10" -> "Nov 10"
         if (!iso) { return ""; }
@@ -625,6 +675,62 @@ td.how b { color: var(--ink); font-weight: 600; }
         if (!p) { return "—"; }
         return p.replace(/\s*pages?/i, " pp").replace(/\+\s*refs?(erences)?/i, "+refs").trim();
     }
+    // Some workbook CORE cells carry a note ("A* (ICORE2026)", "Journal (SJR Q1)",
+    // a paragraph on an unconfirmed rank). The narrow column shows just the rank;
+    // the full text is in the tooltip and the expanded row.
+    function shortCore(c) {
+        if (!c) { return "—"; }
+        var m = c.match(/^(A\*|A|B|C)(\s|$)/);
+        if (m) { return m[1]; }
+        m = c.match(/^Journal \(SJR (Q\d)\)/);
+        if (m) { return "SJR " + m[1]; }      // no-break space: the column is too narrow to wrap it
+        if (/^Journal\b/.test(c)) { return "Journal"; }
+        if (/^Australasian /.test(c)) { return c.replace("Australasian ", "Aus. "); }
+        m = c.match(/around CORE (A\*|A|B|C)\b/);
+        if (m) { return m[1] + "?"; }
+        return c.length > 8 ? c.slice(0, 7) + "…" : c;
+    }
+    // Region of a next-event location, for its colour. "Pittsburgh, PA, USA",
+    // "Brazil (Interspeech 2027)": the country is the last comma-separated part,
+    // before any note in brackets. A "TBA" entry never counts, even when its note
+    // names last year's city. Asia excludes the Middle East; Cyprus is counted
+    // as Europe (EU member, hosts European venues). Africa and South America are
+    // known to the continent filter but not coloured; unlisted countries stay plain.
+    var COLOURED = { us: 1, ca: 1, eu: 1, as: 1, oc: 1 };
+    var REGION = {
+        "South Africa": "af", "Morocco": "af", "Egypt": "af", "Tunisia": "af", "Kenya": "af",
+        "Rwanda": "af", "Nigeria": "af", "Ghana": "af",
+        "South America": "sa", "Brazil": "sa", "Argentina": "sa", "Chile": "sa", "Colombia": "sa",
+        "Peru": "sa", "Uruguay": "sa",
+        "USA": "us", "Canada": "ca", "Australia": "oc", "New Zealand": "oc",
+        "China": "as", "Hong Kong": "as", "Taiwan": "as", "Japan": "as", "South Korea": "as",
+        "Singapore": "as", "India": "as", "Sri Lanka": "as", "Vietnam": "as", "Thailand": "as",
+        "Malaysia": "as", "Indonesia": "as", "Philippines": "as", "Bangladesh": "as", "Nepal": "as",
+        "Europe": "eu", "UK": "eu", "Ireland": "eu", "Iceland": "eu", "Portugal": "eu", "Spain": "eu",
+        "France": "eu", "Belgium": "eu", "Netherlands": "eu", "The Netherlands": "eu",
+        "Luxembourg": "eu", "Germany": "eu", "Austria": "eu", "Switzerland": "eu", "Italy": "eu",
+        "Greece": "eu", "Cyprus": "eu", "Malta": "eu", "Denmark": "eu", "Sweden": "eu",
+        "Norway": "eu", "Finland": "eu", "Estonia": "eu", "Latvia": "eu", "Lithuania": "eu",
+        "Poland": "eu", "Czechia": "eu", "Czech Republic": "eu", "Slovakia": "eu", "Hungary": "eu",
+        "Slovenia": "eu", "Croatia": "eu", "Romania": "eu", "Bulgaria": "eu", "Serbia": "eu"
+    };
+    function region(loc) {
+        if (!loc || /^TBA\b/i.test(loc)) { return ""; }
+        var country = loc.split(",").pop().replace(/\(.*$/, "").trim();
+        return REGION[country] || "";
+    }
+    // The continent filter: "na" is US + Canada; "tba" is a conference whose
+    // next location is not out yet ("TBA", "TBD", "city TBA", or blank).
+    function inContinent(r, want) {
+        var g = region(r.loc);
+        if (want === "na") { return g === "us" || g === "ca"; }
+        if (want === "tba") { return r.ty === "C" && !g && (!r.loc || /\b(TBA|TBD)\b/i.test(r.loc)); }
+        return g === want;
+    }
+    // The lab's main venues, named as the workbook spells them; shown in gold.
+    var KEY_VENUES = { "CHI": 1, "MobileHCI": 1, "DIS": 1, "IUI": 1, "CHI PLAY": 1,
+                       "UIST": 1, "EuroVis": 1, "UBICOMP/IMWUT": 1, "IEEE VIS": 1,
+                       "IEEE VR": 1, "VRST": 1 };
     var RELP = { "Core": ["rel-core", "Core"], "High": ["rel-high", "High"],
                  "Adjacent": ["rel-adj", "Adjacent"], "Indirect": ["rel-ind", "Indirect"] };
     var ATTI = {
@@ -667,6 +773,10 @@ td.how b { color: var(--ink); font-weight: 600; }
                     var o = document.createElement("option");
                     o.value = c; o.textContent = c + " (" + cats[c] + ")"; csel.appendChild(o);
                 });
+                [].forEach.call(document.getElementById("fLoc").options, function (o) {
+                    if (!o.value) { return; }
+                    o.textContent += " (" + j.rows.filter(function (r) { return inContinent(r, o.value); }).length + ")";
+                });
                 var venues = {};
                 j.rows.forEach(function (r) { venues[r.n] = 1; });
                 document.getElementById("stamp").textContent =
@@ -690,6 +800,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             us = document.getElementById("fUs").value,
             cat = document.getElementById("fCat").value,
             ty = document.getElementById("fType").value,
+            cont = document.getElementById("fLoc").value,
             up = document.getElementById("fUp").checked,
             sort = document.getElementById("fSort").value;
 
@@ -702,6 +813,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             if (us === "yes" && r.us !== "Required" && r.us !== "Expected") { return false; }
             if (cat && r.cat !== cat) { return false; }
             if (ty && r.ty !== ty) { return false; }
+            if (cont && !inContinent(r, cont)) { return false; }
             // rolling and not-yet-announced tracks are always still open
             if (up && r.st === "dated" && r.dl < TODAY) { return false; }
             return true;
@@ -731,9 +843,12 @@ td.how b { color: var(--ink); font-weight: 600; }
             var cs = CATSTYLE[r.cat];
             var rp = RELP[r.relb];
             var at = ATTI[r.att];
+            var core = shortCore(r.core);
             return '<tr class="row' + (past ? " past" : "") + (cs ? " " + cs[0] : "") +
                    '" data-i="' + i + '">' +
-                '<td class="v"><span class="chev"></span><b>' + esc(r.n) + "</b></td>" +
+                '<td class="v"><span class="chev"></span><b' +
+                    (KEY_VENUES[r.n] ? ' class="key" title="' + esc(r.n) + ' · one of the lab\'s main venues"' : "") + ">" +
+                    esc(r.n) + "</b></td>" +
                 '<td class="trk" title="' + esc(r.tr) + '">' +
                     (cs ? '<span class="cp ' + cs[1] + '">' + cs[2] + "</span>" : "") + esc(r.tr) + "</td>" +
                 '<td class="d">' + dl + "</td>" +
@@ -743,12 +858,14 @@ td.how b { color: var(--ink); font-weight: 600; }
                 '<td class="fitc">' + fitBadge(r.fit) + "</td>" +
                 '<td class="relc">' + (rp ? pill(rp[0], rp[1]) : "—") + "</td>" +
                 '<td class="tierc">' + tierPill(r.tier) + "</td>" +
-                '<td class="core">' + esc(r.core || "—") + "</td>" +
+                '<td class="core" title="' + esc(r.core) + '">' +
+                    (core === "A*" ? '<span class="astar">A*</span>' : esc(core)) + "</td>" +
                 '<td class="acc" title="' + esc(r.acc) + '">' + esc(shortAcc(r.acc)) + "</td>" +
                 '<td class="att">' + (at ? '<svg class="icon" aria-hidden="true"><use href="#i-' + at[0].replace('fa-','') + '"/></svg>' + esc(at[1])
                                          : esc(r.att || "—")) + "</td>" +
                 '<td class="size">' + esc((r.size || "—").replace(/\s*papers?\/yr/i, "")) + "</td>" +
-                '<td class="ev" title="' + esc((r.loc || "") + " " + (r.cd || "")) + '"><b>' +
+                '<td class="ev" title="' + esc((r.loc || "") + " " + (r.cd || "")) + '"><b' +
+                    (COLOURED[region(r.loc)] ? ' class="r-' + region(r.loc) + '"' : "") + ">" +
                     esc(r.loc || "—") + "</b> <span>" + esc(noYear(r.cd)) + "</span></td>" +
                 "</tr>";
         }).join("");
@@ -904,7 +1021,7 @@ td.how b { color: var(--ink); font-weight: 600; }
     }
 
     function wire() {
-        ["q", "fArea", "fTier", "fUs", "fCat", "fType", "fSort", "fUp"].forEach(function (id) {
+        ["q", "fArea", "fTier", "fUs", "fCat", "fType", "fLoc", "fSort", "fUp"].forEach(function (id) {
             document.getElementById(id)
                 .addEventListener(id === "q" ? "input" : "change", render);
         });
@@ -915,6 +1032,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             document.getElementById("fUs").value = "";
             document.getElementById("fCat").value = "";
             document.getElementById("fType").value = "";
+            document.getElementById("fLoc").value = "";
             document.getElementById("fSort").value = "dl";
             document.getElementById("fUp").checked = true;
             render();
