@@ -6,6 +6,13 @@
 
     <!-- Gated page: kept out of search results on purpose. -->
     <meta name="robots" content="noindex, nofollow">
+    <script>
+        // The passcode check needs crypto.subtle, which browsers only offer
+        // over https; GitHub Pages also answers on plain http, so move there.
+        if (location.protocol === "http:" && /(^|\.)uxid\.ca$/.test(location.hostname)) {
+            location.replace("https://" + location.host + location.pathname + location.search + location.hash);
+        }
+    </script>
     <title>Venue Guide | UXID Lab</title>
     <meta name="theme-color" content="#1D3557">
     <link rel="icon" type="image/png" href="images/uxid-128.png">
@@ -20,7 +27,7 @@
 :root {
     --bg: #1D3557; --surface: #1F2937; --surface-2: #243041;
     --line: rgba(255,255,255,0.10); --line-strong: rgba(255,255,255,0.20);
-    --ink: #ECECEC; --ink-muted: #AAB7B8; --ink-dim: #7D8B99;
+    --ink: #ECECEC; --ink-muted: #AAB7B8; --ink-dim: #94A3B0;   /* 4.8:1 or better on every surface here */
     --accent: #F4D03F;
     --ok-ink: #7FD7AF; --mid-ink: #E3A869; --hi-ink: #E59690;
     --font-body: 'Roboto', system-ui, -apple-system, sans-serif;
@@ -100,6 +107,8 @@ thead th { position: sticky; top: 65px; background: var(--surface-2); z-index: 2
 :root { --c-full: #2F9E6E; --c-post: #4A86D6; --c-lbw: #C568AC; }
 tbody tr.row { cursor: pointer; border-left: 4px solid transparent; }
 tbody tr.jrow { cursor: pointer; }
+tbody tr.row:focus-visible, tbody tr.jrow:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.det-grid { margin: 0; }   /* it is a <dl> */
 tbody tr.jrow:hover { background: rgba(255,255,255,.04); }
 tbody tr.jrow.open { background: rgba(244,208,63,.06); }
 td.jn .chev { display: inline-block; width: 0; height: 0; margin: 0 8px 2px 0; vertical-align: middle;
@@ -123,7 +132,7 @@ tbody tr.cat-lbw:hover  { background: rgba(197,104,172,.16); }
 .catlegend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
 tbody tr.row:hover { background: rgba(255,255,255,.04); }
 tbody tr.row.open { background: rgba(244,208,63,.06); }
-td.v { white-space: nowrap; }
+td.v { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* long names: full one in the tooltip */
 td.v b { color: var(--ink); }
 /* The lab's main venues: a solid gold label, like the active filter button.
    Capped to the cell so a long name ("UBICOMP/IMWUT") truncates inside it. */
@@ -394,13 +403,14 @@ td.how b { color: var(--ink); font-weight: 600; }
 </section>
 
 <div class="wrap" id="content" hidden>
-    <h1>Venue guide</h1>
+    <h1 tabindex="-1" style="outline:none">Venue guide</h1>
     <p class="lede">
         Every conference and journal track from the lab's deadline workbook, with tier,
         CORE rank, acceptance rate, whether it needs a user study, and where the next
-        edition is. Dates are month and day only, since these repeat at roughly the same
-        point each year. <strong>Click any row</strong> for page limits, notification and
-        camera-ready dates, the areas it covers and why it is relevant.
+        edition is. Dates are month and day, since these repeat at roughly the same
+        point each year; the year is added only when a date is more than a year away.
+        <strong>Click any row</strong> (or tab to it and press Enter) for page limits,
+        notification and camera-ready dates, the areas it covers and why it is relevant.
     </p>
     <p class="stamp" id="stamp">Loading&hellip;</p>
 
@@ -475,7 +485,7 @@ td.how b { color: var(--ink); font-weight: 600; }
         </div>
 
         <div class="countbar">
-            <span><b id="cnt">0</b> tracks across <b id="cntV">0</b> venues</span>
+            <span role="status"><b id="cnt">0</b> tracks across <b id="cntV">0</b> venues</span>
             <button type="button" id="reset">Reset filters</button>
             <span class="catlegend">
                 <span><i style="background:var(--c-full)"></i>Full paper</span>
@@ -575,7 +585,10 @@ td.how b { color: var(--ink); font-weight: 600; }
     <div class="note">
         <p><strong>Source:</strong> <code id="srcname"></code> in your iCloud Conference&nbsp;Deadlines
         folder. The page is generated from that workbook, so the spreadsheet stays the one place you
-        edit; re-export and the page follows.</p>
+        edit; re-export and the page follows. <strong>One exception:</strong> on 23&nbsp;October&nbsp;2026
+        every conference's next-event location was checked against its official site and 17 entries
+        were corrected in the page's data file only (for example AIED&nbsp;2027 is in Adelaide, not
+        Huntington Beach). Copy those into the workbook before the next export, or it will undo them.</p>
         <p><strong>Fit is computed, not from the workbook.</strong> Your <code>Fit_Score</code>
         column is empty, so the page derives it: the area tags the workbook gives each venue,
         weighted towards the lab's own topics (smartwatch 1.0, mobile 0.8, human-AI 0.8,
@@ -586,11 +599,17 @@ td.how b { color: var(--ink); font-weight: 600; }
         Fill in <code>Fit_Score</code> in the spreadsheet and the page will use your number instead.</p>
         <p><strong>Attendance</strong> comes from the workbook's presentation mode.
         &ldquo;In&nbsp;person*&rdquo; means in person with remote allowed only by exception;
-        the exact wording is in the expanded row. <strong>Pages</strong> and
-        <strong>acceptance</strong> are shortened in the table and shown in full there too.</p>
-        <p><strong>On the passcode:</strong> it is checked in the browser, so anyone who views the page
-        source can read it, and the data file sits at a plain URL beside the page. It keeps this out of
-        casual sight and out of search results; it is not real access control.</p>
+        the exact wording is in the expanded row. <strong>Pages</strong>, <strong>acceptance</strong>
+        and <strong>CORE</strong> notes are shortened in the table and shown in full there too.</p>
+        <p><strong>Highlights.</strong> Venue names on a solid gold label are the lab's main venues;
+        a gold <span class="core"><span class="astar">A*</span></span> is a CORE A* conference. The next-event location is coloured by continent (see the legend above
+        the table), and the <em>Continent</em> filter uses the same locations. Locations still marked
+        TBA are left uncoloured and count as &ldquo;not announced yet&rdquo;, even when the workbook
+        guesses a region.</p>
+        <p><strong>On the passcode:</strong> it is checked in the browser against a hash, so the
+        passcode itself is not in the page source, but the data file sits at a plain URL beside the
+        page. It keeps this out of casual sight and out of search results; it is not real access
+        control.</p>
         <p><strong>Not every row is dated.</strong> Rolling journals show <span class="rolling">Rolling</span>
         and tracks whose call is not out yet show <span class="tba">not announced</span>; both stay
         visible under &ldquo;upcoming only&rdquo;. Venues the workbook marks discontinued are left out.</p>
@@ -603,25 +622,42 @@ td.how b { color: var(--ink); font-weight: 600; }
 (function () {
     "use strict";
 
-    var PASS = "123456", KEY = "uxid-venues-unlocked";
+    // Salted SHA-256 of the passcode, so the passcode itself is not in the
+    // source. To change it, replace PASS_HASH with the output of:
+    //   printf '%s' 'uxid-venues:NEWCODE' | shasum -a 256
+    var PASS_HASH = "040188ed3dbf6e8666c84703ce49d0d95e07e70bd2933effba9bd91c392c9a60",
+        KEY = "uxid-venues-unlocked";
     var gate = document.getElementById("gate"),
         content = document.getElementById("content"),
-        err = document.getElementById("gateErr");
+        err = document.getElementById("gateErr"),
+        pw = document.getElementById("pw");
 
-    function unlock() {
+    function unlock(fromForm) {
         gate.hidden = true; gate.style.display = "none";
         content.hidden = false;
         if (!content.dataset.started) { content.dataset.started = "1"; load(); }
+        // The focused input just disappeared; land screen readers on the page.
+        if (fromForm) { content.querySelector("h1").focus(); }
     }
     document.getElementById("gateForm").addEventListener("submit", function (e) {
         e.preventDefault();
-        if (document.getElementById("pw").value.trim() === PASS) {
-            try { sessionStorage.setItem(KEY, "1"); } catch (e2) {}
-            err.textContent = ""; unlock();
-        } else {
-            err.textContent = "Wrong passcode.";
-            document.getElementById("pw").select();
+        if (!window.crypto || !crypto.subtle) {
+            err.textContent = "Open this page over https:// to unlock it.";
+            return;
         }
+        crypto.subtle.digest("SHA-256", new TextEncoder().encode("uxid-venues:" + pw.value.trim()))
+            .then(function (buf) {
+                var hex = [].map.call(new Uint8Array(buf), function (b) {
+                    return ("0" + b.toString(16)).slice(-2);
+                }).join("");
+                if (hex === PASS_HASH) {
+                    try { sessionStorage.setItem(KEY, "1"); } catch (e2) {}
+                    err.textContent = ""; unlock(true);
+                } else {
+                    err.textContent = "Wrong passcode.";
+                    pw.select();
+                }
+            });
     });
 
     /* ---------------- helpers ---------------- */
@@ -632,13 +668,26 @@ td.how b { color: var(--ink); font-weight: 600; }
         return n.getFullYear() + "-" + ("0" + (n.getMonth() + 1)).slice(-2) + "-" + ("0" + n.getDate()).slice(-2);
     })();
     var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    function md(iso) {                       // "2026-11-10" -> "Nov 10"
+    // "2026-11-10" -> "Nov 10". A date a year or more away keeps its year
+    // ("Jul 15 ’28") so it cannot be mistaken for this cycle's "Jul 15".
+    var YEAR_ON = (+TODAY.slice(0, 4) + 1) + TODAY.slice(4);
+    function md(iso) {
         if (!iso) { return ""; }
         var p = iso.split("-");
-        return MON[+p[1] - 1] + " " + (+p[2]);
+        return MON[+p[1] - 1] + " " + (+p[2]) + (iso >= YEAR_ON ? " ’" + p[0].slice(2) : "");
     }
-    function noYear(s) {                     // "May 31 - Jun 4, 2027" -> "May 31 - Jun 4"
-        return (s || "").replace(/,?\s*(19|20)\d{2}/g, "").replace(/[\s,–-]+$/, "").trim();
+    // "May 31 - Jun 4, 2027" -> "May 31 - Jun 4". Only the date part loses its
+    // year: notes in brackets ("TBA (est. late 2027)") are kept whole, and a
+    // year after next ("May 8-12, 2028" seen in 2026) is kept too.
+    function noYear(s) {
+        s = s || "";
+        var i = s.indexOf("("),
+            head = i < 0 ? s : s.slice(0, i),
+            tail = i < 0 ? "" : " " + s.slice(i);
+        head = head.replace(/,?\s*((?:19|20)\d{2})/g, function (m, y) {
+            return +y > +TODAY.slice(0, 4) + 1 ? m : "";
+        }).replace(/[\s,–-]+$/, "").trim();
+        return (head + tail).trim();
     }
     function esc(s) {
         return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -686,7 +735,7 @@ td.how b { color: var(--ink); font-weight: 600; }
         if (m) { return "SJR " + m[1]; }      // no-break space: the column is too narrow to wrap it
         if (/^Journal\b/.test(c)) { return "Journal"; }
         if (/^Australasian /.test(c)) { return c.replace("Australasian ", "Aus. "); }
-        m = c.match(/around CORE (A\*|A|B|C)\b/);
+        m = c.match(/around CORE (A\*|A|B|C)(?!\w)/);
         if (m) { return m[1] + "?"; }
         return c.length > 8 ? c.slice(0, 7) + "…" : c;
     }
@@ -771,17 +820,14 @@ td.how b { color: var(--ink); font-weight: 600; }
                 var csel = document.getElementById("fCat");
                 Object.keys(cats).sort().forEach(function (c) {
                     var o = document.createElement("option");
-                    o.value = c; o.textContent = c + " (" + cats[c] + ")"; csel.appendChild(o);
-                });
-                [].forEach.call(document.getElementById("fLoc").options, function (o) {
-                    if (!o.value) { return; }
-                    o.textContent += " (" + j.rows.filter(function (r) { return inContinent(r, o.value); }).length + ")";
+                    o.value = c; o.textContent = c; csel.appendChild(o);   // count added by render()
                 });
                 var venues = {};
                 j.rows.forEach(function (r) { venues[r.n] = 1; });
                 document.getElementById("stamp").textContent =
                     j.rows.length + " tracks across " + Object.keys(venues).length +
-                    " venues · exported from the workbook on " + j.generated;
+                    " venues · exported from the workbook on " + j.generated +
+                    (j.checked ? " · locations checked " + j.checked : "");
                 buildAreas();
                 buildJournals();
                 wire();
@@ -793,7 +839,8 @@ td.how b { color: var(--ink); font-weight: 600; }
             });
     }
 
-    function current() {
+    // skip = "cat" or "cont" leaves that one filter out, to count its options.
+    function current(skip) {
         var q = document.getElementById("q").value.trim().toLowerCase(),
             area = document.getElementById("fArea").value,
             tier = document.getElementById("fTier").value,
@@ -811,9 +858,9 @@ td.how b { color: var(--ink); font-weight: 600; }
             else if (tier && String(r.tier) !== tier) { return false; }
             if (us === "no" && !NOSTUDY[r.us]) { return false; }
             if (us === "yes" && r.us !== "Required" && r.us !== "Expected") { return false; }
-            if (cat && r.cat !== cat) { return false; }
+            if (cat && skip !== "cat" && r.cat !== cat) { return false; }
             if (ty && r.ty !== ty) { return false; }
-            if (cont && !inContinent(r, cont)) { return false; }
+            if (cont && skip !== "cont" && !inContinent(r, cont)) { return false; }
             // rolling and not-yet-announced tracks are always still open
             if (up && r.st === "dated" && r.dl < TODAY) { return false; }
             return true;
@@ -828,8 +875,21 @@ td.how b { color: var(--ink); font-weight: 600; }
         return out;
     }
 
+    // Option counts follow the other filters, so each one matches what the
+    // table would show if you picked it.
+    function setCounts(id, rows, match) {
+        [].forEach.call(document.getElementById(id).options, function (o) {
+            if (!o.value) { return; }
+            if (!o.dataset.label) { o.dataset.label = o.textContent; }
+            o.textContent = o.dataset.label + " (" +
+                rows.filter(function (r) { return match(r, o.value); }).length + ")";
+        });
+    }
+
     function render() {
         var list = current();
+        setCounts("fCat", current("cat"), function (r, v) { return r.cat === v; });
+        setCounts("fLoc", current("cont"), inContinent);
         document.getElementById("cnt").textContent = list.length;
         var vs = {};
         list.forEach(function (r) { vs[r.n] = 1; });
@@ -845,10 +905,11 @@ td.how b { color: var(--ink); font-weight: 600; }
             var at = ATTI[r.att];
             var core = shortCore(r.core);
             return '<tr class="row' + (past ? " past" : "") + (cs ? " " + cs[0] : "") +
-                   '" data-i="' + i + '">' +
-                '<td class="v"><span class="chev"></span><b' +
+                   '" data-i="' + i + '" tabindex="0" aria-expanded="false">' +
+                '<td class="v" title="' + esc(r.n) + '"><span class="chev"></span><b' +
                     (KEY_VENUES[r.n] ? ' class="key" title="' + esc(r.n) + ' · one of the lab\'s main venues"' : "") + ">" +
-                    esc(r.n) + "</b></td>" +
+                    esc(r.n) + (KEY_VENUES[r.n] ? '<span class="visually-hidden"> (main venue)</span>' : "") +
+                    "</b></td>" +
                 '<td class="trk" title="' + esc(r.tr) + '">' +
                     (cs ? '<span class="cp ' + cs[1] + '">' + cs[2] + "</span>" : "") + esc(r.tr) + "</td>" +
                 '<td class="d">' + dl + "</td>" +
@@ -878,7 +939,7 @@ td.how b { color: var(--ink); font-weight: 600; }
         var open = tr.classList.contains("open");
         [].slice.call(this.querySelectorAll("tr.det")).forEach(function (d) { d.remove(); });
         [].slice.call(this.querySelectorAll("tr.open")).forEach(function (o) {
-            o.classList.remove("open");
+            o.classList.remove("open"); o.setAttribute("aria-expanded", "false");
         });
         if (open) { return; }
 
@@ -887,7 +948,7 @@ td.how b { color: var(--ink); font-weight: 600; }
                     r.part.map(function (a) { return pill("areachip part", a); }).join("");
         var d = document.createElement("tr");
         d.className = "det";
-        d.innerHTML = '<td colspan="14"><div class="det-grid">' +
+        d.innerHTML = '<td colspan="14"><dl class="det-grid">' +
             "<div><dt>Full name</dt><dd>" + esc(r.fn || "—") + "</dd></div>" +
             "<div><dt>Page limit</dt><dd>" + esc(r.pg || "—") + "</dd></div>" +
             "<div><dt>Notification</dt><dd>" + (r.nt ? md(r.nt) : "—") + "</dd></div>" +
@@ -901,15 +962,24 @@ td.how b { color: var(--ink); font-weight: 600; }
                 (r.subs ? " \u00b7 " + esc(r.subs) + " submissions" : "") + "</dd></div>" +
             "<div><dt>Fit to our areas</dt><dd>" + fitBadge(r.fit) +
                 ' <span style="color:var(--ink-dim)">computed, see note</span></dd></div>' +
-            "</div>" +
+            "</dl>" +
             (chips ? '<div style="margin-top:10px">' + chips + "</div>" : "") +
             (r.why ? '<p class="why">' + esc(r.why) + "</p>" : "") +
             (r.web ? '<p class="why"><a href="' + esc(r.web) + '" target="_blank" rel="noopener">' +
                      esc(r.web) + "</a></p>" : "") +
             "</td>";
         tr.after(d);
-        tr.classList.add("open");
+        tr.classList.add("open"); tr.setAttribute("aria-expanded", "true");
     });
+
+    // Rows open with Enter or Space as well as a click.
+    function rowKeys(e) {
+        if ((e.key === "Enter" || e.key === " ") && e.target.matches("tr.row, tr.jrow")) {
+            e.preventDefault(); e.target.click();
+        }
+    }
+    document.getElementById("rows").addEventListener("keydown", rowKeys);
+    document.getElementById("jrnlRows").addEventListener("keydown", rowKeys);
 
     function buildJournals() {
         var CHI_H = DATA.chi_h || 122;
@@ -927,7 +997,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             // Intake: rolling journals have no single date.
             var intake = r.st === "rolling" ? '<span class="rolling">Rolling</span>'
                        : (r.st === "tba" ? '<span class="tba">not announced</span>' : md(r.dl));
-            return '<tr class="jrow" data-j="' + i + '">' +
+            return '<tr class="jrow" data-j="' + i + '" tabindex="0" aria-expanded="false">' +
                 '<td class="jn" title="' + esc(r.fn) + '"><span class="chev"></span><b>' +
                     esc(r.n) + "</b> <small>" + esc(r.fn) + "</small></td>" +
                 '<td class="pubc" title="' + esc(r.pub || "") + '">' + esc(r.pub || "—") + "</td>" +
@@ -959,13 +1029,15 @@ td.how b { color: var(--ink); font-weight: 600; }
         if (!tr) { return; }
         var open = tr.classList.contains("open");
         [].slice.call(this.querySelectorAll("tr.det")).forEach(function (d) { d.remove(); });
-        [].slice.call(this.querySelectorAll("tr.open")).forEach(function (o) { o.classList.remove("open"); });
+        [].slice.call(this.querySelectorAll("tr.open")).forEach(function (o) {
+            o.classList.remove("open"); o.setAttribute("aria-expanded", "false");
+        });
         if (open) { return; }
         var r = this._list[+tr.dataset.j];
         function cell(k, v) { return v ? "<div><dt>" + k + "</dt><dd>" + esc(v) + "</dd></div>" : ""; }
         var d = document.createElement("tr");
         d.className = "det";
-        d.innerHTML = '<td colspan="12"><div class="det-grid">' +
+        d.innerHTML = '<td colspan="12"><dl class="det-grid">' +
             cell("Impact factor", r.if_) +
             cell("CiteScore", r.cs) +
             cell("Submission system", r.sys) +
@@ -980,13 +1052,13 @@ td.how b { color: var(--ink); font-weight: 600; }
             cell("Intake", r.freq) +
             cell("Special issue partner", r.sip) +
             cell("Acceptance rate", r.acc) +
-            "</div>" +
+            "</dl>" +
             (r.why ? '<p class="why">' + esc(r.why) + "</p>" : "") +
             (r.web ? '<p class="why"><a href="' + esc(r.web) + '" target="_blank" rel="noopener">' +
                      esc(r.web) + "</a></p>" : "") +
             "</td>";
         tr.after(d);
-        tr.classList.add("open");
+        tr.classList.add("open"); tr.setAttribute("aria-expanded", "true");
     });
 
     function buildAreas() {
@@ -1041,7 +1113,7 @@ td.how b { color: var(--ink); font-weight: 600; }
 
     var remembered = false;
     try { remembered = sessionStorage.getItem(KEY) === "1"; } catch (e) {}
-    if (remembered) { unlock(); }
+    if (remembered) { unlock(); } else { pw.focus(); }
 })();
 </script>
 
