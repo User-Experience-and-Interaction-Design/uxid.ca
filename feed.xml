@@ -11,6 +11,14 @@
          Keep <guid> identical to the news item's permalink. -->
 
     <item>
+      <title>Causal Health Agent accepted at IEEE BigData 2026</title>
+      <link>https://uxid.ca/#news-bigdata-2026-causal-health-agent</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-bigdata-2026-causal-health-agent</guid>
+      <pubDate>Wed, 28 Oct 2026 09:00:00 -0400</pubDate>
+      <description>Farnaz's paper Causal Health Agent: From Wearable Sensor Anomalies to Evidence-Grounded Explanations, with Heidar Davoudi, has been accepted at the 9th Special Session on Healthcare Data of the 2026 IEEE International Conference on Big Data (IEEE BigData 2026) in Phoenix, Arizona, 14-17 December 2026.</description>
+    </item>
+
+    <item>
       <title>CoRead presented at ICMI 2026 in Napoli, Italy</title>
       <link>https://uxid.ca/#news-icmi-2026-coread-presented</link>
       <guid isPermaLink="true">https://uxid.ca/#news-icmi-2026-coread-presented</guid>
