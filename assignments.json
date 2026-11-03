@@ -1,0 +1,86 @@
+{
+  "updated": "2026-11-03",
+  "students": [
+    {
+      "name": "Zawad",
+      "color": 0
+    },
+    {
+      "name": "Farnaz",
+      "color": 1
+    },
+    {
+      "name": "Aron",
+      "color": 2
+    },
+    {
+      "name": "Kevin",
+      "color": 3
+    },
+    {
+      "name": "Sadnima",
+      "color": 4
+    },
+    {
+      "name": "Sevara",
+      "color": 5
+    },
+    {
+      "name": "Jugal",
+      "color": 6
+    },
+    {
+      "name": "Sakil",
+      "color": "#dcf4a9"
+    },
+    {
+      "name": "Yasaman",
+      "color": "#b9f1e3"
+    },
+    {
+      "name": "Alyesha",
+      "color": "#a093f6"
+    },
+    {
+      "name": "Rania",
+      "color": "#f39af0"
+    },
+    {
+      "name": "Alex",
+      "color": "#f4cd9a"
+    },
+    {
+      "name": "Kershan",
+      "color": "#b5f8a8"
+    },
+    {
+      "name": "Neel",
+      "color": "#f4bdd0"
+    },
+    {
+      "name": "Aiju",
+      "color": "#f5ddba"
+    },
+    {
+      "name": "Farees",
+      "color": "#a0f7ca"
+    },
+    {
+      "name": "Nicholas",
+      "color": "#e9bbf3"
+    },
+    {
+      "name": "David",
+      "color": "#98f6f6"
+    },
+    {
+      "name": "Syed",
+      "color": "#a9caed"
+    },
+    {
+      "name": "Reese",
+      "color": "#c998f3"
+    }
+  ],
+  "items": []
+}

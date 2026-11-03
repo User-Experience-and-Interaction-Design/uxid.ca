@@ -109,6 +109,8 @@ h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.
 }
 .filters button:hover { color: var(--ink); border-color: var(--accent); }
 .filters button[aria-pressed="true"] { background: var(--accent); color: #1F2937; border-color: var(--accent); }
+.as-filters { flex-basis: 100%; }
+.as-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.8rem; color: var(--ink-muted); margin-left: auto; }
 .legend span { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
 .sw { width: 13px; height: 13px; border-radius: 3px; flex: none; }
@@ -241,6 +243,62 @@ h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.
     background: var(--accent); padding: 1px 6px; border-radius: 3px;
 }
 
+/* ---------- Assignments (assignments.js): name tags ---------- */
+.as-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; margin-top: 4px; }
+.as-tag {
+    display: inline-flex; align-items: center; max-width: 100%; overflow: hidden; white-space: nowrap; vertical-align: middle;
+    font-size: 0.66rem; font-weight: 700; line-height: 1.5; color: #1F2937; border-radius: 999px; padding: 0 7px;
+}
+.as-l { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+td .as-tag + .as-tag { margin-left: 3px; }
+.as-x {
+    flex: none; border: 0; background: none; color: #1F2937; font: inherit; line-height: 1;
+    padding: 0 0 0 4px; cursor: pointer; opacity: .65;
+}
+.as-x:hover, .as-x:focus-visible { opacity: 1; }
+/* "+ Assign" sits at the right of a row's label on hover or keyboard focus
+   (opacity, not visibility, so Tab still reaches it), and as a small "+"
+   after the tags once the row has any. Only rows the venue guide also has
+   get one. */
+.as-add {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    font: inherit; font-size: 0.7rem; font-weight: 700; line-height: 1.5; color: var(--accent); cursor: pointer;
+    background: #262F3D; border: 1px dashed rgba(244,208,63,.6); border-radius: 999px; padding: 0 8px; opacity: 0;
+}
+.as-tags .as-add { position: static; transform: none; background: none; padding: 0 6px; }
+.as-tags .as-add-l { display: none; }
+.lane:hover .as-add, .lane:focus-within .as-add, .as-tags .as-add, .as-add:focus-visible { opacity: 1; }
+.as-add:focus-visible, .as-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.as-panel {
+    position: absolute; z-index: 60; width: 300px; background: #0f1620; color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: 6px; padding: 10px 12px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5); font-size: 0.85rem;
+}
+.as-panel .as-what { font-weight: 700; margin-bottom: 2px; }
+.as-panel label { display: block; font-size: 0.66rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-dim); margin: 6px 0 3px; }
+.as-panel input {
+    width: 100%; font: inherit; color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--line-strong); border-radius: 4px; padding: 5px 8px;
+}
+.as-panel .as-picks { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 6px; max-height: 190px; overflow-y: auto; }
+.as-panel .as-pick {
+    font: inherit; font-size: .72rem; font-weight: 700; line-height: 1.5; color: #1F2937;
+    border: 2px solid transparent; border-radius: 999px; padding: 0 8px; cursor: pointer;
+}
+.as-panel .as-pick[aria-pressed="true"] { border-color: #fff; }
+.as-panel .as-pick:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.as-panel .as-btns { display: flex; gap: 8px; margin-top: 10px; }
+.as-panel button {
+    font: inherit; font-weight: 700; border-radius: 4px; padding: 4px 12px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: none; color: var(--ink);
+}
+.as-panel button[type="submit"] { background: var(--accent); border-color: var(--accent); color: #1F2937; }
+.as-note {
+    margin: 0 0 10px; padding: 8px 12px; font-size: 0.85rem; border-radius: 6px;
+    background: rgba(244,208,63,.08); border: 1px solid rgba(244,208,63,.5);
+}
+.as-note b { color: var(--accent); }
+
 /* ---------- Tooltip ---------- */
 #tip {
     position: fixed; z-index: 50; pointer-events: none; opacity: 0;
@@ -288,7 +346,7 @@ tr.is-next td { background: rgba(244,208,63,0.07); }
 .note a { color: var(--ink-muted); }
 
 /* ---------- Password gate ---------- */
-html:not(.unlocked) #main, html:not(.unlocked) #tip { display: none; }
+html:not(.unlocked) #main, html:not(.unlocked) #tip, html:not(.unlocked) #asPanel { display: none; }
 html.unlocked #lock { display: none; }
 #main:focus { outline: none; }   /* focused on unlock so screen readers land on the page */
 .lock {
@@ -415,8 +473,11 @@ html.unlocked #lock { display: none; }
             <span><i class="sw sw--after"></i>Notification</span>
             <span><i class="sw sw--cr"></i>Camera-ready</span>
         </div>
+        <!-- A row of its own, filled by draw() when any deadline has students assigned. -->
+        <div class="filters as-filters" id="asFilters" role="group" aria-label="Filter by assigned student" hidden></div>
     </div>
 
+    <p class="as-note" id="asNote" role="status" hidden></p>
     <div class="gantt">
         <div class="gantt__inner" id="gantt"></div>
     </div>
@@ -433,6 +494,7 @@ html.unlocked #lock { display: none; }
                     <th scope="col">Deadline</th>
                     <th scope="col">Venue</th>
                     <th scope="col">Track</th>
+                    <th scope="col">Assigned</th>
                     <th scope="col">Status</th>
                     <th scope="col">Notification</th>
                     <th scope="col">Camera-ready</th>
@@ -471,9 +533,9 @@ html.unlocked #lock { display: none; }
             the 2027 call yet, so it is not on the chart.
         </p>
         <p>
-            EuroVis 2027 has only published dates for STARs and workshop proposals so far.
-            Its other tracks are projected from EuroVis 2026 in Nottingham, so they have no
-            notification dates yet. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
+            EuroVis 2027 has published dates for full papers, STARs and workshop proposals
+            (full papers checked 2&nbsp;November&nbsp;2026). Its other tracks are projected from
+            EuroVis 2026 in Nottingham, so they have no notification dates yet. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
             it is not in the 2027 call yet, so it is not on the chart.
         </p>
         <p>
@@ -487,6 +549,22 @@ html.unlocked #lock { display: none; }
 
 <!-- Mouse-only extra; the table below carries the same dates for everyone. -->
 <div id="tip" aria-hidden="true"></div>
+
+<!-- "+ Assign" on a chart row opens this. It saves to the same list as the
+     venue guide (this browser's draft until it is published). -->
+<div id="asPanel" class="as-panel" role="dialog" aria-label="Assign a student to this deadline" hidden>
+    <p class="as-what" id="asWhat"></p>
+    <form id="asForm">
+        <label for="asStudent">Student</label>
+        <div class="as-picks" id="asPicks" role="group" aria-label="Pick a student"></div>
+        <input id="asStudent" list="asStudents" autocomplete="off" required placeholder="or type a new name">
+        <label for="asProject">Project</label>
+        <input id="asProject" list="asProjects" autocomplete="off" required>
+        <div class="as-btns"><button type="submit">Save</button><button type="button" id="asCancel">Cancel</button></div>
+    </form>
+    <datalist id="asStudents"></datalist>
+    <datalist id="asProjects"></datalist>
+</div>
 
 <script>
 (function () {
@@ -527,11 +605,12 @@ html.unlocked #lock { display: none; }
 })();
 </script>
 
+<script src="assignments.js?v=2026-11-03c"></script>
 <script>
 (function () {
     "use strict";
 
-    var NOW   = new Date();                     // midnight, so a deadline due today still counts as open
+    var NOW   = new Date();                    // midnight, so a deadline due today still counts as open
     var TODAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
     var T0    = new Date(2026, 7, 1);           // chart starts 1 Aug 2026
     var T1    = new Date(2028, 0, 1);           // chart ends at the end of 31 Dec 2027
@@ -602,7 +681,8 @@ html.unlocked #lock { display: none; }
             conf: [d(2026, 12, 14), d(2026, 12, 17)],
             lanes: [
                 { track: "Special Session on HealthCare Data", sub: "closed · Farnaz's paper accepted", kind: "paper",
-                  dl: d(2026, 8, 29), notif: d(2026, 10, 24), cr: d(2026, 11, 14) }
+                  dl: d(2026, 8, 29), notif: d(2026, 10, 24), cr: d(2026, 11, 26),
+                  crLabel: "Camera-ready and registration" }
             ]
         },
         {
@@ -643,8 +723,10 @@ html.unlocked #lock { display: none; }
             lanes: [
                 { track: "Workshop proposals", sub: "closed", kind: "short", dl: d(2026, 10, 12),
                   notif: d(2026, 10, 26) },
-                { track: "Full papers", sub: "abstract ~26 Nov", kind: "paper", dl: d(2026, 12, 3),
-                  abs: d(2026, 11, 26), proj: true },
+                { track: "Full papers", sub: "abstract 23 Nov", kind: "paper", dl: d(2026, 12, 2),
+                  abs: d(2026, 11, 23), notif: d(2027, 2, 10), notifLabel: "First-round notification" },
+                { track: "Full paper revisions", sub: "second round", kind: "paper", dl: d(2027, 3, 3),
+                  notif: d(2027, 3, 17), notifLabel: "Final notification", cr: d(2027, 4, 14) },
                 { track: "STARs", sub: "abstract 30 Nov", kind: "paper", dl: d(2026, 12, 7),
                   abs: d(2026, 11, 30), notif: d(2027, 2, 2), notifLabel: "First-round notification" },
                 { track: "STAR revisions", sub: "second round", kind: "paper", dl: d(2027, 2, 22),
@@ -731,11 +813,26 @@ html.unlocked #lock { display: none; }
 
     var SHORT = { month: "short", day: "numeric" };
 
+    function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+        });
+    }
+
+    function asTags(L, removable) {
+        return (L._as || []).map(function (it) { return UXIDAssign.tagHTML(AS_DATA, it, { removable: removable }); }).join("");
+    }
+
     function laneHTML(L, idx) {
         var past  = L.dl < TODAY;
         var x1    = pct(L.dl);
         var color = C[L.kind];
+        var as    = L._as || [];
         var sub   = past && !/\bclosed\b/.test(L.sub || "") ? "closed" + (L.sub ? " · " + L.sub : "") : L.sub;
+        var add   = L._row
+            ? '<button type="button" class="as-add" data-i="' + idx + '" data-key="' + esc(UXIDAssign.rowKey(L._row)) +
+              '" aria-label="Assign a student to ' + esc(L._venue.split(" — ")[0] + " " + L.track) + '">+<span class="as-add-l"> Assign</span></button>'
+            : "";
 
         var bits = '<div class="rule"></div>';
 
@@ -766,111 +863,341 @@ html.unlocked #lock { display: none; }
 
         return '<div class="lane' + (past ? ' lane--past' : '') + '" data-i="' + idx +
                '" data-kind="' + L.kind + '" data-past="' + (past ? 1 : 0) +
-               '" data-proj="' + (L.proj ? 1 : 0) + '" style="color:' + color + '">' +
+               '" data-proj="' + (L.proj ? 1 : 0) +
+               '" data-as="' + esc(as.map(function (it) { return it.student; }).join("|")) +
+               '" style="color:' + color + '">' +
                '<div class="lane__label"><i class="dot" style="background:' + color + '"></i>' +
-               '<span class="txt">' + L.track +
+               '<span class="txt">' + esc(L.track) +
                (L.proj ? '<span class="flag">projected</span>' : '') +
-               (sub ? '<span class="sub">' + sub + '</span>' : '') +
-               '</span></div>' +
+               (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') +
+               (as.length ? '<span class="as-tags">' + asTags(L, AS_OK) + add + '</span>' : '') +
+               '</span>' + (as.length ? '' : add) + '</div>' +
                '<div class="lane__track">' + bits + '</div></div>';
     }
 
-    var html = monthScale(), i = 0;
-    GROUPS.forEach(function (g) {
-        html += '<div class="group"><h2>' + g.venue + '</h2><span class="meta">' + g.meta +
-                ' · <a href="' + g.url + '" target="_blank" rel="noopener">call</a></span></div>';
-        g.lanes.forEach(function (L) {
-            L._venue = g.venue; L._conf = L.conf || g.conf; L._url = g.url;
-            html += laneHTML(L, i++);
+
+    /* ---------- assignments (assignments.js) ---------- */
+    // A student's assigned deadline gets a name tag on the matching row; a
+    // deadline the chart does not have is added under its venue (or under a
+    // new venue heading) with the venue guide's dates. Rows the venue guide
+    // also has get "+ Assign", which saves to the same draft as the venue
+    // guide, so both pages always agree. Names are kept as plain text and
+    // escaped when drawn.
+    var AS_PUB = null, AS_DATA = null, AS_OK = false, TABLE_ONLY = [];
+    var ROW_LIST = [], ROWS = {};   // venue-guide rows, and the same by normalised venue name
+
+    var root  = document.getElementById("gantt");
+    var tip   = document.getElementById("tip");
+    var btns  = [].slice.call(document.querySelectorAll('.filters[aria-label="Filter lanes"] button'));
+    var asBox = document.getElementById("asFilters");
+    var panel = document.getElementById("asPanel");
+    var asTarget = null;   // the venue-guide deadline the Assign box is for
+
+    // Load the assignments and the venue guide's rows (about 1 MB, for the
+    // "+ Assign" buttons and the dates of added rows), then draw. If either
+    // fails the chart still draws, without that part.
+    function start() {
+        wire();
+        if (typeof UXIDAssign === "undefined") { render(); return; }
+        Promise.all([
+            UXIDAssign.fetchPublished(),
+            fetch("venues-data.json")
+                .then(function (r) { return r.ok ? r.json() : { rows: [] }; })
+                .catch(function () { return { rows: [] }; })
+        ])
+            .then(function (res) {
+                AS_PUB = res[0];
+                AS_DATA = UXIDAssign.current(AS_PUB).data;
+                AS_OK = UXIDAssign.storageOK();
+                ROW_LIST = res[1].rows || [];
+                ROW_LIST.forEach(function (r) {
+                    var k = UXIDAssign.normaliseVenue(r.n);
+                    (ROWS[k] = ROWS[k] || []).push(r);
+                });
+            })
+            .catch(function () { AS_DATA = null; })
+            .then(render);
+    }
+
+    function render() {
+        TABLE_ONLY = AS_DATA ? UXIDAssign.place(GROUPS, AS_DATA, ROW_LIST, T0, T1) : [];
+        draw();
+    }
+
+    // Every change goes through here: op(data) -> new data, applied to the
+    // draft as saved now (another tab may have changed it). Then redraw.
+    function change(op, focusKey) {
+        AS_DATA = UXIDAssign.update(AS_PUB, op);
+        render();
+        if (focusKey) { focusAdd(focusKey); }
+    }
+
+    function focusAdd(key) {
+        var b = [].slice.call(root.querySelectorAll(".as-add"))
+            .filter(function (x) { return x.dataset.key === key; })[0];
+        if (b) { b.focus(); }
+    }
+
+    function openPanel(btn) {
+        var L = laneData[+btn.dataset.i];
+        if (!L || !L._row) { return; }
+        var r = L._row;
+        asTarget = { key: UXIDAssign.rowKey(r), venue: r.n, track: r.tr, dl: r.dl || "" };
+        // The venue guide's name for it, which may differ from the chart's.
+        document.getElementById("asWhat").textContent =
+            r.n + " · " + r.tr + (r.dl ? " · " + fmt(UXIDAssign.isoDate(r.dl)) : "");
+        document.getElementById("asStudents").innerHTML = AS_DATA.students.map(function (s) {
+            return '<option value="' + esc(s.name) + '">';
+        }).join("");
+        document.getElementById("asProjects").innerHTML = UXIDAssign.projects(AS_DATA).map(function (p) {
+            return '<option value="' + esc(p) + '">';
+        }).join("");
+        document.getElementById("asPicks").innerHTML = UXIDAssign.pickerHTML(AS_DATA);
+        document.getElementById("asForm").reset();
+        panel.hidden = false;
+        var b = btn.getBoundingClientRect();
+        panel.style.top = (b.bottom + window.scrollY + 4) + "px";
+        panel.style.left = Math.max(8, Math.min(b.left + window.scrollX,
+            window.scrollX + document.documentElement.clientWidth - panel.offsetWidth - 8)) + "px";
+        tip.style.opacity = 0;
+        document.getElementById("asStudent").focus();
+    }
+
+    function closePanel(refocus) {
+        if (panel.hidden) { return; }
+        panel.hidden = true;
+        var key = asTarget && asTarget.key;
+        asTarget = null;
+        if (refocus && key) { focusAdd(key); }
+    }
+
+    function pressed(list) {
+        return list.filter(function (o) { return o.getAttribute("aria-pressed") === "true"; })[0];
+    }
+
+    function applyFilters() {
+        var f = (pressed(btns) || btns[0]).dataset.f;
+        var ab = pressed([].slice.call(asBox.querySelectorAll("button")));
+        var a = ab ? ab.dataset.a : "";
+        [].slice.call(root.querySelectorAll(".lane")).forEach(function (lane) {
+            var who = lane.dataset.as ? lane.dataset.as.split("|") : [];
+            var show = (f === "all" ||
+                (f === "open"      && lane.dataset.past === "0") ||
+                (f === "short"     && lane.dataset.kind === "short") ||
+                (f === "confirmed" && lane.dataset.proj === "0")) &&
+                (a === "" || (a === "*" ? who.length > 0 : who.indexOf(a) >= 0));
+            lane.hidden = !show;
         });
-    });
+        // Hide a venue heading when the filters leave it no lanes.
+        [].slice.call(root.querySelectorAll(".group")).forEach(function (g) {
+            var el = g.nextElementSibling, any = false;
+            while (el && el.classList.contains("lane")) { any = any || !el.hidden; el = el.nextElementSibling; }
+            g.hidden = !any;
+        });
+    }
 
-    var root = document.getElementById("gantt");
-    root.innerHTML = html;
+    // Listeners that live for the whole visit; draw() only replaces content.
+    function wire() {
+        /* ---------- tooltip ---------- */
+        function row(k, v) { return v ? "<dt>" + k + "</dt><dd>" + fmt(v) + "</dd>" : ""; }
 
-    /* today line, positioned over the track column only */
-    var line = document.createElement("div");
-    line.className = "today";
-    line.style.left = "calc(var(--label-w) + (100% - var(--label-w)) * " + (pct(TODAY) / 100) + ")";
-    root.appendChild(line);
+        root.addEventListener("mousemove", function (e) {
+            var lane = e.target.closest(".lane");
+            if (!lane || !panel.hidden) { tip.style.opacity = 0; return; }
+            var L = laneData[+lane.dataset.i];
+            var days = Math.round((L.dl - TODAY) / 86400000);
+            tip.innerHTML = "<strong>" + esc(L._venue) + "</strong>" + esc(L.track) +
+                (L.proj ? " · projected" : "") +
+                "<dl>" + row("Abstract", L.abs) + row("Deadline", L.dl) +
+                row(L.notifLabel || "Notification", L.notif) +
+                row(L.crLabel || "Camera-ready", L.cr) +
+                (L._conf ? "<dt>Event</dt><dd>" + fmtRange(L._conf) + "</dd>" : "") +
+                "</dl>" +
+                (L._as && L._as.length
+                    ? "<div style='margin-top:6px'><b>Assigned:</b> " + L._as.map(function (it) {
+                          return esc(it.student) + " (" + esc(it.project) + ")";
+                      }).join(", ") + "</div>"
+                    : "") +
+                "<div style='margin-top:6px;color:var(--ink-dim)'>" +
+                (days === 0 ? "today" : days < 0 ? Math.abs(days) + " days ago" : days + " days from today") + "</div>";
+            tip.style.opacity = 1;
+            var x = Math.min(e.clientX + 16, window.innerWidth - 326);
+            var y = Math.min(e.clientY + 16, window.innerHeight - tip.offsetHeight - 10);
+            tip.style.left = x + "px";
+            tip.style.top = y + "px";
+        });
+        root.addEventListener("mouseleave", function () { tip.style.opacity = 0; });
 
-    /* ---------- tooltip ---------- */
-    var tip = document.getElementById("tip");
-    function row(k, v) { return v ? "<dt>" + k + "</dt><dd>" + fmt(v) + "</dd>" : ""; }
-
-    root.addEventListener("mousemove", function (e) {
-        var lane = e.target.closest(".lane");
-        if (!lane) { tip.style.opacity = 0; return; }
-        var L = laneData[+lane.dataset.i];
-        var days = Math.round((L.dl - TODAY) / 86400000);
-        tip.innerHTML = "<strong>" + L._venue + "</strong>" + L.track +
-            (L.proj ? " · projected" : "") +
-            "<dl>" + row("Abstract", L.abs) + row("Deadline", L.dl) +
-            row(L.notifLabel || "Notification", L.notif) +
-            row(L.crLabel || "Camera-ready", L.cr) +
-            (L._conf ? "<dt>Event</dt><dd>" + fmtRange(L._conf) + "</dd>" : "") +
-            "</dl>" +
-            "<div style='margin-top:6px;color:var(--ink-dim)'>" +
-            (days === 0 ? "today" : days < 0 ? Math.abs(days) + " days ago" : days + " days from today") + "</div>";
-        tip.style.opacity = 1;
-        var x = Math.min(e.clientX + 16, window.innerWidth - 326);
-        var y = Math.min(e.clientY + 16, window.innerHeight - tip.offsetHeight - 10);
-        tip.style.left = x + "px";
-        tip.style.top = y + "px";
-    });
-    root.addEventListener("mouseleave", function () { tip.style.opacity = 0; });
-
-    /* ---------- filters ---------- */
-    var btns = [].slice.call(document.querySelectorAll(".filters button"));
-    btns.forEach(function (b) {
-        b.addEventListener("click", function () {
-            btns.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
-            var f = b.dataset.f;
-            [].slice.call(root.querySelectorAll(".lane")).forEach(function (lane) {
-                var show = f === "all" ||
-                    (f === "open"      && lane.dataset.past === "0") ||
-                    (f === "short"     && lane.dataset.kind === "short") ||
-                    (f === "confirmed" && lane.dataset.proj === "0");
-                lane.hidden = !show;
-            });
-            // Hide a venue heading when the filter leaves it no lanes.
-            [].slice.call(root.querySelectorAll(".group")).forEach(function (g) {
-                var el = g.nextElementSibling, any = false;
-                while (el && el.classList.contains("lane")) { any = any || !el.hidden; el = el.nextElementSibling; }
-                g.hidden = !any;
+        /* ---------- filters ---------- */
+        // Two rows of buttons that work together: the track filter, and (when
+        // anyone is assigned) Everyone / Assigned only / one button per student.
+        btns.forEach(function (b) {
+            b.addEventListener("click", function () {
+                btns.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+                applyFilters();
             });
         });
-    });
+        asBox.addEventListener("click", function (e) {
+            var b = e.target.closest("button");
+            if (!b) { return; }
+            [].slice.call(asBox.querySelectorAll("button")).forEach(function (o) {
+                o.setAttribute("aria-pressed", String(o === b));
+            });
+            applyFilters();
+        });
 
-    /* ---------- table ---------- */
-    var flat = laneData.slice().sort(function (a, b) { return a.dl - b.dl; });
-    var nextSeen = false;
-    document.getElementById("rows").innerHTML = flat.map(function (L) {
-        var past = L.dl < TODAY;
-        var isNext = !past && !nextSeen;
-        if (isNext) { nextSeen = true; }
-        var pill = past ? '<span class="pill pill--past">closed</span>'
-                        : (L.proj ? '<span class="pill pill--proj">projected</span>'
-                                  : '<span class="pill pill--conf">confirmed</span>');
-        return '<tr class="' + (past ? "is-past" : (isNext ? "is-next" : "")) + '">' +
-            '<td class="d">' + fmt(L.dl) + '</td>' +
-            '<td>' + L._venue.split(" — ")[0] + '</td>' +
-            '<td>' + L.track + (L.abs ? ' <span style="color:var(--ink-dim)">(abstract ' + fmt(L.abs) + ')</span>' : '') + '</td>' +
-            '<td>' + pill + '</td>' +
-            '<td class="d">' + fmt(L.notif) + '</td>' +
-            '<td class="d">' + fmt(L.cr) + '</td>' +
-            '<td class="d">' + fmtRange(L._conf) + '</td>' +
-            '</tr>';
-    }).join("");
+        /* ---------- assigning ---------- */
+        root.addEventListener("click", function (e) {
+            var x = e.target.closest(".as-x"), add = e.target.closest(".as-add");
+            if (x) {
+                var key = x.dataset.key, who = x.dataset.student;
+                var own = x.closest(".lane").querySelector(".as-add");
+                change(function (d) { return UXIDAssign.remove(d, key, who); }, own && own.dataset.key);
+            } else if (add) {
+                if (!panel.hidden && asTarget && asTarget.key === add.dataset.key) { closePanel(true); }
+                else { openPanel(add); }
+            }
+        });
+        document.getElementById("asForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var t = asTarget;
+            if (!t) { return; }
+            var who = document.getElementById("asStudent").value, what = document.getElementById("asProject").value;
+            panel.hidden = true;
+            asTarget = null;
+            change(function (d) { return UXIDAssign.add(d, t, who, what); }, t.key);
+        });
+        document.getElementById("asCancel").addEventListener("click", function () { closePanel(true); });
 
-    /* ---------- stamp ---------- */
-    var open = flat.filter(function (L) { return L.dl >= TODAY; });
-    document.getElementById("stamp").textContent =
-        (open.length
-            ? open.length + " deadlines still open · next up: " + open[0].track + " for " +
-              open[0]._venue.split(" — ")[0] + " on " + fmt(open[0].dl)
-            : "No deadlines on this chart are still open") +
-        " · dates checked 23 October 2026";
+        // The Assign box lists every student as a button in their colour; a
+        // click fills the name in. A name typed that is not on the list is
+        // added to it (assignments only, not the People page) with a random
+        // colour on Save.
+        function syncPicks() {
+            var v = document.getElementById("asStudent").value.trim().toLowerCase();
+            [].slice.call(document.querySelectorAll("#asPicks .as-pick")).forEach(function (b) {
+                b.setAttribute("aria-pressed", String(b.dataset.name.toLowerCase() === v));
+            });
+        }
+        document.getElementById("asPicks").addEventListener("click", function (e) {
+            var b = e.target.closest(".as-pick");
+            if (!b) { return; }
+            document.getElementById("asStudent").value = b.dataset.name;
+            syncPicks();
+            document.getElementById("asProject").focus();
+        });
+        document.getElementById("asStudent").addEventListener("input", syncPicks);
+
+        panel.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") { e.preventDefault(); closePanel(true); }
+        });
+        document.addEventListener("mousedown", function (e) {
+            if (!panel.hidden && !panel.contains(e.target) && !e.target.closest(".as-add")) { closePanel(false); }
+        });
+        // The chart scrolls inside its own box; the box would leave the row behind.
+        document.querySelector(".gantt").addEventListener("scroll", function () { closePanel(false); });
+
+        // The venue guide (or another tab) changed or discarded the draft.
+        window.addEventListener("storage", function (e) {
+            if (!AS_PUB || (e.key !== null && e.key !== UXIDAssign.DRAFT_KEY)) { return; }
+            AS_DATA = UXIDAssign.current(AS_PUB).data;
+            render();
+        });
+    }
+
+    function draw() {
+        var html = monthScale(), i = 0;
+        laneData = [];
+        GROUPS.forEach(function (g) {
+            html += '<div class="group"><h2>' + esc(g.venue) + '</h2><span class="meta">' + esc(g.meta) +
+                    ' · <a href="' + esc(g.url) + '" target="_blank" rel="noopener">call</a></span></div>';
+            g.lanes.forEach(function (L) {
+                L._venue = g.venue; L._conf = L.conf || g.conf; L._url = g.url;
+                L._row = AS_OK ? UXIDAssign.rowFor(ROWS[UXIDAssign.normaliseVenue(g.venue)] || [], g.venue, L) : null;
+                html += laneHTML(L, i++);
+            });
+        });
+
+        root.innerHTML = html;
+
+        /* today line, positioned over the track column only */
+        var line = document.createElement("div");
+        line.className = "today";
+        line.style.left = "calc(var(--label-w) + (100% - var(--label-w)) * " + (pct(TODAY) / 100) + ")";
+        root.appendChild(line);
+
+        /* student filter buttons: one per student with an assignment; keep
+           the one picked if that student still has any */
+        var assigned = {};
+        laneData.forEach(function (L) { (L._as || []).forEach(function (it) { assigned[it.student] = 1; }); });
+        var people = AS_DATA ? AS_DATA.students.filter(function (s) { return assigned[s.name]; }) : [];
+        var was = pressed([].slice.call(asBox.querySelectorAll("button")));
+        var sel = was && (was.dataset.a === "*" || assigned[was.dataset.a]) ? was.dataset.a : "";
+        asBox.innerHTML = people.length
+            ? [{ a: "", label: "Everyone" }, { a: "*", label: "Assigned only" }].map(function (o) {
+                  return '<button type="button" data-a="' + o.a + '" aria-pressed="' + (sel === o.a) + '">' + o.label + "</button>";
+              }).join("") +
+              people.map(function (s) {
+                  return '<button type="button" data-a="' + esc(s.name) + '" aria-pressed="' + (sel === s.name) + '">' +
+                         '<i class="as-dot" style="background:' + UXIDAssign.colorOf(AS_DATA, s.name) + '"></i>' +
+                         esc(s.name) + '</button>';
+              }).join("")
+            : "";
+        asBox.hidden = !people.length;
+        applyFilters();
+
+        /* unpublished changes */
+        var n = AS_DATA && AS_PUB ? UXIDAssign.changeCount(AS_PUB, AS_DATA) : 0;
+        var note = document.getElementById("asNote");
+        note.hidden = !n;
+        note.innerHTML = n
+            ? "<b>" + n + (n === 1 ? " change" : " changes") + " not published yet.</b> Only you see " +
+              (n === 1 ? "it" : "them") + ' until published: use Download file in the <a href="venues.html">venue guide</a>.'
+            : "";
+
+        /* ---------- table ---------- */
+        var flat = laneData.slice().sort(function (a, b) { return a.dl - b.dl; });
+        // Assigned deadlines the timeline cannot show (no date, or outside its
+        // range) still get a table row, one per deadline.
+        var extra = {};
+        TABLE_ONLY.forEach(function (it) {
+            var x = extra[it.key] || (extra[it.key] = { dl: UXIDAssign.isoDate(it.dl), _venue: it.venue, track: it.track, _as: [] });
+            x._as.push(it);
+        });
+        var tableRows = flat.concat(Object.keys(extra).map(function (k) { return extra[k]; }))
+            .sort(function (a, b) { return (a.dl ? a.dl.getTime() : Infinity) - (b.dl ? b.dl.getTime() : Infinity); });
+        var nextSeen = false;
+        document.getElementById("rows").innerHTML = tableRows.map(function (L) {
+            var past = !!L.dl && L.dl < TODAY;
+            var isNext = !past && !!L.dl && !nextSeen;
+            if (isNext) { nextSeen = true; }
+            var pill = past ? '<span class="pill pill--past">closed</span>'
+                            : (L.proj ? '<span class="pill pill--proj">projected</span>'
+                                      : (L.dl ? '<span class="pill pill--conf">confirmed</span>'
+                                              : '<span class="pill pill--proj">no date</span>'));
+            return '<tr class="' + (past ? "is-past" : (isNext ? "is-next" : "")) + '">' +
+                '<td class="d">' + fmt(L.dl) + '</td>' +
+                '<td>' + esc(L._venue.split(" — ")[0]) + '</td>' +
+                '<td>' + esc(L.track) + (L.abs ? ' <span style="color:var(--ink-dim)">(abstract ' + fmt(L.abs) + ')</span>' : '') + '</td>' +
+                '<td>' + (L._as && L._as.length ? asTags(L, false) : '—') + '</td>' +
+                '<td>' + pill + '</td>' +
+                '<td class="d">' + fmt(L.notif) + '</td>' +
+                '<td class="d">' + fmt(L.cr) + '</td>' +
+                '<td class="d">' + fmtRange(L._conf) + '</td>' +
+                '</tr>';
+        }).join("");
+
+        /* ---------- stamp ---------- */
+        var open = flat.filter(function (L) { return L.dl >= TODAY; });
+        document.getElementById("stamp").textContent =
+            (open.length
+                ? open.length + " deadlines still open · next up: " + open[0].track + " for " +
+                  open[0]._venue.split(" — ")[0] + " on " + fmt(open[0].dl)
+                : "No deadlines on this chart are still open") +
+            " · dates checked 23 October 2026";
+    }
+
+    start();
 })();
 </script>
 

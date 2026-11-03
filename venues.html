@@ -92,7 +92,7 @@ h2.sec { font-family: var(--font-display); font-size: 1.3rem; color: var(--accen
    (an impact factor written as a sentence) could stretch a whole column. */
 table { border-collapse: collapse; width: 100%; font-size: .81rem; line-height: 1.35;
     table-layout: fixed; }
-#t-main { min-width: 1260px; }
+#t-main { min-width: 1380px; }
 th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 /* One line per cell: long values truncate and carry the full text in a tooltip
    and in the expanded row, so row height stays constant. */
@@ -154,6 +154,69 @@ td.d { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600
 td.acc { color: var(--ink-muted); }
 
 td.ev b { color: var(--ink); font-weight: 600; }
+/* ---------- Assignments (assignments.js): who works on which deadline ---------- */
+/* A flex row, so the "+" and each ✕ keep their size and only the labels
+   shorten (with "…") when the cell is full. */
+.as-cell { display: flex; align-items: center; gap: 4px; min-width: 0; overflow: hidden; white-space: nowrap; }
+.as-cell .as-tag { margin-right: 0; min-width: 0; flex: 0 1 auto; }
+.as-l { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.as-more { flex: none; font-size: .7rem; font-weight: 700; color: var(--ink-muted); }
+.as-tag {
+    display: inline-flex; align-items: center; gap: 2px; max-width: 100%; vertical-align: middle;
+    font-size: .7rem; font-weight: 700; line-height: 1.5; color: #1F2937;
+    border-radius: 999px; padding: 0 7px; margin-right: 4px; overflow: hidden; white-space: nowrap;
+}
+.as-x {
+    flex: none; border: 0; background: none; color: #1F2937; font: inherit; font-size: .68rem; line-height: 1;
+    padding: 0 0 0 3px; cursor: pointer; opacity: .65;
+}
+.as-x:hover, .as-x:focus-visible { opacity: 1; }
+/* "+ Assign" shows on hover or keyboard focus (opacity, not visibility, so it
+   stays reachable with Tab), and always as a small "+" once a row has tags. */
+.as-add {
+    font: inherit; font-size: .7rem; font-weight: 700; color: var(--accent); cursor: pointer;
+    background: none; border: 1px dashed rgba(244,208,63,.6); border-radius: 999px; padding: 0 8px;
+    opacity: 0; vertical-align: middle; flex: none;
+}
+tr.row:hover .as-add, tr.row:focus-within .as-add, td.as.has .as-add, .as-add:focus-visible { opacity: 1; }
+td.as.has .as-add-l { display: none; }
+.as-add:focus-visible, .as-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.as-panel {
+    position: absolute; z-index: 60; width: 300px; background: #0f1620; color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: 6px; padding: 10px 12px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5); font-size: .85rem;
+}
+.as-panel label { display: block; font-size: .66rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-dim); margin: 6px 0 3px; }
+.as-panel input {
+    width: 100%; font: inherit; color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--line-strong); border-radius: 4px; padding: 5px 8px;
+}
+.as-panel .as-picks { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 6px; max-height: 190px; overflow-y: auto; }
+.as-panel .as-pick {
+    font: inherit; font-size: .72rem; font-weight: 700; line-height: 1.5; color: #1F2937;
+    border: 2px solid transparent; border-radius: 999px; padding: 0 8px; cursor: pointer;
+}
+.as-panel .as-pick[aria-pressed="true"] { border-color: #fff; }
+.as-panel .as-pick:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.as-panel .as-btns { display: flex; gap: 8px; margin-top: 10px; }
+.as-panel button {
+    font: inherit; font-weight: 700; border-radius: 4px; padding: 4px 12px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: none; color: var(--ink);
+}
+.as-panel button[type="submit"] { background: var(--accent); border-color: var(--accent); color: #1F2937; }
+.as-bar {
+    margin: 0 0 10px; padding: 8px 12px; font-size: .85rem; border-radius: 6px;
+    background: rgba(244,208,63,.08); border: 1px solid rgba(244,208,63,.5);
+}
+.as-bar p + p { margin-top: 6px; }
+.as-bar b { color: var(--accent); }
+.as-bar button {
+    font: inherit; font-weight: 700; font-size: .8rem; cursor: pointer; border-radius: 4px;
+    padding: 2px 10px; margin-left: 4px; background: none; color: var(--ink); border: 1px solid var(--line-strong);
+}
+.as-bar button.as-x { border: 0; padding: 0 0 0 3px; margin: 0; color: #1F2937; }
+.as-bar .as-lost { color: var(--ink-muted); }
+
 /* Next-event location, tinted by region (see REGION in the script) */
 /* Solid fills, spread round the hue wheel and split by lightness too (dark text
    on the light fills, white on the dark ones), so red/pink and green/blue stay
@@ -473,6 +536,10 @@ td.how b { color: var(--ink); font-weight: 600; }
                 </select>
             </div>
             <div class="fld">
+                <label for="fAs">Assigned to</label>
+                <select id="fAs"><option value="">Anyone</option></select>
+            </div>
+            <div class="fld">
                 <label for="fSort">Sort by</label>
                 <select id="fSort">
                     <option value="dl">Deadline</option>
@@ -499,20 +566,25 @@ td.how b { color: var(--ink); font-weight: 600; }
             </span>
         </div>
 
+        <!-- Unpublished assignment changes in this browser, and any assignment
+             whose deadline is no longer in the guide. Filled by updateBar(). -->
+        <div id="asBar" class="as-bar" role="status" hidden></div>
+
         <div class="tablewrap">
             <table id="t-main">
                 <colgroup>
-                    <col style="width:8%"><col style="width:15%"><col style="width:5.5%">
-                    <col style="width:5.5%"><col style="width:8%"><col style="width:7%">
-                    <col style="width:4%"><col style="width:6%"><col style="width:5%">
-                    <col style="width:4.5%"><col style="width:6%"><col style="width:7.5%">
-                    <col style="width:6%"><col style="width:12%">
+                    <col style="width:8%"><col style="width:10%"><col style="width:5.5%">
+                    <col style="width:12%"><col style="width:5.5%"><col style="width:6.5%">
+                    <col style="width:6.5%"><col style="width:4%"><col style="width:6%">
+                    <col style="width:5%"><col style="width:4.5%"><col style="width:6%">
+                    <col style="width:6.5%"><col style="width:5%"><col style="width:9%">
                 </colgroup>
                 <thead>
                     <tr>
                         <th scope="col">Venue</th>
                         <th scope="col">Track</th>
                         <th scope="col">Deadline</th>
+                        <th scope="col">Assigned</th>
                         <th scope="col">Abstract</th>
                         <th scope="col">Pages</th>
                         <th scope="col">User study</th>
@@ -566,6 +638,20 @@ td.how b { color: var(--ink); font-weight: 600; }
         </div>
         <p class="jnote" id="jnote"></p>
 
+        <!-- One shared box for "+ Assign"; positioned under the button that opened it. -->
+        <div id="asPanel" class="as-panel" role="dialog" aria-label="Assign a student to this deadline" hidden>
+            <form id="asForm">
+                <label for="asStudent">Student</label>
+                <div class="as-picks" id="asPicks" role="group" aria-label="Pick a student"></div>
+                <input id="asStudent" list="asStudents" autocomplete="off" required placeholder="or type a new name">
+                <label for="asProject">Project</label>
+                <input id="asProject" list="asProjects" autocomplete="off" required>
+                <div class="as-btns"><button type="submit">Save</button><button type="button" id="asCancel">Cancel</button></div>
+            </form>
+            <datalist id="asStudents"></datalist>
+            <datalist id="asProjects"></datalist>
+        </div>
+
         <h2 class="sec">Which venue for which area</h2>
         <p class="sec-note">
             Built from the area tags in the workbook. The first line is where the workbook
@@ -618,6 +704,7 @@ td.how b { color: var(--ink); font-weight: 600; }
 
 </main>
 
+<script src="assignments.js?v=2026-11-03c"></script>
 <script>
 (function () {
     "use strict";
@@ -800,12 +887,18 @@ td.how b { color: var(--ink); font-weight: 600; }
     var DATA = null;
 
     function load() {
-        fetch("venues-data.json")
-            .then(function (r) {
+        Promise.all([
+            fetch("venues-data.json").then(function (r) {
                 if (!r.ok) { throw new Error("HTTP " + r.status); }
                 return r.json();
-            })
-            .then(function (j) {
+            }),
+            UXIDAssign.fetchPublished()
+        ])
+            .then(function (res) {
+                var j = res[0];
+                AS.pub = res[1];
+                AS.data = UXIDAssign.current(AS.pub).data;
+                AS.ok = UXIDAssign.storageOK();
                 DATA = j;
                 document.getElementById("loading").hidden = true;
                 document.getElementById("app").hidden = false;
@@ -839,7 +932,14 @@ td.how b { color: var(--ink); font-weight: 600; }
             });
     }
 
-    // skip = "cat" or "cont" leaves that one filter out, to count its options.
+    // "*" = anyone assigned; otherwise one student's name.
+    function assignedTo(r, who) {
+        var items = UXIDAssign.itemsFor(AS.data, UXIDAssign.rowKey(r));
+        if (who === "*") { return items.length > 0; }
+        return items.some(function (it) { return it.student.toLowerCase() === who.toLowerCase(); });
+    }
+
+    // skip = "cat", "cont" or "as" leaves that one filter out, to count its options.
     function current(skip) {
         var q = document.getElementById("q").value.trim().toLowerCase(),
             area = document.getElementById("fArea").value,
@@ -848,6 +948,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             cat = document.getElementById("fCat").value,
             ty = document.getElementById("fType").value,
             cont = document.getElementById("fLoc").value,
+            asg = document.getElementById("fAs").value,
             up = document.getElementById("fUp").checked,
             sort = document.getElementById("fSort").value;
 
@@ -861,6 +962,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             if (cat && skip !== "cat" && r.cat !== cat) { return false; }
             if (ty && r.ty !== ty) { return false; }
             if (cont && skip !== "cont" && !inContinent(r, cont)) { return false; }
+            if (asg && skip !== "as" && !assignedTo(r, asg)) { return false; }
             // rolling and not-yet-announced tracks are always still open
             if (up && r.st === "dated" && r.dl < TODAY) { return false; }
             return true;
@@ -875,6 +977,227 @@ td.how b { color: var(--ink); font-weight: 600; }
         return out;
     }
 
+    /* ---------------- assignments ---------------- */
+    // pub = the published assignments.json; data = what this browser shows
+    // (the draft while it differs); ok = this browser can keep a draft.
+    var AS = { pub: null, data: null, ok: false, target: null };
+
+    function asTarget(r) { return { key: UXIDAssign.rowKey(r), venue: r.n, track: r.tr, dl: r.dl || "" }; }
+
+    // One assignment shows "Farnaz · OptiFill", two show both names, three or
+    // more show one name and "+2"; the row details list them all.
+    function asCell(r) {
+        var key = UXIDAssign.rowKey(r);
+        var items = UXIDAssign.itemsFor(AS.data, key);
+        var shown = items.length > 2 ? 1 : 2;
+        var tags = items.slice(0, shown).map(function (it) {
+            return UXIDAssign.tagHTML(AS.data, it, { removable: AS.ok, nameOnly: items.length > 1 });
+        }).join("");
+        var title = items.map(function (it) { return it.student + " · " + it.project; }).join(", ");
+        return '<td class="as' + (items.length ? " has" : "") + '"' + (title ? ' title="' + esc(title) + '"' : "") + ">" +
+            '<div class="as-cell">' + tags +
+            (items.length > shown ? '<span class="as-more">+' + (items.length - shown) + "</span>" : "") +
+            (AS.ok ? '<button type="button" class="as-add" data-key="' + esc(key) + '" aria-label="Assign a student to ' +
+                     esc(r.n + " " + r.tr) + '">+<span class="as-add-l"> Assign</span></button>' : "") +
+            "</div></td>";
+    }
+
+    function focusAdd(key) {
+        var b = [].slice.call(document.querySelectorAll("#rows .as-add"))
+            .filter(function (x) { return x.dataset.key === key; })[0];
+        if (b) { b.focus(); }
+    }
+
+    // Every change goes through here: op(data) -> new data. It is applied to
+    // the draft as saved now, so a tab opened earlier cannot undo another
+    // tab's changes. Then redraw.
+    function saveAndRender(op, focusKey) {
+        AS.data = UXIDAssign.update(AS.pub, op);
+        AS.saved = false;
+        render();
+        if (focusKey) { focusAdd(focusKey); }
+    }
+
+    // Another tab changed or discarded the draft: show what it saved.
+    window.addEventListener("storage", function (e) {
+        if (!DATA || !AS.pub || (e.key !== null && e.key !== UXIDAssign.DRAFT_KEY)) { return; }
+        AS.data = UXIDAssign.current(AS.pub).data;
+        render();
+    });
+
+    var panel = document.getElementById("asPanel");
+
+    function openPanel(btn) {
+        var r = DATA.rows.filter(function (x) { return UXIDAssign.rowKey(x) === btn.dataset.key; })[0];
+        if (!r) { return; }
+        AS.target = asTarget(r);
+        document.getElementById("asStudents").innerHTML = AS.data.students.map(function (s) {
+            return '<option value="' + esc(s.name) + '">';
+        }).join("");
+        document.getElementById("asProjects").innerHTML = UXIDAssign.projects(AS.data).map(function (p) {
+            return '<option value="' + esc(p) + '">';
+        }).join("");
+        document.getElementById("asPicks").innerHTML = UXIDAssign.pickerHTML(AS.data);
+        document.getElementById("asForm").reset();
+        panel.hidden = false;
+        var b = btn.getBoundingClientRect();
+        panel.style.top = (b.bottom + window.scrollY + 4) + "px";
+        panel.style.left = Math.max(8, Math.min(b.left + window.scrollX, window.scrollX + document.documentElement.clientWidth - panel.offsetWidth - 8)) + "px";
+        document.getElementById("asStudent").focus();
+    }
+
+    function closePanel(refocus) {
+        if (panel.hidden) { return; }
+        panel.hidden = true;
+        var key = AS.target && AS.target.key;
+        AS.target = null;
+        if (refocus && key) { focusAdd(key); }
+    }
+
+    document.getElementById("asForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var t = AS.target;
+        if (!t) { return; }
+        var who = document.getElementById("asStudent").value, what = document.getElementById("asProject").value;
+        panel.hidden = true;
+        AS.target = null;
+        saveAndRender(function (d) { return UXIDAssign.add(d, t, who, what); }, t.key);
+    });
+    document.getElementById("asCancel").addEventListener("click", function () { closePanel(true); });
+
+    // The Assign box lists every student as a button in their colour; a click
+    // fills the name in. A name typed that is not on the list is added to it
+    // (assignments only, not the People page) with a random colour on Save.
+    function syncPicks() {
+        var v = document.getElementById("asStudent").value.trim().toLowerCase();
+        [].slice.call(document.querySelectorAll("#asPicks .as-pick")).forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b.dataset.name.toLowerCase() === v));
+        });
+    }
+    document.getElementById("asPicks").addEventListener("click", function (e) {
+        var b = e.target.closest(".as-pick");
+        if (!b) { return; }
+        document.getElementById("asStudent").value = b.dataset.name;
+        syncPicks();
+        document.getElementById("asProject").focus();
+    });
+    document.getElementById("asStudent").addEventListener("input", syncPicks);
+
+    panel.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") { e.preventDefault(); closePanel(true); }
+    });
+    document.addEventListener("mousedown", function (e) {
+        if (!panel.hidden && !panel.contains(e.target) && !e.target.closest(".as-add")) { closePanel(false); }
+    });
+
+    // "Assigned to" options follow the student list (a new name adds one).
+    function syncAsFilter() {
+        var sel = document.getElementById("fAs"), v = sel.value;
+        var names = AS.data.students.map(function (s) { return s.name; });
+        sel.innerHTML = '<option value="">Anyone</option><option value="*">Any assigned</option>' +
+            names.map(function (n) { return '<option value="' + esc(n) + '">' + esc(n) + "</option>"; }).join("");
+        sel.value = (v === "" || v === "*" || names.indexOf(v) >= 0) ? v : "";
+    }
+
+    var asConfirm = false;   // the Discard button is asking "are you sure?"
+
+    function updateBar() {
+        var bar = document.getElementById("asBar");
+        var n = UXIDAssign.changeCount(AS.pub, AS.data);
+        var known = {};
+        DATA.rows.forEach(function (r) { known[UXIDAssign.rowKey(r)] = 1; });
+        var lost = AS.data.items.filter(function (it) { return !known[it.key]; });
+        if (!n && !lost.length) { bar.hidden = true; bar.innerHTML = ""; asConfirm = false; return; }
+        var words = n === 1 ? ["change", "it"] : ["changes", "them"];
+        bar.hidden = false;
+        bar.innerHTML =
+            (n ? "<p><b>" + n + " " + words[0] + " not published yet.</b> Only you see " + words[1] +
+                 " until " + (n === 1 ? "it is" : "they are") + " published." +
+                 ' <button type="button" id="asDownload">Download file</button>' +
+                 (AS.saved ? ' <span>Saved. Tell Claude &ldquo;publish the assignments&rdquo;.</span>' : "") +
+                 (asConfirm
+                     ? ' <span>Discard ' + n + " " + words[0] + '? <button type="button" id="asDiscardYes">Yes</button>' +
+                       '<button type="button" id="asDiscardNo">No</button></span>'
+                     : ' <button type="button" id="asDiscard">Discard</button>') +
+                 "</p>" : "") +
+            (lost.length
+                ? '<p class="as-lost">No longer matches a deadline in the guide: ' + lost.map(function (it) {
+                      return esc(it.venue + " · " + it.track + " · " + (it.dl ? md(it.dl) : "no date")) + " " +
+                             UXIDAssign.tagHTML(AS.data, it, { removable: AS.ok });
+                  }).join(" ") + "</p>"
+                : "");
+    }
+
+    // Saves the draft as assignments.json. Chrome asks where (pick the website
+    // folder once and it remembers it, so the file lands where it is published
+    // from); other browsers download it to Downloads.
+    function plainDownload(text) {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+        a.download = "assignments.json";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    }
+
+    function downloadFile() {
+        var text = UXIDAssign.toFile(AS.data, TODAY);
+        if (!window.showSaveFilePicker) { plainDownload(text); return; }
+        window.showSaveFilePicker({
+            id: "uxid-assignments", suggestedName: "assignments.json",
+            types: [{ description: "Assignments", accept: { "application/json": [".json"] } }]
+        })
+            .then(function (h) { return h.createWritable(); })
+            .then(function (w) { return w.write(text).then(function () { return w.close(); }); })
+            .then(function () { AS.saved = true; updateBar(); })
+            .catch(function (e) { if (!e || e.name !== "AbortError") { plainDownload(text); } });
+    }
+
+    document.getElementById("asBar").addEventListener("click", function (e) {
+        var t = e.target.closest("button");
+        if (!t) { return; }
+        if (t.classList.contains("as-x")) {
+            saveAndRender(removeOp(t));
+        } else if (t.id === "asDownload") {
+            downloadFile();
+        } else if (t.id === "asDiscard") {
+            asConfirm = true; updateBar(); document.getElementById("asDiscardYes").focus();
+        } else if (t.id === "asDiscardNo") {
+            asConfirm = false; updateBar(); document.getElementById("asDiscard").focus();
+        } else if (t.id === "asDiscardYes") {
+            asConfirm = false; UXIDAssign.clearDraft(); AS.data = AS.pub; render();
+        }
+    });
+
+    function removeOp(x) {
+        var key = x.dataset.key, who = x.dataset.student;
+        return function (d) { return UXIDAssign.remove(d, key, who); };
+    }
+
+    // Opens a row's details again after a redraw closed them.
+    function reopen(key) {
+        var rows = document.getElementById("rows");
+        var tr = [].slice.call(rows.querySelectorAll("tr.row")).filter(function (t) {
+            return UXIDAssign.rowKey(rows._list[+t.dataset.i]) === key;
+        })[0];
+        if (tr) { tr.click(); }
+    }
+
+    // Clicks inside the Assigned cell never open or close the row. A ✕ in
+    // the row details removes that student and keeps the details open.
+    function asClick(e) {
+        var x = e.target.closest(".as-x"), add = e.target.closest(".as-add");
+        if (x) {
+            var inDetails = !!x.closest("tr.det");
+            saveAndRender(removeOp(x), inDetails ? null : x.dataset.key);
+            if (inDetails) { reopen(x.dataset.key); focusAdd(x.dataset.key); }
+        } else if (add) {
+            if (!panel.hidden && AS.target && AS.target.key === add.dataset.key) { closePanel(true); }
+            else { openPanel(add); }
+        }
+    }
+
     // Option counts follow the other filters, so each one matches what the
     // table would show if you picked it.
     function setCounts(id, rows, match) {
@@ -887,9 +1210,12 @@ td.how b { color: var(--ink); font-weight: 600; }
     }
 
     function render() {
+        syncAsFilter();
         var list = current();
         setCounts("fCat", current("cat"), function (r, v) { return r.cat === v; });
         setCounts("fLoc", current("cont"), inContinent);
+        setCounts("fAs", current("as"), assignedTo);
+        updateBar();
         document.getElementById("cnt").textContent = list.length;
         var vs = {};
         list.forEach(function (r) { vs[r.n] = 1; });
@@ -913,6 +1239,7 @@ td.how b { color: var(--ink); font-weight: 600; }
                 '<td class="trk" title="' + esc(r.tr) + '">' +
                     (cs ? '<span class="cp ' + cs[1] + '">' + cs[2] + "</span>" : "") + esc(r.tr) + "</td>" +
                 '<td class="d">' + dl + "</td>" +
+                asCell(r) +
                 '<td class="d">' + (r.ab ? md(r.ab) : "—") + "</td>" +
                 '<td class="pg" title="' + esc(r.pg) + '">' + esc(shortPages(r.pg)) + "</td>" +
                 "<td>" + pill(u[0], u[1]) + "</td>" +
@@ -934,6 +1261,7 @@ td.how b { color: var(--ink); font-weight: 600; }
     }
 
     document.getElementById("rows").addEventListener("click", function (e) {
+        if (e.target.closest("td.as, .as-x")) { asClick(e); return; }
         var tr = e.target.closest("tr.row");
         if (!tr) { return; }
         var open = tr.classList.contains("open");
@@ -948,8 +1276,11 @@ td.how b { color: var(--ink); font-weight: 600; }
                     r.part.map(function (a) { return pill("areachip part", a); }).join("");
         var d = document.createElement("tr");
         d.className = "det";
-        d.innerHTML = '<td colspan="14"><dl class="det-grid">' +
+        d.innerHTML = '<td colspan="15"><dl class="det-grid">' +
             "<div><dt>Full name</dt><dd>" + esc(r.fn || "—") + "</dd></div>" +
+            "<div><dt>Assigned</dt><dd>" + (UXIDAssign.itemsFor(AS.data, UXIDAssign.rowKey(r)).map(function (it) {
+                return UXIDAssign.tagHTML(AS.data, it, { removable: AS.ok });
+            }).join(" ") || "—") + "</dd></div>" +
             "<div><dt>Page limit</dt><dd>" + esc(r.pg || "—") + "</dd></div>" +
             "<div><dt>Notification</dt><dd>" + (r.nt ? md(r.nt) : "—") + "</dd></div>" +
             "<div><dt>Camera-ready</dt><dd>" + (r.cr ? md(r.cr) : "—") + "</dd></div>" +
@@ -1093,7 +1424,7 @@ td.how b { color: var(--ink); font-weight: 600; }
     }
 
     function wire() {
-        ["q", "fArea", "fTier", "fUs", "fCat", "fType", "fLoc", "fSort", "fUp"].forEach(function (id) {
+        ["q", "fArea", "fTier", "fUs", "fCat", "fType", "fLoc", "fAs", "fSort", "fUp"].forEach(function (id) {
             document.getElementById(id)
                 .addEventListener(id === "q" ? "input" : "change", render);
         });
@@ -1105,6 +1436,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             document.getElementById("fCat").value = "";
             document.getElementById("fType").value = "";
             document.getElementById("fLoc").value = "";
+            document.getElementById("fAs").value = "";
             document.getElementById("fSort").value = "dl";
             document.getElementById("fUp").checked = true;
             render();
