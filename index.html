@@ -649,7 +649,7 @@
                 <label class="visually-hidden" for="pub-search">Search publications by title, author or venue</label>
                 <input type="search" id="pub-search" class="pub-search"
                        placeholder="Search title, author or venue&hellip;" autocomplete="off">
-                <span id="pub-count" class="pub-count" aria-live="polite">31 publications</span>
+                <span id="pub-count" class="pub-count" aria-live="polite">33 publications</span>
             </div>
         </div>
 
@@ -657,6 +657,26 @@
 
 
 <!-- 2026 Papers -->
+
+        <div class="publication-item" data-year="2026" data-theme="humanai" id="pub-trait-activation-steering-keeping-small">
+            <img loading="lazy" src="images/cser2026-tast.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #241717;" width="216" height="284">
+            <div class="publication-details">
+                <span class="publication-badge">CSER '26</span>
+                <h3 class="pub-title">Trait Activation Steering: Keeping Small-Model NPCs in Character</h3>
+                <div class="publication-authors">Kevin Christopher Chua, Al Muqshith Mohamed Shifan, <strong>Ali Neshati</strong>, Loutfouz Zaman, Cristiano Politowski</div>
+                <span class="publication-venue">Consortium for Software Engineering Research (CSER 2026), Posters</span>
+            </div>
+        </div>
+
+        <div class="publication-item" data-year="2026" data-theme="humanai" id="pub-evolved-neural-agents-as-tireless-playt">
+            <img loading="lazy" src="images/cser2026-peak.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #241717;" width="216" height="284">
+            <div class="publication-details">
+                <span class="publication-badge">CSER '26</span>
+                <h3 class="pub-title">Evolved Neural Agents as Tireless Playtesters</h3>
+                <div class="publication-authors">Al Muqshith Mohamed Shifan, Kevin Christopher Chua, <strong>Ali Neshati</strong>, Loutfouz Zaman, Cristiano Politowski</div>
+                <span class="publication-venue">Consortium for Software Engineering Research (CSER 2026), Posters</span>
+            </div>
+        </div>
 
         <div class="publication-item" data-year="2026" data-theme="wearable humanai" id="pub-causal-health-agent-from-wearable-sensor">
             <img loading="lazy" src="images/causalhealth.webp" alt="" class="publication-thumbnail" style="object-fit: contain; background: #fff;" width="760" height="428">
@@ -1242,9 +1262,33 @@
     <div class="container container--narrow">
         <h2 class="section-title news-x1">Recent News</h2>
 
-        <!-- Photo highlights. These four photos were the old hero carousel;
-             each card links to the matching dated item in the list below. -->
+        <!-- Photo highlights: the four newest news items with a picture; each
+             card links to the matching dated item in the list below. -->
         <ul class="highlights" aria-label="News highlights">
+            <li class="highlight">
+                <a href="#news-cser-2026-two-posters">
+                    <img loading="lazy" src="images/cser2026-640.webp" alt=""
+                         srcset="images/cser2026-320.webp 320w, images/cser2026-640.webp 640w, images/cser2026-1280.webp 1280w"
+                         sizes="(max-width: 900px) 78vw, 285px"
+                         width="1280" height="720">
+                    <span class="highlight__body">
+                        <time class="news-date-chip" datetime="2026-11">Nov 2026</time>
+                        <span class="highlight__title">Two posters accepted at CSER 2026</span>
+                    </span>
+                </a>
+            </li>
+            <li class="highlight">
+                <a href="#news-bigdata-2026-causal-health-agent">
+                    <img loading="lazy" src="images/causalhealth-640.webp" alt=""
+                         srcset="images/causalhealth-320.webp 320w, images/causalhealth-640.webp 640w, images/causalhealth-1280.webp 1280w"
+                         sizes="(max-width: 900px) 78vw, 285px"
+                         width="1280" height="720">
+                    <span class="highlight__body">
+                        <time class="news-date-chip" datetime="2026-10">Oct 2026</time>
+                        <span class="highlight__title">Farnaz's Causal Health Agent accepted at IEEE BigData 2026</span>
+                    </span>
+                </a>
+            </li>
             <li class="highlight">
                 <a href="#news-icmi-2026-coread-presented">
                     <img loading="lazy" src="images/sakil_icmi26_napoli-640.webp" alt=""
@@ -1269,39 +1313,24 @@
                     </span>
                 </a>
             </li>
-            <li class="highlight">
-                <a href="#news-yasaman-thesis-defence">
-                    <img loading="lazy" src="images/yasaman_thesis_defence-640.webp" alt=""
-                         srcset="images/yasaman_thesis_defence-320.webp 320w, images/yasaman_thesis_defence-640.webp 640w, images/yasaman_thesis_defence-1280.webp 1280w"
-                         sizes="(max-width: 900px) 78vw, 285px"
-                         width="1800" height="977">
-                    <span class="highlight__body">
-                        <time class="news-date-chip" datetime="2026-08">Aug 2026</time>
-                        <span class="highlight__title">Yasaman Basti defends her MSc thesis</span>
-                    </span>
-                </a>
-            </li>
-            <li class="highlight">
-                <a href="#news-sakil-thesis-defence">
-                    <img loading="lazy" src="images/sakil_thesis_defence-640.webp" alt=""
-                         srcset="images/sakil_thesis_defence-320.webp 320w, images/sakil_thesis_defence-640.webp 640w, images/sakil_thesis_defence-1280.webp 1280w"
-                         sizes="(max-width: 900px) 78vw, 285px"
-                         width="1800" height="1350">
-                    <span class="highlight__body">
-                        <time class="news-date-chip" datetime="2026-08">Aug 2026</time>
-                        <span class="highlight__title">Sakil Sarker defends, nominated for Best Thesis</span>
-                    </span>
-                </a>
-            </li>
         </ul>
 
         <ul style="list-style: none; padding: 0;">
+
+            <li class="news-item" id="news-cser-2026-two-posters" data-summary="Two posters accepted at CSER 2026: NPCs that stay in character, and agents that playtest" data-photo="images/cser2026-640.webp"
+                data-photo-srcset="images/cser2026-320.webp 320w, images/cser2026-640.webp 640w, images/cser2026-1280.webp 1280w">
+                <svg class="icon news-icon" aria-hidden="true"><use href="#i-check-circle"/></svg>
+                <span class="news-text">
+                    <time class="news-date-chip" datetime="2026-11">Nov 2026</time><a class="news-permalink" href="#news-cser-2026-two-posters" aria-label="Permalink to this news item" title="Permalink">#</a><span class="news-new-badge">New</span>
+                    Two posters have been accepted at the <strong>Consortium for Software Engineering Research (CSER 2026)</strong>, both with our student <strong>Kevin Chua</strong> and Al Shifan, in collaboration with the Code &amp; Sorcery Lab and the GaMER Lab. <strong>"Trait Activation Steering: Keeping Small-Model NPCs in Character"</strong>, led by Kevin, steers a small language model&rsquo;s hidden state while it runs, so an NPC stays in character through a 20-turn attack without fine-tuning. <strong>"Evolved Neural Agents as Tireless Playtesters"</strong>, led by Al, uses frozen evolved agents as regression tests for game levels; across 130 small edits to 28 levels in 4 games they caught 70 of the 76 edits that changed play, with no false alarms on 54 unchanged controls. Congratulations, Kevin and Al!
+                </span>
+            </li>
 
             <li class="news-item" id="news-bigdata-2026-causal-health-agent" data-summary="Farnaz's Causal Health Agent accepted at IEEE BigData 2026" data-photo="images/causalhealth-640.webp"
                 data-photo-srcset="images/causalhealth-320.webp 320w, images/causalhealth-640.webp 640w, images/causalhealth-1280.webp 1280w">
                 <svg class="icon news-icon" aria-hidden="true"><use href="#i-check-circle"/></svg>
                 <span class="news-text">
-                    <time class="news-date-chip" datetime="2026-10">Oct 2026</time><a class="news-permalink" href="#news-bigdata-2026-causal-health-agent" aria-label="Permalink to this news item" title="Permalink">#</a><span class="news-new-badge">New</span>
+                    <time class="news-date-chip" datetime="2026-10">Oct 2026</time><a class="news-permalink" href="#news-bigdata-2026-causal-health-agent" aria-label="Permalink to this news item" title="Permalink">#</a>
                     <strong>Farnaz</strong>'s paper <strong>"Causal Health Agent: From Wearable Sensor Anomalies to Evidence-Grounded Explanations"</strong>, with Heidar Davoudi, has been accepted at the <strong><a class="news-x2" href="https://bigdataieee.org/BigData2026/calls/special-healthcare" target="_blank" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#F4D03F'">9th Special Session on Healthcare Data</a></strong> of the 2026 IEEE International Conference on Big Data (IEEE BigData 2026) in Phoenix, Arizona, 14&ndash;17 December 2026. Congratulations, Farnaz!
                 </span>
             </li>

@@ -11,6 +11,14 @@
          Keep <guid> identical to the news item's permalink. -->
 
     <item>
+      <title>Two posters accepted at CSER 2026: NPCs that stay in character, and agents that playtest</title>
+      <link>https://uxid.ca/#news-cser-2026-two-posters</link>
+      <guid isPermaLink="true">https://uxid.ca/#news-cser-2026-two-posters</guid>
+      <pubDate>Fri, 06 Nov 2026 09:00:00 -0500</pubDate>
+      <description>Two posters with our student Kevin Chua and Al Shifan have been accepted at the Consortium for Software Engineering Research (CSER 2026): Trait Activation Steering: Keeping Small-Model NPCs in Character, and Evolved Neural Agents as Tireless Playtesters.</description>
+    </item>
+
+    <item>
       <title>Causal Health Agent accepted at IEEE BigData 2026</title>
       <link>https://uxid.ca/#news-bigdata-2026-causal-health-agent</link>
       <guid isPermaLink="true">https://uxid.ca/#news-bigdata-2026-causal-health-agent</guid>

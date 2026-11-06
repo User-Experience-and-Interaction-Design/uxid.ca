@@ -1,0 +1,48 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:900px;overflow:hidden}
+body{font-family:Roboto,sans-serif;color:#E8EDF2;
+  background:radial-gradient(1200px 700px at 15% 10%,#2B3A55 0%,#1B2537 55%,#141C2A 100%);
+  display:grid;grid-template-columns:600px 1fr;gap:56px;padding:78px 80px 70px}
+.left{display:flex;flex-direction:column}
+.kicker{font-size:22px;letter-spacing:.32em;font-weight:700;color:#94A3B0;text-transform:uppercase}
+h1{font-family:"Playfair Display",serif;font-weight:900;font-size:132px;line-height:1;color:#F4D03F;margin:22px 0 18px;letter-spacing:-.01em}
+.sub{font-family:"Playfair Display",serif;font-size:50px;line-height:1.15;font-weight:700}
+.sub b{color:#F4D03F}
+.rule{width:120px;height:5px;background:#F4D03F;border-radius:3px;margin:40px 0 34px}
+.who{font-size:27px;line-height:1.5;color:#C9D3DC}
+.who strong{color:#fff;font-weight:700}
+.foot{margin-top:auto;font-size:21px;letter-spacing:.22em;text-transform:uppercase;color:#94A3B0}
+.foot b{color:#F4D03F;font-weight:700}
+.cards{display:flex;flex-direction:column;gap:30px;justify-content:center}
+.card{display:grid;grid-template-columns:170px 1fr;gap:32px;align-items:center;
+  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.14);border-radius:18px;padding:26px 30px}
+.card img{width:170px;height:224px;object-fit:cover;border-radius:8px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
+.tag{display:inline-block;font-size:18px;font-weight:700;letter-spacing:.18em;color:#1F2937;background:#F4D03F;border-radius:999px;padding:5px 16px;margin-bottom:16px}
+.card h2{font-family:"Playfair Display",serif;font-size:37px;line-height:1.18;font-weight:700;color:#fff;margin-bottom:14px}
+.card p{font-size:23px;line-height:1.45;color:#B8C4CF}
+.card p.by{color:#E8EDF2;font-weight:500;margin-bottom:6px}
+</style></head><body>
+<div class="left">
+  <div class="kicker">UXID Lab news</div>
+  <h1>Accepted</h1>
+  <div class="sub">Two posters at<br><b>CSER 2026</b></div>
+  <div class="rule"></div>
+  <div class="who"><strong>Kevin Chua</strong> and <strong>Al Shifan</strong><br>with the Code &amp; Sorcery Lab<br>and the GaMER Lab</div>
+  <div class="foot"><b>UXID</b> &nbsp;·&nbsp; Ontario Tech University</div>
+</div>
+<div class="cards">
+  <div class="card"><img src="cser2026-tast.webp" alt="">
+    <div><span class="tag">POSTER · TAST</span>
+      <h2>Trait Activation Steering: Keeping Small-Model NPCs in Character</h2>
+      <p class="by">Kevin Christopher Chua, with Al Shifan</p>
+      <p>Steers the model's hidden state so an NPC stays in character, no fine-tuning.</p></div></div>
+  <div class="card"><img src="cser2026-peak.webp" alt="">
+    <div><span class="tag">POSTER · PEAK</span>
+      <h2>Evolved Neural Agents as Tireless Playtesters</h2>
+      <p class="by">Al Shifan, with Kevin Christopher Chua</p>
+      <p>Frozen evolved agents flag level edits that change play: 70 of 76 caught.</p></div></div>
+</div>
+</body></html>
