@@ -71,6 +71,20 @@ h2.sec { font-family: var(--font-display); font-size: 1.3rem; color: var(--accen
 .fld select:focus-visible, .fld input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .chk { display: flex; align-items: center; gap: 8px; font-size: .88rem; cursor: pointer; padding-bottom: 7px; }
 .chk input { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; }
+/* Track categories: a row of checkboxes across the whole panel. Tick any to
+   show only those; none ticked shows every category. */
+.cats { grid-column: 1 / -1; border: 0; margin: 0; padding: 0; min-width: 0; }
+.cats legend { padding: 0; margin-bottom: 6px; font-size: .68rem; font-weight: 700; letter-spacing: .07em;
+    text-transform: uppercase; color: var(--ink-dim); }
+.cats legend span { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.cats-box { display: flex; flex-wrap: wrap; gap: 6px; }
+.catchk { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; cursor: pointer;
+    padding: 3px 10px 3px 7px; border: 1px solid var(--line-strong); border-radius: 999px; background: #16202c; }
+.catchk input { width: 15px; height: 15px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+.catchk:has(input:checked) { border-color: var(--accent); background: rgba(244,208,63,.12); }
+.catchk:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 1px; }
+.catchk .n { color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+.catchk.none { opacity: .55; }
 .countbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; margin-bottom: 10px; font-size: .85rem; color: var(--ink-muted); }
 .countbar b { color: var(--accent); font-size: 1rem; }
 .countbar button { font: inherit; font-size: .8rem; color: var(--ink-muted); background: none;
@@ -509,10 +523,6 @@ td.how b { color: var(--ink); font-weight: 600; }
                 </select>
             </div>
             <div class="fld">
-                <label for="fCat">Track category</label>
-                <select id="fCat"><option value="">Any category</option></select>
-            </div>
-            <div class="fld">
                 <label for="fType">Type</label>
                 <select id="fType">
                     <option value="">Conferences and journals</option>
@@ -549,6 +559,10 @@ td.how b { color: var(--ink); font-weight: 600; }
                 </select>
             </div>
             <label class="chk" for="fUp"><input type="checkbox" id="fUp" checked> Upcoming only</label>
+            <fieldset class="cats" id="fCat">
+                <legend>Track category <span>&mdash; tick any to show only those; none ticked shows all</span></legend>
+                <div class="cats-box"></div>
+            </fieldset>
         </div>
 
         <div class="countbar">
@@ -910,11 +924,15 @@ td.how b { color: var(--ink); font-weight: 600; }
                 });
                 var cats = {};
                 j.rows.forEach(function (r) { cats[r.cat] = (cats[r.cat] || 0) + 1; });
-                var csel = document.getElementById("fCat");
-                Object.keys(cats).sort().forEach(function (c) {
-                    var o = document.createElement("option");
-                    o.value = c; o.textContent = c; csel.appendChild(o);   // count added by render()
-                });
+                // The four the lab submits to most come first, then the rest by size.
+                var first = ["Full Papers", "Short Papers", "Late-Breaking Work", "Demos"];
+                var order = first.filter(function (c) { return cats[c]; }).concat(Object.keys(cats)
+                    .filter(function (c) { return first.indexOf(c) < 0; })
+                    .sort(function (a, b) { return cats[b] - cats[a] || a.localeCompare(b); }));
+                document.querySelector("#fCat .cats-box").innerHTML = order.map(function (c) {
+                    return '<label class="catchk"><input type="checkbox" value="' + esc(c) + '"> ' + esc(c) +
+                           ' <span class="n"></span></label>';   // count added by render()
+                }).join("");
                 var venues = {};
                 j.rows.forEach(function (r) { venues[r.n] = 1; });
                 document.getElementById("stamp").textContent =
@@ -945,7 +963,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             area = document.getElementById("fArea").value,
             tier = document.getElementById("fTier").value,
             us = document.getElementById("fUs").value,
-            cat = document.getElementById("fCat").value,
+            cats = [].map.call(document.querySelectorAll("#fCat input:checked"), function (x) { return x.value; }),
             ty = document.getElementById("fType").value,
             cont = document.getElementById("fLoc").value,
             asg = document.getElementById("fAs").value,
@@ -959,7 +977,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             else if (tier && String(r.tier) !== tier) { return false; }
             if (us === "no" && !NOSTUDY[r.us]) { return false; }
             if (us === "yes" && r.us !== "Required" && r.us !== "Expected") { return false; }
-            if (cat && skip !== "cat" && r.cat !== cat) { return false; }
+            if (cats.length && skip !== "cat" && cats.indexOf(r.cat) < 0) { return false; }
             if (ty && r.ty !== ty) { return false; }
             if (cont && skip !== "cont" && !inContinent(r, cont)) { return false; }
             if (asg && skip !== "as" && !assignedTo(r, asg)) { return false; }
@@ -1209,10 +1227,20 @@ td.how b { color: var(--ink); font-weight: 600; }
         });
     }
 
+    // Same for the category checkboxes: the count is what ticking it would add.
+    function setCatCounts(rows) {
+        var n = {};
+        rows.forEach(function (r) { n[r.cat] = (n[r.cat] || 0) + 1; });
+        [].forEach.call(document.querySelectorAll("#fCat input"), function (x) {
+            x.parentNode.querySelector(".n").textContent = n[x.value] || 0;
+            x.parentNode.classList.toggle("none", !n[x.value]);
+        });
+    }
+
     function render() {
         syncAsFilter();
         var list = current();
-        setCounts("fCat", current("cat"), function (r, v) { return r.cat === v; });
+        setCatCounts(current("cat"));
         setCounts("fLoc", current("cont"), inContinent);
         setCounts("fAs", current("as"), assignedTo);
         updateBar();
@@ -1424,6 +1452,7 @@ td.how b { color: var(--ink); font-weight: 600; }
     }
 
     function wire() {
+        // fCat is the fieldset: its checkboxes' change events bubble up to it.
         ["q", "fArea", "fTier", "fUs", "fCat", "fType", "fLoc", "fAs", "fSort", "fUp"].forEach(function (id) {
             document.getElementById(id)
                 .addEventListener(id === "q" ? "input" : "change", render);
@@ -1433,7 +1462,7 @@ td.how b { color: var(--ink); font-weight: 600; }
             document.getElementById("fArea").value = "";
             document.getElementById("fTier").value = "12";
             document.getElementById("fUs").value = "";
-            document.getElementById("fCat").value = "";
+            [].forEach.call(document.querySelectorAll("#fCat input"), function (x) { x.checked = false; });
             document.getElementById("fType").value = "";
             document.getElementById("fLoc").value = "";
             document.getElementById("fAs").value = "";
