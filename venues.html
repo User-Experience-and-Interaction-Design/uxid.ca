@@ -718,7 +718,7 @@ td.how b { color: var(--ink); font-weight: 600; }
 
 </main>
 
-<script src="assignments.js?v=2026-11-03c"></script>
+<script src="assignments.js?v=2026-11-14a"></script>
 <script>
 (function () {
     "use strict";
@@ -912,6 +912,10 @@ td.how b { color: var(--ink); font-weight: 600; }
                 var j = res[0];
                 AS.pub = res[1];
                 AS.data = UXIDAssign.current(AS.pub).data;
+                // Assignments follow a deadline whose date moved in the data.
+                if (UXIDAssign.rekey(AS.data, j.rows) !== AS.data) {
+                    AS.data = UXIDAssign.update(AS.pub, function (d) { return UXIDAssign.rekey(d, j.rows); });
+                }
                 AS.ok = UXIDAssign.storageOK();
                 DATA = j;
                 document.getElementById("loading").hidden = true;

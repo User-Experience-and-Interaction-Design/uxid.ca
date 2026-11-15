@@ -88,7 +88,42 @@
             if (!L.dl || L.dl.getTime() !== dl.getTime()) { return 0; }
             return L._auto ? (L._key === item.key ? 2 : 0) : trackScore(item.track, L.track);
         }) : null;
+        // A date the venue moved by a few days (or the chart corrected):
+        // the nearest row of the same kind of track within a week.
+        if (g && dl && !lane) {
+            lane = best(g.lanes, function (L) {
+                var days = L.dl ? Math.abs(L.dl - dl) / 86400000 : 99;
+                return !L._auto && days <= SHIFT_DAYS && trackScore(item.track, L.track) === 2 ? SHIFT_DAYS + 1 - days : 0;
+            });
+        }
         return { group: g, lane: lane };
+    }
+    var SHIFT_DAYS = 7;
+
+    // An assignment whose deadline moved in the venue guide (a new export,
+    // or a corrected date) follows it: same venue and track, one row, new
+    // date. Returns the same object when nothing moved.
+    function rekey(data, rows) {
+        var known = {}, byTrack = {};
+        rows.forEach(function (r) {
+            known[rowKey(r)] = 1;
+            var t = r.n + "|" + r.tr;
+            (byTrack[t] = byTrack[t] || []).push(r);
+        });
+        var moved = false;
+        var items = data.items.map(function (it) {
+            var cand = byTrack[it.venue + "|" + it.track] || [];
+            if (known[it.key] || cand.length !== 1) { return it; }
+            moved = true;
+            var out = clone(it);
+            out.key = rowKey(cand[0]);
+            out.dl = cand[0].dl || "";
+            return out;
+        });
+        if (!moved) { return data; }
+        var next = clone(data);
+        next.items = items;
+        return next;
     }
 
     // The other way round: the venue-guide row behind a chart row, so the
@@ -358,7 +393,7 @@
 
     var A = {
         DRAFT_KEY: DRAFT_KEY, PALETTE: PALETTE, rowKey: rowKey, normaliseVenue: normaliseVenue,
-        trackMatches: trackMatches, isoDate: isoDate, findLane: findLane, rowFor: rowFor, place: place,
+        trackMatches: trackMatches, isoDate: isoDate, findLane: findLane, rowFor: rowFor, rekey: rekey, place: place,
         update: update, empty: empty,
         withDefaults: withDefaults, addStudent: addStudent, add: add, remove: remove, itemsFor: itemsFor, colorOf: colorOf,
         pickerHTML: pickerHTML,

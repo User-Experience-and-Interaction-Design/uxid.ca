@@ -654,7 +654,7 @@ html.unlocked #lock { display: none; }
 })();
 </script>
 
-<script src="assignments.js?v=2026-11-03c"></script>
+<script src="assignments.js?v=2026-11-14a"></script>
 <script>
 (function () {
     "use strict";
@@ -857,9 +857,17 @@ html.unlocked #lock { display: none; }
         {
             venue: "CHI 2027",
             meta: "Pittsburgh, USA · 10–14 May 2027 · AoE",
-            url: "https://chi2027.acm.org/authors/posters/",
+            url: "https://chi2027.acm.org/authors/papers/",
             conf: [d(2027, 5, 10), d(2027, 5, 14)],
             lanes: [
+                { track: "Papers", sub: "Zawad's submission · AoE", kind: "paper",
+                  dl: d(2026, 9, 10), notif: d(2026, 11, 5), notifLabel: "Round 1 reviews (reject, or revise and resubmit)",
+                  cr: d(2027, 2, 18), crLabel: "Publication-ready version due (PCS)",
+                  steps: [{ d: d(2026, 12, 3), type: "revision", label: "Revised paper due" },
+                          { d: d(2026, 12, 17), type: "notif", label: "Final notification" },
+                          { d: d(2027, 1, 7), type: "cr", label: "ACM e-rights form due" },
+                          { d: d(2027, 1, 14), type: "cr", label: "Final source uploaded to TAPS" },
+                          { d: d(2027, 3, 4), type: "cr", label: "Author registration and video presentation due" }] },
                 { track: "Posters", sub: "", kind: "short", dl: d(2027, 1, 21),
                   notif: d(2027, 2, 18), cr: d(2027, 3, 18), crLabel: "Publication-ready" }
             ]
@@ -1054,6 +1062,7 @@ html.unlocked #lock { display: none; }
                 AS_DATA = UXIDAssign.current(AS_PUB).data;
                 AS_OK = UXIDAssign.storageOK();
                 ROW_LIST = res[1].rows || [];
+                AS_DATA = UXIDAssign.rekey(AS_DATA, ROW_LIST);   // follow moved deadlines
                 ROW_LIST.forEach(function (r) {
                     var k = UXIDAssign.normaliseVenue(r.n);
                     (ROWS[k] = ROWS[k] || []).push(r);
