@@ -18,7 +18,7 @@
         if (location.protocol === "http:" && /(^|\.)uxid\.ca$/.test(location.hostname)) {
             location.replace("https://" + location.host + location.pathname + location.search + location.hash);
         }
-        var DEADLINES_KEY = "c9d66cd11e9111236833f36d87e963801a0a0434fde68b6d3655b4f4b9556aec";
+        var DEADLINES_KEY = "ce2ccf432886ef298acea5dc9595496ab1efe878a8a557b038f052f03d9236a1";
         try {
             if (localStorage.getItem("uxid-deadlines") === DEADLINES_KEY) {
                 document.documentElement.classList.add("unlocked");
@@ -26,7 +26,7 @@
         } catch (e) {}
     </script>
 
-    <meta name="description" content="Submission deadlines the UXID Lab at Ontario Tech University is tracking: CHI, DIS, MobileHCI, IMWUT, EuroVis, PacificVis, IEEE VR, IUI, IEEE BigData, and the NFRF-E and SSHRC Destination Horizon grants.">
+    <meta name="description" content="Submission deadlines the UXID Lab at Ontario Tech University is tracking: CHI, DIS, MobileHCI, IMWUT, EuroVis, PacificVis, IEEE VR, IUI, IEEE BigData, and the NFRF-E, SSHRC Knowledge Synthesis and SSHRC Destination Horizon grants, and the Sony and Amazon research awards.">
     <title>Deadlines | UXID Lab</title>
     <link rel="canonical" href="https://uxid.ca/deadlines.html">
     <meta name="theme-color" content="#1D3557">
@@ -73,6 +73,9 @@
     --c-paper:   #4A86D6;   /* full / archival papers, journal submissions */
     --c-short:   #C97B2E;   /* posters, short papers, demos, WiP           */
     --c-grant:   #2F9E6E;   /* grants                                      */
+    --c-int:     #C084FC;   /* internal (Ontario Tech) deadlines           */
+    --c-rev:     #22D3EE;   /* revision round deadlines                    */
+    --c-out:     #CBD5E1;   /* notifications and results                   */
 
     --font-body:    'Roboto', system-ui, -apple-system, sans-serif;
     --font-display: 'Playfair Display', Georgia, serif;
@@ -118,8 +121,11 @@ h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.
 .sw--short { background: var(--c-short); }
 .sw--grant { background: var(--c-grant); }
 .sw--proj  { background: repeating-linear-gradient(135deg, var(--ink-dim) 0 3px, transparent 3px 6px); border: 1px dashed var(--ink-dim); }
-.sw--after { width: 8px; height: 8px; border-radius: 0; background: none; border: 1.5px solid var(--ink-dim); transform: rotate(45deg); }
-.sw--cr    { width: 8px; height: 8px; border-radius: 50%; background: none; border: 1.5px solid var(--ink-dim); }
+.sw--after { width: 8px; height: 8px; border-radius: 0; background: none; border: 1.5px solid var(--c-out); transform: rotate(45deg); }
+.sw--cr    { width: 8px; height: 8px; border-radius: 50%; background: none; border: 1.5px solid var(--c-out); }
+.sw--int   { width: 10px; height: 10px; border-radius: 50%; background: none; border: 2.5px solid var(--c-int); }
+.sw--rev   { width: 11px; height: 11px; border-radius: 50%; background: var(--c-rev); }
+.sw--abs   { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-muted); }
 
 /* ---------- Gantt ---------- */
 .gantt {
@@ -186,7 +192,7 @@ h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.
     text-transform: uppercase; padding: 1px 6px; border-radius: 3px; margin-left: 6px;
     border: 1px dashed var(--ink-dim); color: var(--ink-dim); vertical-align: 1px;
 }
-.lane__track { position: relative; height: 40px; overflow: hidden; }
+.lane__track { position: relative; height: 50px; overflow: hidden; }
 
 /* Only real, published dates are drawn. The deadline is the hero mark; the
    thin rule from an abstract to its paper deadline is the one span on the
@@ -227,6 +233,36 @@ h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 2.
 .lane--past .lane__label .txt { color: var(--ink-dim); }
 .lane--past .lane__label .dot { opacity: 0.5; }
 .lane--past .pin, .lane--past .span, .lane--past .mk { color: var(--ink-dim); }
+
+/* One row per submission: every milestone is a node on the same line.
+   The node box is a larger, invisible hit area for its tooltip; ::after
+   draws the mark. */
+.life { position: absolute; top: 50%; height: 2px; margin-top: -1px; background: currentColor; opacity: 0.22; }
+.nd { position: absolute; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; z-index: 2; cursor: default; }
+.nd::after { content: ""; position: absolute; left: 50%; top: 50%; border-radius: 50%; transform: translate(-50%, -50%); }
+.nd--dl::after       { width: 13px; height: 13px; background: currentColor; box-shadow: 0 0 0 2px var(--surface); }
+.nd--dl.nd--proj::after { background: var(--surface); border: 2px dashed currentColor; width: 11px; height: 11px; }
+.nd--abs::after      { width: 8px; height: 8px; background: currentColor; box-shadow: 0 0 0 2px var(--surface); }
+.nd--loi::after      { width: 9px; height: 9px; border: 2px solid currentColor; background: var(--surface); }
+.nd--internal::after { width: 10px; height: 10px; border: 2.5px solid var(--c-int); background: var(--surface); }
+.nd--revision::after { width: 11px; height: 11px; background: var(--c-rev); box-shadow: 0 0 0 2px var(--surface); }
+.nd--notif::after    { width: 8px; height: 8px; border-radius: 1px; border: 1.5px solid var(--c-out); background: var(--surface);
+                       transform: translate(-50%, -50%) rotate(45deg); }
+.nd--cr::after       { width: 8px; height: 8px; border: 1.5px solid var(--c-out); background: var(--surface); }
+.nd--past { opacity: 0.45; }
+.nd:hover::after { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nl {
+    position: absolute; transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+    font-size: 0.68rem; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-muted);
+}
+.nl--up { top: 5px; }
+.nl--down { bottom: 4px; }
+.nl--l { transform: none; }
+.nl--r { transform: translateX(-100%); }
+.nl--dl { color: var(--ink); }
+.nl--internal { color: var(--c-int); }
+.nl--revision { color: var(--c-rev); }
+.nl--past { opacity: 0.5; }
 
 .today {
     position: absolute; top: 42px; bottom: 0; width: 2px; background: var(--accent);
@@ -470,7 +506,10 @@ html.unlocked #lock { display: none; }
             <span><i class="sw sw--short"></i>Poster, short, demo</span>
             <span><i class="sw sw--grant"></i>Grant</span>
             <span><i class="sw sw--proj"></i>Projected date</span>
-            <span><i class="sw sw--after"></i>Notification</span>
+            <span><i class="sw sw--int"></i>Internal deadline</span>
+            <span><i class="sw sw--abs"></i>Abstract / notice of intent</span>
+            <span><i class="sw sw--rev"></i>Revision due</span>
+            <span><i class="sw sw--after"></i>Notification / results</span>
             <span><i class="sw sw--cr"></i>Camera-ready</span>
         </div>
         <!-- A row of its own, filled by draw() when any deadline has students assigned. -->
@@ -507,42 +546,52 @@ html.unlocked #lock { display: none; }
 
     <div class="note">
         <p>
-            <strong>Dates checked 23 October 2026.</strong> Anything tagged
+            <strong>Dates checked 14 November 2026.</strong> Anything tagged
             <span class="pill pill--proj">projected</span> comes from the previous cycle
             because the 2027 call is not published yet &mdash; confirm on the venue site
             before planning around it.
         </p>
         <p>
-            IMWUT is a journal with fixed quarterly intake. It promises decisions about eight
-            weeks after each deadline rather than on a set date, so it has no notification mark,
-            and its 1&nbsp;August slot takes major-revision resubmissions only, not new
-            submissions. Accepted IMWUT papers are presented at UbiComp/ISWC, which runs
-            3&ndash;7&nbsp;October 2027 in Seoul. Tracks whose deadline has passed are greyed out
-            and marked closed; they stay on the chart so the review and revision milestones that
-            follow them remain visible.
+            IMWUT is a journal. New papers go in on 1&nbsp;February, 1&nbsp;May and 1&nbsp;November;
+            1&nbsp;August takes major-revision resubmissions only. IMWUT publishes rules rather than
+            dates, so each cycle&rsquo;s row shows the dates those rules give: a first decision about
+            eight weeks after the deadline, minor revisions due within four weeks of it, a major
+            revision resubmitted at one of the next two deadlines, and a second decision about eight
+            weeks after that (the tooltip gives the later option too). Accepted IMWUT papers are
+            presented at UbiComp/ISWC, which runs 3&ndash;7&nbsp;October 2027 in Seoul. Tracks whose
+            deadline has passed are greyed out and marked closed; they stay on the chart so the
+            review and revision milestones that follow them remain visible.
         </p>
         <p>
-            Where a track has a second review round, the revision deadline gets its own row
-            (&ldquo;revisions, second round&rdquo;), with the final notification and camera-ready
-            after it. The first-round notification stays on the original row. The event column is
-            the whole conference unless the venue gives a track its own days, as DIS does for
-            workshops.
+            Each submission is one row, with all its dates as marks on the same line:
+            internal deadlines (purple rings), abstract, the deadline itself, notification,
+            a second-round revision (cyan) with its final notification, and camera-ready.
+            Hover a mark for what it is; hover elsewhere on the row for every date at once.
+            Different tracks of one conference (full papers, posters, demos) stay separate
+            rows. The event column is the whole conference unless the venue gives a track
+            its own days, as DIS does for workshops.
         </p>
         <p>
             DIS runs a Provocations and Works-in-Progress track most years, but it is not in
             the 2027 call yet, so it is not on the chart.
         </p>
         <p>
-            EuroVis 2027 has published dates for full papers, STARs and workshop proposals
-            (full papers checked 2&nbsp;November&nbsp;2026). Its other tracks are projected from
-            EuroVis 2026 in Nottingham, so they have no notification dates yet. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
+            EuroVis 2027 has published dates for full papers, STARs, short papers and workshop
+            proposals. Its panels, tutorials, posters and demos calls are not out yet (their pages
+            are still empty), so those rows repeat EuroVis 2026 dates and have no notification yet. EuroVis 2026 also ran an Education Papers track (12&nbsp;January), but
             it is not in the 2027 call yet, so it is not on the chart.
         </p>
         <p>
-            The Destination Horizon comprehensive and administrative reviews are Ontario Tech
-            internal deadlines set by the research office, ahead of SSHRC&rsquo;s 22&nbsp;January
-            deadline. The full application goes through the Convergence Portal, and every
-            project director and co-applicant needs a tri-agency CV.
+            The Destination Horizon comprehensive and administrative reviews, and the Knowledge
+            Synthesis Grant administrative review (19&nbsp;November) and final hand-off
+            (1&nbsp;December), are Ontario Tech internal deadlines set by the research office, ahead of
+            SSHRC&rsquo;s own deadlines (22&nbsp;January and 3&nbsp;December). Both applications go
+            through the Convergence Portal, and every project director and co-applicant needs a
+            tri-agency CV. Most funders give only a month for results, so the chart puts those
+            marks at the end of that month: NFRF-E by 31&nbsp;March 2027, both SSHRC grants in
+            March 2027, Sony &ldquo;around March 2027&rdquo;, and Amazon in February 2027 (its
+            decision letters go out about three months after the 11&nbsp;November deadline). Destination Horizon grants are chosen by random
+            selection among eligible applications, not by peer review.
         </p>
     </div>
 </main>
@@ -648,9 +697,9 @@ html.unlocked #lock { display: none; }
             meta: "2026 competition · results by 31 Mar 2027",
             url: "https://sshrc-crsh.canada.ca/funding-financement/nfrf-fnfr/exploration/2026/competition-concours-eng.aspx",
             lanes: [
-                { track: "Notice of intent", sub: "closed", kind: "grant", dl: d(2026, 8, 18) },
-                { track: "Full application", sub: "8:00 pm ET", kind: "grant", dl: d(2026, 10, 20),
-                  notif: d(2027, 3, 31), notifLabel: "Results" }
+                { track: "Application", sub: "8:00 pm ET", kind: "grant", dl: d(2026, 10, 20),
+                  notif: d(2027, 3, 31), notifLabel: "Results (by 31 Mar)",
+                  steps: [{ d: d(2026, 8, 18), type: "loi", label: "Notice of intent" }] }
             ]
         },
         {
@@ -658,20 +707,71 @@ html.unlocked #lock { display: none; }
             meta: "2026 competition, January cycle · up to $15,000 for one year · results Mar 2027",
             url: "https://sshrc-crsh.canada.ca/en/funding/opportunities/destination-horizon-grants/2026/competition.aspx",
             lanes: [
-                { track: "Comprehensive review", sub: "Ontario Tech internal", kind: "grant", dl: d(2026, 12, 21) },
-                { track: "Administrative review", sub: "Ontario Tech internal", kind: "grant", dl: d(2027, 1, 8) },
-                { track: "Full application", sub: "8:00 pm ET", kind: "grant", dl: d(2027, 1, 22) }
+                { track: "Application", sub: "8:00 pm ET · random selection", kind: "grant", dl: d(2027, 1, 22),
+                  notif: d(2027, 3, 31), notifLabel: "Results (end of the January cycle, March; no set day)",
+                  steps: [{ d: d(2026, 12, 21), type: "internal", label: "Comprehensive review (Ontario Tech)" },
+                          { d: d(2027, 1, 8), type: "internal", label: "Administrative review (Ontario Tech)" }] }
+            ]
+        },
+        {
+            venue: "Knowledge Synthesis Grant — SSHRC, Changing Nature of Security and Conflict",
+            meta: "December 2026 competition, with NordForsk · $10k–$40k (Stream 1) or up to $78k (Stream 2) for one year · results Mar 2027",
+            url: "https://sshrc-crsh.canada.ca/en/funding/opportunities/knowledge-synthesis-grants/2026/ksg-changing-nature-security-and-conflict.aspx",
+            lanes: [
+                { track: "Application", sub: "8:00 pm ET", kind: "grant", dl: d(2026, 12, 3),
+                  notif: d(2027, 3, 31), notifLabel: "Results (March, no set day)",
+                  steps: [{ d: d(2026, 11, 19), type: "internal", label: "Administrative review (Ontario Tech): PDF from Convergence + signed RGA" },
+                          { d: d(2026, 12, 1), type: "internal", label: "Final to Ontario Tech" }] }
+            ]
+        },
+        {
+            venue: "Sony Research Award Program 2026 — North America",
+            meta: "industry grant · two proposals · winners notified around March 2027",
+            url: "https://www.sony.com/en/SonyInfo/research-award-program/",
+            lanes: [
+                { track: "Wrist-to-World", sub: "Focused Research Award · up to US$150k · submitted 15 Sep", kind: "grant",
+                  dl: d(2026, 9, 15), notif: d(2027, 3, 31), notifLabel: "Winners notified (around March; no set day)" },
+                { track: "Checkpoint", sub: "Faculty Innovation Award · up to US$100k · submitted 15 Sep", kind: "grant",
+                  dl: d(2026, 9, 15), notif: d(2027, 3, 31), notifLabel: "Winners notified (around March; no set day)" }
+            ]
+        },
+        {
+            venue: "Amazon Research Awards — Fall 2026 call",
+            meta: "industry grant · unrestricted funds plus AWS credits · decisions by email about three months after the deadline",
+            url: "https://www.amazon.science/research-awards/latest-news/amazon-research-awards-opens-fall-2026-call-for-proposals",
+            lanes: [
+                { track: "Proposal", sub: "11:59 pm PT · extended from 4 Nov", kind: "grant", dl: d(2026, 11, 11),
+                  notif: d(2027, 2, 28), notifLabel: "Decision letters (February; about three months after the deadline)" }
             ]
         },
         {
             venue: "IMWUT — journal, quarterly intake",
-            meta: "Proc. ACM Interactive, Mobile, Wearable and Ubiquitous Technologies · 23:59 AoE, firm · decisions about 8 weeks after each deadline · presented at UbiComp/ISWC (2027: Seoul, 3–7 Oct)",
+            meta: "Proc. ACM Interactive, Mobile, Wearable and Ubiquitous Technologies · 23:59 AoE, firm · new papers 1 Feb, 1 May, 1 Nov · decision about 8 weeks after each deadline · presented at UbiComp/ISWC (2027: Seoul, 3–7 Oct)",
             url: "https://dl.acm.org/journal/imwut/how-to-submit",
+            // IMWUT gives rules, not dates: a decision about 8 weeks after the
+            // deadline; minor revisions within 4 weeks of it; a major revision
+            // goes in at one of the next two quarterly deadlines and gets a
+            // second decision about 8 weeks later. The dates below follow
+            // those rules, so they are approximate.
             lanes: [
-                { track: "New submissions", sub: "Nov cycle", kind: "paper", dl: d(2026, 11, 1) },
-                { track: "New submissions", sub: "Feb cycle", kind: "paper", dl: d(2027, 2, 1) },
-                { track: "New submissions", sub: "May cycle", kind: "paper", dl: d(2027, 5, 1) },
-                { track: "Major-revision resubmissions", sub: "no new submissions", kind: "paper", dl: d(2027, 8, 1) }
+                { track: "New submissions", sub: "Nov 2026 cycle", kind: "paper", dl: d(2026, 11, 1),
+                  notif: d(2026, 12, 27), notifLabel: "First decision (about 8 weeks after the deadline)",
+                  steps: [{ d: d(2027, 1, 24), type: "revision", label: "Minor revisions due (within 4 weeks of the decision)" },
+                          { d: d(2027, 2, 1), type: "revision", label: "Major revision: resubmit by 1 Feb (or 1 May)" },
+                          { d: d(2027, 3, 29), type: "notif", label: "Second decision, if resubmitted 1 Feb (about 8 weeks; 1 May → about 26 Jun)" }] },
+                { track: "New submissions", sub: "Feb 2027 cycle", kind: "paper", dl: d(2027, 2, 1),
+                  notif: d(2027, 3, 29), notifLabel: "First decision (about 8 weeks after the deadline)",
+                  steps: [{ d: d(2027, 4, 26), type: "revision", label: "Minor revisions due (within 4 weeks of the decision)" },
+                          { d: d(2027, 5, 1), type: "revision", label: "Major revision: resubmit by 1 May (or 1 Aug)" },
+                          { d: d(2027, 6, 26), type: "notif", label: "Second decision, if resubmitted 1 May (about 8 weeks; 1 Aug → about 26 Sep)" }] },
+                { track: "New submissions", sub: "May 2027 cycle", kind: "paper", dl: d(2027, 5, 1),
+                  notif: d(2027, 6, 26), notifLabel: "First decision (about 8 weeks after the deadline)",
+                  steps: [{ d: d(2027, 7, 24), type: "revision", label: "Minor revisions due (within 4 weeks of the decision)" },
+                          { d: d(2027, 8, 1), type: "revision", label: "Major revision: resubmit by 1 Aug (or 1 Nov)" },
+                          { d: d(2027, 9, 26), type: "notif", label: "Second decision, if resubmitted 1 Aug (about 8 weeks; 1 Nov → about 27 Dec)" }] },
+                { track: "Major-revision resubmissions", sub: "Aug 2027 · no new submissions", kind: "paper", dl: d(2027, 8, 1),
+                  notif: d(2027, 9, 26), notifLabel: "Decision: accept with minor revisions, or reject (about 8 weeks)",
+                  steps: [{ d: d(2027, 10, 24), type: "revision", label: "Minor revisions due (within 4 weeks of the decision)" }] }
             ]
         },
         {
@@ -681,8 +781,8 @@ html.unlocked #lock { display: none; }
             conf: [d(2026, 12, 14), d(2026, 12, 17)],
             lanes: [
                 { track: "Special Session on HealthCare Data", sub: "closed · Farnaz's paper accepted", kind: "paper",
-                  dl: d(2026, 8, 29), notif: d(2026, 10, 24), cr: d(2026, 11, 26),
-                  crLabel: "Camera-ready and registration" }
+                  dl: d(2026, 8, 29), notif: d(2026, 10, 24), cr: d(2026, 11, 14),
+                  steps: [{ d: d(2026, 11, 26), type: "cr", label: "Author registration deadline (special sessions)" }] }
             ]
         },
         {
@@ -691,14 +791,14 @@ html.unlocked #lock { display: none; }
             url: "https://pacificvis2027.github.io/contribute/common-call-for-papers/",
             conf: [d(2027, 4, 19), d(2027, 4, 22)],
             lanes: [
-                { track: "TVCG journal papers", sub: "closed · abstract 1 Sep", kind: "paper", dl: d(2026, 9, 8),
-                  abs: d(2026, 9, 1), notif: d(2026, 10, 27), notifLabel: "First-round notification" },
-                { track: "TVCG journal revisions", sub: "second round", kind: "paper", dl: d(2026, 11, 17),
-                  notif: d(2026, 12, 15), notifLabel: "Final notification", cr: d(2027, 1, 5) },
-                { track: "Conference papers", sub: "abstract 2 Nov", kind: "paper", dl: d(2026, 11, 9),
-                  abs: d(2026, 11, 2), notif: d(2026, 12, 16), notifLabel: "First-round notification" },
-                { track: "Conference paper revisions", sub: "second round", kind: "paper", dl: d(2027, 1, 11),
-                  notif: d(2027, 1, 25), notifLabel: "Final notification", cr: d(2027, 2, 8) },
+                { track: "TVCG journal papers", sub: "two review rounds", kind: "paper", dl: d(2026, 9, 8),
+                  abs: d(2026, 9, 1), notif: d(2026, 10, 27), notifLabel: "First-round notification", cr: d(2027, 1, 5),
+                  steps: [{ d: d(2026, 11, 17), type: "revision", label: "Revision due (second round)" },
+                          { d: d(2026, 12, 15), type: "notif", label: "Final notification" }] },
+                { track: "Conference papers", sub: "two review rounds", kind: "paper", dl: d(2026, 11, 9),
+                  abs: d(2026, 11, 2), notif: d(2026, 12, 16), notifLabel: "First-round notification", cr: d(2027, 2, 8),
+                  steps: [{ d: d(2027, 1, 11), type: "revision", label: "Revision due (second round)" },
+                          { d: d(2027, 1, 25), type: "notif", label: "Final notification" }] },
                 { track: "VisNotes (short)", sub: "", kind: "short", dl: d(2027, 1, 4),
                   notif: d(2027, 2, 4), cr: d(2027, 2, 18) },
                 { track: "Posters", sub: "poster summary", kind: "short", dl: d(2027, 2, 19),
@@ -722,16 +822,20 @@ html.unlocked #lock { display: none; }
             conf: [d(2027, 5, 31), d(2027, 6, 4)],
             lanes: [
                 { track: "Workshop proposals", sub: "closed", kind: "short", dl: d(2026, 10, 12),
-                  notif: d(2026, 10, 26) },
-                { track: "Full papers", sub: "abstract 23 Nov", kind: "paper", dl: d(2026, 12, 2),
-                  abs: d(2026, 11, 23), notif: d(2027, 2, 10), notifLabel: "First-round notification" },
-                { track: "Full paper revisions", sub: "second round", kind: "paper", dl: d(2027, 3, 3),
-                  notif: d(2027, 3, 17), notifLabel: "Final notification", cr: d(2027, 4, 14) },
-                { track: "STARs", sub: "abstract 30 Nov", kind: "paper", dl: d(2026, 12, 7),
-                  abs: d(2026, 11, 30), notif: d(2027, 2, 2), notifLabel: "First-round notification" },
-                { track: "STAR revisions", sub: "second round", kind: "paper", dl: d(2027, 2, 22),
-                  notif: d(2027, 3, 8), notifLabel: "Final notification", cr: d(2027, 3, 22) },
-                { track: "Short papers", sub: "", kind: "short", dl: d(2027, 2, 18), proj: true },
+                  notif: d(2026, 11, 2), notifLabel: "Notification (extended from 26 Oct)" },
+                { track: "Full papers", sub: "two review rounds", kind: "paper", dl: d(2026, 12, 2),
+                  abs: d(2026, 11, 23), notif: d(2027, 2, 10), notifLabel: "First-round notification", cr: d(2027, 4, 14),
+                  steps: [{ d: d(2027, 3, 3), type: "revision", label: "Revision due (second round)" },
+                          { d: d(2027, 3, 17), type: "notif", label: "Final notification" }] },
+                { track: "STARs", sub: "two review rounds", kind: "paper", dl: d(2026, 12, 7),
+                  abs: d(2026, 11, 30), notif: d(2027, 2, 2), notifLabel: "First-round notification", cr: d(2027, 3, 22),
+                  steps: [{ d: d(2027, 2, 22), type: "revision", label: "Revision due (second round)" },
+                          { d: d(2027, 3, 8), type: "notif", label: "Final notification" }] },
+                { track: "Short papers", sub: "no extensions this year", kind: "short", dl: d(2027, 2, 17),
+                  notif: d(2027, 4, 1), notifLabel: "Decision", cr: d(2027, 4, 21), crLabel: "Camera-ready (accepted)",
+                  steps: [{ d: d(2027, 4, 21), type: "revision", label: "Revision due (conditionally accepted)" },
+                          { d: d(2027, 4, 23), type: "notif", label: "Decision on conditional papers" },
+                          { d: d(2027, 4, 29), type: "cr", label: "Camera-ready (conditionally accepted)" }] },
                 { track: "Panels and tutorials", sub: "proposals", kind: "short", dl: d(2027, 2, 25), proj: true },
                 { track: "Posters and demos", sub: "", kind: "short", dl: d(2027, 4, 5), proj: true }
             ]
@@ -742,10 +846,10 @@ html.unlocked #lock { display: none; }
             url: "https://ieeevr.org/2027/contribute/posters/",
             conf: [d(2027, 2, 27), d(2027, 3, 3)],
             lanes: [
-                { track: "Papers (TVCG + conference)", sub: "closed · abstract 24 Aug", kind: "paper",
-                  dl: d(2026, 8, 31), abs: d(2026, 8, 24), notif: d(2026, 11, 30), notifLabel: "First-round notification" },
-                { track: "Paper revisions", sub: "second round", kind: "paper", dl: d(2026, 12, 31),
-                  notif: d(2027, 1, 7), notifLabel: "Final notification", cr: d(2027, 1, 12) },
+                { track: "Papers (TVCG + conference)", sub: "two review rounds", kind: "paper",
+                  dl: d(2026, 8, 31), abs: d(2026, 8, 24), notif: d(2026, 11, 30), notifLabel: "First-round notification", cr: d(2027, 1, 12),
+                  steps: [{ d: d(2026, 12, 31), type: "revision", label: "Revision due (second round)" },
+                          { d: d(2027, 1, 7), type: "notif", label: "Final notification" }] },
                 { track: "Posters", sub: "2-page abstract · title due 2 Dec", kind: "short",
                   dl: d(2026, 12, 7), abs: d(2026, 12, 2), notif: d(2027, 1, 6), cr: d(2027, 1, 12) }
             ]
@@ -782,10 +886,10 @@ html.unlocked #lock { display: none; }
             url: "https://mobilehci.acm.org/2027/",
             conf: [d(2027, 9, 20), d(2027, 9, 23)],
             lanes: [
-                { track: "Full papers", sub: "abstract 10 Feb", kind: "paper", dl: d(2027, 2, 17),
-                  abs: d(2027, 2, 10), notif: d(2027, 4, 15), notifLabel: "First-round notification" },
-                { track: "Full paper revisions", sub: "second round", kind: "paper", dl: d(2027, 5, 13),
-                  notif: d(2027, 6, 17), notifLabel: "Final notification", cr: d(2027, 7, 15) }
+                { track: "Full papers", sub: "two review rounds", kind: "paper", dl: d(2027, 2, 17),
+                  abs: d(2027, 2, 10), notif: d(2027, 4, 15), notifLabel: "First-round notification", cr: d(2027, 7, 15),
+                  steps: [{ d: d(2027, 5, 13), type: "revision", label: "Revision due (second round)" },
+                          { d: d(2027, 6, 17), type: "notif", label: "Final notification" }] }
             ]
         }
     ];
@@ -823,9 +927,51 @@ html.unlocked #lock { display: none; }
         return (L._as || []).map(function (it) { return UXIDAssign.tagHTML(AS_DATA, it, { removable: removable }); }).join("");
     }
 
+    // Every milestone of one submission, in date order: internal deadlines,
+    // notice of intent, abstract, the deadline itself, notifications, a
+    // second-round revision, camera-ready.
+    var NODE_ORDER = { internal: 0, loi: 1, abs: 2, dl: 3, notif: 4, revision: 5, cr: 6 };
+    var NODE_NAME = { internal: "Internal deadline", loi: "Notice of intent", abs: "Abstract",
+                      dl: "Deadline", notif: "Notification", revision: "Revision due", cr: "Camera-ready" };
+    function nodesOf(L) {
+        var out = [];
+        if (L.abs) { out.push({ d: L.abs, type: "abs", label: "Abstract" }); }
+        out.push({ d: L.dl, type: "dl", label: L.kind === "grant" ? "Application deadline" : "Submission deadline" });
+        if (L.notif) { out.push({ d: L.notif, type: "notif", label: L.notifLabel || "Notification" }); }
+        if (L.cr) { out.push({ d: L.cr, type: "cr", label: L.crLabel || "Camera-ready" }); }
+        (L.steps || []).forEach(function (st) { out.push(st); });
+        return out.sort(function (a, b) { return a.d - b.d || NODE_ORDER[a.type] - NODE_ORDER[b.type]; });
+    }
+
+    // The row is closed once its last thing to hand in has passed.
+    function lastDue(L) {
+        return nodesOf(L).filter(function (n) { return n.type !== "notif" && n.type !== "cr"; })
+            .reduce(function (m, n) { return n.d > m ? n.d : m; }, L.dl);
+    }
+
+    // Date labels: the deadline first, then internal and revision dates,
+    // then the rest; each goes above the line, else below, else is left to
+    // the tooltip when both places are taken.
+    var LABEL_PRI = { dl: 0, internal: 1, revision: 1, loi: 2, abs: 2, notif: 3, cr: 4 };
+    var LABEL_GAP = 5.2;   // % of the track a label needs
+    function placeLabels(nodes) {
+        var taken = { up: [], down: [] };
+        nodes.map(function (n, i) { return i; })
+            .sort(function (a, b) { return LABEL_PRI[nodes[a].type] - LABEL_PRI[nodes[b].type] || a - b; })
+            .forEach(function (i) {
+                var x = pct(nodes[i].d);
+                ["up", "down"].some(function (side) {
+                    if (taken[side].some(function (o) { return Math.abs(o - x) < LABEL_GAP; })) { return false; }
+                    taken[side].push(x);
+                    nodes[i].side = side;
+                    return true;
+                });
+            });
+    }
+
     function laneHTML(L, idx) {
-        var past  = L.dl < TODAY;
-        var x1    = pct(L.dl);
+        var nodes = nodesOf(L);
+        var past  = lastDue(L) < TODAY;
         var color = C[L.kind];
         var as    = L._as || [];
         var sub   = past && !/\bclosed\b/.test(L.sub || "") ? "closed" + (L.sub ? " · " + L.sub : "") : L.sub;
@@ -833,31 +979,29 @@ html.unlocked #lock { display: none; }
             ? '<button type="button" class="as-add" data-i="' + idx + '" data-key="' + esc(UXIDAssign.rowKey(L._row)) +
               '" aria-label="Assign a student to ' + esc(L._venue.split(" — ")[0] + " " + L.track) + '">+<span class="as-add-l"> Assign</span></button>'
             : "";
+        L._nodes = nodes;
 
         var bits = '<div class="rule"></div>';
-
-        // The only span on the chart: abstract -> paper deadline, both real.
-        if (L.abs) {
-            var xa = pct(L.abs);
-            bits += '<div class="span" style="left:' + xa + '%;width:' + (x1 - xa) + '%"></div>' +
-                    '<div class="mk mk--abs" style="left:' + xa + '%"></div>';
-        }
         if (L._conf) {
             var xc = pct(L._conf[0]);
             bits += '<div class="conf" style="left:' + xc + '%;width:' +
                     Math.max(pct(L._conf[1]) - xc, 0.3) + '%"></div>';
         }
-        if (L.notif) { bits += '<div class="mk" style="left:' + pct(L.notif) + '%"></div>'; }
-        if (L.cr)    { bits += '<div class="mk mk--cr" style="left:' + pct(L.cr) + '%"></div>'; }
+        // A faint line through the whole record, first node to last.
+        var x0 = pct(nodes[0].d), xn = pct(nodes[nodes.length - 1].d);
+        if (xn > x0) { bits += '<div class="life" style="left:' + x0 + '%;width:' + (xn - x0) + '%"></div>'; }
 
-        bits += '<div class="pin' + (L.proj ? ' pin--proj' : '') + '" style="left:' + x1 + '%"></div>';
-
-        // Read the date off the chart, not only off the tooltip. Flip the
-        // label to the left near the right edge so it cannot be clipped.
-        var flip = x1 > 76;
-        bits += '<div class="lbl' + (flip ? ' lbl--left' : '') + '" style="' +
-                (flip ? 'right:calc(' + (100 - x1) + '% + 12px)' : 'left:calc(' + x1 + '% + 12px)') +
-                '">' + L.dl.toLocaleDateString("en-CA", SHORT) + '</div>';
+        placeLabels(nodes);
+        nodes.forEach(function (n, k) {
+            var x = pct(n.d), gone = n.d < TODAY ? " nd--past" : "";
+            bits += '<i class="nd nd--' + n.type + (n.type === "dl" && L.proj ? " nd--proj" : "") + gone +
+                    '" data-n="' + k + '" style="left:' + x + '%"></i>';
+            if (n.side) {
+                var edge = x < 3 ? " nl--l" : x > 97 ? " nl--r" : "";
+                bits += '<span class="nl nl--' + n.side + " nl--" + n.type + edge + (gone ? " nl--past" : "") +
+                        '" style="left:' + x + '%">' + n.d.toLocaleDateString("en-CA", SHORT) + '</span>';
+            }
+        });
 
         laneData.push(L);
 
@@ -999,27 +1143,33 @@ html.unlocked #lock { display: none; }
     // Listeners that live for the whole visit; draw() only replaces content.
     function wire() {
         /* ---------- tooltip ---------- */
-        function row(k, v) { return v ? "<dt>" + k + "</dt><dd>" + fmt(v) + "</dd>" : ""; }
+        function away(dt) {
+            var days = Math.round((dt - TODAY) / 86400000);
+            return days === 0 ? "today" : days < 0 ? Math.abs(days) + " days ago" : "in " + days + " days";
+        }
 
         root.addEventListener("mousemove", function (e) {
             var lane = e.target.closest(".lane");
             if (!lane || !panel.hidden) { tip.style.opacity = 0; return; }
             var L = laneData[+lane.dataset.i];
-            var days = Math.round((L.dl - TODAY) / 86400000);
+            var nd = e.target.closest(".nd");
+            // Over a node: that milestone. Anywhere else on the row: all of them.
+            var list = nd ? [L._nodes[+nd.dataset.n]] : L._nodes;
+            var days = Math.round(((nd ? list[0].d : L.dl) - TODAY) / 86400000);
             tip.innerHTML = "<strong>" + esc(L._venue) + "</strong>" + esc(L.track) +
                 (L.proj ? " · projected" : "") +
-                "<dl>" + row("Abstract", L.abs) + row("Deadline", L.dl) +
-                row(L.notifLabel || "Notification", L.notif) +
-                row(L.crLabel || "Camera-ready", L.cr) +
-                (L._conf ? "<dt>Event</dt><dd>" + fmtRange(L._conf) + "</dd>" : "") +
-                "</dl>" +
+                (nd ? "<div style='margin-top:6px'><b>" + esc(list[0].label) + "</b><br>" + fmt(list[0].d) + "</div>"
+                    : "<dl>" + list.map(function (n) {
+                          return "<dt>" + esc(n.label) + "</dt><dd>" + fmt(n.d) + "</dd>";
+                      }).join("") +
+                      (L._conf ? "<dt>Event</dt><dd>" + fmtRange(L._conf) + "</dd>" : "") + "</dl>") +
                 (L._as && L._as.length
                     ? "<div style='margin-top:6px'><b>Assigned:</b> " + L._as.map(function (it) {
                           return esc(it.student) + " (" + esc(it.project) + ")";
                       }).join(", ") + "</div>"
                     : "") +
                 "<div style='margin-top:6px;color:var(--ink-dim)'>" +
-                (days === 0 ? "today" : days < 0 ? Math.abs(days) + " days ago" : days + " days from today") + "</div>";
+                (nd ? away(list[0].d) : "deadline " + away(L.dl)) + "</div>";
             tip.style.opacity = 1;
             var x = Math.min(e.clientX + 16, window.innerWidth - 326);
             var y = Math.min(e.clientY + 16, window.innerHeight - tip.offsetHeight - 10);
@@ -1166,9 +1316,16 @@ html.unlocked #lock { display: none; }
         });
         var tableRows = flat.concat(Object.keys(extra).map(function (k) { return extra[k]; }))
             .sort(function (a, b) { return (a.dl ? a.dl.getTime() : Infinity) - (b.dl ? b.dl.getTime() : Infinity); });
+        // Milestones the other columns do not have, e.g. "(internal review Nov 19 · revision due Mar 3)".
+        function otherDates(L) {
+            var o = L._nodes.filter(function (n) { return n.type !== "dl" && n !== L._nodes.filter(function (m) { return m.type === "notif"; })[0] && n.type !== "cr"; });
+            return o.length ? ' <span style="color:var(--ink-dim)">(' + o.map(function (n) {
+                return esc(n.label.replace(/ \(Ontario Tech\)/, " (internal)")) + " " + fmt(n.d);
+            }).join(" · ") + ')</span>' : "";
+        }
         var nextSeen = false;
         document.getElementById("rows").innerHTML = tableRows.map(function (L) {
-            var past = !!L.dl && L.dl < TODAY;
+            var past = !!L.dl && (L._nodes ? lastDue(L) : L.dl) < TODAY;
             var isNext = !past && !!L.dl && !nextSeen;
             if (isNext) { nextSeen = true; }
             var pill = past ? '<span class="pill pill--past">closed</span>'
@@ -1178,7 +1335,7 @@ html.unlocked #lock { display: none; }
             return '<tr class="' + (past ? "is-past" : (isNext ? "is-next" : "")) + '">' +
                 '<td class="d">' + fmt(L.dl) + '</td>' +
                 '<td>' + esc(L._venue.split(" — ")[0]) + '</td>' +
-                '<td>' + esc(L.track) + (L.abs ? ' <span style="color:var(--ink-dim)">(abstract ' + fmt(L.abs) + ')</span>' : '') + '</td>' +
+                '<td>' + esc(L.track) + (L._nodes ? otherDates(L) : "") + '</td>' +
                 '<td>' + (L._as && L._as.length ? asTags(L, false) : '—') + '</td>' +
                 '<td>' + pill + '</td>' +
                 '<td class="d">' + fmt(L.notif) + '</td>' +
@@ -1194,7 +1351,7 @@ html.unlocked #lock { display: none; }
                 ? open.length + " deadlines still open · next up: " + open[0].track + " for " +
                   open[0]._venue.split(" — ")[0] + " on " + fmt(open[0].dl)
                 : "No deadlines on this chart are still open") +
-            " · dates checked 23 October 2026";
+            " · dates checked 14 November 2026";
     }
 
     start();
