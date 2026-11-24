@@ -175,12 +175,21 @@
 
     function empty() { return { updated: "", students: [], items: [] }; }
 
+    // The only state an item records is "submitted" (closed out after its
+    // deadline); the file is public, so outcomes are never written.
+    function cleanState(it) {
+        if (!("state" in it) || it.state === "submitted") { return it; }
+        var out = clone(it);
+        delete out.state;
+        return out;
+    }
+
     function withDefaults(data) {
         var d = data && typeof data === "object" ? data : {};
         var out = {
             updated: typeof d.updated === "string" ? d.updated : "",
             students: Array.isArray(d.students) ? d.students.filter(function (s) { return s && s.name; }) : [],
-            items: Array.isArray(d.items) ? d.items.filter(function (i) { return i && i.key && i.student; }) : []
+            items: Array.isArray(d.items) ? d.items.filter(function (i) { return i && i.key && i.student; }).map(cleanState) : []
         };
         if (!out.students.length) {
             out.students = INITIAL.map(function (n, i) { return { name: n, color: i }; });
@@ -266,6 +275,17 @@
         return out;
     }
 
+    // Returns a new object with that student's deadline marked ("submitted")
+    // or unmarked (a falsy state); the same object when there is no such item.
+    function setState(data, key, student, state) {
+        var n = lc(student), hit = -1;
+        data.items.forEach(function (it, i) { if (it.key === key && lc(it.student) === n) { hit = i; } });
+        if (hit < 0) { return data; }
+        var out = clone(data);
+        if (state) { out.items[hit].state = state; } else { delete out.items[hit].state; }
+        return out;
+    }
+
     function itemsFor(data, key) { return data.items.filter(function (it) { return it.key === key; }); }
 
     function colorOf(data, student) {
@@ -282,11 +302,11 @@
         return out;
     }
 
-    // Items added + removed + project changes. Students on their own do not count.
+    // Items added + removed + project or state changes. Students on their own do not count.
     function changeCount(published, draft) {
         function index(d) {
             var m = {};
-            d.items.forEach(function (it) { m[it.key + "\u0000" + lc(it.student)] = it.project; });
+            d.items.forEach(function (it) { m[it.key + "\u0000" + lc(it.student)] = it.project + "\u0000" + (it.state || ""); });
             return m;
         }
         var a = index(published), b = index(draft), n = 0, k;
@@ -371,11 +391,15 @@
     }
 
     // The label sits in its own span so it can shorten with "…" and leave the
-    // ✕ visible; nameOnly drops the project (the tooltip keeps it).
+    // ✕ visible; nameOnly drops the project (the tooltip keeps it). A
+    // submitted deadline gets a ✓.
     function tagHTML(data, item, opts) {
-        var title = esc(item.student + " · " + item.project);
-        return '<span class="as-tag" style="background:' + colorOf(data, item.student) + '" title="' + title + '">' +
-            '<span class="as-l">' + (opts && opts.nameOnly ? esc(item.student) : title) + "</span>" +
+        var done = item.state === "submitted";
+        var title = esc(item.student + " · " + item.project + (done ? " · submitted" : ""));
+        var label = esc(opts && opts.nameOnly ? item.student : item.student + " · " + item.project);
+        return '<span class="as-tag' + (done ? " as-tag--done" : "") + '" style="background:' + colorOf(data, item.student) +
+            '" title="' + title + '">' +
+            '<span class="as-l">' + (done ? "✓ " : "") + label + "</span>" +
             (opts && opts.removable
                 ? '<button type="button" class="as-x" data-key="' + esc(item.key) + '" data-student="' +
                   esc(item.student) + '" aria-label="Remove ' + esc(item.student) + ' from this deadline">✕</button>'
@@ -395,7 +419,8 @@
         DRAFT_KEY: DRAFT_KEY, PALETTE: PALETTE, rowKey: rowKey, normaliseVenue: normaliseVenue,
         trackMatches: trackMatches, isoDate: isoDate, findLane: findLane, rowFor: rowFor, rekey: rekey, place: place,
         update: update, empty: empty,
-        withDefaults: withDefaults, addStudent: addStudent, add: add, remove: remove, itemsFor: itemsFor, colorOf: colorOf,
+        withDefaults: withDefaults, addStudent: addStudent, add: add, remove: remove, setState: setState,
+        itemsFor: itemsFor, colorOf: colorOf,
         pickerHTML: pickerHTML,
         projects: projects, changeCount: changeCount, same: same, storageOK: storageOK,
         loadDraft: loadDraft, saveDraft: saveDraft, clearDraft: clearDraft,
